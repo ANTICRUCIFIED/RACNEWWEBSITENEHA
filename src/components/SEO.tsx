@@ -18,7 +18,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     "@type": type === 'article' ? "Article" : "Organization",
     "name": "RAC Forge",
     "url": siteUrl,
-    "logo": "https://racforge.com/wp-content/uploads/2025/10/logo.png",
+    "logo": "https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg",
     "description": description,
     "address": {
       "@type": "PostalAddress",
