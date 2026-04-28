@@ -1,0 +1,123 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight, Youtube } from 'lucide-react';
+
+export default function Footer() {
+  const socialLinks = [
+    { icon: Facebook, href: "https://www.facebook.com/people/R-A-C-Forge-Private-Limited/61584695412489/" },
+    { icon: Twitter, href: "https://x.com/RACForge" },
+    { icon: Instagram, href: "https://www.instagram.com/racforge/" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/rac-forge/" },
+    { icon: Youtube, href: "https://www.youtube.com/@RACForge" }
+  ];
+  return (
+    <footer className="bg-brand-deep text-white pt-24 pb-12 overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-teal/5 skew-x-12 translate-x-1/2"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+          {/* Column 1: Brand & About */}
+          <div className="space-y-8">
+            <Link to="/" className="flex items-center group">
+              <img 
+                src="https://racforge.com/wp-content/uploads/2026/04/logo.png" 
+                alt="RAC FORGE" 
+                className="h-12 w-auto brightness-0 invert" 
+              />
+            </Link>
+            <p className="text-white/60 leading-relaxed text-sm">
+              Navigating global regulatory landscapes with precision and expertise. Your strategic partner for CDSCO, USFDA, EU MDR, and Anvisa compliance.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.map((social, i) => (
+                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-brand-teal transition-all transform hover:scale-110">
+                  <social.icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Quick Links */}
+          <div>
+            <h4 className="text-xl font-bold mb-8 border-b border-white/10 pb-4">Quick Links</h4>
+            <ul className="space-y-4">
+              {['Home', 'About Us', 'Services', 'Expertise', 'Resources', 'Contact'].map((item) => (
+                <li key={item}>
+                  <Link 
+                    to={item === 'Home' ? '/' : item === 'Resources' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
+                    className="text-white/60 hover:text-brand-teal transition-colors flex items-center group"
+                  >
+                    <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Detailed Services */}
+          <div>
+            <h4 className="text-xl font-bold mb-8 border-b border-white/10 pb-4">Our Services</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'CDSCO Manufacturing', path: '/services/cdsco-manufacturing-license' },
+                { name: 'USFDA 510(k)', path: '/services/usfda-510k-submission' },
+                { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },
+                { name: 'Anvisa Brazil', path: '/services/anvisa-brazil-approval' },
+                { name: 'SaMD Strategy', path: '/services/rd-and-samd' }
+              ].map((service) => (
+                <li key={service.name}>
+                  <Link 
+                    to={service.path} 
+                    className="text-white/60 hover:text-brand-teal transition-colors flex items-center group"
+                  >
+                    <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact Info */}
+          <div>
+            <h4 className="text-xl font-bold mb-8 border-b border-white/10 pb-4">Contact Us</h4>
+            <ul className="space-y-6">
+              <li className="flex items-start space-x-4 group">
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                  <MapPin size={20} className="text-brand-teal group-hover:text-white" />
+                </div>
+                <span className="text-white/60 text-sm leading-relaxed">
+                  RAC FORGE PRIVATE LIMITED 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh
+                </span>
+              </li>
+              <li className="flex items-center space-x-4 group">
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                  <Phone size={20} className="text-brand-teal group-hover:text-white" />
+                </div>
+                <span className="text-white/60 text-sm">+91 62396 99077</span>
+              </li>
+              <li className="flex items-center space-x-4 group">
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                  <Mail size={20} className="text-brand-teal group-hover:text-white" />
+                </div>
+                <span className="text-white/60 text-sm">info@racforge.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-white/40 text-sm text-center md:text-left">
+            © {new Date().getFullYear()} RAC Forge Pvt. Ltd. All rights reserved.
+          </p>
+          <div className="flex space-x-8 text-white/40 text-sm">
+            <Link to="/privacy-policy" className="hover:text-brand-teal transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-brand-teal transition-colors">Terms of Service</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

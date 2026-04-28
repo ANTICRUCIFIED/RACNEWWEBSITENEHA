@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "Comment": {
+      "title": "Blog Comment",
+      "description": "A comment left on a blog post.",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string", "description": "The ID of the blog post." },
+        "author": { "type": "string", "description": "Name of the commenter." },
+        "role": { "type": "string", "description": "Professional role of the commenter." },
+        "text": { "type": "string", "description": "The comment content." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the comment was created." },
+        "isStaff": { "type": "boolean", "description": "Whether the comment is from a staff member." }
+      },
+      "required": ["postId", "author", "text", "createdAt"]
+    },
+    "Reply": {
+      "title": "Comment Reply",
+      "description": "A reply to a blog comment.",
+      "type": "object",
+      "properties": {
+        "author": { "type": "string", "description": "Name of the replier." },
+        "text": { "type": "string", "description": "The reply content." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the reply was created." },
+        "isStaff": { "type": "boolean", "description": "Whether the reply is from a staff member." }
+      },
+      "required": ["author", "text", "createdAt"]
+    "ContactInquiry": {
+      "title": "Contact Inquiry",
+      "description": "A message sent via the contact form.",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["firstName", "lastName", "email", "subject", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/blog_comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Public blog comments."
+    },
+    "/blog_comments/{commentId}/replies/{replyId}": {
+      "schema": "Reply",
+      "description": "Replies to blog comments."
+    },
+    "/contact_inquiries/{inquiryId}": {
+      "schema": "ContactInquiry",
+      "description": "Contact form submissions."
+    }
+  }
+}

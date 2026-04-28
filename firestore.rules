@@ -1,0 +1,66 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 0.1 Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // 1. Validation Blueprints
+    function isValidComment(data) {
+      return data.keys().hasAll(['postId', 'author', 'text', 'createdAt'])
+        && data.keys().size() >= 4
+        && data.postId is string && data.postId.size() <= 128
+        && data.author is string && data.author.size() <= 128
+        && data.text is string && data.text.size() <= 1000
+        && data.createdAt == request.time
+        && (!data.keys().hasAny(['isStaff']) || data.isStaff == false); // Protect isStaff
+    }
+
+    function isValidReply(data) {
+      return data.keys().hasAll(['author', 'text', 'createdAt'])
+        && data.keys().size() >= 3
+        && data.author is string && data.author.size() <= 128
+        && data.text is string && data.text.size() <= 1000
+        && data.createdAt == request.time
+        && (!data.keys().hasAny(['isStaff']) || data.isStaff == false); // Protect isStaff
+    }
+
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['firstName', 'lastName', 'email', 'subject', 'message', 'createdAt'])
+        && data.keys().size() == 6
+        && data.firstName is string && data.firstName.size() <= 128
+        && data.lastName is string && data.lastName.size() <= 128
+        && data.email is string && data.email.size() <= 128
+        && data.subject is string && data.subject.size() <= 128
+        && data.message is string && data.message.size() <= 5000
+        && data.createdAt == request.time;
+    }
+
+    // 2. Rules
+    match /blog_comments/{commentId} {
+      allow read: if true; // Public comments
+      allow create: if isValidId(commentId) && isValidComment(incoming());
+      // No updates for now to keep it immutable and safe
+      allow delete: if false;
+
+      match /replies/{replyId} {
+        allow read: if true;
+        allow create: if isValidId(replyId) && isValidReply(incoming());
+        allow delete: if false;
+      }
+    }
+
+    match /contact_inquiries/{inquiryId} {
+      allow create: if isValidId(inquiryId) && isValidInquiry(incoming());
+      allow read, update, delete: if false; // System only access
+    }
+  }
+}

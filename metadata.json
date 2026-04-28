@@ -1,0 +1,8 @@
+{
+  "name": "Remix: RAC Forge - Global Medical Device Regulatory Experts",
+  "description": "RAC Forge offers expert consulting for CDSCO India, USFDA, and EU MDR compliance. We are your partner for medical device manufacturing licenses, import registrations, and global market access.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
