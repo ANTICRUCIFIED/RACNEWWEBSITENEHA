@@ -205,20 +205,20 @@ export default function Resources() {
               </div>
 
               {/* Newsletter */}
-              <div className="bg-brand-deep p-10 rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl">
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/10 skew-x-12 translate-x-1/4"></div>
+              <div className="bg-white p-10 rounded-[2.5rem] text-brand-deep relative overflow-hidden shadow-2xl border border-gray-100">
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/5 skew-x-12 translate-x-1/4"></div>
                 <div className="relative z-10">
-                  <h4 className="text-2xl font-bold mb-4">Stay Regulatory Ready</h4>
-                  <p className="text-white/60 text-sm mb-8 leading-relaxed">
+                  <h4 className="text-2xl font-bold mb-4 text-brand-deep">Stay Regulatory Ready</h4>
+                  <p className="text-gray-600 text-sm mb-8 leading-relaxed font-medium">
                     Join 500+ manufacturers receiving our monthly compliance digest.
                   </p>
                   <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                     <input 
                       type="email" 
                       placeholder="Your work email" 
-                      className="w-full px-6 py-4 rounded-2xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:bg-white/20 outline-none transition-all"
+                      className="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-200 text-brand-deep placeholder:text-gray-400 focus:bg-white focus:border-brand-teal outline-none transition-all"
                     />
-                    <button className="w-full bg-brand-teal text-white py-4 rounded-2xl font-bold hover:bg-white hover:text-brand-deep transition-all shadow-lg shadow-brand-teal/20">
+                    <button className="w-full bg-brand-deep text-white py-4 rounded-2xl font-bold hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20">
                       Subscribe Now
                     </button>
                   </form>

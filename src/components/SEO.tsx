@@ -22,7 +22,6 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     "description": description,
     "address": {
       "@type": "PostalAddress",
-      "@type": "PostalAddress",
       "streetAddress": "11, 1 village Nanehar, Thural, Kangra",
       "addressLocality": "Jaisinghpur",
       "addressRegion": "Himachal Pradesh",

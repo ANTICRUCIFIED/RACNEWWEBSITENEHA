@@ -182,7 +182,7 @@ export default function BlogPost() {
       />
 
       {/* Post Header */}
-      <section className="pt-32 pb-20 bg-gray-50 border-b border-gray-100">
+      <section className="pt-32 pb-20 bg-brand-deep text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/blogs/resources" className="inline-flex items-center text-brand-teal font-bold mb-8 hover:translate-x-[-4px] transition-transform group">
             <ArrowLeft className="mr-2 group-hover:scale-110" size={20} /> Back to Resources
@@ -192,20 +192,20 @@ export default function BlogPost() {
               <span className="bg-brand-teal text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
                 {post.category}
               </span>
-              <div className="flex items-center text-gray-500 text-sm font-bold uppercase tracking-widest border-l border-gray-200 pl-4">
+              <div className="flex items-center text-white/50 text-sm font-bold uppercase tracking-widest border-l border-white/20 pl-4">
                 <Calendar className="mr-2 w-4 h-4 text-brand-teal" /> {post.date}
               </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-brand-deep leading-tight mb-8">
+            <h1 className="text-4xl md:text-6xl font-black text-white leading-tight mb-8">
               {post.title}
             </h1>
             <div className="flex items-center space-x-4">
-              <div className="w-14 h-14 bg-brand-deep rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg border border-white/20">
                 RF
               </div>
               <div>
-                <div className="font-bold text-brand-deep">{post.author}</div>
-                <div className="text-sm text-gray-500 font-medium">Regulatory Consultants</div>
+                <div className="font-bold text-white">{post.author}</div>
+                <div className="text-sm text-white/50 font-medium">Regulatory Consultants</div>
               </div>
             </div>
           </div>

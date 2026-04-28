@@ -112,10 +112,10 @@ export default function Home() {
               transition={{ delay: 0.3 }}
               className="flex flex-wrap gap-4"
             >
-              <Link to="/contact" className="bg-brand-teal text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-brand-deep transition-all transform hover:scale-105 active:scale-95">
+              <Link to="/contact" className="bg-brand-teal text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-brand-deep transition-all transform hover:scale-105 active:scale-95 shadow-xl shadow-brand-teal/20">
                 Schedule Consultation
               </Link>
-              <Link to="/expertise" className="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white hover:text-brand-deep transition-all transform hover:scale-105 active:scale-95">
+              <Link to="/expertise" className="bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all transform hover:scale-105 active:scale-95">
                 Explore Expertise
               </Link>
             </motion.div>
@@ -126,18 +126,18 @@ export default function Home() {
               transition={{ delay: 0.5 }}
               className="mt-16 flex flex-wrap gap-8"
             >
-              <div className="flex items-center space-x-3 text-white/90">
+              <div className="flex items-center space-x-3 text-white/80">
                 <Zap className="text-brand-teal" size={24} />
                 <span className="font-bold">10+ Years R&D Experience</span>
               </div>
-              <div className="flex items-center space-x-3 text-white/90">
+              <div className="flex items-center space-x-3 text-white/80">
                 <Award className="text-brand-teal" size={24} />
                 <span className="font-bold">AiMeD Associate Member</span>
               </div>
             </motion.div>
           </div>
         </div>
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-teal/5 skew-x-12 translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-teal/10 skew-x-12 translate-x-1/2"></div>
       </section>
 
       {/* Experience & Expertise Section */}

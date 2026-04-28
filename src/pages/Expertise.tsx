@@ -147,12 +147,12 @@ export default function Expertise() {
       </section>
 
       {/* Authority Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-brand-deep rounded-[4rem] p-12 md:p-20 text-white text-center relative overflow-hidden">
+          <div className="bg-brand-deep rounded-[4rem] p-12 md:p-20 text-white text-center relative overflow-hidden shadow-xl">
             <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/10 skew-x-12 translate-x-1/4"></div>
             <div className="relative z-10 max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-10">Industry Authority & Memberships</h2>
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-10 text-white">Industry Authority & Memberships</h2>
               <p className="text-white/70 text-xl leading-relaxed mb-16">
                 We are active participants in the global medical device community, ensuring we stay at the forefront of regulatory changes and industry best practices.
               </p>
@@ -165,7 +165,7 @@ export default function Expertise() {
                 ].map((item, idx) => (
                   <div key={idx} className="flex flex-col items-center">
                     <div className="text-2xl md:text-2xl font-black text-brand-teal mb-2">{item.value}</div>
-                    <div className="text-white/60 font-bold uppercase tracking-widest text-xs">{item.label}</div>
+                    <div className="text-white/50 font-bold uppercase tracking-widest text-xs">{item.label}</div>
                   </div>
                 ))}
               </div>

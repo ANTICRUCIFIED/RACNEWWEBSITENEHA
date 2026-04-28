@@ -159,29 +159,29 @@ export default function Services() {
       </section>
 
       {/* Why Partner Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-brand-deep rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden">
+          <div className="bg-brand-deep rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden shadow-xl">
             <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/10 skew-x-12 translate-x-1/4"></div>
             <div className="relative z-10 max-w-3xl">
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-10">Why Partner with RAC Forge?</h2>
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-10 text-white">Why Partner with RAC Forge?</h2>
               <div className="grid grid-cols-1 gap-12 mt-12">
                 <div className="flex items-start space-x-6">
-                  <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} /></div>
+                  <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} className="text-white" /></div>
                   <div>
                     <h4 className="font-bold text-2xl mb-2">Technical Expertise</h4>
                     <p className="text-white/70 text-lg leading-relaxed">10+ years of R&D experience means we understand your device's mechanics, not just the rules.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-6">
-                  <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} /></div>
+                  <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} className="text-white" /></div>
                   <div>
                     <h4 className="font-bold text-2xl mb-2">Thorough Documentation</h4>
                     <p className="text-white/70 text-lg leading-relaxed">We handle the heavy lifting of technical file assembly, GSPR checklists, and risk management.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-6">
-                  <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} /></div>
+                  <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} className="text-white" /></div>
                   <div>
                     <h4 className="font-bold text-2xl mb-2">Strategic Pathways</h4>
                     <p className="text-white/70 text-lg leading-relaxed">We identify the most efficient regulatory route to save you time and resources.</p>

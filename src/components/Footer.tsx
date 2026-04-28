@@ -11,7 +11,7 @@ export default function Footer() {
     { icon: Youtube, href: "https://www.youtube.com/@RACForge" }
   ];
   return (
-    <footer className="bg-brand-deep text-white pt-24 pb-12 overflow-hidden relative">
+    <footer className="bg-white text-brand-deep pt-24 pb-12 overflow-hidden relative border-t border-gray-100">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-teal/5 skew-x-12 translate-x-1/2"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -22,15 +22,15 @@ export default function Footer() {
               <img 
                 src="https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg" 
                 alt="RAC FORGE" 
-                className="h-12 w-auto brightness-0 invert" 
+                className="h-12 w-auto mix-blend-multiply" 
               />
             </Link>
-            <p className="text-white/60 leading-relaxed text-sm">
+            <p className="text-gray-600 leading-relaxed text-sm">
               Navigating global regulatory landscapes with precision and expertise. Your strategic partner for CDSCO, USFDA, EU MDR, and Anvisa compliance.
             </p>
             <div className="flex flex-wrap gap-4">
               {socialLinks.map((social, i) => (
-                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-brand-teal transition-all transform hover:scale-110">
+                <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-brand-teal hover:text-white transition-all transform hover:scale-110">
                   <social.icon size={20} />
                 </a>
               ))}
@@ -39,13 +39,13 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="text-xl font-bold mb-8 border-b border-white/10 pb-4">Quick Links</h4>
+            <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Quick Links</h4>
             <ul className="space-y-4">
               {['Home', 'About Us', 'Services', 'Expertise', 'Resources', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
                     to={item === 'Home' ? '/' : item === 'Resources' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
-                    className="text-white/60 hover:text-brand-teal transition-colors flex items-center group"
+                    className="text-gray-600 hover:text-brand-teal transition-colors flex items-center group font-medium"
                   >
                     <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     {item}
@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Column 3: Detailed Services */}
           <div>
-            <h4 className="text-xl font-bold mb-8 border-b border-white/10 pb-4">Our Services</h4>
+            <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Our Services</h4>
             <ul className="space-y-4">
               {[
                 { name: 'CDSCO Manufacturing', path: '/services/cdsco-manufacturing-license' },
@@ -69,7 +69,7 @@ export default function Footer() {
                 <li key={service.name}>
                   <Link 
                     to={service.path} 
-                    className="text-white/60 hover:text-brand-teal transition-colors flex items-center group"
+                    className="text-gray-600 hover:text-brand-teal transition-colors flex items-center group font-medium"
                   >
                     <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     {service.name}
@@ -81,38 +81,38 @@ export default function Footer() {
 
           {/* Column 4: Contact Info */}
           <div>
-            <h4 className="text-xl font-bold mb-8 border-b border-white/10 pb-4">Contact Us</h4>
+            <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Contact Us</h4>
             <ul className="space-y-6">
               <li className="flex items-start space-x-4 group">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
                   <MapPin size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
-                <span className="text-white/60 text-sm leading-relaxed">
+                <span className="text-gray-600 text-sm leading-relaxed font-medium">
                   RAC FORGE PRIVATE LIMITED 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh
                 </span>
               </li>
               <li className="flex items-center space-x-4 group">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
                   <Phone size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
-                <span className="text-white/60 text-sm">+91 62396 99077</span>
+                <span className="text-gray-600 text-sm font-medium">+91 62396 99077</span>
               </li>
               <li className="flex items-center space-x-4 group">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
                   <Mail size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
-                <span className="text-white/60 text-sm">info@racforge.com</span>
+                <span className="text-gray-600 text-sm font-medium">info@racforge.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white/40 text-sm text-center md:text-left">
+        <div className="pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-500 text-sm text-center md:text-left">
             © {new Date().getFullYear()} RAC Forge Pvt. Ltd. All rights reserved.
           </p>
-          <div className="flex space-x-8 text-white/40 text-sm">
+          <div className="flex space-x-8 text-gray-500 text-sm">
             <Link to="/privacy-policy" className="hover:text-brand-teal transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="hover:text-brand-teal transition-colors">Terms of Service</Link>
           </div>

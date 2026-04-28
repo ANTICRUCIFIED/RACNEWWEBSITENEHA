@@ -109,14 +109,14 @@ export default function USFDAPMA() {
                   </ul>
                 </div>
 
-                <div className="bg-brand-deep p-10 rounded-[2.5rem] text-white relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/10 skew-x-12 translate-x-1/4"></div>
+                <div className="bg-white p-10 rounded-[2.5rem] text-brand-deep relative overflow-hidden border border-gray-200 shadow-xl">
+                  <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/5 skew-x-12 translate-x-1/4"></div>
                   <div className="relative z-10">
                     <h4 className="text-2xl font-bold mb-4">Need Expert Help?</h4>
-                    <p className="text-white/60 text-sm mb-8">
+                    <p className="text-gray-600 text-sm mb-8 font-medium">
                       Our regulatory team has extensive experience in complex USFDA PMA applications.
                     </p>
-                    <Link to="/contact" className="block text-center bg-brand-teal text-white py-4 rounded-2xl font-bold hover:bg-white hover:text-brand-deep transition-all">
+                    <Link to="/contact" className="block text-center bg-brand-deep text-white py-4 rounded-2xl font-bold hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20">
                       Contact Us
                     </Link>
                   </div>

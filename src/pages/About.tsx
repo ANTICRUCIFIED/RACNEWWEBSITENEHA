@@ -162,16 +162,16 @@ export default function About() {
       </section>
 
       {/* Our Expertise Section */}
-      <section className="py-24 bg-brand-deep text-white">
+      <section className="py-24 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Our Expertise</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-6">Our Expertise</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {/* CDSCO */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-brand-teal border-b border-white/10 pb-4">CDSCO India Regulations</h3>
-              <ul className="space-y-4 text-white/80">
+              <h3 className="text-2xl font-bold text-brand-teal border-b border-gray-200 pb-4">CDSCO India Regulations</h3>
+              <ul className="space-y-4 text-gray-600">
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Understanding of the Indian MDR (Medical Devices Rules, 2017).</li>
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Knowledge across all 12 chapters and 8 schedules.</li>
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Familiarity with over 40 MDR forms and submission requirements.</li>
@@ -181,8 +181,8 @@ export default function About() {
 
             {/* USFDA */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-brand-teal border-b border-white/10 pb-4">USFDA Requirements</h3>
-              <ul className="space-y-4 text-white/80">
+              <h3 className="text-2xl font-bold text-brand-teal border-b border-gray-200 pb-4">USFDA Requirements</h3>
+              <ul className="space-y-4 text-gray-600">
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Risk-based classification expertise (Class I, II, III).</li>
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Specialization in 510(k) <InfoLink text="USFDA" />, <InfoLink text="PMA" />, and FDA <InfoLink text="De Novo" /> pathways.</li>
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Quality System Regulation (QSR/QMSR) compliance, aligned with <InfoLink text="ISO 13485" />.</li>
@@ -192,8 +192,8 @@ export default function About() {
 
             {/* EU MDR */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-brand-teal border-b border-white/10 pb-4">EU MDR Compliance</h3>
-              <ul className="space-y-4 text-white/80">
+              <h3 className="text-2xl font-bold text-brand-teal border-b border-gray-200 pb-4">EU MDR Compliance</h3>
+              <ul className="space-y-4 text-gray-600">
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Complete CE Marking process under the <InfoLink text="EU MDR" /> 2017/745.</li>
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Technical Documentation requirements (Annex II & III), covering <InfoLink text="GSPR" />.</li>
                 <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Clinical Evaluation Report (<InfoLink text="CER" />) writing.</li>

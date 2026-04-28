@@ -75,8 +75,8 @@ export default function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-      scrolled ? "bg-white/90 backdrop-blur-md shadow-lg py-3" : "bg-transparent py-6"
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white",
+      scrolled ? "shadow-lg py-3" : "py-6"
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
@@ -84,7 +84,7 @@ export default function Navbar() {
             <img 
               src="https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg" 
               alt="RAC FORGE" 
-              className={cn("h-12 w-auto transition-all duration-500", scrolled ? "" : "brightness-0 invert")} 
+              className="h-12 w-auto transition-all duration-500 mix-blend-multiply" 
             />
           </Link>
 
@@ -99,10 +99,7 @@ export default function Navbar() {
               >
                 <Link 
                   to={link.path}
-                  className={cn(
-                    "font-bold text-sm uppercase tracking-widest transition-colors flex items-center",
-                    scrolled ? "text-brand-deep hover:text-brand-teal" : "text-white hover:text-brand-teal"
-                  )}
+                  className="font-bold text-sm uppercase tracking-widest transition-colors flex items-center text-brand-deep hover:text-brand-teal"
                 >
                   {link.name}
                   {link.dropdown && <ChevronDown className="ml-1 w-4 h-4" />}
@@ -156,7 +153,7 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button 
-            className={cn("lg:hidden p-2 rounded-xl transition-colors", scrolled ? "text-brand-deep hover:bg-gray-100" : "text-white hover:bg-white/10")}
+            className="lg:hidden p-2 rounded-xl transition-colors text-brand-deep hover:bg-gray-100"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
