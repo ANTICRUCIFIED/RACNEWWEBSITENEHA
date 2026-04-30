@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2000/Atom">
+<channel>
+  <title>RAC Forge - Medical Device Regulatory Consulting</title>
+  <link>https://racforge.com/</link>
+  <description>Your Global Medical Device Regulatory Partner. Strategic guidance and thorough documentation services for successful market entry.</description>
+  <language>en-us</language>
+  <lastBuildDate>Thu, 30 Apr 2026 11:50:00 +0000</lastBuildDate>
+  <atom:link href="https://racforge.com/sitemap.rss" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>Sterilization Validation for Medical Devices</title>
+    <link>https://racforge.com/blogs/sterilization-validation</link>
+    <description>Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance.</description>
+    <pubDate>Fri, 25 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>https://racforge.com/blogs/sterilization-validation</guid>
+  </item>
+  <item>
+    <title>Biocompatibility Testing Strategies for Medical Devices</title>
+    <link>https://racforge.com/blogs/biocompatibility-testing</link>
+    <description>Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval.</description>
+    <pubDate>Thu, 24 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>https://racforge.com/blogs/biocompatibility-testing</guid>
+  </item>
+  <item>
+    <title>Mastering EU MDR Technical Documentation</title>
+    <link>https://racforge.com/blogs/mastering-eu-mdr</link>
+    <description>The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation.</description>
+    <pubDate>Wed, 23 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>https://racforge.com/blogs/mastering-eu-mdr</guid>
+  </item>
+  <item>
+    <title>Navigating USFDA’s 510(k) Submission Process</title>
+    <link>https://racforge.com/blogs/navigating-usfda-510k</link>
+    <description>The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance.</description>
+    <pubDate>Tue, 22 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>https://racforge.com/blogs/navigating-usfda-510k</guid>
+  </item>
+  <item>
+    <title>Understanding CDSCO’s Medical Devices Rules, 2017</title>
+    <link>https://racforge.com/blogs/understanding-cdsco-rules</link>
+    <description>The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices.</description>
+    <pubDate>Mon, 21 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>https://racforge.com/blogs/understanding-cdsco-rules</guid>
+  </item>
+</channel>
+</rss>
