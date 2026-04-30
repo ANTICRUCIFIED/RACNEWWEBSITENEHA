@@ -269,7 +269,7 @@ export default function About() {
               className="relative rounded-[3rem] overflow-hidden shadow-2xl"
             >
               <img 
-                src="https://racforge.com/wp-content/uploads/2025/10/Expert-Medical-Device-Regulatory-Consulting-for-Global-Market-Access2.png" 
+                src="https://i.postimg.cc/02kdGh9z/image1.png" 
                 alt="Our Team" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
