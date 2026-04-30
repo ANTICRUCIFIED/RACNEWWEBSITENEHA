@@ -9,7 +9,7 @@ export default function Expertise() {
     {
       title: "CDSCO India Regulations",
       icon: <Flag className="w-12 h-12 text-orange-600" />,
-      image: "https://racforge.com/wp-content/uploads/2025/10/Understanding-CDSCOs-Medical-Devices-Rules-2017.jpg",
+      image: "https://i.postimg.cc/RCWzCC3c/service1.png",
       items: [
         "In-depth understanding of the Indian MDR (Medical Devices Rules, 2017).",
         "Comprehensive knowledge across all 12 chapters and 8 schedules.",
@@ -20,7 +20,7 @@ export default function Expertise() {
     {
       title: "USFDA Requirements",
       icon: <Shield className="w-12 h-12 text-blue-600" />,
-      image: "https://racforge.com/wp-content/uploads/2025/10/USFDA-Services.png",
+      image: "https://i.postimg.cc/vH5kD4GW/service2.png",
       items: [
         "Risk-based classification expertise (Class I, II, III).",
         "Specialization in 510(k), PMA, and FDA De Novo pathways.",
@@ -31,7 +31,7 @@ export default function Expertise() {
     {
       title: "EU MDR Compliance",
       icon: <Globe className="w-12 h-12 text-emerald-600" />,
-      image: "https://racforge.com/wp-content/uploads/2025/10/EU-MDR-Services.png",
+      image: "https://i.postimg.cc/SNZ86rQC/service3.png",
       items: [
         "Complete CE Marking process under the EU MDR 2017/745.",
         "Technical Documentation requirements (Annex II & III), covering GSPR.",
@@ -42,7 +42,7 @@ export default function Expertise() {
     {
       title: "Anvisa Brazil Approval",
       icon: <CircleDollarSign className="w-12 h-12 text-yellow-600" />,
-      image: "https://racforge.com/wp-content/uploads/2026/04/Avisa.png",
+      image: "https://i.postimg.cc/sXtHgrqV/Avisa.png",
       items: [
         "Expedited approval pathways for the Brazilian market.",
         "Coordination with local alliances for seamless registration.",
@@ -53,7 +53,7 @@ export default function Expertise() {
     {
       title: "SaMD & R&D Strategy",
       icon: <Code2 className="w-12 h-12 text-purple-600" />,
-      image: "https://racforge.com/wp-content/uploads/2025/10/Understanding-CDSCOs-Medical-Devices-Rules-2017.jpg",
+      image: "https://i.postimg.cc/52hXgKZZ/service4.png",
       items: [
         "IEC 62304 Software Lifecycle and IEC 62366-1 Usability Engineering.",
         "Cybersecurity and AI/ML compliance for medical software.",
