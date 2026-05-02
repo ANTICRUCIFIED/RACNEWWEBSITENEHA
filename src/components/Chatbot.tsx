@@ -30,21 +30,17 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const chat = ai.chats.create({
-        model: 'gemini-3.1-pro-preview',
-        config: {
-          systemInstruction: 'You are a highly expert Medical Device Regulatory Consultant for RAC Forge Pvt. Ltd. Your goal is to provide accurate, professional, and helpful advice regarding CDSCO (India), USFDA (USA), and EU MDR (Europe) regulations. Be concise but thorough. Always maintain a professional tone.',
-        },
-      });
-
-      // Maintain history for the chat session
       const history = messages.map(m => ({
-        role: m.role === 'user' ? 'user' : 'model',
+        role: m.role,
         parts: [{ text: m.text }]
       }));
 
-      const result = await chat.sendMessage({
-        message: userMessage,
+      const result = await ai.models.generateContent({
+        model: 'gemini-3-flash-preview',
+        contents: [...history, { role: 'user', parts: [{ text: userMessage }] }],
+        config: {
+          systemInstruction: 'You are a highly expert Medical Device Regulatory Consultant for RAC Forge Pvt. Ltd. Your goal is to provide accurate, professional, and helpful advice regarding CDSCO (India), USFDA (USA), and EU MDR (Europe) regulations. Be concise but thorough. Always maintain a professional tone.',
+        },
       });
 
       setMessages(prev => [...prev, { role: 'model', text: result.text || 'I apologize, I encountered an error.' }]);

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Send, Facebook, Twitter, Linkedin, Instagram, Youtube, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, MapPin, Mail, Phone, Facebook, Twitter, Linkedin, Instagram, Youtube, Send } from 'lucide-react';
 import SEO from '../components/SEO';
+import { COMPANY_INFO } from '../constants';
 import { db } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -105,7 +106,7 @@ export default function Contact() {
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-xl">Headquarters</h4>
                     <p className="text-gray-600 leading-relaxed">
-                      RAC FORGE PRIVATE LIMITED 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh
+                      {COMPANY_INFO.companyName} {COMPANY_INFO.address.full}
                     </p>
                   </div>
                 </div>
@@ -115,9 +116,9 @@ export default function Contact() {
                     <MapPin size={28} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-brand-deep mb-1 text-xl">Corporate Office</h4>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl">DUNS Number</h4>
                     <p className="text-gray-600 leading-relaxed">
-                      New Delhi, India
+                      {COMPANY_INFO.dunsNumber}
                     </p>
                   </div>
                 </div>
@@ -128,7 +129,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-xl">Email Us</h4>
-                    <p className="text-gray-600 leading-relaxed">info@racforge.com</p>
+                    <p className="text-gray-600 leading-relaxed">{COMPANY_INFO.contact.email}</p>
                   </div>
                 </div>
 
@@ -138,7 +139,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-xl">Call Us</h4>
-                    <p className="text-gray-600 leading-relaxed">+91 62396 99077</p>
+                    <p className="text-gray-600 leading-relaxed">{COMPANY_INFO.contact.phone}</p>
                   </div>
                 </div>
               </div>

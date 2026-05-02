@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight, Youtube } from 'lucide-react';
+import { COMPANY_INFO } from '../constants';
 
 export default function Footer() {
   const socialLinks = [
@@ -88,20 +89,20 @@ export default function Footer() {
                   <MapPin size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
                 <span className="text-gray-600 text-sm leading-relaxed font-medium">
-                  RAC FORGE PRIVATE LIMITED 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh
+                  {COMPANY_INFO.companyName}<br />{COMPANY_INFO.address.full}
                 </span>
               </li>
               <li className="flex items-center space-x-4 group">
                 <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
                   <Phone size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
-                <span className="text-gray-600 text-sm font-medium">+91 62396 99077</span>
+                <span className="text-gray-600 text-sm font-medium">{COMPANY_INFO.contact.phone}</span>
               </li>
               <li className="flex items-center space-x-4 group">
                 <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
                   <Mail size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
-                <span className="text-gray-600 text-sm font-medium">info@racforge.com</span>
+                <span className="text-gray-600 text-sm font-medium">{COMPANY_INFO.contact.email}</span>
               </li>
             </ul>
           </div>
@@ -109,9 +110,10 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-gray-500 text-sm text-center md:text-left">
-            © {new Date().getFullYear()} RAC Forge Pvt. Ltd. All rights reserved.
-          </p>
+          <div className="text-gray-500 text-sm text-center md:text-left">
+            <p>© {new Date().getFullYear()} {COMPANY_INFO.companyName}. All rights reserved.</p>
+            <p className="text-[10px] opacity-70 mt-1">D-U-N-S® Number: {COMPANY_INFO.dunsNumber}</p>
+          </div>
           <div className="flex space-x-8 text-gray-500 text-sm">
             <Link to="/privacy-policy" className="hover:text-brand-teal transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="hover:text-brand-teal transition-colors">Terms of Service</Link>

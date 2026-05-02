@@ -64,7 +64,7 @@ export default function About() {
                   Today, we are a premier global regulatory consultancy, specializing in the medical device sector. Our unique "R&D-First" approach sets us apart. We don't just understand the rules; we understand the devices. This deep technical insight allows us to build robust technical files and clinical evidence that stand up to the highest level of scrutiny from bodies like the <InfoLink text="CDSCO" />, <InfoLink text="USFDA" />, <InfoLink text="Anvisa" />, and European Notified Bodies.
                 </p>
                 <p>
-                  Based in India, with a strong presence in Himachal Pradesh and New Delhi, we serve a global clientele. We are proud associate members of **AiMeD (Association of Indian Medical Device Industry)** and active participants in the **IMDRRG (International Medical Device Regulatory Research Group)**, ensuring our clients always benefit from the latest regulatory intelligence.
+                  Based in India, with our headquarters at Nanehar, Thural (Kangra), and a strong corporate presence, we serve a global clientele. We are proud associate members of **AiMeD (Association of Indian Medical Device Industry)** and active participants in the **IMDRRG (International Medical Device Regulatory Research Group)**, ensuring our clients always benefit from the latest regulatory intelligence.
                 </p>
               </div>
             </motion.div>

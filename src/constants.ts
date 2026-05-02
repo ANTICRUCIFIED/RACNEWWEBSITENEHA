@@ -1,4 +1,7 @@
 import { Blog } from './types';
+import companyData from './data/company.json';
+
+export const COMPANY_INFO = companyData;
 
 export const BLOGS: Blog[] = [
   {
