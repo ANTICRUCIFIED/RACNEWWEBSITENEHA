@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://racforge.com/sitemap.xml
-Sitemap: https://racforge.com/sitemap.rss
+Sitemap: https://www.racforge.com/sitemap.xml
+Sitemap: https://www.racforge.com/sitemap.rss
