@@ -65,9 +65,9 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="RAC Forge - CDSCO, USFDA & EU MDR Regulatory Experts" 
-        description="Leading Medical Device Regulatory Consultancy. We specialize in CDSCO (India), USFDA (USA), and EU MDR compliance. Get your manufacturing and import licenses with RAC Forge."
-        keywords="racforge, rac forge, CDSCO, USFDA, EU MDR, medical device mdr, regulatory consulting India, medical device license"
+        title="Best Medical Device Regulatory Consultancy" 
+        description="RAC Forge is the top Medical Device Regulatory Consultant for CDSCO India, USFDA USA, EU MDR & ANVISA Brazil. Specialized in Manufacturing & Import licenses."
+        keywords="RACFORGE, racforge, USFDA consulting, CDSCO manufacturing license, EU MDR compliance, medical device regulatory experts, FDA 510k submission India, ANVISA approval"
         canonical="/"
       />
 

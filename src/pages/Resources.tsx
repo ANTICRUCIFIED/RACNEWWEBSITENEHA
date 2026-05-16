@@ -37,8 +37,9 @@ export default function Resources() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Resources & Insights" 
-        description="Stay updated with the latest regulatory news, technical articles, and insights from the medical device industry."
+        title="Medical Device Regulatory Resources & Blogs" 
+        description="Latest insights on CDSCO, USFDA, and EU MDR compliance. Expert articles on 510k submission, sterilization validation, and biocompatibility testing."
+        keywords="regulatory blogs, medical device insights, CDSCO news, USFDA 510k tips, EU MDR technical documentation articles, sterilization validation guide"
         canonical="/blogs/resources"
       />
 

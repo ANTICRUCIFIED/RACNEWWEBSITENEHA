@@ -47,9 +47,9 @@ export default function Contact() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Contact RAC Forge - Regulatory Consultation" 
-        description="Book a consultation with RAC Forge's regulatory experts. We help medical device manufacturers with CDSCO, USFDA, and EU MDR compliance. Contact us today."
-        keywords="contact rac forge, regulatory consultation, medical device compliance help, CDSCO help, FDA license contact"
+        title="Contact Medical Device Regulatory Consultants" 
+        description="Get expert regulatory consultation for CDSCO, USFDA, and EU MDR. Contact RAC Forge for medical device licensing and compliance support."
+        keywords="contact regulatory experts, medical device consultancy contact, FDA license help, CDSCO license inquiry, regulatory advisor India"
         canonical="/contact"
       />
 

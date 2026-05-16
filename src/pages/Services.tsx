@@ -74,8 +74,9 @@ export default function Services() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Our Services" 
-        description="Comprehensive regulatory consulting services for CDSCO, USFDA, EU MDR, and Anvisa Brazil. Expert guidance for medical device market entry."
+        title="Medical Device Regulatory Services - USFDA, CDSCO, EU MDR" 
+        description="Comprehensive regulatory consulting: CDSCO Manufacturing/Import licenses, USFDA 510k, EU MDR Technical Documentation, and Anvisa Brazil approvals."
+        keywords="medical device services, CDSCO license consultant, USFDA 510k submission, EU MDR consulting, ANVISA approval Brazil, SaMD regulatory strategy"
         canonical="/services"
       />
 

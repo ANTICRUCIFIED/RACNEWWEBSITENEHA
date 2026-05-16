@@ -9,8 +9,9 @@ export default function AnvisaBrazil() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Anvisa Brazil Approval" 
-        description="Expert guidance for Anvisa Brazil medical device approval and registration. Navigating the Brazilian regulatory landscape."
+        title="Anvisa Brazil Medical Device Approval & Registration" 
+        description="Expert guidance for Anvisa Brazil medical device approval. We help with BGMP (RDC 665/2022) compliance, technical dossiers, and BRH representation."
+        keywords="Anvisa Brazil approval, Brazilian medical device registration, BGMP compliance, RDC 665/2022, ANVISA consultant, medical device market Brazil, BRH service"
         canonical="/services/anvisa-brazil-approval"
       />
 

@@ -136,6 +136,7 @@ export default function InfoDetail() {
       <SEO 
         title={data.title} 
         description={data.content.substring(0, 160)} 
+        keywords={`${data.title}, medical device regulation, regulatory compliance, ${data.title} expert, CDSCO, USFDA`}
         canonical={`/information/${slug}`}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
