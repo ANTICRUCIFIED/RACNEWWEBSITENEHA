@@ -45,7 +45,7 @@ export default function Footer() {
               {['Home', 'About Us', 'Services', 'Expertise', 'Resources', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
-                    to={item === 'Home' ? '/' : item === 'Resources' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
+                    to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Resources' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
                     className="text-gray-600 hover:text-brand-teal transition-colors flex items-center group font-medium"
                   >
                     <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
