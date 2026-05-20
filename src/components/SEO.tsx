@@ -10,15 +10,15 @@ interface SEOProps {
 }
 
 export default function SEO({ title, description, keywords, canonical, type = 'website' }: SEOProps) {
-  const fullTitle = `${title} | RAC Forge`;
+  const fullTitle = `${title} | racforge | RAC Forge`;
   const siteUrl = "https://www.racforge.com"; 
-  const defaultKeywords = "racforge, rac forge, USFDA, FDA, CDSCO, EU MDR, MDR, ANVISA, Medical Device Regulation, Regulatory Consulting, Medical Device License, India, USA, Europe, Brazil";
+  const defaultKeywords = "racforge, RACFORGE, RacForge, rac forge, rac-forge, USFDA, FDA, CDSCO, EU MDR, MDR, ANVISA, Medical Device Regulation, Regulatory Consulting, Medical Device License, India, USA, Europe, Brazil";
 
-  const schemaData = {
+  const organizationSchema = {
     "@context": "https://schema.org",
     "@type": type === 'article' ? "Article" : "Organization",
     "name": "RAC FORGE PRIVATE LIMITED",
-    "alternateName": "RAC Forge",
+    "alternateName": ["racforge", "RACFORGE", "RacForge", "RAC Forge", "rac-forge"],
     "url": siteUrl,
     "logo": "https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg",
     "description": description,
@@ -43,12 +43,28 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       "availableLanguage": ["English", "Hindi"]
     },
     "sameAs": [
-      "https://www.facebook.com/racforge",
-      "https://twitter.com/racforge",
-      "https://www.linkedin.com/company/racforge",
-      "https://www.instagram.com/racforge"
+      "https://www.facebook.com/people/R-A-C-Forge-Private-Limited/61584695412489/",
+      "https://twitter.com/RACForge",
+      "https://www.linkedin.com/company/rac-forge/",
+      "https://www.instagram.com/racforge/",
+      "https://www.youtube.com/@RACForge"
     ]
   };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "racforge",
+    "alternateName": ["RACFORGE", "RacForge", "RAC Forge", "rac-forge"],
+    "url": siteUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${siteUrl}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  const schemaData = type === 'article' ? organizationSchema : [organizationSchema, websiteSchema];
 
   return (
     <Helmet>

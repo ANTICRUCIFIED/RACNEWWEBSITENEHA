@@ -66,8 +66,8 @@ export default function Home() {
     <div className="flex flex-col w-full">
       <SEO 
         title="Best Medical Device Regulatory Consultancy" 
-        description="RAC Forge is the top Medical Device Regulatory Consultant for CDSCO India, USFDA USA, EU MDR & ANVISA Brazil. Specialized in Manufacturing & Import licenses."
-        keywords="RACFORGE, racforge, USFDA consulting, CDSCO manufacturing license, EU MDR compliance, medical device regulatory experts, FDA 510k submission India, ANVISA approval"
+        description="RAC Forge (racforge) is the premier global Medical Device Regulatory Consultant for CDSCO India, USFDA USA, EU MDR & ANVISA Brazil. Specialized in Manufacturing & Import licenses."
+        keywords="RACFORGE, racforge, USFDA consulting, CDSCO manufacturing license, EU MDR compliance, medical device regulatory experts, FDA 510k submission India, ANVISA approval, RAC Forge"
         canonical="/"
       />
 
@@ -76,13 +76,20 @@ export default function Home() {
         <div className="absolute inset-0 z-0 opacity-20">
           <img
             src="https://i.postimg.cc/yxYBn7fb/banner.png"
-            alt="Regulatory Consulting"
+            alt="racforge Regulatory Consulting"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-brand-teal font-extrabold tracking-widest uppercase text-xl mb-4"
+            >
+              racforge / RACFORGE
+            </motion.div>
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -155,7 +162,7 @@ export default function Home() {
               </h2>
               <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
                 <p>
-                  RAC Forge Pvt. Ltd. is a premier global regulatory consultancy dedicated to the medical device industry. With over a decade of specialized experience in Research & Development (R&D) and Regulatory Affairs, we bridge the gap between complex engineering and stringent compliance. Our mission is to streamline the path to market for innovative medical technologies, ensuring they meet the highest safety and efficacy standards across diverse jurisdictions.
+                  <strong>racforge</strong> (RAC Forge Private Limited) is a premier global regulatory consultancy dedicated to the medical device industry. With over a decade of specialized experience in Research & Development (R&D) and Regulatory Affairs, we bridge the gap between complex engineering and stringent compliance. Our mission at racforge is to streamline the path to market for innovative medical technologies, ensuring they meet the highest safety and efficacy standards across diverse jurisdictions.
                 </p>
                 <p>
                   We don't just provide documentation; we offer strategic partnership. Our deep understanding of the lifecycle of a medical device—from initial concept and prototyping to clinical validation and post-market surveillance—allows us to anticipate regulatory hurdles before they arise. Whether you are a startup seeking your first <InfoLink text="CDSCO" /> license or a multinational navigating <InfoLink text="EU MDR" /> transitions, our expertise ensures precision at every step.

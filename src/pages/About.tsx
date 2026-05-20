@@ -9,8 +9,8 @@ export default function About() {
     <div className="flex flex-col w-full">
       <SEO 
         title="About Our Medical Device Regulatory Team" 
-        description="RAC Forge is a leading global regulatory consultancy with 10+ years of expertise in medical device R&D and compliance for USFDA, CDSCO, and EU MDR."
-        keywords="about RACFORGE, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members"
+        description="RAC Forge (racforge) is a leading global regulatory consultancy with 10+ years of expertise in medical device R&D and compliance for USFDA, CDSCO, and EU MDR."
+        keywords="about RACFORGE, racforge, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members, RAC Forge"
         canonical="/about"
       />
 
