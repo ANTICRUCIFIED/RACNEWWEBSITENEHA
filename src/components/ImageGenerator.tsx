@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { GoogleGenAI } from '@google/genai';
 import { Image as ImageIcon, Wand2, Download, Loader2, AlertCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 export default function ImageGenerator() {
   const [prompt, setPrompt] = useState('');
@@ -21,33 +18,39 @@ export default function ImageGenerator() {
     setImageUrl(null);
 
     try {
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-pro-image-preview',
-        contents: {
-          parts: [
-            {
-              text: `Generate a professional, high-quality technical illustration or diagram for a medical device regulatory context. Subject: ${prompt}`,
-            },
-          ],
+      const response = await fetch('/api/generate-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        config: {
-          imageConfig: {
-            aspectRatio: '16:9',
-            imageSize: size,
-          },
-        },
+        body: JSON.stringify({
+          prompt: prompt,
+          size: size,
+        }),
       });
 
-      const imagePart = response.candidates?.[0]?.content?.parts.find(p => p.inlineData);
-      
-      if (imagePart?.inlineData) {
-        setImageUrl(`data:image/png;base64,${imagePart.inlineData.data}`);
+      if (!response.ok) {
+        let errorMsg = 'Failed to generate image';
+        try {
+          const errData = await response.json();
+          if (errData && errData.details) {
+            errorMsg = errData.details;
+          } else if (errData && errData.error) {
+            errorMsg = errData.error;
+          }
+        } catch (_) {}
+        throw new Error(errorMsg);
+      }
+
+      const data = await response.json();
+      if (data && data.base64) {
+        setImageUrl(`data:image/png;base64,${data.base64}`);
       } else {
         throw new Error('No image was generated. Please try a different prompt.');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Image Gen Error:', err);
-      setError(err instanceof Error ? err.message : 'Failed to generate image');
+      setError(err?.message || 'Failed to generate image');
     } finally {
       setIsGenerating(false);
     }

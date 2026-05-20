@@ -36,13 +36,25 @@ export default function Chatbot() {
         })
       });
 
-      if (!response.ok) throw new Error('Failed to connect to assistant');
+      if (!response.ok) {
+        let errorMsg = 'Failed to connect to assistant';
+        try {
+          const errData = await response.json();
+          if (errData && errData.details) {
+            errorMsg = errData.details;
+          } else if (errData && errData.error) {
+            errorMsg = errData.error;
+          }
+        } catch (_) {}
+        throw new Error(errorMsg);
+      }
 
       const data = await response.json();
       setMessages(prev => [...prev, { role: 'model', text: data.text }]);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Chat Error:', error);
-      setMessages(prev => [...prev, { role: 'model', text: 'Sorry, I am having trouble connecting right now. Please try again later.' }]);
+      const userFriendlyError = error?.message || 'Sorry, I am having trouble connecting right now. Please try again later.';
+      setMessages(prev => [...prev, { role: 'model', text: userFriendlyError }]);
     } finally {
       setIsLoading(false);
     }

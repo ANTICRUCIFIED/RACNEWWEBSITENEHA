@@ -12,7 +12,24 @@ async function startServer() {
 
   app.use(express.json());
 
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+  let aiClient: GoogleGenAI | null = null;
+  const getGoogleGenAI = () => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY environment variable is not defined. Please ensure your API key has been added in the Settings > Secrets panel of your AI Studio visual environment.');
+    }
+    if (!aiClient) {
+      aiClient = new GoogleGenAI({
+        apiKey: apiKey,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
+        }
+      });
+    }
+    return aiClient;
+  };
 
   // API routes
   app.get('/api/health', (req, res) => {
@@ -23,23 +40,104 @@ async function startServer() {
     try {
       const { messages, userMessage } = req.body;
       
-      const history = messages.map((m: any) => ({
+      const ai = getGoogleGenAI();
+      
+      // Filter out any leading model messages to guarantee the history starts with a user turn
+      let startIndex = 0;
+      while (startIndex < messages.length && messages[startIndex].role === 'model') {
+        startIndex++;
+      }
+
+      const contents = messages.slice(startIndex).map((m: any) => ({
         role: m.role,
         parts: [{ text: m.text }]
       }));
 
-      const result = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
+      contents.push({ role: 'user', parts: [{ text: userMessage }] });
+
+      const modelConfig = {
         config: {
           systemInstruction: 'You are a highly expert Medical Device Regulatory Consultant for RAC Forge Pvt. Ltd. Your goal is to provide accurate, professional, and helpful advice regarding CDSCO (India), USFDA (USA), and EU MDR (Europe) regulations. Be concise but thorough. Always maintain a professional tone.',
         },
-        contents: [...history, { role: 'user', parts: [{ text: userMessage }] }],
-      });
+        contents: contents,
+      };
+
+      let result;
+      try {
+        result = await ai.models.generateContent({
+          model: 'gemini-3.5-flash',
+          ...modelConfig,
+        });
+      } catch (primaryError: any) {
+        console.warn('Primary model gemini-3.5-flash failed, attempting fallback to gemini-flash-latest...', primaryError);
+        try {
+          result = await ai.models.generateContent({
+            model: 'gemini-flash-latest',
+            ...modelConfig,
+          });
+        } catch (secondaryError: any) {
+          console.error('Secondary model fallback failed as well:', secondaryError);
+          throw new Error(`Gemini API Error: ${primaryError.message || primaryError}`);
+        }
+      }
 
       res.json({ text: result.text });
     } catch (error: any) {
       console.error('Chat API Error:', error);
-      res.status(500).json({ error: 'Failed to generate response', details: error.message });
+      res.status(500).json({ error: 'Failed to generate response', details: error.message || String(error) });
+    }
+  });
+
+  app.post('/api/generate-image', async (req, res) => {
+    try {
+      const { prompt, size } = req.body;
+      const ai = getGoogleGenAI();
+
+      const modelConfig = {
+        contents: {
+          parts: [
+            {
+              text: `Generate a professional, high-quality technical illustration or diagram for a medical device regulatory context. Subject: ${prompt}`,
+            },
+          ],
+        },
+        config: {
+          imageConfig: {
+            aspectRatio: '16:9',
+            imageSize: size || '1K',
+          },
+        },
+      };
+
+      let result;
+      try {
+        result = await ai.models.generateContent({
+          model: 'gemini-3-pro-image-preview',
+          ...modelConfig,
+        });
+      } catch (primaryError: any) {
+        console.warn('Primary image model gemini-3-pro-image-preview failed, attempting fallback to gemini-2.5-flash-image...', primaryError);
+        try {
+          result = await ai.models.generateContent({
+            model: 'gemini-2.5-flash-image',
+            ...modelConfig,
+          });
+        } catch (secondaryError: any) {
+          console.error('Image model fallback failed:', secondaryError);
+          throw new Error(`Image API Error: ${primaryError.message || primaryError}`);
+        }
+      }
+
+      const imagePart = result.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData);
+      
+      if (imagePart?.inlineData?.data) {
+        res.json({ base64: imagePart.inlineData.data });
+      } else {
+        res.status(400).json({ error: 'No image was generated. Please try a different prompt.' });
+      }
+    } catch (error: any) {
+      console.error('Image API Error:', error);
+      res.status(500).json({ error: 'Failed to generate image', details: error.message || String(error) });
     }
   });
 
