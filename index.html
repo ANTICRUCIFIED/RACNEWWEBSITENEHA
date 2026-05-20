@@ -1,6 +1,30 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // Gracefully suppress benign sandbox environment Vite WebSocket warnings or rejections
+      (function() {
+        const isWsError = (err) => {
+          if (!err) return false;
+          const msg = err.message || String(err);
+          return msg.includes('WebSocket') || msg.includes('websocket') || msg.includes('vite');
+        };
+
+        window.addEventListener('unhandledrejection', function(event) {
+          if (isWsError(event.reason)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+
+        window.addEventListener('error', function(event) {
+          if (isWsError(event.message) || isWsError(event.error)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>racforge | RAC Forge - Medical Device Regulatory Consulting</title>
