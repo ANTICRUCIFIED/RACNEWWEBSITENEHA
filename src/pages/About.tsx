@@ -1,290 +1,414 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, Award, Zap, ShieldCheck, Microscope, Globe, FileText, Route } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { 
+  CheckCircle2, 
+  Award, 
+  ShieldCheck, 
+  Layers, 
+  ExternalLink, 
+  BookOpen, 
+  Linkedin, 
+  FileText, 
+  ArrowRight,
+  Sparkles,
+  Fingerprint,
+  Cpu,
+  Bookmark
+} from 'lucide-react';
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
 
 export default function About() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full bg-slate-50 min-h-screen">
       <SEO 
-        title="About Our Medical Device Regulatory Team" 
-        description="RAC Forge (racforge) is a leading global regulatory consultancy with 10+ years of expertise in medical device R&D and compliance for USFDA, CDSCO, and EU MDR."
-        keywords="about RACFORGE, racforge, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members, RAC Forge"
+        title="About RAC Forge Private Limited" 
+        description="RAC Forge (racforge) is a premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR & ANVISA compliance."
+        keywords="about RACFORGE, racforge, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members, RAC Forge, Atul Sharma Sankhyayan"
         canonical="/about"
       />
 
-      {/* About Banner */}
-      <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
+      {/* Hero Banner */}
+      <section className="relative min-h-[450px] flex items-center pt-24 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 overflow-hidden border-b border-slate-800/50">
+        <div className="absolute inset-0 z-0 opacity-10">
           <img
-            src="https://racforge.com/wp-content/uploads/2025/10/Expert-Medical-Device-Regulatory-Consulting-for-Global-Market-Access.png"
-            alt="About RAC Forge"
+            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600"
+            alt="Medical Laboratory background"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
-          >
-            About Us
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed"
-          >
-            10+ Years of Excellence in Medical Device R&D and Regulatory Affairs. We bridge the gap between innovation and compliance.
-          </motion.p>
+        
+        {/* Abstract graphic accents */}
+        <div className="absolute right-0 top-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute left-1/4 bottom-0 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 text-center lg:text-left">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div className="max-w-3xl lg:w-2/3">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm font-semibold mb-6"
+              >
+                <Sparkles size={14} className="animate-pulse" />
+                <span>Premier Regulatory & Engineering Architects</span>
+              </motion.div>
+              
+              <motion.h1
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight"
+              >
+                Architects of Medical Device <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300">Compliance & Innovation</span>
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-6 text-lg md:text-xl text-slate-350 max-w-2xl leading-relaxed text-slate-350"
+              >
+                Over a decade of deep R&D precision combined with absolute mastery of global regulatory frameworks.
+              </motion.p>
+            </div>
+            
+            <div className="w-full lg:w-1/3 max-w-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-slate-900/80 backdrop-blur-md rounded-2xl p-6 border border-slate-700/60 shadow-2xl relative"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-bl-full blur-xl pointer-events-none" />
+                <h3 className="text-slate-400 uppercase tracking-widest text-xs font-bold mb-4 flex items-center gap-1.5">
+                  <Fingerprint size={14} className="text-emerald-400" />
+                  RAC Forge Identity
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b border-slate-800">
+                    <span className="text-slate-400 text-sm">Entity Status</span>
+                    <span className="text-emerald-400 font-bold text-sm bg-emerald-500/10 px-2 py-0.5 rounded">Active Ltd.</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-slate-800">
+                    <span className="text-slate-400 text-sm">Industrial Track</span>
+                    <span className="text-teal-300 font-semibold text-sm">10+ Years R&D</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-slate-400 text-sm">HQ Jurisdiction</span>
+                    <span className="text-slate-300 font-semibold text-sm">Himachal Pradesh</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Our Story Section */}
-      <section className="py-24 bg-white">
+      {/* Section 1: Our Corporate Profile & Vision */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            {/* Left Content Column */}
+            <motion.div 
+              initial={{ opacity: 0, x: -25 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-7 space-y-8"
             >
-              <span className="text-brand-teal font-bold tracking-widest uppercase text-sm mb-4 block">Our Story</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-8 leading-tight">
-                A Decade of Innovation and Regulatory Mastery
-              </h2>
-              <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
+              <div>
+                <span className="text-emerald-600 font-bold tracking-widest uppercase text-xs mb-3 block">Section 01 / Corporate Profile</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                  Our Mission: Engineering Trust, Ensuring Safety
+                </h2>
+              </div>
+              
+              <div className="space-y-6 text-slate-700 text-lg leading-relaxed font-normal">
                 <p>
-                  RAC Forge Pvt. Ltd. was founded on the principle that regulatory compliance should be an enabler of innovation, not a barrier. Our journey began over 10 years ago in the research and development labs, where we experienced firsthand the challenges of bringing complex medical technologies to life while meeting stringent safety standards.
+                  RAC Forge Private Limited is a premier regulatory and engineering firm with 10+ years of intensive R&D and industrial experience in the lifecycle management of Electrical Medical Devices and Software as a Medical Device (SaMD). Incorporated in Himachal Pradesh, we serve as a critical bridge between complex engineering protocols and stringent international regulatory frameworks.
                 </p>
                 <p>
-                  Today, we are a premier global regulatory consultancy, specializing in the medical device sector. Our unique "R&D-First" approach sets us apart. We don't just understand the rules; we understand the devices. This deep technical insight allows us to build robust technical files and clinical evidence that stand up to the highest level of scrutiny from bodies like the <InfoLink text="CDSCO" />, <InfoLink text="USFDA" />, <InfoLink text="Anvisa" />, and European Notified Bodies.
-                </p>
-                <p>
-                  Based in India, with our headquarters at Nanehar, Thural (Kangra), and a strong corporate presence, we serve a global clientele. We are proud associate members of **AiMeD (Association of Indian Medical Device Industry)** and active participants in the **IMDRRG (International Medical Device Regulatory Research Group)**, ensuring our clients always benefit from the latest regulatory intelligence.
+                  Our mission is to empower medical innovators—from ambitious startups to established global manufacturers—by providing a seamless, scientifically-backed pathway from initial concept and prototyping to full global market approval. We don't just consult; we build the architectural foundation for your success.
                 </p>
               </div>
+
+              <div className="p-6 bg-slate-900 text-white rounded-2xl relative overflow-hidden shadow-lg border border-slate-800">
+                <div className="absolute right-0 bottom-0 opacity-10 translate-x-3 translate-y-3">
+                  <Cpu size={160} />
+                </div>
+                <div className="relative z-10">
+                  <h4 className="text-emerald-400 font-bold text-lg mb-2">Our Engineering Rigor</h4>
+                  <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                    By embedding raw hardware/software debugging capabilities within traditional compliance services, our clients enjoy unmatched first-time authorization rates. We survive safety tests because we prototype-verify your deliverables.
+                  </p>
+                </div>
+              </div>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+
+            {/* Right Widget/Sidebar Column */}
+            <motion.div 
+              initial={{ opacity: 0, x: 25 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="grid grid-cols-1 gap-8"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="lg:col-span-5 relative"
             >
-              <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500">
-                <div className="w-16 h-16 bg-brand-teal/10 rounded-2xl flex items-center justify-center text-brand-teal mb-6">
-                  <Microscope size={32} />
+              <div className="bg-gradient-to-b from-slate-900 to-slate-950 text-white rounded-3xl p-8 shadow-2xl relative overflow-hidden border border-slate-800">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none" />
+                
+                <h3 className="text-xl font-bold tracking-tight text-white mb-6 pb-4 border-b border-slate-800/80 flex items-center gap-2">
+                  <Award size={20} className="text-emerald-400 shrink-0" />
+                  Our Corporate & Industry Standing
+                </h3>
+
+                <div className="space-y-6">
+                  {/* Item 1 */}
+                  <div className="group flex gap-4 p-4 rounded-xl bg-slate-850 border border-slate-800 hover:border-slate-700/60 transition-all duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400">
+                      <Layers size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-slate-300 font-bold text-sm uppercase tracking-wide">Associate Member</h4>
+                      <p className="text-slate-100 font-semibold mt-1">Association of Indian Medical Device Industry (AiMeD)</p>
+                    </div>
+                  </div>
+
+                  {/* Item 2 */}
+                  <div className="group flex gap-4 p-4 rounded-xl bg-slate-850 border border-slate-800 hover:border-slate-700/60 transition-all duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center shrink-0 text-teal-400">
+                      <ShieldCheck size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-slate-300 font-bold text-sm uppercase tracking-wide">Globally Recognized</h4>
+                      <p className="text-teal-300 font-bold font-mono mt-1 text-sm tracking-widest">D-U-N-S® Number: 771970978</p>
+                    </div>
+                  </div>
+
+                  {/* Item 3 */}
+                  <div className="group flex gap-4 p-4 rounded-xl bg-slate-850 border border-slate-800 hover:border-slate-700/60 transition-all duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-400">
+                      <FileText size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-slate-300 font-bold text-sm uppercase tracking-wide">Government of India Certified</h4>
+                      <p className="text-slate-100 font-semibold mt-1">Udyam MSME Registration (NIC Code): 74909</p>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="text-2xl font-bold text-brand-deep mb-4">Scientific Foundation</h4>
-                <p className="text-gray-600 leading-relaxed">
-                  Our team consists of engineers and scientists who have spent years in medical device R&D, providing a level of technical depth that traditional consultancies lack.
-                </p>
-              </div>
-              <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500">
-                <div className="w-16 h-16 bg-brand-deep/10 rounded-2xl flex items-center justify-center text-brand-deep mb-6">
-                  <Award size={32} />
+
+                <div className="mt-8 p-4 rounded-xl bg-slate-950/50 border border-slate-800 text-center">
+                  <p className="text-slate-400 text-xs">
+                    Completely aligned with CDSCO, ISO 13485 QMS registries, and legal verification systems.
+                  </p>
                 </div>
-                <h4 className="text-2xl font-bold text-brand-deep mb-4">Uncompromising Quality</h4>
-                <p className="text-gray-600 leading-relaxed">
-                  We adhere to <InfoLink text="ISO 13485" /> standards in our own processes, ensuring that every deliverable we provide meets the highest quality benchmarks.
-                </p>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* Our Core Values Section */}
-      <section className="py-24 bg-gray-50">
+      {/* Section 2: Executive Leadership & Scientific Architect */}
+      <section className="py-20 bg-slate-100 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-6">Our Core Values</h2>
+          
+          <div className="mb-12">
+            <span className="text-emerald-600 font-bold tracking-widest uppercase text-xs mb-3 block">Section 02 / Leadership</span>
+            <h2 className="text-3.5xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Executive Leadership & Scientific Architect
+            </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { title: "Precision", desc: "We believe in meticulous attention to detail, ensuring that every submission is accurate and complete." },
-              { title: "Integrity", desc: "We act as an ethical partner, providing honest assessments and transparent communication throughout the regulatory process." },
-              { title: "Innovation", desc: "We embrace new technologies and methodologies to streamline compliance and support the next generation of medical devices." },
-              { title: "Partnership", desc: "We view our clients' success as our own, working collaboratively to achieve long-term regulatory goals." }
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 text-center"
-              >
-                <div className="w-12 h-12 bg-brand-teal text-white rounded-full flex items-center justify-center mx-auto mb-6 font-bold text-xl">
-                  {idx + 1}
+
+          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-slate-200/60 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              
+              {/* Photo Column */}
+              <div className="lg:col-span-4 flex flex-col items-center">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="rounded-2xl overflow-hidden aspect-square w-full max-w-[280px] md:max-w-xs shadow-lg relative border-4 border-slate-50 group bg-slate-100"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=600"
+                    alt="Atul Sharma Sankhyayan - Founder & CEO"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent group-hover:opacity-60 transition-opacity" />
+                  <div className="absolute bottom-4 left-4 right-4 text-center z-10 lg:hidden">
+                    <p className="text-white font-bold text-lg">Atul Sharma Sankhyayan</p>
+                    <p className="text-emerald-350 text-xs font-semibold uppercase tracking-wider mt-0.5">Founder & CEO</p>
+                  </div>
+                </motion.div>
+                
+                <div className="hidden lg:block mt-6 text-center">
+                  <h3 className="text-slate-900 font-black text-xl mb-1">Atul Sharma Sankhyayan</h3>
+                  <p className="text-slate-500 font-bold text-xs uppercase tracking-widest text-emerald-600 mb-2">Founder & CEO</p>
+                  <p className="text-slate-400 text-xs max-w-xs italic mx-auto">
+                    Chief Executive Officer (CEO) & Medical Technology Strategist
+                  </p>
                 </div>
-                <h4 className="text-xl font-bold text-brand-deep mb-4">{item.title}</h4>
-                <p className="text-gray-600 leading-relaxed text-sm">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+              </div>
 
-      {/* Industry Memberships Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-6">Industry Memberships & Authority</h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              We are active participants in the global medical device community, ensuring we stay at the forefront of regulatory changes.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {[
-              { label: "Associate Member", value: "AiMeD" },
-              { label: "Member", value: "IMDRRG" },
-              { label: "10+ Years", value: "R&D Excellence" },
-              { label: "ISO 13485", value: "Quality Certified" }
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="flex flex-col items-center"
-              >
-                <div className="text-2xl md:text-4xl font-black text-brand-deep mb-2">{item.value}</div>
-                <div className="text-brand-teal font-bold uppercase tracking-widest text-sm">{item.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Expertise Section */}
-      <section className="py-24 bg-gray-50 border-y border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-6">Our Expertise</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* CDSCO */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-brand-teal border-b border-gray-200 pb-4">CDSCO India Regulations</h3>
-              <ul className="space-y-4 text-gray-600">
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Understanding of the Indian MDR (Medical Devices Rules, 2017).</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Knowledge across all 12 chapters and 8 schedules.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Familiarity with over 40 MDR forms and submission requirements.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Insights into device classification (<InfoLink text="Class A" />, <InfoLink text="Class B" />, <InfoLink text="Class C" />, <InfoLink text="Class D" />) and essential principles.</li>
-              </ul>
-            </div>
-
-            {/* USFDA */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-brand-teal border-b border-gray-200 pb-4">USFDA Requirements</h3>
-              <ul className="space-y-4 text-gray-600">
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Risk-based classification expertise (Class I, II, III).</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Specialization in 510(k) <InfoLink text="USFDA" />, <InfoLink text="PMA" />, and FDA <InfoLink text="De Novo" /> pathways.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Quality System Regulation (QSR/QMSR) compliance, aligned with <InfoLink text="ISO 13485" />.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> <InfoLink text="eSTAR" /> submission skills.</li>
-              </ul>
-            </div>
-
-            {/* EU MDR */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-brand-teal border-b border-gray-200 pb-4">EU MDR Compliance</h3>
-              <ul className="space-y-4 text-gray-600">
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Complete CE Marking process under the <InfoLink text="EU MDR" /> 2017/745.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Technical Documentation requirements (Annex II & III), covering <InfoLink text="GSPR" />.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Clinical Evaluation Report (<InfoLink text="CER" />) writing.</li>
-                <li className="flex items-start"><CheckCircle2 className="text-brand-teal mr-3 shrink-0 mt-1" size={18} /> Post-Market Surveillance (<InfoLink text="PMS" />) and Vigilance.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Approach Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-6">Our Approach</h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              At RAC Forge Pvt. Ltd., we believe successful regulatory strategy starts with thorough documentation. Our approach includes:
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {[
-              { title: "Strategic Assessment", desc: "Evaluating your device and identifying the best regulatory pathways." },
-              { title: "Documentation Planning", desc: "Developing detailed plans for technical file assembly." },
-              { title: "Authoring Excellence", desc: "Creating complete, submission-ready documents." },
-              { title: "Submission Management", desc: "Guiding you through the approval process." },
-              { title: "Post-Market Support", desc: "Ensuring ongoing compliance and monitoring." },
-              { title: "Partnership Approach", desc: "Supporting every stage from concept to approval." }
-            ].map((item, idx) => (
-              <div key={idx} className="flex items-start space-x-6 p-8 bg-gray-50 rounded-[2rem] border border-gray-100">
-                <div className="w-10 h-10 bg-brand-teal text-white rounded-xl flex items-center justify-center shrink-0 font-bold">
-                  {idx + 1}
-                </div>
+              {/* Text Context Column */}
+              <div className="lg:col-span-8 space-y-8">
                 <div>
-                  <h4 className="text-xl font-bold text-brand-deep mb-2">{item.title}</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 pb-2 border-b border-slate-100">
+                    Our Founder: Atul Sharma Sankhyayan
+                  </h3>
+                  <p className="text-emerald-600 text-sm font-bold tracking-wide uppercase mt-2">Professional Biography</p>
                 </div>
+
+                <div className="text-slate-700 text-base md:text-lg leading-relaxed space-y-5">
+                  <p className="leading-relaxed">
+                    Atul Sharma Sankhyayan is a distinguished Medical Technology Strategist and Regulatory Architect specializing in the intersection of product safety, global compliance, and rigorous quality assurance. A seasoned regulatory professional and engineer with a career built on the foundation of electrical and electronics engineering, he is widely recognized for his ability to navigate the Central Drugs Standard Control Organisation (CDSCO) guidelines and international regulatory architectures, ensuring that medical innovations meet the highest global standards before reaching the market.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <h4 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <Cpu size={18} className="text-emerald-600" />
+                    Core Competencies & Technical Expertise
+                  </h4>
+                  <p className="text-slate-650 text-base font-normal leading-relaxed">
+                    Atul’s expertise encompasses the full lifecycle of medical device development, from mechanical durability testing to regulatory dossier preparation.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                      <h5 className="font-bold text-slate-900 text-sm uppercase tracking-wide mb-1 text-emerald-700">Regulatory Compliance & Documentation</h5>
+                      <p className="text-slate-600 text-xs leading-relaxed">
+                        Expertise in drafting and managing Device Master Files and 510(k) dossiers to facilitate smooth regulatory approvals. Specialist in CDSCO protocols and international market access strategies.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                      <h5 className="font-bold text-slate-900 text-sm uppercase tracking-wide mb-1 text-emerald-700">Quality Assurance</h5>
+                      <p className="text-slate-600 text-xs leading-relaxed">
+                        ISO 13485 Certified: Proven proficiency in maintaining quality management systems specific to the medical device industry.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                      <h5 className="font-bold text-slate-900 text-sm uppercase tracking-wide mb-1 text-teal-700">Mechanical Testing Standards</h5>
+                      <p className="text-slate-600 text-xs leading-relaxed">
+                        Conducts comprehensive reliability testing under ASTM F382 (Metallic Bone Plates), ASTM F1264 (Intramedullary Fixation Devices), and ASTM F543 (Metallic Medical Bone Screws) to ensure mechanical durability.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                      <h5 className="font-bold text-slate-900 text-sm uppercase tracking-wide mb-1 text-teal-700">Electrical Safety Testing</h5>
+                      <p className="text-slate-600 text-xs leading-relaxed">
+                        Specializes in safety evaluations under IEC 60601 (Medical electrical equipment safety) and IS 13450 Part 1, protecting both patients and healthcare practitioners.
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div className="mt-8 p-6 rounded-2xl bg-slate-50 border border-slate-200 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 bg-slate-100 text-slate-300 transform translate-x-4 -translate-y-4">
+                    <Bookmark size={55} />
+                  </div>
+                  <h4 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <BookOpen size={18} className="text-emerald-600" />
+                    Research & Academic Contributions
+                  </h4>
+                  <p className="text-slate-650 text-sm leading-relaxed mb-4">
+                    A contributor to medical regulatory literature, Atul actively engages in academic discourse regarding policy and product safety.
+                  </p>
+                  <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <p className="text-slate-800 text-sm md:text-base font-semibold leading-relaxed">
+                      Latest Publication (May 2026): Authored "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes" published in the <span className="text-emerald-700 italic">Cureus Journal of Medical Science</span> (Part of Springer Nature).
+                    </p>
+                  </div>
+                </div>
+
+                {/* Professional buttons */}
+                <div className="pt-6 border-t border-slate-200">
+                  <h4 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Authority Links & Professional Profiles</h4>
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                    
+                    <a
+                      href="https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-all duration-300 shadow-md group hover:shadow-lg hover:-translate-y-0.5"
+                    >
+                      <FileText size={16} className="text-emerald-400" />
+                      <span>View Full Publication on PubMed/Cureus</span>
+                      <ExternalLink size={14} className="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </a>
+
+                    <a
+                      href="https://www.researchgate.net/profile/Atul-Sankhyayan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-850 font-bold text-sm transition-all duration-300 border border-slate-300 hover:border-slate-400 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                    >
+                      <BookOpen size={16} className="text-emerald-600" />
+                      <span>Explore Profile on ResearchGate</span>
+                      <ExternalLink size={14} className="text-slate-500" />
+                    </a>
+
+                    <a
+                      href="https://in.linkedin.com/in/atul-sharma-sankhyayan-36065ab1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-850 font-bold text-sm transition-all duration-300 border border-slate-300 hover:border-slate-400 shadow-sm hover:shadow-md hover:-translate-y-0.5 group"
+                    >
+                      <Linkedin size={16} className="text-blue-600" />
+                      <span>Connect on LinkedIn</span>
+                      <ArrowRight size={14} className="text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+
+                  </div>
+                </div>
+
               </div>
-            ))}
+
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* Why We're Different Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-8 leading-tight">
-                Why We're Different
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Unlike testing labs or general consulting firms, RAC Forge focuses solely on regulatory documentation and strategy. We excel in creating the evidence needed to show your device's safety and effectiveness to regulatory authorities like <InfoLink text="CDSCO" /> and the <InfoLink text="USFDA" />.
-              </p>
-              <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
-                <h4 className="text-2xl font-bold text-brand-deep mb-6">Company Legal Status Confirmation</h4>
-                <p className="text-gray-600 mb-8">Certifies that the company is a legally established entity with the right to conduct business activities as per Indian law.</p>
-                <img 
-                  src="https://racforge.com/wp-content/uploads/2026/01/certificate.jpg" 
-                  alt="Certificate" 
-                  className="w-full rounded-2xl shadow-md"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative rounded-[3rem] overflow-hidden shadow-2xl"
-            >
-              <img 
-                src="https://i.postimg.cc/02kdGh9z/image1.png" 
-                alt="Our Team" 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-brand-deep/20"></div>
-              <div className="absolute bottom-10 left-10 right-10 bg-white/90 backdrop-blur-md p-10 rounded-[2rem]">
-                <h4 className="text-2xl font-bold text-brand-deep mb-4">Our Team</h4>
-                <p className="text-gray-600 leading-relaxed">
-                  Our team consists of regulatory affairs professionals with extensive experience in medical device regulations in various jurisdictions. Each member offers specialized knowledge in specific regulatory areas, ensuring all your compliance needs are met.
-                </p>
-              </div>
-            </motion.div>
-          </div>
+      {/* Section 3: Partner with a Proven Leader */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-955 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5 blur-sm pointer-events-none">
+          <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-teal-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-emerald-500 rounded-full blur-3xl" />
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <span className="text-emerald-400 font-extrabold tracking-widest uppercase text-xs mb-4 block">Section 03 / Engagement</span>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-6">
+            Ready to Accelerate Your Market Access?
+          </h2>
+          
+          <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto font-normal">
+            Navigating the complexities of medical device registration requires more than just a consultant—it requires an architect. Partner with a firm that understands both the engineering that goes into your product and the regulatory landscape that governs it.
+          </p>
+
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2.5 px-8 py-4.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-base transition-all duration-300 shadow-lg hover:shadow-emerald-500/20 shadow-emerald-500/10 scale-100 hover:scale-[1.03] active:scale-100 uppercase tracking-wider block sm:inline-flex"
+          >
+            <span>Start Your Project with Us</span>
+            <ArrowRight size={18} className="text-slate-950" />
+          </Link>
         </div>
       </section>
     </div>
   );
 }
+
