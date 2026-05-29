@@ -18,20 +18,22 @@ export default function CDSCOTest() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/test/1920/1080"
-            alt="CDSCO Test License"
+            src="/rich-image-assets/service-test.jpg"
+            alt="CDSCO Test License" title="CDSCO Test License"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             CDSCO Test License
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,23 +53,23 @@ export default function CDSCOTest() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Facilitating Research and Development with Test Licenses</h2>
                 <p>
-                  Before a medical device can be manufactured or imported for sale, it often requires testing, evaluation, or clinical investigation. A **Test License** allows for these activities under the Medical Devices Rules, 2017. This is a critical step for manufacturers to validate their designs, conduct performance testing, and gather the necessary data for a full manufacturing or import license.
+                  Before a medical device can be manufactured or imported for sale, it often requires testing, evaluation, or clinical investigation. A <strong>Test License</strong> allows for these activities under the Medical Devices Rules, 2017. This is a critical step for manufacturers to validate their designs, conduct performance testing, and gather the necessary data for a full manufacturing or import license.
                 </p>
                 <p>
-                  The test license is strictly for the purposes of clinical investigations, testing, evaluation, demonstration, or training. Devices imported or manufactured under this license **cannot be sold** or used for commercial purposes.
+                  The test license is strictly for the purposes of clinical investigations, testing, evaluation, demonstration, or training. Devices imported or manufactured under this license <strong>cannot be sold</strong> or used for commercial purposes.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
                   <div className="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">Manufacturing for Test & Evaluation</h4>
                     <p className="text-sm font-bold mb-4">Form MD-12 & MD-13</p>
-                    <p className="text-sm mb-4 leading-relaxed">Application (MD-12) and Grant (MD-13) of a license to **manufacture** medical devices for the purposes of clinical investigations, test, evaluation, demonstration, or training.</p>
+                    <p className="text-sm mb-4 leading-relaxed">Application (MD-12) and Grant (MD-13) of a license to <strong>manufacture</strong> medical devices for the purposes of clinical investigations, test, evaluation, demonstration, or training.</p>
                     <p className="text-sm"><strong>Key Requirements:</strong> Detailed protocols for the proposed testing and justification for the quantity of devices to be manufactured.</p>
                   </div>
                   <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">Importing for Test & Evaluation</h4>
                     <p className="text-sm font-bold mb-4">Form MD-16 & MD-17</p>
-                    <p className="text-sm mb-4 leading-relaxed">Application (MD-16) and Grant (MD-17) of a license to **import** medical devices for the purposes of clinical investigations, test, evaluation, demonstration, or training.</p>
+                    <p className="text-sm mb-4 leading-relaxed">Application (MD-16) and Grant (MD-17) of a license to <strong>import</strong> medical devices for the purposes of clinical investigations, test, evaluation, demonstration, or training.</p>
                     <p className="text-sm"><strong>Customs Clearance:</strong> The MD-17 license is essential for the smooth customs clearance of test samples arriving from international manufacturers.</p>
                   </div>
                 </div>

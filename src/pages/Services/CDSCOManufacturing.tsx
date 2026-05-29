@@ -11,7 +11,7 @@ export default function CDSCOManufacturing() {
       <SEO 
         title="CDSCO Manufacturing License India - MD-3, MD-5, MD-7, MD-9" 
         description="Top CDSCO consultant for Medical Device Manufacturing Licenses in India. Expert support for Form MD-5, MD-9 applications & SUGAM portal management."
-        keywords="CDSCO manufacturing license, Form MD-5 license, Form MD-9 license India, SUGAM portal medical device, CDSCO consultant Delhi, SLA audit help, CLA compliance"
+        keywords="CDSCO manufacturing license, Form MD-5 license, Form MD-9 license India, SUGAM portal medical device, CDSCO consultant Delhi, SLA audit help, CLA compliance, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/services/cdsco-manufacturing-license"
       />
 
@@ -19,20 +19,22 @@ export default function CDSCOManufacturing() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/manufacturing/1920/1080"
-            alt="CDSCO Manufacturing License"
+            src="/rich-image-assets/service-manufacturing.jpg"
+            alt="CDSCO Manufacturing License" title="CDSCO Manufacturing License"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             CDSCO Manufacturing License
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

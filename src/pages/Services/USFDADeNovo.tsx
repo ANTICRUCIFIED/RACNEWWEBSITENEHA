@@ -18,20 +18,22 @@ export default function USFDADeNovo() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/usfdadenovo/1920/1080"
-            alt="USFDA De Novo Classification"
+            src="/rich-image-assets/service-usfdadenovo.jpg"
+            alt="USFDA De Novo Classification" title="USFDA De Novo Classification"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             USFDA De Novo Classification
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,10 +53,10 @@ export default function USFDADeNovo() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Pioneering Novel Device Clearance: The De Novo Pathway</h2>
                 <p>
-                  The **De Novo classification process** provides a pathway to classify novel medical devices that are low to moderate risk but for which there is no legally marketed predicate device. Traditionally, such devices would be automatically classified as Class III (high risk), requiring a <InfoLink text="PMA" />. The De Novo process allows them to be reclassified as Class I or Class II.
+                  The <strong>De Novo classification process</strong> provides a pathway to classify novel medical devices that are low to moderate risk but for which there is no legally marketed predicate device. Traditionally, such devices would be automatically classified as Class III (high risk), requiring a <InfoLink text="PMA" />. The De Novo process allows them to be reclassified as Class I or Class II.
                 </p>
                 <p>
-                  This pathway is essential for innovative technologies that don't fit into existing product codes. It requires a robust **risk-benefit analysis** to demonstrate that general controls, or general and **special controls**, provide reasonable assurance of safety and effectiveness.
+                  This pathway is essential for innovative technologies that don't fit into existing product codes. It requires a robust <strong>risk-benefit analysis</strong> to demonstrate that general controls, or general and <strong>special controls</strong>, provide reasonable assurance of safety and effectiveness.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">

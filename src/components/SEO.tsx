@@ -10,17 +10,16 @@ interface SEOProps {
 }
 
 export default function SEO({ title, description, keywords, canonical, type = 'website' }: SEOProps) {
-  const fullTitle = `${title} | racforge | RAC Forge`;
+  const fullTitle = `${title} | RAC Forge Private Limited`;
   const siteUrl = "https://www.racforge.com"; 
-  const defaultKeywords = "racforge, RACFORGE, RacForge, rac forge, rac-forge, USFDA, FDA, CDSCO, EU MDR, MDR, ANVISA, Medical Device Regulation, Regulatory Consulting, Medical Device License, India, USA, Europe, Brazil";
+  const defaultKeywords = "RAC Forge Private Limited, USFDA, FDA, CDSCO, EU MDR, MDR, ANVISA, Medical Device Regulation, Regulatory Consulting, Medical Device License, India, USA, Europe, Brazil, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant";
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": type === 'article' ? "Article" : "Organization",
-    "name": "RAC FORGE PRIVATE LIMITED",
-    "alternateName": ["racforge", "RACFORGE", "RacForge", "RAC Forge", "rac-forge"],
+    "name": "RAC Forge Private Limited",
     "url": siteUrl,
-    "logo": "https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg",
+    "logo": "/rich-image-assets/logo.jpg",
     "description": description,
     "identifier": {
       "@type": "PropertyValue",
@@ -54,8 +53,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "racforge",
-    "alternateName": ["RACFORGE", "RacForge", "RAC Forge", "rac-forge"],
+    "name": "RAC Forge Private Limited",
     "url": siteUrl,
     "potentialAction": {
       "@type": "SearchAction",
@@ -79,14 +77,14 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={`${siteUrl}${canonical || ""}`} />
-      <meta property="og:site_name" content="RAC Forge" />
-      <meta property="og:image" content="https://i.postimg.cc/yxYBn7fb/banner.png" />
+      <meta property="og:site_name" content="RAC Forge Private Limited" />
+      <meta property="og:image" content="/rich-image-assets/home-banner.png" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://i.postimg.cc/yxYBn7fb/banner.png" />
+      <meta name="twitter:image" content="/rich-image-assets/home-banner.png" />
       <meta name="twitter:site" content="@racforge" />
 
       {/* Structured Data */}

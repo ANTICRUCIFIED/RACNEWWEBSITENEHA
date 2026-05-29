@@ -18,20 +18,22 @@ export default function CDSCOClinical() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/clinical/1920/1080"
-            alt="CDSCO Clinical Investigation"
+            src="/rich-image-assets/service-clinical.jpg"
+            alt="CDSCO Clinical Investigation" title="CDSCO Clinical Investigation"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             CDSCO Clinical Investigation
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,10 +53,10 @@ export default function CDSCOClinical() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Navigating Clinical Investigations in India</h2>
                 <p>
-                  Clinical investigation is the cornerstone of demonstrating the safety and performance of high-risk medical devices (Class C and D) and novel technologies. Under the Medical Devices Rules, 2017, the <InfoLink text="CDSCO" /> requires a rigorous and ethically sound process for conducting these studies. This involves not only the Central Licensing Authority (CLA) but also registered **Ethics Committees (EC)** and qualified investigators.
+                  Clinical investigation is the cornerstone of demonstrating the safety and performance of high-risk medical devices (Class C and D) and novel technologies. Under the Medical Devices Rules, 2017, the <InfoLink text="CDSCO" /> requires a rigorous and ethically sound process for conducting these studies. This involves not only the Central Licensing Authority (CLA) but also registered <strong>Ethics Committees (EC)</strong> and qualified investigators.
                 </p>
                 <p>
-                  The process begins with the development of a comprehensive **Clinical Investigation Plan (CIP)** and an **Investigator's Brochure (IB)**. These documents must be reviewed and approved by both the Ethics Committee and the CDSCO before any subjects can be enrolled.
+                  The process begins with the development of a comprehensive <strong>Clinical Investigation Plan (CIP)</strong> and an <strong>Investigator's Brochure (IB)</strong>. These documents must be reviewed and approved by both the Ethics Committee and the CDSCO before any subjects can be enrolled.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">

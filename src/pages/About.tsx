@@ -24,8 +24,8 @@ export default function About() {
     <div className="flex flex-col w-full bg-slate-50 min-h-screen">
       <SEO 
         title="About RAC Forge Private Limited" 
-        description="RAC Forge (racforge) is a premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR & ANVISA compliance."
-        keywords="about RACFORGE, racforge, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members, RAC Forge, Atul Sharma Sankhyayan"
+        description="RAC Forge Private Limited is a premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR & ANVISA compliance."
+        keywords="about RAC Forge Private Limited, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members, Atul Sharma Sankhyayan, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/about"
       />
 
@@ -33,8 +33,8 @@ export default function About() {
       <section className="relative min-h-[450px] flex items-center pt-24 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 overflow-hidden border-b border-slate-800/50">
         <div className="absolute inset-0 z-0 opacity-10">
           <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600"
-            alt="Medical Laboratory background"
+            src="/rich-image-assets/about-bg.jpg"
+            alt="Medical Laboratory background" title="Medical Laboratory background"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -57,14 +57,16 @@ export default function About() {
                 <span>Premier Regulatory & Engineering Architects</span>
               </motion.div>
               
-              <motion.h1
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight"
+                
               >
+<h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
                 Architects of Medical Device <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300">Compliance & Innovation</span>
-              </motion.h1>
+              </h1>
+</motion.div>
               
               <motion.p
                 initial={{ opacity: 0, y: 25 }}
@@ -86,7 +88,7 @@ export default function About() {
                 <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-bl-full blur-xl pointer-events-none" />
                 <h3 className="text-slate-400 uppercase tracking-widest text-xs font-bold mb-4 flex items-center gap-1.5">
                   <Fingerprint size={14} className="text-emerald-400" />
-                  RAC Forge Identity
+                  RAC Forge Private Limited Identity
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b border-slate-800">
@@ -237,8 +239,8 @@ export default function About() {
                   className="rounded-2xl overflow-hidden aspect-square w-full max-w-[280px] md:max-w-xs shadow-lg relative border-4 border-slate-50 group bg-slate-100"
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=600"
-                    alt="Atul Sharma Sankhyayan - Founder & CEO"
+                    src="/rich-image-assets/founder.jpg"
+                    alt="Atul Sharma Sankhyayan - Founder & CEO" title="Atul Sharma Sankhyayan - Founder & CEO"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     referrerPolicy="no-referrer"
                   />

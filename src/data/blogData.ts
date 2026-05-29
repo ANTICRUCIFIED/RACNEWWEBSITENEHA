@@ -18,7 +18,7 @@ export const BLOG_POSTS: BlogPost[] = [
     image: 'https://i.postimg.cc/ZRDZf113/Sterilization-Validation-for-Medical-Devices.jpg',
     date: '25 Oct 2025',
     category: 'Technical',
-    author: 'RAC Forge Team',
+    author: 'RAC Forge Private Limited Team',
     tags: ['Sterilization validation', 'Medical device sterilization', 'ISO 13485', 'Risk Management', 'IQ OQ PQ', 'Biological Evaluation', 'Essential Requirement', 'Medical Devices'],
     content: `
 Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance (CDSCO, USFDA, EU MDR) and patient safety.
@@ -101,7 +101,7 @@ Post-validation requirements:
     image: 'https://i.postimg.cc/bwd5gZq9/biocompatibility-testing.png',
     date: '24 Oct 2025',
     category: 'Testing',
-    author: 'RAC Forge Team',
+    author: 'RAC Forge Private Limited Team',
     tags: ['Biocompatibility Testing', 'Biological Evaluation', 'Essential Requirement', 'ISO 13485', 'Medical Device Compliance', 'Medical Device Safety', 'Risk Management'],
     content: `
 Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval. Knowing ISO 10993 standards and using effective testing strategies is crucial for successful submissions.
@@ -182,7 +182,7 @@ A well-planned biocompatibility strategy, backed by thorough documentation as pa
     image: 'https://i.postimg.cc/VsD4hzGx/mastering-eu-mdr1.png',
     date: '23 Oct 2025',
     category: 'Regulatory',
-    author: 'RAC Forge Team',
+    author: 'RAC Forge Private Limited Team',
     tags: ['CE Marking', 'Clinical Evaluation Report', 'EU MDR', 'GSPR', 'Medical Device Documentation', 'Regulatory Compliance', 'Risk Management', 'User Manual'],
     content: `
 The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation. Knowing these rules is important for getting CE Marking and accessing markets in Europe.
@@ -248,7 +248,7 @@ Well-prepared technical documentation not only ensures compliance with EU MDR bu
     image: 'https://i.postimg.cc/Hs0WmPMN/Navigating-USFDAs-510k-Submission-Process.png',
     date: '22 Oct 2025',
     category: 'Regulatory',
-    author: 'RAC Forge Team',
+    author: 'RAC Forge Private Limited Team',
     tags: ['510K USFDA', 'Clinical Evaluation Report (CER)', 'Medical Device Documentation', 'Medical Devices', 'Regulatory Compliance', 'Risk Analysis', 'USFDA'],
     content: `
 The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.
@@ -301,7 +301,7 @@ A well-prepared 510(k) submission, backed by thorough documentation and a strate
     image: 'https://i.postimg.cc/NG9xfZQL/understanding-cdsco-rules.png',
     date: '21 Oct 2025',
     category: 'Regulatory',
-    author: 'RAC Forge Team',
+    author: 'RAC Forge Private Limited Team',
     tags: ['CDSCO', 'Import License', 'Indian MDR', 'ISO 13485', 'Loan License', 'Manufacturing License', 'MD-15', 'MD-3', 'MD-5', 'MD-7', 'MD-9', 'Medical Devices', 'Medical Devices Rules 2017', 'Regulatory Compliance', 'Test License'],
     content: `
 The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.

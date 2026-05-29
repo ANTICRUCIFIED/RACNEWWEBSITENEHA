@@ -32,31 +32,31 @@ const BLOG_POSTS = [
   {
     id: 'sterilization-validation',
     title: 'Sterilization Validation for Medical Devices',
-    image: 'https://i.postimg.cc/ZRDZf113/Sterilization-Validation-for-Medical-Devices.jpg',
+    image: '/rich-image-assets/blog1.jpg',
     date: '12 Oct'
   },
   {
     id: 'biocompatibility-testing',
     title: 'Biocompatibility Testing Strategies for Medical Devices',
-    image: 'https://i.postimg.cc/bwd5gZq9/biocompatibility-testing.png',
+    image: '/rich-image-assets/blog2.png',
     date: '11 Oct'
   },
   {
     id: 'mastering-eu-mdr',
     title: 'Mastering EU MDR Technical Documentation',
-    image: 'https://i.postimg.cc/VsD4hzGx/mastering-eu-mdr1.png',
+    image: '/rich-image-assets/blog3.png',
     date: '10 Oct'
   },
   {
     id: 'navigating-usfda-510k',
     title: 'Navigating USFDA’s 510(k) Submission Process',
-    image: 'https://i.postimg.cc/Hs0WmPMN/Navigating-USFDAs-510k-Submission-Process.png',
+    image: '/rich-image-assets/blog4.png',
     date: '10 Oct'
   },
   {
     id: 'understanding-cdsco-rules',
     title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    image: 'https://i.postimg.cc/NG9xfZQL/understanding-cdsco-rules.png',
+    image: '/rich-image-assets/blog5.png',
     date: '10 Oct'
   }
 ];
@@ -66,8 +66,8 @@ export default function Home() {
     <div className="flex flex-col w-full">
       <SEO 
         title="Best Medical Device Regulatory Consultancy" 
-        description="RAC Forge (racforge) is the premier global Medical Device Regulatory Consultant for CDSCO India, USFDA USA, EU MDR & ANVISA Brazil. Specialized in Manufacturing & Import licenses."
-        keywords="RACFORGE, racforge, USFDA consulting, CDSCO manufacturing license, EU MDR compliance, medical device regulatory experts, FDA 510k submission India, ANVISA approval, RAC Forge"
+        description="RAC Forge Private Limited is the premier global Medical Device Regulatory Consultant for CDSCO India, USFDA USA, EU MDR & ANVISA Brazil. Specialized in Manufacturing & Import licenses."
+        keywords="RAC Forge Private Limited, USFDA consulting, CDSCO manufacturing license, EU MDR compliance, medical device regulatory experts, FDA 510k submission India, ANVISA approval, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/"
       />
 
@@ -75,8 +75,9 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://i.postimg.cc/yxYBn7fb/banner.png"
-            alt="racforge Regulatory Consulting"
+            src="/rich-image-assets/home-banner.png"
+            alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR"
+            title="Global Medical Device Regulatory Consulting Services"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -88,23 +89,25 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               className="text-brand-teal font-extrabold tracking-widest uppercase text-xl mb-4"
             >
-              racforge / RACFORGE
+              RAC Forge Private Limited
             </motion.div>
-            <motion.h1 
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-7xl font-extrabold text-white mb-6 leading-tight"
             >
-              Regulatory Consulting Experts
-            </motion.h1>
-            <motion.h2 
+              <h1 className="text-4xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                Medical Device Regulatory Consulting & Engineering Experts
+              </h1>
+            </motion.div>
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-xl md:text-2xl font-bold text-brand-teal mb-6"
             >
-              Navigating <InfoLink text="CDSCO" />, <InfoLink text="USFDA" />, <InfoLink text="Anvisa" /> and <InfoLink text="EU MDR" /> Compliance with Precision and Expertise.
-            </motion.h2>
+              <h2 className="text-xl md:text-2xl font-bold text-brand-teal mb-6">
+                Navigating <InfoLink text="CDSCO" />, <InfoLink text="USFDA" />, <InfoLink text="Anvisa" /> and <InfoLink text="EU MDR" /> Compliance with Precision and Expertise.
+              </h2>
+            </motion.div>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -162,7 +165,7 @@ export default function Home() {
               </h2>
               <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
                 <p>
-                  <strong>racforge</strong> (RAC Forge Private Limited) is a premier global regulatory consultancy dedicated to the medical device industry. With over a decade of specialized experience in Research & Development (R&D) and Regulatory Affairs, we bridge the gap between complex engineering and stringent compliance. Our mission at racforge is to streamline the path to market for innovative medical technologies, ensuring they meet the highest safety and efficacy standards across diverse jurisdictions.
+                  <strong>RAC Forge Private Limited</strong> is a premier global regulatory consultancy dedicated to the medical device industry. With over a decade of specialized experience in Research & Development (R&D) and Regulatory Affairs, we bridge the gap between complex engineering and stringent compliance. Our mission at RAC Forge Private Limited is to streamline the path to market for innovative medical technologies, ensuring they meet the highest safety and efficacy standards across diverse jurisdictions.
                 </p>
                 <p>
                   We don't just provide documentation; we offer strategic partnership. Our deep understanding of the lifecycle of a medical device—from initial concept and prototyping to clinical validation and post-market surveillance—allows us to anticipate regulatory hurdles before they arise. Whether you are a startup seeking your first <InfoLink text="CDSCO" /> license or a multinational navigating <InfoLink text="EU MDR" /> transitions, our expertise ensures precision at every step.
@@ -332,8 +335,8 @@ export default function Home() {
               className="relative rounded-[3rem] overflow-hidden shadow-2xl"
             >
               <img 
-                src="https://i.postimg.cc/02kdGh9z/image1.png" 
-                alt="Strategic Consulting" 
+                src="/rich-image-assets/strategic-consulting.png" 
+                alt="Strategic Consulting" title="Strategic Consulting" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -415,24 +418,24 @@ export default function Home() {
               transition={{ delay: 0.1 }}
               className="bg-white p-12 rounded-[3rem] shadow-xl border border-gray-100"
             >
-              <span className="text-brand-teal font-bold tracking-widest uppercase text-xs mb-4 block">Technical R&D & SaMD</span>
-              <h3 className="text-3xl font-extrabold text-brand-deep mb-6">Software as Medical Device</h3>
+              <span className="text-brand-teal font-bold tracking-widest uppercase text-xs mb-4 block">Development & Engineering</span>
+              <h3 className="text-3xl font-extrabold text-brand-deep mb-6">Electrical Devices & SaMD</h3>
               <p className="text-gray-600 leading-relaxed mb-8">
-                Benefit from our in-house R&D team with over 10 years of experience in medical device development. Our dedicated <InfoLink text="SaMD" /> (Software as a Medical Device) team has a proven track record with high-end software company projects.
+                Benefit from our in-house R&D team with over 10 years of experience. We offer active development of Electrical Medical Devices and <InfoLink text="SaMD" /> (Software as a Medical Device). We don't just achieve software validation; we build and engineer robust solutions.
               </p>
               <ul className="space-y-3 mb-10">
                 <li className="flex items-center text-gray-700 font-medium">
-                  <CheckCircle2 className="text-brand-teal mr-3" size={20} /> <InfoLink text="IEC 62304" /> Software Lifecycle
+                  <CheckCircle2 className="text-brand-teal mr-3" size={20} /> Active Development of Electrical Devices
                 </li>
                 <li className="flex items-center text-gray-700 font-medium">
-                  <CheckCircle2 className="text-brand-teal mr-3" size={20} /> <InfoLink text="IEC 62366-1" /> Usability Engineering
+                  <CheckCircle2 className="text-brand-teal mr-3" size={20} /> <InfoLink text="IEC 62304" /> Software Lifecycle
                 </li>
                 <li className="flex items-center text-gray-700 font-medium">
                   <CheckCircle2 className="text-brand-teal mr-3" size={20} /> Cybersecurity & AI/ML compliance
                 </li>
               </ul>
               <Link to="/services/rd-and-samd" className="inline-block bg-brand-deep text-white px-8 py-4 rounded-full font-bold hover:bg-brand-teal transition-all">
-                Explore SaMD Services
+                Explore Engineering Services
               </Link>
             </motion.div>
           </div>
@@ -545,7 +548,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-lg">Headquarters</h4>
-                    <p className="text-gray-600">RAC FORGE PRIVATE LIMITED 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh</p>
+                    <p className="text-gray-600">RAC Forge Private Limited 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-6">

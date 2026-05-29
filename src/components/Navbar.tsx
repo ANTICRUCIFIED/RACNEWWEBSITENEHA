@@ -24,7 +24,7 @@ const NAV_LINKS = [
         ]
       },
       { 
-        title: 'USFDA Regulatory Services', 
+        title: 'USFDA (USA) Regulatory Services', 
         path: '/services/usfda-510k-submission',
         icon: <Shield className="w-5 h-5 text-blue-600" />,
         items: [
@@ -34,7 +34,7 @@ const NAV_LINKS = [
         ]
       },
       { 
-        title: 'EU MDR CE Marking Services', 
+        title: 'EU MDR (Europe) CE Marking', 
         path: '/services/eu-mdr-compliance',
         icon: <Globe className="w-5 h-5 text-emerald-600" />,
         items: [
@@ -42,12 +42,19 @@ const NAV_LINKS = [
         ]
       },
       { 
-        title: 'Core Documentation Services', 
+        title: 'Anvisa (Brazil) Regulatory Services', 
+        path: '/services/anvisa-brazil-approval',
+        icon: <Globe className="w-5 h-5 text-yellow-600" />,
+        items: [
+          { name: 'Anvisa Brazil Approval', path: '/services/anvisa-brazil-approval' }
+        ]
+      },
+      { 
+        title: 'Development of Electrical Medical Devices & SaMD', 
         path: '/services/rd-and-samd',
         icon: <Code2 className="w-5 h-5 text-purple-600" />,
         items: [
-          { name: 'Anvisa Brazil Approval', path: '/services/anvisa-brazil-approval' },
-          { name: 'SaMD & R&D Strategy', path: '/services/rd-and-samd' }
+          { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
         ]
       }
     ]
@@ -82,8 +89,8 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center group">
             <img 
-              src="https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg" 
-              alt="RAC FORGE" 
+              src="/rich-image-assets/logo.jpg" 
+              alt="RAC FORGE" title="RAC FORGE" 
               className="h-12 w-auto transition-all duration-500 mix-blend-multiply" 
             />
           </Link>

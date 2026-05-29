@@ -36,7 +36,7 @@ export default function InfoDetail() {
           </div>
           <div className="mt-12 pt-8 border-t border-gray-100">
             <h3 className="text-xl font-bold text-brand-deep mb-4">Need Regulatory Assistance?</h3>
-            <p className="text-gray-600 mb-6">Our experts at RAC Forge can help you navigate the complexities of {data.title} and other regulatory requirements.</p>
+            <p className="text-gray-600 mb-6">Our experts at RAC Forge Private Limited can help you navigate the complexities of {data.title} and other regulatory requirements.</p>
             <Link to="/contact" className="inline-block bg-brand-deep text-white px-8 py-3 rounded-full font-bold hover:bg-brand-teal transition-colors">
               Schedule a Consultation
             </Link>

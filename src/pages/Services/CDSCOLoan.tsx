@@ -18,20 +18,22 @@ export default function CDSCOLoan() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/loan/1920/1080"
-            alt="CDSCO Loan License"
+            src="/rich-image-assets/service-loan.jpg"
+            alt="CDSCO Loan License" title="CDSCO Loan License"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             CDSCO Loan License
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,10 +53,10 @@ export default function CDSCOLoan() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Leveraging Existing Infrastructure with Loan Licensing</h2>
                 <p>
-                  A **Loan License** is a strategic regulatory mechanism under the Medical Devices Rules, 2017, that allows a company (the "Loan Licensee") to manufacture medical devices using the licensed manufacturing facilities of another company (the "Host Manufacturer"). This model is particularly beneficial for startups, R&D-focused firms, and international companies looking to manufacture locally in India without the immediate capital expenditure of building their own facility.
+                  A <strong>Loan License</strong> is a strategic regulatory mechanism under the Medical Devices Rules, 2017, that allows a company (the "Loan Licensee") to manufacture medical devices using the licensed manufacturing facilities of another company (the "Host Manufacturer"). This model is particularly beneficial for startups, R&D-focused firms, and international companies looking to manufacture locally in India without the immediate capital expenditure of building their own facility.
                 </p>
                 <p>
-                  The Loan Licensee remains responsible for the quality, safety, and performance of the devices, while the Host Manufacturer provides the infrastructure, equipment, and sometimes the personnel. A robust **Quality Agreement** and a **Tripartite Agreement** are essential to clearly define the roles and responsibilities of each party.
+                  The Loan Licensee remains responsible for the quality, safety, and performance of the devices, while the Host Manufacturer provides the infrastructure, equipment, and sometimes the personnel. A robust <strong>Quality Agreement</strong> and a <strong>Tripartite Agreement</strong> are essential to clearly define the roles and responsibilities of each party.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">

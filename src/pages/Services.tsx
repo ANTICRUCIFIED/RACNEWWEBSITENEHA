@@ -31,7 +31,7 @@ const SERVICES = [
     ]
   },
   {
-    title: "USFDA Compliance",
+    title: "USFDA (USA)",
     icon: <Shield className="w-8 h-8 text-blue-600" />,
     bg: "bg-blue-50",
     description: "Strategic guidance for U.S. market entry, from classification to final clearance.",
@@ -42,7 +42,7 @@ const SERVICES = [
     ]
   },
   {
-    title: "EU MDR / IVDR",
+    title: "EU MDR (Europe)",
     icon: <Globe2 className="w-8 h-8 text-emerald-600" />,
     bg: "bg-emerald-50",
     description: "Expert transition and compliance services for the European Medical Device Regulations.",
@@ -51,7 +51,7 @@ const SERVICES = [
     ]
   },
   {
-    title: "Anvisa Brazil",
+    title: "Anvisa (Brazil)",
     icon: <CircleDollarSign className="w-8 h-8 text-yellow-600" />,
     bg: "bg-yellow-50",
     description: "Navigating the Brazilian regulatory landscape with local expertise and alliances.",
@@ -60,12 +60,12 @@ const SERVICES = [
     ]
   },
   {
-    title: "R&D and SaMD",
+    title: "Development of Electrical Medical Devices & SaMD",
     icon: <Code2 className="w-8 h-8 text-purple-600" />,
     bg: "bg-purple-50",
-    description: "Technical documentation and strategy for Software as a Medical Device and R&D projects.",
+    description: "End-to-end development, technical documentation, and strategy for Electrical Medical Devices, Software as a Medical Device (SaMD), and R&D projects.",
     links: [
-      { name: "SaMD & R&D Strategy", path: "/services/rd-and-samd" }
+      { name: "Development of Electrical Medical Devices & SaMD", path: "/services/rd-and-samd" }
     ]
   }
 ];
@@ -76,7 +76,7 @@ export default function Services() {
       <SEO 
         title="Medical Device Regulatory Services - USFDA, CDSCO, EU MDR" 
         description="Comprehensive regulatory consulting: CDSCO Manufacturing/Import licenses, USFDA 510k, EU MDR Technical Documentation, and Anvisa Brazil approvals."
-        keywords="medical device services, CDSCO license consultant, USFDA 510k submission, EU MDR consulting, ANVISA approval Brazil, SaMD regulatory strategy"
+        keywords="medical device services, CDSCO license consultant, USFDA 510k submission, EU MDR consulting, ANVISA approval Brazil, SaMD regulatory strategy, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/services"
       />
 
@@ -84,20 +84,22 @@ export default function Services() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://racforge.com/wp-content/uploads/2025/10/service-banner.png"
-            alt="RAC Forge Services"
+            src="/rich-image-assets/service-banner.png"
+            alt="RAC Forge Private Limited Services" title="RAC Forge Private Limited Services"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             Our Services
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -165,7 +167,7 @@ export default function Services() {
           <div className="bg-brand-deep rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden shadow-xl">
             <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/10 skew-x-12 translate-x-1/4"></div>
             <div className="relative z-10 max-w-3xl">
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-10 text-white">Why Partner with RAC Forge?</h2>
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-10 text-white">Why Partner with RAC Forge Private Limited?</h2>
               <div className="grid grid-cols-1 gap-12 mt-12">
                 <div className="flex items-start space-x-6">
                   <div className="bg-brand-teal p-3 rounded-2xl shrink-0"><CheckCircle size={24} className="text-white" /></div>

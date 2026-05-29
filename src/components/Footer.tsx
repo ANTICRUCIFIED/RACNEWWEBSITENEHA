@@ -21,8 +21,8 @@ export default function Footer() {
           <div className="space-y-8">
             <Link to="/" className="flex items-center group">
               <img 
-                src="https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg" 
-                alt="RAC FORGE" 
+                src="/rich-image-assets/logo.jpg" 
+                alt="RAC FORGE" title="RAC FORGE" 
                 className="h-12 w-auto mix-blend-multiply" 
               />
             </Link>
@@ -61,11 +61,11 @@ export default function Footer() {
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Our Services</h4>
             <ul className="space-y-4">
               {[
-                { name: 'CDSCO Manufacturing', path: '/services/cdsco-manufacturing-license' },
+                { name: 'CDSCO Licences', path: '/services' },
                 { name: 'USFDA 510(k)', path: '/services/usfda-510k-submission' },
                 { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },
                 { name: 'Anvisa Brazil', path: '/services/anvisa-brazil-approval' },
-                { name: 'SaMD Strategy', path: '/services/rd-and-samd' }
+                { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
               ].map((service) => (
                 <li key={service.name}>
                   <Link 

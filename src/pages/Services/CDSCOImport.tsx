@@ -18,20 +18,22 @@ export default function CDSCOImport() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/import/1920/1080"
-            alt="CDSCO Import License"
+            src="/rich-image-assets/service-import.jpg"
+            alt="CDSCO Import License" title="CDSCO Import License"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             CDSCO Import License
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,10 +53,10 @@ export default function CDSCOImport() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Navigating the CDSCO Import Process</h2>
                 <p>
-                  For foreign manufacturers looking to enter the Indian market, the regulatory landscape is governed by the Central Drugs Standard Control Organization (<InfoLink text="CDSCO" />). The primary requirement for importing medical devices is the appointment of an **Indian Authorized Agent (IAA)**. This agent must hold a valid wholesale license and is responsible for all regulatory interactions with the CDSCO on behalf of the foreign manufacturer.
+                  For foreign manufacturers looking to enter the Indian market, the regulatory landscape is governed by the Central Drugs Standard Control Organization (<InfoLink text="CDSCO" />). The primary requirement for importing medical devices is the appointment of an <strong>Indian Authorized Agent (IAA)</strong>. This agent must hold a valid wholesale license and is responsible for all regulatory interactions with the CDSCO on behalf of the foreign manufacturer.
                 </p>
                 <p>
-                  The import process is centered around the **Form MD-14** application and the subsequent **Form MD-15** license. This ensures that the devices being imported meet the same safety and quality standards as those manufactured domestically in India.
+                  The import process is centered around the <strong>Form MD-14</strong> application and the subsequent <strong>Form MD-15</strong> license. This ensures that the devices being imported meet the same safety and quality standards as those manufactured domestically in India.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">

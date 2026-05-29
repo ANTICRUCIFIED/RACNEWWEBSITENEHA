@@ -48,8 +48,8 @@ export default function Contact() {
     <div className="flex flex-col w-full">
       <SEO 
         title="Contact Medical Device Regulatory Consultants" 
-        description="Get expert regulatory consultation for CDSCO, USFDA, and EU MDR. Contact RAC Forge for medical device licensing and compliance support."
-        keywords="contact regulatory experts, medical device consultancy contact, FDA license help, CDSCO license inquiry, regulatory advisor India"
+        description="Get expert regulatory consultation for CDSCO, USFDA, and EU MDR. Contact RAC Forge Private Limited for medical device licensing and compliance support."
+        keywords="contact regulatory experts, medical device consultancy contact, FDA license help, CDSCO license inquiry, regulatory advisor India, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/contact"
       />
 
@@ -57,20 +57,22 @@ export default function Contact() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/contact-hero/1920/1080"
-            alt="Contact RAC Forge"
+            src="/rich-image-assets/contact-hero.jpg"
+            alt="Contact RAC Forge Private Limited" title="Contact RAC Forge Private Limited"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             Contact Us
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -293,7 +295,7 @@ export default function Contact() {
       {/* Map Section */}
       <section className="h-[500px] w-full bg-gray-100 relative overflow-hidden">
         <iframe 
-          title="RAC Forge Location"
+          title="RAC Forge Private Limited Location"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3386.4321!2d76.54321!3d32.12345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCMDcnMjQuNCJOIDc2wrAzMicyNy42IkU!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
           width="100%" 
           height="100%" 

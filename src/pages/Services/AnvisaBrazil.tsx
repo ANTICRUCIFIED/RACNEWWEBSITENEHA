@@ -11,7 +11,7 @@ export default function AnvisaBrazil() {
       <SEO 
         title="Anvisa Brazil Medical Device Approval & Registration" 
         description="Expert guidance for Anvisa Brazil medical device approval. We help with BGMP (RDC 665/2022) compliance, technical dossiers, and BRH representation."
-        keywords="Anvisa Brazil approval, Brazilian medical device registration, BGMP compliance, RDC 665/2022, ANVISA consultant, medical device market Brazil, BRH service"
+        keywords="Anvisa Brazil approval, Brazilian medical device registration, BGMP compliance, RDC 665/2022, ANVISA consultant, medical device market Brazil, BRH service, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/services/anvisa-brazil-approval"
       />
 
@@ -19,20 +19,22 @@ export default function AnvisaBrazil() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/anvisa/1920/1080"
-            alt="Anvisa Brazil Approval"
+            src="/rich-image-assets/service-anvisa.jpg"
+            alt="Anvisa Brazil Approval" title="Anvisa Brazil Approval"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             Anvisa Brazil Approval
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,20 +54,20 @@ export default function AnvisaBrazil() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Unlocking the Brazilian Market with Anvisa Approval</h2>
                 <p>
-                  Entering the South American market begins with the <InfoLink text="Anvisa" /> (Agência Nacional de Vigilância Sanitária) in Brazil. The regulatory environment in Brazil is unique, requiring foreign manufacturers to appoint a **Brazilian Registration Holder (BRH)**—a local company that acts as the legal representative and host for product registrations.
+                  Entering the South American market begins with the <InfoLink text="Anvisa" /> (Agência Nacional de Vigilância Sanitária) in Brazil. The regulatory environment in Brazil is unique, requiring foreign manufacturers to appoint a <strong>Brazilian Registration Holder (BRH)</strong>—a local company that acts as the legal representative and host for product registrations.
                 </p>
                 <p>
-                  Compliance with the Brazilian Good Manufacturing Practices (**BGMP**), specifically **RDC 665/2022**, is a prerequisite for most registrations. Anvisa may conduct on-site inspections for high-risk (Class III and IV) devices to verify BGMP compliance.
+                  Compliance with the Brazilian Good Manufacturing Practices (<strong>BGMP</strong>), specifically <strong>RDC 665/2022</strong>, is a prerequisite for most registrations. Anvisa may conduct on-site inspections for high-risk (Class III and IV) devices to verify BGMP compliance.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
                   <div className="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">INMETRO & ANATEL Certifications</h4>
-                    <p className="text-sm leading-relaxed">Medical electrical equipment often requires **INMETRO** certification for safety, while devices with wireless communication (Bluetooth, Wi-Fi) require **ANATEL** approval. We coordinate with local laboratories to facilitate these processes.</p>
+                    <p className="text-sm leading-relaxed">Medical electrical equipment often requires <strong>INMETRO</strong> certification for safety, while devices with wireless communication (Bluetooth, Wi-Fi) require <strong>ANATEL</strong> approval. We coordinate with local laboratories to facilitate these processes.</p>
                   </div>
                   <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">Registration Pathways</h4>
-                    <p className="text-sm leading-relaxed mb-4">Low-risk devices (Class I and II) follow the **Notification** pathway, while high-risk devices (Class III and IV) require a full **Registration** (Registro) with more extensive data review.</p>
+                    <p className="text-sm leading-relaxed mb-4">Low-risk devices (Class I and II) follow the <strong>Notification</strong> pathway, while high-risk devices (Class III and IV) require a full <strong>Registration</strong> (Registro) with more extensive data review.</p>
                   </div>
                 </div>
 
@@ -99,7 +101,7 @@ export default function AnvisaBrazil() {
                     {[
                       { name: 'USFDA Compliance', path: '/services/usfda-510k-submission' },
                       { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },
-                      { name: 'SaMD Strategy', path: '/services/rd-and-samd' }
+                      { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">

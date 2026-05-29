@@ -136,7 +136,7 @@ export default function ImageGenerator() {
                 <>
                   <img
                     src={imageUrl}
-                    alt="Generated technical visual"
+                    alt="Generated technical visual" title="Generated technical visual"
                     className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"
                   />

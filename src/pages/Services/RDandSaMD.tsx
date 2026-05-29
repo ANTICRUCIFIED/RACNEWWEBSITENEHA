@@ -9,8 +9,8 @@ export default function RDandSaMD() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="SaMD & R&D Strategy" 
-        description="Expert technical documentation and regulatory strategy for Software as a Medical Device (SaMD) and R&D projects."
+        title="Development of Electrical Medical Devices & SaMD" 
+        description="Expert technical development, documentation, and regulatory strategy for Electrical Medical Devices, Software as a Medical Device (SaMD), and R&D projects."
         canonical="/services/rd-and-samd"
       />
 
@@ -18,27 +18,29 @@ export default function RDandSaMD() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/samd/1920/1080"
-            alt="SaMD & R&D Strategy"
+            src="/rich-image-assets/service-samd.jpg"
+            alt="Development of Electrical Medical Devices & SaMD" title="Development of Electrical Medical Devices & SaMD"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
-            SaMD & R&D Strategy
-          </motion.h1>
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+            Development of Electrical Medical Devices & SaMD
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-xl text-white/80 max-w-3xl leading-relaxed"
           >
-            Technical documentation and regulatory strategy for Software as a Medical Device and innovative R&D projects.
+            Full-cycle engineering, technical documentation, and regulatory strategy for Electrical Medical Devices and Software as a Medical Device.
           </motion.p>
         </div>
       </section>
@@ -51,20 +53,20 @@ export default function RDandSaMD() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Bridging Innovation and Compliance</h2>
                 <p>
-                  At RAC Forge, we believe that regulatory compliance should be integrated into the product development lifecycle from day one. Our **R&D Strategy** services focus on aligning your innovation goals with global regulatory requirements, ensuring a smooth path from concept to market.
+                  At RAC Forge Private Limited, we believe that regulatory compliance should be integrated into the product development lifecycle from day one. Our <strong>Engineering & R&D</strong> services focus on aligning your innovation goals with global regulatory requirements, ensuring a smooth path from concept to market. We don't just provide consulting; we offer active development of Electrical Medical Devices and SaMDs.
                 </p>
                 <p>
-                  We specialize in **Software as a Medical Device (SaMD)**, providing expert guidance on software development lifecycles (SDLC) that comply with **IEC 62304** and **ISO 13485**. Whether you are building a diagnostic algorithm or a complex health platform, we ensure your software is robust, secure, and ready for regulatory scrutiny.
+                  We specialize in <strong>Software as a Medical Device (SaMD)</strong>, providing expert guidance on software development lifecycles (SDLC) that comply with <strong>IEC 62304</strong> and <strong>ISO 13485</strong>. Whether you are building a diagnostic algorithm or a complex health platform, we ensure your software is robust, secure, and ready for regulatory scrutiny.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
                   <div className="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">Cybersecurity for Medical Devices</h4>
-                    <p className="text-sm leading-relaxed">With the increasing connectivity of medical devices, cybersecurity is a top priority for regulators. We provide comprehensive support for **Cybersecurity Risk Management**, following FDA guidance and NIST frameworks to protect patient data and device integrity.</p>
+                    <p className="text-sm leading-relaxed">With the increasing connectivity of medical devices, cybersecurity is a top priority for regulators. We provide comprehensive support for <strong>Cybersecurity Risk Management</strong>, following FDA guidance and NIST frameworks to protect patient data and device integrity.</p>
                   </div>
                   <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">AI/ML and Novel Technologies</h4>
-                    <p className="text-sm leading-relaxed mb-4">Artificial Intelligence and Machine Learning (AI/ML) present unique regulatory challenges. We help you navigate the evolving landscape of **SaMD AI/ML** regulations, focusing on algorithm transparency and change management protocols.</p>
+                    <p className="text-sm leading-relaxed mb-4">Artificial Intelligence and Machine Learning (AI/ML) present unique regulatory challenges. We help you navigate the evolving landscape of <strong>SaMD AI/ML</strong> regulations, focusing on algorithm transparency and change management protocols.</p>
                   </div>
                 </div>
 

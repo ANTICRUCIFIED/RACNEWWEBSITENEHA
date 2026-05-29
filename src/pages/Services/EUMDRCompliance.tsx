@@ -11,7 +11,7 @@ export default function EUMDRCompliance() {
       <SEO 
         title="EU MDR 2017/745 Compliance & CE Marking Experts" 
         description="Get expert support for EU Medical Device Regulation (MDR) 2017/745 transitions. We specialize in Annex II/III Technical Documentation, CER, & PRRC support."
-        keywords="EU MDR compliance, CE Marking consultant, MDR 2017/745 transition, technical documentation Annex II, CER Clinical Evaluation Report, PRRC regulatory, EUDAMED registration"
+        keywords="EU MDR compliance, CE Marking consultant, MDR 2017/745 transition, technical documentation Annex II, CER Clinical Evaluation Report, PRRC regulatory, EUDAMED registration, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/services/eu-mdr-compliance"
       />
 
@@ -19,20 +19,22 @@ export default function EUMDRCompliance() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/eumdr/1920/1080"
-            alt="EU MDR Compliance"
+            src="/rich-image-assets/service-eumdr.jpg"
+            alt="EU MDR Compliance" title="EU MDR Compliance"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             EU MDR Compliance
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,7 +57,7 @@ export default function EUMDRCompliance() {
                   The European Medical Device Regulation (<InfoLink text="EU MDR" />) 2017/745 replaced the previous Medical Device Directive (MDD) and Active Implantable Medical Device Directive (AIMDD). This shift has introduced more stringent requirements for clinical evidence, post-market surveillance, and transparency across the European Union.
                 </p>
                 <p>
-                  One of the most significant changes is the reclassification of many devices and the increased scrutiny from **Notified Bodies**. Manufacturers must now provide more robust **Clinical Evaluation Reports (CER)** and implement a comprehensive **Post-Market Clinical Follow-up (PMCF)** system.
+                  One of the most significant changes is the reclassification of many devices and the increased scrutiny from <strong>Notified Bodies</strong>. Manufacturers must now provide more robust <strong>Clinical Evaluation Reports (CER)</strong> and implement a comprehensive <strong>Post-Market Clinical Follow-up (PMCF)</strong> system.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
@@ -65,13 +67,13 @@ export default function EUMDRCompliance() {
                   </div>
                   <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">EUDAMED & UDI Implementation</h4>
-                    <p className="text-sm leading-relaxed">The European Database on Medical Devices (**EUDAMED**) and the Unique Device Identification (**UDI**) system are central to MDR transparency. We assist in registration and data management for these critical systems.</p>
+                    <p className="text-sm leading-relaxed">The European Database on Medical Devices (<strong>EUDAMED</strong>) and the Unique Device Identification (<strong>UDI</strong>) system are central to MDR transparency. We assist in registration and data management for these critical systems.</p>
                   </div>
                 </div>
 
                 <h3 className="text-2xl font-bold text-brand-deep mb-6">The Role of the PRRC</h3>
                 <p>
-                  Under Article 15 of the MDR, every manufacturer must have at least one **Person Responsible for Regulatory Compliance (PRRC)**. This individual is responsible for ensuring that the conformity of the devices is appropriately checked, that technical documentation is kept up-to-date, and that post-market surveillance obligations are met. We provide strategic consulting to help your PRRC navigate these responsibilities.
+                  Under Article 15 of the MDR, every manufacturer must have at least one <strong>Person Responsible for Regulatory Compliance (PRRC)</strong>. This individual is responsible for ensuring that the conformity of the devices is appropriately checked, that technical documentation is kept up-to-date, and that post-market surveillance obligations are met. We provide strategic consulting to help your PRRC navigate these responsibilities.
                 </p>
 
                 <h3 className="text-2xl font-bold text-brand-deep mb-6 mt-12">Our EU MDR Compliance Services</h3>
@@ -105,7 +107,7 @@ export default function EUMDRCompliance() {
                     {[
                       { name: 'USFDA Compliance', path: '/services/usfda-510k-submission' },
                       { name: 'Anvisa Brazil', path: '/services/anvisa-brazil-approval' },
-                      { name: 'SaMD Strategy', path: '/services/rd-and-samd' }
+                      { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">

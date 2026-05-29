@@ -11,7 +11,7 @@ export default function USFDA510k() {
       <SEO 
         title="USFDA 510(k) Submission Consulting & eSTAR Experts" 
         description="Top-rated USFDA 510(k) consulting. We help medical device manufacturers with substantial equivalence, technical files, and mandatory eSTAR submissions."
-        keywords="USFDA 510k consultant, FDA 510k submission help, medical device clearance USA, eSTAR template expert, FDA predicate device identification, USFDA regulatory affairs"
+        keywords="USFDA 510k consultant, FDA 510k submission help, medical device clearance USA, eSTAR template expert, FDA predicate device identification, USFDA regulatory affairs, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/services/usfda-510k-submission"
       />
 
@@ -19,20 +19,22 @@ export default function USFDA510k() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/usfda510k/1920/1080"
-            alt="USFDA 510(k) Submission"
+            src="/rich-image-assets/service-usfda510k.jpg"
+            alt="USFDA 510(k) Submission" title="USFDA 510(k) Submission"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             USFDA 510(k) Submission
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,7 +54,7 @@ export default function USFDA510k() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Understanding the 510(k) Premarket Notification</h2>
                 <p>
-                  A 510(k) is a premarket submission made to the <InfoLink text="FDA" /> to demonstrate that a medical device is **substantially equivalent (SE)** to a legally marketed device (known as a **predicate device**) that is not subject to Premarket Approval (<InfoLink text="PMA" />). Demonstrating substantial equivalence means the new device is as safe and effective as the predicate.
+                  A 510(k) is a premarket submission made to the <InfoLink text="FDA" /> to demonstrate that a medical device is <strong>substantially equivalent (SE)</strong> to a legally marketed device (known as a <strong>predicate device</strong>) that is not subject to Premarket Approval (<InfoLink text="PMA" />). Demonstrating substantial equivalence means the new device is as safe and effective as the predicate.
                 </p>
                 <p>
                   The 510(k) pathway is the most common route for Class II medical devices to enter the U.S. market. It requires a detailed comparison of the new device's intended use and technological characteristics with those of the predicate device.

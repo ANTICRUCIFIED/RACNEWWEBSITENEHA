@@ -18,20 +18,22 @@ export default function USFDAPMA() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/usfdapma/1920/1080"
-            alt="USFDA PMA Application"
+            src="/rich-image-assets/service-usfdapma.jpg"
+            alt="USFDA PMA Application" title="USFDA PMA Application"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             USFDA PMA Application
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,20 +53,20 @@ export default function USFDAPMA() {
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">The Gold Standard of USFDA Review: Premarket Approval (PMA)</h2>
                 <p>
-                  **Premarket Approval (PMA)** is the most stringent type of device marketing application required by the <InfoLink text="USFDA" />. It is the process of scientific and regulatory review to evaluate the safety and effectiveness of **Class III medical devices**. These are devices that support or sustain human life, are of substantial importance in preventing impairment of human health, or present a potential, unreasonable risk of illness or injury.
+                  <strong>Premarket Approval (PMA)</strong> is the most stringent type of device marketing application required by the <InfoLink text="USFDA" />. It is the process of scientific and regulatory review to evaluate the safety and effectiveness of <strong>Class III medical devices</strong>. These are devices that support or sustain human life, are of substantial importance in preventing impairment of human health, or present a potential, unreasonable risk of illness or injury.
                 </p>
                 <p>
-                  Unlike the 510(k) process, which relies on "substantial equivalence" to a predicate device, a PMA requires the manufacturer to provide **valid scientific evidence**—typically from well-controlled clinical trials—to demonstrate that the device is safe and effective for its intended use.
+                  Unlike the 510(k) process, which relies on "substantial equivalence" to a predicate device, a PMA requires the manufacturer to provide <strong>valid scientific evidence</strong>—typically from well-controlled clinical trials—to demonstrate that the device is safe and effective for its intended use.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
                   <div className="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">Modular vs. Traditional PMA</h4>
-                    <p className="text-sm leading-relaxed">The **Modular PMA** allows for the submission of individual sections (modules) as they are completed, facilitating earlier feedback from the FDA. The **Traditional PMA** is a single, complete submission.</p>
+                    <p className="text-sm leading-relaxed">The <strong>Modular PMA</strong> allows for the submission of individual sections (modules) as they are completed, facilitating earlier feedback from the FDA. The <strong>Traditional PMA</strong> is a single, complete submission.</p>
                   </div>
                   <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
                     <h4 className="text-xl font-bold text-brand-deep mb-4">Pre-Approval Inspection (PAI)</h4>
-                    <p className="text-sm leading-relaxed mb-4">The FDA will conduct a mandatory inspection of the manufacturing facility to ensure compliance with the **Quality System Regulation (21 CFR 820)** before a PMA can be approved.</p>
+                    <p className="text-sm leading-relaxed mb-4">The FDA will conduct a mandatory inspection of the manufacturing facility to ensure compliance with the <strong>Quality System Regulation (21 CFR 820)</strong> before a PMA can be approved.</p>
                   </div>
                 </div>
 

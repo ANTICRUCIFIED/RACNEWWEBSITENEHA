@@ -68,7 +68,7 @@ export default function Expertise() {
       <SEO 
         title="Medical Device Regulatory Experts - CDSCO, USFDA, EU MDR" 
         description="Deep technical expertise in global medical device regulations. Specialist consulting for CDSCO (India), USFDA (USA), EU MDR, and Anvisa Brazil market entry."
-        keywords="regulatory expertise, medical device consultants, USFDA regulatory affairs, CDSCO compliance experts, EU MDR specialists, Anvisa Brazil registration"
+        keywords="regulatory expertise, medical device consultants, USFDA regulatory affairs, CDSCO compliance experts, EU MDR specialists, Anvisa Brazil registration, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/expertise"
       />
 
@@ -76,20 +76,22 @@ export default function Expertise() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://racforge.com/wp-content/uploads/revslider/slider-3/slider-51.jpg"
-            alt="RAC Forge Expertise"
+            src="/rich-image-assets/expertise-banner.jpg"
+            alt="RAC Forge Private Limited Expertise" title="RAC Forge Private Limited Expertise"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-extrabold text-white mb-6"
+            
           >
+<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
             Our Expertise
-          </motion.h1>
+          </h1>
+</motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
