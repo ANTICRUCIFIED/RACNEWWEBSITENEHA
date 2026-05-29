@@ -32,31 +32,31 @@ const BLOG_POSTS = [
   {
     id: 'sterilization-validation',
     title: 'Sterilization Validation for Medical Devices',
-    image: 'https://i.postimg.cc/ZRDZf113/Sterilization-Validation-for-Medical-Devices.jpg',
+    image: '/image_rich_asset/blog-sterilization.jpg',
     date: '12 Oct'
   },
   {
     id: 'biocompatibility-testing',
     title: 'Biocompatibility Testing Strategies for Medical Devices',
-    image: 'https://i.postimg.cc/bwd5gZq9/biocompatibility-testing.png',
+    image: '/image_rich_asset/blog-biocompatibility.png',
     date: '11 Oct'
   },
   {
     id: 'mastering-eu-mdr',
     title: 'Mastering EU MDR Technical Documentation',
-    image: 'https://i.postimg.cc/VsD4hzGx/mastering-eu-mdr1.png',
+    image: '/image_rich_asset/blog-eu-mdr.png',
     date: '10 Oct'
   },
   {
     id: 'navigating-usfda-510k',
     title: 'Navigating USFDA’s 510(k) Submission Process',
-    image: 'https://i.postimg.cc/Hs0WmPMN/Navigating-USFDAs-510k-Submission-Process.png',
+    image: '/image_rich_asset/blog-usfda-510k.png',
     date: '10 Oct'
   },
   {
     id: 'understanding-cdsco-rules',
     title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    image: 'https://i.postimg.cc/NG9xfZQL/understanding-cdsco-rules.png',
+    image: '/image_rich_asset/blog-cdsco-rules.png',
     date: '10 Oct'
   }
 ];
@@ -75,7 +75,7 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://i.postimg.cc/yxYBn7fb/banner.png"
+            src="/image_rich_asset/home-banner.png"
             alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR"
             title="Global Medical Device Regulatory Consulting Services"
             className="w-full h-full object-cover"
@@ -335,7 +335,7 @@ export default function Home() {
               className="relative rounded-[3rem] overflow-hidden shadow-2xl"
             >
               <img 
-                src="https://i.postimg.cc/02kdGh9z/image1.png" 
+                src="/image_rich_asset/strategic-consulting.png" 
                 alt="Strategic Consulting" title="Strategic Consulting" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

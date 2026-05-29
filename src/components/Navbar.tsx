@@ -89,7 +89,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center group">
             <img 
-              src="https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg" 
+              src="/image_rich_asset/logo.jpg" 
               alt="RAC FORGE" title="RAC FORGE" 
               className="h-12 w-auto transition-all duration-500 mix-blend-multiply" 
             />

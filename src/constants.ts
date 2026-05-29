@@ -9,7 +9,7 @@ export const BLOGS: Blog[] = [
     title: 'Sterilization Validation for Medical Devices',
     date: '12 Oct 2025',
     excerpt: 'Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial...',
-    image: 'https://picsum.photos/seed/sterilization/800/600',
+    image: '/image_rich_asset/blog-sterilization.jpg',
     content: `
 # Sterilization Validation for Medical Devices
 
@@ -50,7 +50,7 @@ The validation process is a cornerstone of a quality system compliant with ISO 1
     title: 'Biocompatibility Testing Strategies for Medical Devices',
     date: '11 Oct 2025',
     excerpt: 'Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval...',
-    image: 'https://picsum.photos/seed/biocompatibility/800/600',
+    image: '/image_rich_asset/blog-biocompatibility.png',
     content: `
 # Biocompatibility Testing Strategies for Medical Devices
 
@@ -73,7 +73,7 @@ The ISO 10993 series offers a systematic approach for Biological Evaluation of m
     title: 'Mastering EU MDR Technical Documentation',
     date: '10 Oct 2025',
     excerpt: 'The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation...',
-    image: 'https://picsum.photos/seed/eumdr/800/600',
+    image: '/image_rich_asset/blog-eu-mdr.png',
     content: `
 # Mastering EU MDR Technical Documentation
 
@@ -94,7 +94,7 @@ EU MDR Technical Documentation must be organized according to Annex II and III, 
     title: 'Navigating USFDA’s 510(k) Submission Process',
     date: '10 Oct 2025',
     excerpt: 'The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance...',
-    image: 'https://picsum.photos/seed/usfda/800/600',
+    image: '/image_rich_asset/blog-usfda-510k.png',
     content: `
 # Navigating USFDA’s 510(k) Submission Process
 
@@ -109,7 +109,7 @@ A 510(k) is a submission to show that a device is substantially equivalent to a 
     title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
     date: '10 Oct 2025',
     excerpt: 'The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create...',
-    image: 'https://picsum.photos/seed/cdsco/800/600',
+    image: '/image_rich_asset/blog-cdsco-rules.png',
     content: `
 # Understanding CDSCO’s Medical Devices Rules, 2017
 
