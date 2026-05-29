@@ -18,7 +18,7 @@ export default function USFDAPMA() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="/rich-image-assets/service-usfdapma.jpg"
+            src="https://picsum.photos/seed/usfdapma/1920/1080"
             alt="USFDA PMA Application" title="USFDA PMA Application"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
