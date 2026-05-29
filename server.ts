@@ -1,3 +1,5 @@
+import sharp from 'sharp';
+import os from 'os';
 import express from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
@@ -12,6 +14,72 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
+  const imageOptimizationLocks = new Map();
+  
+  
+
+  app.get('/image_rich_assets/:filename', async (req, res, next) => {
+    try {
+      const filename = req.params.filename;
+      const ext = path.extname(filename).toLowerCase();
+      const isImage = ['.jpg', '.jpeg', '.png'].includes(ext);
+      if (!isImage) return next();
+
+      const acceptsWebp = req.get('accept')?.includes('image/webp');
+      if (!acceptsWebp) return next();
+
+      const isDev = process.env.NODE_ENV !== 'production';
+      const baseDir = isDev 
+        ? path.join(process.cwd(), 'public', 'image_rich_assets')
+        : path.join(process.cwd(), 'dist', 'image_rich_assets');
+        
+      const originalPath = path.join(baseDir, filename);
+      const webpFilename = filename.replace(new RegExp(`\$\{ext}$`, 'i'), '.webp');
+      const webpPath = path.join(os.tmpdir(), webpFilename);
+      
+      if (!fs.existsSync(originalPath)) return next();
+      const originalStats = fs.statSync(originalPath);
+      if (originalStats.size === 0) return next();
+
+      if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 0) {
+        res.setHeader('Content-Type', 'image/webp');
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        return res.sendFile(webpPath);
+      }
+
+      if (imageOptimizationLocks.has(filename)) {
+        await imageOptimizationLocks.get(filename);
+        if (fs.existsSync(webpPath) && fs.statSync(webpPath).size > 0) {
+          res.setHeader('Content-Type', 'image/webp');
+          res.setHeader('Cache-Control', 'public, max-age=31536000');
+          return res.sendFile(webpPath);
+        } else {
+          return next();
+        }
+      }
+
+      const optimizationPromise = (async () => {
+        const tmpPath = webpPath + '.tmp-' + Date.now();
+        await sharp(originalPath).webp({ quality: 80 }).toFile(tmpPath);
+        fs.renameSync(tmpPath, webpPath);
+      })();
+
+      imageOptimizationLocks.set(filename, optimizationPromise);
+      
+      try {
+        await optimizationPromise;
+      } finally {
+        imageOptimizationLocks.delete(filename);
+      }
+
+      res.setHeader('Content-Type', 'image/webp');
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
+      res.sendFile(webpPath);
+    } catch (err) {
+      console.error('Image optimization error:', err);
+      next();
+    }
+  });
 
   let aiClient: GoogleGenAI | null = null;
   const getGoogleGenAI = () => {
