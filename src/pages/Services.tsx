@@ -84,7 +84,7 @@ export default function Services() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="/rich-image-assets/service-banner.png"
+            src="https://picsum.photos/seed/racforge-services/1920/1080"
             alt="RAC Forge Private Limited Services" title="RAC Forge Private Limited Services"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"

@@ -76,7 +76,7 @@ export default function Expertise() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="/rich-image-assets/expertise-banner.jpg"
+            src="https://picsum.photos/seed/racforge-expertise/1920/1080"
             alt="RAC Forge Private Limited Expertise" title="RAC Forge Private Limited Expertise"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
