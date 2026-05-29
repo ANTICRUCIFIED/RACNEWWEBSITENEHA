@@ -32,31 +32,31 @@ const BLOG_POSTS = [
   {
     id: 'sterilization-validation',
     title: 'Sterilization Validation for Medical Devices',
-    image: '/image_rich_assets/blog-sterilization.jpg',
+    image: 'https://picsum.photos/seed/sterilization/800/600',
     date: '12 Oct'
   },
   {
     id: 'biocompatibility-testing',
     title: 'Biocompatibility Testing Strategies for Medical Devices',
-    image: '/image_rich_assets/blog-biocompatibility.png',
+    image: 'https://picsum.photos/seed/biocompatibility/800/600',
     date: '11 Oct'
   },
   {
     id: 'mastering-eu-mdr',
     title: 'Mastering EU MDR Technical Documentation',
-    image: '/image_rich_assets/blog-eu-mdr.png',
+    image: 'https://i.postimg.cc/VsD4hzGx/mastering-eu-mdr1.png',
     date: '10 Oct'
   },
   {
     id: 'navigating-usfda-510k',
     title: 'Navigating USFDA’s 510(k) Submission Process',
-    image: '/image_rich_assets/blog-usfda-510k.png',
+    image: 'https://i.postimg.cc/Hs0WmPMN/Navigating-USFDAs-510k-Submission-Process.png',
     date: '10 Oct'
   },
   {
     id: 'understanding-cdsco-rules',
     title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    image: '/image_rich_assets/blog-cdsco-rules.png',
+    image: 'https://i.postimg.cc/NG9xfZQL/understanding-cdsco-rules.png',
     date: '10 Oct'
   }
 ];
@@ -74,7 +74,7 @@ export default function Home() {
       {/* Banner Section */}
       <section className="relative min-h-screen flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="/image_rich_assets/home-banner.png"
+          <img src="https://i.postimg.cc/yxYBn7fb/banner.png"
             alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR | RAC Forge Consulting"
             title="Global Medical Device Regulatory Consulting Services"
             className="w-full h-full object-cover"
@@ -333,7 +333,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="relative rounded-[3rem] overflow-hidden shadow-2xl"
             >
-              <img src="/image_rich_assets/strategic-consulting.png" 
+              <img src="https://i.postimg.cc/02kdGh9z/image1.png" 
                 alt="Strategic Consulting | RAC Forge Consulting" title="Strategic Consulting" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

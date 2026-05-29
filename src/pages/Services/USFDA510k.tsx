@@ -18,7 +18,7 @@ export default function USFDA510k() {
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="/image_rich_assets/page-service-usfda510k.jpg"
+          <img src="https://picsum.photos/seed/usfda510k/1920/1080"
             alt="USFDA 510(k) Submission | RAC Forge Consulting" title="USFDA 510(k) Submission"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"

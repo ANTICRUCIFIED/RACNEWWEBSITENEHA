@@ -17,7 +17,7 @@ export default function CDSCOClinical() {
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="/image_rich_assets/page-service-clinical.jpg"
+          <img src="https://picsum.photos/seed/clinical/1920/1080"
             alt="CDSCO Clinical Investigation | RAC Forge Consulting" title="CDSCO Clinical Investigation"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"

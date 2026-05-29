@@ -17,7 +17,7 @@ export default function RDandSaMD() {
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="/image_rich_assets/page-service-samd.jpg"
+          <img src="https://picsum.photos/seed/samd/1920/1080"
             alt="Development of Electrical Medical Devices & SaMD | RAC Forge Consulting" title="Development of Electrical Medical Devices & SaMD"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
