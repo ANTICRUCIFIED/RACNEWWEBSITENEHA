@@ -17,12 +17,11 @@ export default function CDSCOImport() {
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img
-            src="/image_rich_asset/page-service-import.jpg"
-            alt="CDSCO Import License" title="CDSCO Import License"
+          <img src="/image_rich_assets/page-service-import.jpg"
+            alt="CDSCO Import License | RAC Forge Consulting" title="CDSCO Import License"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
-          />
+           loading="lazy" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div

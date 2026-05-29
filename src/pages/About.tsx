@@ -32,12 +32,11 @@ export default function About() {
       {/* Hero Banner */}
       <section className="relative min-h-[450px] flex items-center pt-24 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 overflow-hidden border-b border-slate-800/50">
         <div className="absolute inset-0 z-0 opacity-10">
-          <img
-            src="/image_rich_asset/about-bg.jpg"
-            alt="Medical Laboratory background" title="Medical Laboratory background"
+          <img src="/image_rich_assets/about-bg.jpg"
+            alt="Medical Laboratory background | RAC Forge Consulting" title="Medical Laboratory background"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
-          />
+           loading="lazy" />
         </div>
         
         {/* Abstract graphic accents */}
@@ -238,12 +237,11 @@ export default function About() {
                   transition={{ duration: 0.3 }}
                   className="rounded-2xl overflow-hidden aspect-square w-full max-w-[280px] md:max-w-xs shadow-lg relative border-4 border-slate-50 group bg-slate-100"
                 >
-                  <img
-                    src="/image_rich_asset/about-founder.jpg"
-                    alt="Atul Sharma Sankhyayan - Founder & CEO" title="Atul Sharma Sankhyayan - Founder & CEO"
+                  <img src="/image_rich_assets/about-founder.jpg"
+                    alt="Atul Sharma Sankhyayan - Founder & CEO | RAC Forge Consulting" title="Atul Sharma Sankhyayan - Founder & CEO"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     referrerPolicy="no-referrer"
-                  />
+                   loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent group-hover:opacity-60 transition-opacity" />
                   <div className="absolute bottom-4 left-4 right-4 text-center z-10 lg:hidden">
                     <p className="text-white font-bold text-lg">Atul Sharma Sankhyayan</p>

@@ -32,31 +32,31 @@ const BLOG_POSTS = [
   {
     id: 'sterilization-validation',
     title: 'Sterilization Validation for Medical Devices',
-    image: '/image_rich_asset/blog-sterilization.jpg',
+    image: '/image_rich_assets/blog-sterilization.jpg',
     date: '12 Oct'
   },
   {
     id: 'biocompatibility-testing',
     title: 'Biocompatibility Testing Strategies for Medical Devices',
-    image: '/image_rich_asset/blog-biocompatibility.png',
+    image: '/image_rich_assets/blog-biocompatibility.png',
     date: '11 Oct'
   },
   {
     id: 'mastering-eu-mdr',
     title: 'Mastering EU MDR Technical Documentation',
-    image: '/image_rich_asset/blog-eu-mdr.png',
+    image: '/image_rich_assets/blog-eu-mdr.png',
     date: '10 Oct'
   },
   {
     id: 'navigating-usfda-510k',
     title: 'Navigating USFDA’s 510(k) Submission Process',
-    image: '/image_rich_asset/blog-usfda-510k.png',
+    image: '/image_rich_assets/blog-usfda-510k.png',
     date: '10 Oct'
   },
   {
     id: 'understanding-cdsco-rules',
     title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    image: '/image_rich_asset/blog-cdsco-rules.png',
+    image: '/image_rich_assets/blog-cdsco-rules.png',
     date: '10 Oct'
   }
 ];
@@ -74,13 +74,12 @@ export default function Home() {
       {/* Banner Section */}
       <section className="relative min-h-screen flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img
-            src="/image_rich_asset/home-banner.png"
-            alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR"
+          <img src="/image_rich_assets/home-banner.png"
+            alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR | RAC Forge Consulting"
             title="Global Medical Device Regulatory Consulting Services"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
-          />
+           loading="lazy" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
@@ -334,12 +333,11 @@ export default function Home() {
               viewport={{ once: true }}
               className="relative rounded-[3rem] overflow-hidden shadow-2xl"
             >
-              <img 
-                src="/image_rich_asset/strategic-consulting.png" 
-                alt="Strategic Consulting" title="Strategic Consulting" 
+              <img src="/image_rich_assets/strategic-consulting.png" 
+                alt="Strategic Consulting | RAC Forge Consulting" title="Strategic Consulting" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
-              />
+               loading="lazy" />
               <div className="absolute inset-0 bg-brand-deep/20"></div>
             </motion.div>
             <motion.div

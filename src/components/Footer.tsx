@@ -20,9 +20,7 @@ export default function Footer() {
           {/* Column 1: Brand & About */}
           <div className="space-y-8">
             <Link to="/" className="flex items-center group">
-              <img 
-                src="/image_rich_asset/logo.jpg" 
-                alt="RAC FORGE" title="RAC FORGE" 
+              <img src="/image_rich_assets/logo.jpg" alt="RAC Forge Medical Device Regulatory Consulting Logo" title="RAC Forge Logo" aria-label="RAC Forge Logo" title="RAC FORGE" 
                 className="h-12 w-auto mix-blend-multiply" 
               />
             </Link>

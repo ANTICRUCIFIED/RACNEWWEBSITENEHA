@@ -88,9 +88,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center group">
-            <img 
-              src="/image_rich_asset/logo.jpg" 
-              alt="RAC FORGE" title="RAC FORGE" 
+            <img src="/image_rich_assets/logo.jpg" alt="RAC Forge Medical Device Regulatory Consulting Logo" title="RAC Forge Logo" aria-label="RAC Forge Logo" title="RAC FORGE" 
               className="h-12 w-auto transition-all duration-500 mix-blend-multiply" 
             />
           </Link>

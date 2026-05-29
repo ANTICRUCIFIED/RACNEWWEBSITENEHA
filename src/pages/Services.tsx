@@ -83,12 +83,11 @@ export default function Services() {
       {/* Services Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img
-            src="/image_rich_asset/service-banner.png"
-            alt="RAC Forge Private Limited Services" title="RAC Forge Private Limited Services"
+          <img src="https://racforge.com/wp-content/uploads/2025/10/service-banner.png"
+            alt="RAC Forge Private Limited Services | RAC Forge Consulting" title="RAC Forge Private Limited Services"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
-          />
+           loading="lazy" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <motion.div

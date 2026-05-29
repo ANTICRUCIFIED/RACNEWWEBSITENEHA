@@ -19,7 +19,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     "@type": type === 'article' ? "Article" : "Organization",
     "name": "RAC Forge Private Limited",
     "url": siteUrl,
-    "logo": "/image_rich_asset/logo.jpg",
+    "logo": "/image_rich_assets/logo.jpg",
     "description": description,
     "identifier": {
       "@type": "PropertyValue",
@@ -78,13 +78,13 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       <meta property="og:type" content={type} />
       <meta property="og:url" content={`${siteUrl}${canonical || ""}`} />
       <meta property="og:site_name" content="RAC Forge Private Limited" />
-      <meta property="og:image" content="/image_rich_asset/home-banner.png" />
+      <meta property="og:image" content="/image_rich_assets/home-banner.png" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="/image_rich_asset/home-banner.png" />
+      <meta name="twitter:image" content="/image_rich_assets/home-banner.png" />
       <meta name="twitter:site" content="@racforge" />
 
       {/* Structured Data */}
