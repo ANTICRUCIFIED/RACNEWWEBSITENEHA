@@ -4,8 +4,6 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import sharp from 'sharp';
-import os from 'os';
 
 dotenv.config();
 
@@ -14,67 +12,6 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
-
-  // Image optimization middleware
-  app.get('/image_rich_assets/:filename', async (req, res, next) => {
-    try {
-      const filename = req.params.filename;
-      const ext = path.extname(filename).toLowerCase();
-      
-      const isImage = ['.jpg', '.jpeg', '.png'].includes(ext);
-      
-      // Serve direct webp if requested file ends in webp
-      if (ext === '.webp') {
-        const isDev = process.env.NODE_ENV !== 'production';
-        const baseDir = isDev 
-          ? path.join(process.cwd(), 'public', 'image_rich_assets')
-          : path.join(process.cwd(), 'dist', 'image_rich_assets');
-        const webpPath = path.join(baseDir, filename);
-        const tmpWebpPath = path.join(os.tmpdir(), filename);
-        if (fs.existsSync(webpPath)) {
-          res.setHeader('Content-Type', 'image/webp');
-          return res.sendFile(webpPath);
-        } else if (fs.existsSync(tmpWebpPath)) {
-          res.setHeader('Content-Type', 'image/webp');
-          return res.sendFile(tmpWebpPath);
-        }
-      }
-      
-      if (isImage) {
-        const acceptsWebp = req.get('accept')?.includes('image/webp');
-        if (acceptsWebp) {
-          const isDev = process.env.NODE_ENV !== 'production';
-          const baseDir = isDev 
-            ? path.join(process.cwd(), 'public', 'image_rich_assets')
-            : path.join(process.cwd(), 'dist', 'image_rich_assets');
-            
-          const originalPath = path.join(baseDir, filename);
-          const webpFilename = filename.replace(new RegExp(`${ext}$`, 'i'), '.webp');
-          // Write to os.tmpdir() to avoid EROFS error on production Cloud Run
-          const webpPath = path.join(os.tmpdir(), webpFilename);
-          
-          if (fs.existsSync(originalPath)) {
-            // Check if file is 0 bytes (corrupt)
-            const stats = fs.statSync(originalPath);
-            if (stats.size === 0) {
-              return next(); // Fall through if original image is corrupted/0 byte
-            }
-            if (!fs.existsSync(webpPath)) {
-              await sharp(originalPath)
-                .webp({ quality: 80 })
-                .toFile(webpPath);
-            }
-            res.setHeader('Content-Type', 'image/webp');
-            return res.sendFile(webpPath);
-          }
-        }
-      }
-      next();
-    } catch (err) {
-      console.error('Image optimization error:', err);
-      next();
-    }
-  });
 
   let aiClient: GoogleGenAI | null = null;
   const getGoogleGenAI = () => {
