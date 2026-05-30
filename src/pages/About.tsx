@@ -71,7 +71,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-6 text-lg md:text-xl text-slate-350 max-w-2xl leading-relaxed text-slate-350"
+                className="mt-6 text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed"
               >
                 Over a decade of deep R&D precision combined with absolute mastery of global regulatory frameworks.
               </motion.p>

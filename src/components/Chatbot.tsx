@@ -1,121 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Bot, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
-
-function renderFormattedMessage(text: string, isUser: boolean) {
-  const lines = text.split('\n');
-  return lines.map((line, lineIdx) => {
-    let isBullet = false;
-    let cleanLine = line;
-    let listPrefix = '';
-
-    const trimmed = line.trim();
-    if (trimmed.startsWith('•')) {
-      isBullet = true;
-      cleanLine = trimmed.substring(1).trim();
-      listPrefix = '• ';
-    } else if (trimmed.startsWith('* ') && !trimmed.startsWith('**')) {
-      isBullet = true;
-      cleanLine = trimmed.substring(2);
-      listPrefix = '• ';
-    } else {
-      const match = trimmed.match(/^(\d+\.)\s(.*)/);
-      if (match) {
-        isBullet = true;
-        listPrefix = match[1] + ' ';
-        cleanLine = match[2];
-      }
-    }
-
-    // Parse links and bold spans in the clean line
-    const parts: React.ReactNode[] = [];
-    let currentText = cleanLine;
-    let keyCounter = 0;
-
-    // A simple link detection and bolding regex/loop
-    while (currentText.length > 0) {
-      const boldIndex = currentText.indexOf('<strong>');
-      const httpIndex = currentText.search(/https?:\/\/[^\s]+/);
-
-      // Rule: Find whichever occurs first: bold syntax or link syntax
-      if (boldIndex !== -1 && (httpIndex === -1 || boldIndex < httpIndex)) {
-        // Handle text before bold
-        if (boldIndex > 0) {
-          parts.push(<span key={`text-${lineIdx}-${keyCounter++}`}>{currentText.substring(0, boldIndex)}</span>);
-        }
-
-        const closingIndex = currentText.indexOf('</strong>', boldIndex + 2);
-        if (closingIndex !== -1) {
-          const boldText = currentText.substring(boldIndex + 2, closingIndex);
-          parts.push(
-            <strong 
-              key={`bold-${lineIdx}-${keyCounter++}`} 
-              className={cn("font-bold", isUser ? "text-white underline decoration-white/30" : "text-[#062438] font-extrabold")}
-            >
-              {boldText}
-            </strong>
-          );
-          currentText = currentText.substring(closingIndex + 2);
-        } else {
-          parts.push(<span key={`text-err-${lineIdx}-${keyCounter++}`}>{currentText.substring(boldIndex)}</span>);
-          currentText = '';
-        }
-      } else if (httpIndex !== -1) {
-        // Handle text before URL
-        if (httpIndex > 0) {
-          parts.push(<span key={`text-${lineIdx}-${keyCounter++}`}>{currentText.substring(0, httpIndex)}</span>);
-        }
-
-        const remaining = currentText.substring(httpIndex);
-        const urlMatch = remaining.match(/^(https?:\/\/[^\s,;)]+)/);
-        if (urlMatch) {
-          const url = urlMatch[1];
-          parts.push(
-            <a 
-              key={`link-${lineIdx}-${keyCounter++}`} 
-              href={url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className={cn(
-                "underline transition-colors breakdown-words", 
-                isUser ? "text-white hover:text-white/80" : "text-[#2c8498] hover:text-[#0a3651] font-medium"
-              )}
-            >
-              {url}
-            </a>
-          );
-          currentText = remaining.substring(url.length);
-        } else {
-          parts.push(<span key={`text-errurl-${lineIdx}-${keyCounter++}`}>{remaining}</span>);
-          currentText = '';
-        }
-      } else {
-        // No bold or link left
-        parts.push(<span key={`text-end-${lineIdx}-${keyCounter++}`}>{currentText}</span>);
-        currentText = '';
-      }
-    }
-
-    if (isBullet) {
-      return (
-        <div key={lineIdx} className="flex items-start space-x-2 my-1.5 pl-2 leading-relaxed">
-          <span className={cn("select-none shrink-0 font-bold", isUser ? "text-white" : "text-[#2c8498]")}>{listPrefix}</span>
-          <span className="flex-1 text-sm">{parts}</span>
-        </div>
-      );
-    } else {
-      if (trimmed === '') {
-        return <div key={lineIdx} className="h-2.5" />;
-      }
-      return (
-        <p key={lineIdx} className="my-1.5 leading-relaxed text-sm">
-          {parts}
-        </p>
-      );
-    }
-  });
-}
 
 function getClientFallbackResponse(query: string): string {
   const q = query.toLowerCase();
@@ -348,12 +235,23 @@ export default function Chatbot() {
               {messages.map((msg, i) => (
                 <div key={i} className={cn('flex', msg.role === 'user' ? 'justify-end' : 'justify-start')}>
                   <div className={cn(
-                    'max-w-[85%] sm:max-w-[80%] p-3 rounded-2xl shadow-sm',
+                    'max-w-[85%] sm:max-w-[80%] p-3 rounded-2xl shadow-sm text-sm overflow-hidden',
                     msg.role === 'user' 
                       ? 'bg-[#2c8498] text-white rounded-tr-none' 
                       : 'bg-white text-[#0a3651] border border-gray-100 rounded-tl-none'
                   )}>
-                    {renderFormattedMessage(msg.text, msg.role === 'user')}
+                    <ReactMarkdown
+                      components={{
+                        p: ({node, ...props}) => <p className="mb-2 leading-relaxed break-words" {...props} />,
+                        ul: ({node, ...props}) => <ul className="mb-2 pl-4 list-disc space-y-1" {...props} />,
+                        ol: ({node, ...props}) => <ol className="mb-2 pl-4 list-decimal space-y-1" {...props} />,
+                        li: ({node, ...props}) => <li className="leading-relaxed" {...props} />,
+                        a: ({node, ...props}) => <a className={cn("underline break-all", msg.role === 'user' ? "text-white" : "text-[#2c8498]")} target="_blank" rel="noopener noreferrer" {...props} />,
+                        strong: ({node, ...props}) => <strong className={cn("font-bold", msg.role === 'user' ? "text-white underline decoration-white/30" : "text-[#062438] font-extrabold")} {...props} />
+                      }}
+                    >
+                      {msg.text.replace(/<strong>/g, '**').replace(/<\/strong>/g, '**')}
+                    </ReactMarkdown>
                   </div>
                 </div>
               ))}
