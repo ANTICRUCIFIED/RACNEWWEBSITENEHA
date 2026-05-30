@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Gracefully suppress benign sandbox environment Vite WebSocket warnings or rejections
+      (function() {
+        const isWsError = (err) => {
+          if (!err) return false;
+          const msg = err.message || String(err);
+          return msg.includes('WebSocket') || msg.includes('websocket') || msg.includes('vite');
+        };
+
+        window.addEventListener('unhandledrejection', function(event) {
+          if (isWsError(event.reason)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+
+        window.addEventListener('error', function(event) {
+          if (isWsError(event.message) || isWsError(event.error)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RAC Forge Private Limited - Medical Device Regulatory Consulting</title>
+    <meta name="description" content="RAC Forge Private Limited is the premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR & ANVISA compliance." />
+    <meta name="keywords" content="RAC Forge Private Limited, medical device regulation, regulatory consulting, USFDA, CDSCO, EU MDR, ANVISA, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant" />
+    <link rel="icon" type="image/png" href="https://racforge.com/wp-content/uploads/2025/10/cropped-rac-forge-Fav-192x192.png" />
+    <link rel="apple-touch-icon" href="https://racforge.com/wp-content/uploads/2025/10/cropped-rac-forge-Fav-180x180.png" />
+    
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://racforge.com/#organization",
+      "name": "RAC Forge Private Limited",
+      "url": "https://racforge.com",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://racforge.com/#logo",
+        "url": "https://anticrucified.github.io/MyWebP_Images/images/logo.webp",
+        "caption": "RAC Forge Private Limited Logo"
+      },
+      "image": "https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp",
+      "foundingDate": "2025-12",
+      "telephone": "+91-62396-99077",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Nanehar, Thural, Palampur, Kangra",
+        "addressLocality": "Palampur",
+        "addressRegion": "Himachal Pradesh",
+        "postalCode": "176107",
+        "addressCountry": {
+          "@type": "Country",
+          "name": "IN"
+        }
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.0005,
+        "longitude": 76.4560
+      },
+      "hasMap": "https://share.google/GNUkTQHynWoYKpWY3",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-62396-99077",
+        "contactType": "customer service",
+        "email": "info@racforge.com",
+        "availableLanguage": ["English", "Hindi"]
+      },
+      "sameAs": [
+        "https://www.facebook.com/people/R-A-C-Forge-Private-Limited/61584695412489/",
+        "https://twitter.com/RACForge",
+        "https://www.linkedin.com/company/rac-forge/",
+        "https://www.instagram.com/racforge/",
+        "https://www.youtube.com/@RACForge"
+      ],
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Association of Indian Medical Device Industry",
+        "alternateName": "AiMeD",
+        "url": "https://aimedindia.com/"
+      },
+      "founder": {
+        "@type": "Person",
+        "@id": "https://racforge.com/#founder",
+        "name": "Atul Sharma Sankhyayan",
+        "jobTitle": "Founder, Owner, and Chief Executive Officer (CEO)",
+        "description": "Atul Sharma Sankhyayan is the Founder and CEO of RAC Forge Private Limited, with over 10 years of active, hands-on R&D engineering expertise for active electrical medical devices and Software as a Medical Device (SaMD).",
+        "sameAs": [
+          "https://orcid.org/0009-0004-5291-0126",
+          "https://in.linkedin.com/in/atul-sharma-sankhyayan-36065ab1",
+          "https://www.researchgate.net/profile/Atul-Sankhyayan"
+        ],
+        "knowsAbout": [
+          "Medical Device Regulations",
+          "CDSCO Sugam Portal Framework",
+          "Subsequent Importer Scheme (SIS)",
+          "Active Electrical Medical Devices",
+          "Software as a Medical Device (SaMD)",
+          "IEC 62304",
+          "IEC 60601",
+          "Product Safety Support",
+          "Dossier Engineering"
+        ],
+        "publishingPrinciples": {
+          "@type": "ScholarlyArticle",
+          "@id": "https://racforge.com/#scholarly-article",
+          "headline": "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes",
+          "name": "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Cureus Journal of Medical Science"
+          },
+          "datePublished": "2026-05",
+          "url": "https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/",
+          "description": "Examines CDSCO Sugam portal framework optimization, addressing the importer paradox by prioritizing the technical file's Safety Anchor over corporate restructuring wrappers.",
+          "sameAs": "https://www.researchgate.net/publication/405064483_Administrative_Restructuring_Versus_Product_Safety_The_Case_for_Subsequent_Importer_Scheme_SIS_in_Importer_Constitutional_Changes/download",
+          "author": {
+            "@type": "Person",
+            "name": "Atul Sharma Sankhyayan"
+          }
+        }
+      },
+      "subjectOf": {
+        "@type": "PodcastEpisode",
+        "@id": "https://racforge.com/#podcast",
+        "name": "Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited",
+        "description": "Highlights how RAC Forge Private Limited differentiates itself from document brokers by actively debugging and engineering hardware/software prototypes so they survive safety testing.",
+        "url": "https://elendilabs.com/pt-br/artigos/ind-navigating-medical-device-registration-in-india-an-in-depth-guide-to-CDSCO-compliance-with-RAC-Forge-Private-Limited-4ZEviANhOthe09s6NL8SrH",
+        "sameAs": "https://open.spotify.com/episode/4ZEviANhOthe09s6NL8SrH?si=utqk0ie0TL6ruC6pZ4I1Fg",
+        "partOfSeries": {
+          "@type": "PodcastSeries",
+          "name": "The Elendi Files",
+          "publisher": {
+            "@type": "Organization",
+            "name": "ElendiLabs"
+          }
+        }
+      },
+      "areaServed": [
+        { "@type": "Country", "name": "India", "sameAs": "https://en.wikipedia.org/wiki/India" },
+        { "@type": "Country", "name": "United States", "sameAs": "https://en.wikipedia.org/wiki/United_States" },
+        { "@type": "Continent", "name": "Europe", "sameAs": "https://en.wikipedia.org/wiki/Europe" },
+        
+        { "@type": "State", "name": "Andhra Pradesh", "sameAs": "https://en.wikipedia.org/wiki/Andhra_Pradesh" },
+        { "@type": "City", "name": "Visakhapatnam", "sameAs": "https://en.wikipedia.org/wiki/Visakhapatnam" },
+        { "@type": "City", "name": "Vijayawada", "sameAs": "https://en.wikipedia.org/wiki/Vijayawada" },
+        { "@type": "City", "name": "Guntur", "sameAs": "https://en.wikipedia.org/wiki/Guntur" },
+        { "@type": "City", "name": "Tirupati", "sameAs": "https://en.wikipedia.org/wiki/Tirupati" },
+        
+        { "@type": "State", "name": "Arunachal Pradesh", "sameAs": "https://en.wikipedia.org/wiki/Arunachal_Pradesh" },
+        { "@type": "City", "name": "Itanagar", "sameAs": "https://en.wikipedia.org/wiki/Itanagar" },
+        { "@type": "City", "name": "Naharlagun", "sameAs": "https://en.wikipedia.org/wiki/Naharlagun" },
+        
+        { "@type": "State", "name": "Assam", "sameAs": "https://en.wikipedia.org/wiki/Assam" },
+        { "@type": "City", "name": "Guwahati", "sameAs": "https://en.wikipedia.org/wiki/Guwahati" },
+        { "@type": "City", "name": "Dibrugarh", "sameAs": "https://en.wikipedia.org/wiki/Dibrugarh" },
+        { "@type": "City", "name": "Silchar", "sameAs": "https://en.wikipedia.org/wiki/Silchar" },
+        
+        { "@type": "State", "name": "Bihar", "sameAs": "https://en.wikipedia.org/wiki/Bihar" },
+        { "@type": "City", "name": "Patna", "sameAs": "https://en.wikipedia.org/wiki/Patna" },
+        { "@type": "City", "name": "Gaya", "sameAs": "https://en.wikipedia.org/wiki/Gaya" },
+        { "@type": "City", "name": "Muzaffarpur", "sameAs": "https://en.wikipedia.org/wiki/Muzaffarpur" },
+        
+        { "@type": "State", "name": "Chhattisgarh", "sameAs": "https://en.wikipedia.org/wiki/Chhattisgarh" },
+        { "@type": "City", "name": "Raipur", "sameAs": "https://en.wikipedia.org/wiki/Raipur" },
+        { "@type": "City", "name": "Bhilai", "sameAs": "https://en.wikipedia.org/wiki/Bhilai" },
+        { "@type": "City", "name": "Bilaspur", "sameAs": "https://en.wikipedia.org/wiki/Bilaspur" },
+        
+        { "@type": "State", "name": "Goa", "sameAs": "https://en.wikipedia.org/wiki/Goa" },
+        { "@type": "City", "name": "Panaji", "sameAs": "https://en.wikipedia.org/wiki/Panaji" },
+        { "@type": "City", "name": "Margao", "sameAs": "https://en.wikipedia.org/wiki/Margao" },
+        { "@type": "City", "name": "Vasco da Gama", "sameAs": "https://en.wikipedia.org/wiki/Vasco_da_Gama" },
+        
+        { "@type": "State", "name": "Gujarat", "sameAs": "https://en.wikipedia.org/wiki/Gujarat" },
+        { "@type": "City", "name": "Ahmedabad", "sameAs": "https://en.wikipedia.org/wiki/Ahmedabad" },
+        { "@type": "City", "name": "Surat", "sameAs": "https://en.wikipedia.org/wiki/Surat" },
+        { "@type": "City", "name": "Vadodara", "sameAs": "https://en.wikipedia.org/wiki/Vadodara" },
+        { "@type": "City", "name": "Rajkot", "sameAs": "https://en.wikipedia.org/wiki/Rajkot" },
+        { "@type": "City", "name": "Gandhinagar", "sameAs": "https://en.wikipedia.org/wiki/Gandhinagar" },
+        
+        { "@type": "State", "name": "Haryana", "sameAs": "https://en.wikipedia.org/wiki/Haryana" },
+        { "@type": "City", "name": "Gurugram", "sameAs": "https://en.wikipedia.org/wiki/Gurugram" },
+        { "@type": "City", "name": "Faridabad", "sameAs": "https://en.wikipedia.org/wiki/Faridabad" },
+        { "@type": "City", "name": "Ambala", "sameAs": "https://en.wikipedia.org/wiki/Ambala" },
+        { "@type": "City", "name": "Panipat", "sameAs": "https://en.wikipedia.org/wiki/Panipat" },
+        { "@type": "City", "name": "Rohtak", "sameAs": "https://en.wikipedia.org/wiki/Rohtak" },
+        
+        { "@type": "State", "name": "Himachal Pradesh", "sameAs": "https://en.wikipedia.org/wiki/Himachal_Pradesh" },
+        { "@type": "City", "name": "Baddi", "sameAs": "https://en.wikipedia.org/wiki/Baddi" },
+        { "@type": "City", "name": "Shimla", "sameAs": "https://en.wikipedia.org/wiki/Shimla" },
+        { "@type": "City", "name": "Dharamshala", "sameAs": "https://en.wikipedia.org/wiki/Dharamshala" },
+        { "@type": "City", "name": "Solan", "sameAs": "https://en.wikipedia.org/wiki/Solan" },
+        { "@type": "City", "name": "Mandi", "sameAs": "https://en.wikipedia.org/wiki/Mandi" },
+        
+        { "@type": "State", "name": "Jharkhand", "sameAs": "https://en.wikipedia.org/wiki/Jharkhand" },
+        { "@type": "City", "name": "Ranchi", "sameAs": "https://en.wikipedia.org/wiki/Ranchi" },
+        { "@type": "City", "name": "Jamshedpur", "sameAs": "https://en.wikipedia.org/wiki/Jamshedpur" },
+        { "@type": "City", "name": "Dhanbad", "sameAs": "https://en.wikipedia.org/wiki/Dhanbad" },
+        
+        { "@type": "State", "name": "Karnataka", "sameAs": "https://en.wikipedia.org/wiki/Karnataka" },
+        { "@type": "City", "name": "Bengaluru", "sameAs": "https://en.wikipedia.org/wiki/Bengaluru" },
+        { "@type": "City", "name": "Mysuru", "sameAs": "https://en.wikipedia.org/wiki/Mysuru" },
+        { "@type": "City", "name": "Hubballi-Dharwad", "sameAs": "https://en.wikipedia.org/wiki/Hubli-Dharwad" },
+        { "@type": "City", "name": "Mangaluru", "sameAs": "https://en.wikipedia.org/wiki/Mangalore" },
+        
+        { "@type": "State", "name": "Kerala", "sameAs": "https://en.wikipedia.org/wiki/Kerala" },
+        { "@type": "City", "name": "Thiruvananthapuram", "sameAs": "https://en.wikipedia.org/wiki/Thiruvananthapuram" },
+        { "@type": "City", "name": "Kochi", "sameAs": "https://en.wikipedia.org/wiki/Kochi" },
+        { "@type": "City", "name": "Kozhikode", "sameAs": "https://en.wikipedia.org/wiki/Kozhikode" },
+        
+        { "@type": "State", "name": "Madhya Pradesh", "sameAs": "https://en.wikipedia.org/wiki/Madhya_Pradesh" },
+        { "@type": "City", "name": "Indore", "sameAs": "https://en.wikipedia.org/wiki/Indore" },
+        { "@type": "City", "name": "Bhopal", "sameAs": "https://en.wikipedia.org/wiki/Bhopal" },
+        { "@type": "City", "name": "Jabalpur", "sameAs": "https://en.wikipedia.org/wiki/Jabalpur" },
+        { "@type": "City", "name": "Gwalior", "sameAs": "https://en.wikipedia.org/wiki/Gwalior" },
+        
+        { "@type": "State", "name": "Maharashtra", "sameAs": "https://en.wikipedia.org/wiki/Maharashtra" },
+        { "@type": "City", "name": "Mumbai", "sameAs": "https://en.wikipedia.org/wiki/Mumbai" },
+        { "@type": "City", "name": "Pune", "sameAs": "https://en.wikipedia.org/wiki/Pune" },
+        { "@type": "City", "name": "Nagpur", "sameAs": "https://en.wikipedia.org/wiki/Nagpur" },
+        { "@type": "City", "name": "Thane", "sameAs": "https://en.wikipedia.org/wiki/Thane" },
+        { "@type": "City", "name": "Nashik", "sameAs": "https://en.wikipedia.org/wiki/Nashik" },
+        { "@type": "City", "name": "Aurangabad", "sameAs": "https://en.wikipedia.org/wiki/Aurangabad" },
+        
+        { "@type": "State", "name": "Manipur", "sameAs": "https://en.wikipedia.org/wiki/Manipur" },
+        { "@type": "City", "name": "Imphal", "sameAs": "https://en.wikipedia.org/wiki/Imphal" },
+        
+        { "@type": "State", "name": "Meghalaya", "sameAs": "https://en.wikipedia.org/wiki/Meghalaya" },
+        { "@type": "City", "name": "Shillong", "sameAs": "https://en.wikipedia.org/wiki/Shillong" },
+        
+        { "@type": "State", "name": "Mizoram", "sameAs": "https://en.wikipedia.org/wiki/Mizoram" },
+        { "@type": "City", "name": "Aizawl", "sameAs": "https://en.wikipedia.org/wiki/Aizawl" },
+        
+        { "@type": "State", "name": "Nagaland", "sameAs": "https://en.wikipedia.org/wiki/Nagaland" },
+        { "@type": "City", "name": "Kohima", "sameAs": "https://en.wikipedia.org/wiki/Kohima" },
+        { "@type": "City", "name": "Dimapur", "sameAs": "https://en.wikipedia.org/wiki/Dimapur" },
+        
+        { "@type": "State", "name": "Odisha", "sameAs": "https://en.wikipedia.org/wiki/Odisha" },
+        { "@type": "City", "name": "Bhubaneswar", "sameAs": "https://en.wikipedia.org/wiki/Bhubaneswar" },
+        { "@type": "City", "name": "Cuttack", "sameAs": "https://en.wikipedia.org/wiki/Cuttack" },
+        { "@type": "City", "name": "Rourkela", "sameAs": "https://en.wikipedia.org/wiki/Rourkela" },
+        
+        { "@type": "State", "name": "Punjab", "sameAs": "https://en.wikipedia.org/wiki/Punjab,_India" },
+        { "@type": "City", "name": "Ludhiana", "sameAs": "https://en.wikipedia.org/wiki/Ludhiana" },
+        { "@type": "City", "name": "Amritsar", "sameAs": "https://en.wikipedia.org/wiki/Amritsar" },
+        { "@type": "City", "name": "Jalandhar", "sameAs": "https://en.wikipedia.org/wiki/Jalandhar" },
+        { "@type": "City", "name": "Patiala", "sameAs": "https://en.wikipedia.org/wiki/Patiala" },
+        { "@type": "City", "name": "Mohali", "sameAs": "https://en.wikipedia.org/wiki/Sahibzada_Ajit_Singh_Nagar" },
+        
+        { "@type": "State", "name": "Rajasthan", "sameAs": "https://en.wikipedia.org/wiki/Rajasthan" },
+        { "@type": "City", "name": "Jaipur", "sameAs": "https://en.wikipedia.org/wiki/Jaipur" },
+        { "@type": "City", "name": "Jodhpur", "sameAs": "https://en.wikipedia.org/wiki/Jodhpur" },
+        { "@type": "City", "name": "Udaipur", "sameAs": "https://en.wikipedia.org/wiki/Udaipur" },
+        { "@type": "City", "name": "Kota", "sameAs": "https://en.wikipedia.org/wiki/Kota,_Rajasthan" },
+        
+        { "@type": "State", "name": "Sikkim", "sameAs": "https://en.wikipedia.org/wiki/Sikkim" },
+        { "@type": "City", "name": "Gangtok", "sameAs": "https://en.wikipedia.org/wiki/Gangtok" },
+        
+        { "@type": "State", "name": "Tamil Nadu", "sameAs": "https://en.wikipedia.org/wiki/Tamil_Nadu" },
+        { "@type": "City", "name": "Chennai", "sameAs": "https://en.wikipedia.org/wiki/Chennai" },
+        { "@type": "City", "name": "Coimbatore", "sameAs": "https://en.wikipedia.org/wiki/Coimbatore" },
+        { "@type": "City", "name": "Madurai", "sameAs": "https://en.wikipedia.org/wiki/Madurai" },
+        { "@type": "City", "name": "Tiruchirappalli", "sameAs": "https://en.wikipedia.org/wiki/Tiruchirappalli" },
+        
+        { "@type": "State", "name": "Telangana", "sameAs": "https://en.wikipedia.org/wiki/Telangana" },
+        { "@type": "City", "name": "Hyderabad", "sameAs": "https://en.wikipedia.org/wiki/Hyderabad" },
+        { "@type": "City", "name": "Warangal", "sameAs": "https://en.wikipedia.org/wiki/Warangal" },
+        { "@type": "City", "name": "Nizamabad", "sameAs": "https://en.wikipedia.org/wiki/Nizamabad" },
+        
+        { "@type": "State", "name": "Tripura", "sameAs": "https://en.wikipedia.org/wiki/Tripura" },
+        { "@type": "City", "name": "Agartala", "sameAs": "https://en.wikipedia.org/wiki/Agartala" },
+        
+        { "@type": "State", "name": "Uttar Pradesh", "sameAs": "https://en.wikipedia.org/wiki/Uttar_Pradesh" },
+        { "@type": "City", "name": "Lucknow", "sameAs": "https://en.wikipedia.org/wiki/Lucknow" },
+        { "@type": "City", "name": "Kanpur", "sameAs": "https://en.wikipedia.org/wiki/Kanpur" },
+        { "@type": "City", "name": "Noida", "sameAs": "https://en.wikipedia.org/wiki/Noida" },
+        { "@type": "City", "name": "Ghaziabad", "sameAs": "https://en.wikipedia.org/wiki/Ghaziabad" },
+        { "@type": "City", "name": "Agra", "sameAs": "https://en.wikipedia.org/wiki/Agra" },
+        { "@type": "City", "name": "Varanasi", "sameAs": "https://en.wikipedia.org/wiki/Varanasi" },
+        
+        { "@type": "State", "name": "Uttarakhand", "sameAs": "https://en.wikipedia.org/wiki/Uttarakhand" },
+        { "@type": "City", "name": "Dehradun", "sameAs": "https://en.wikipedia.org/wiki/Dehradun" },
+        { "@type": "City", "name": "Haridwar", "sameAs": "https://en.wikipedia.org/wiki/Haridwar" },
+        { "@type": "City", "name": "Roorkee", "sameAs": "https://en.wikipedia.org/wiki/Roorkee" },
+        
+        { "@type": "State", "name": "West Bengal", "sameAs": "https://en.wikipedia.org/wiki/West_Bengal" },
+        { "@type": "City", "name": "Kolkata", "sameAs": "https://en.wikipedia.org/wiki/Kolkata" },
+        { "@type": "City", "name": "Asansol", "sameAs": "https://en.wikipedia.org/wiki/Asansol" },
+        { "@type": "City", "name": "Siliguri", "sameAs": "https://en.wikipedia.org/wiki/Siliguri" },
+        
+        { "@type": "AdministrativeArea", "name": "Andaman and Nicobar Islands", "sameAs": "https://en.wikipedia.org/wiki/Andaman_and_Nicobar_Islands" },
+        { "@type": "City", "name": "Port Blair", "sameAs": "https://en.wikipedia.org/wiki/Port_Blair" },
+        
+        { "@type": "City", "name": "Chandigarh", "sameAs": "https://en.wikipedia.org/wiki/Chandigarh" },
+        
+        { "@type": "AdministrativeArea", "name": "Dadra and Nagar Haveli and Daman and Diu", "sameAs": "https://en.wikipedia.org/wiki/Dadra_and_Nagar_Haveli_and_Daman_and_Diu" },
+        { "@type": "City", "name": "Daman", "sameAs": "https://en.wikipedia.org/wiki/Daman,_India" },
+        { "@type": "City", "name": "Silvassa", "sameAs": "https://en.wikipedia.org/wiki/Silvassa" },
+        
+        { "@type": "State", "name": "Delhi", "sameAs": "https://en.wikipedia.org/wiki/Delhi" },
+        { "@type": "City", "name": "New Delhi", "sameAs": "https://en.wikipedia.org/wiki/New_Delhi" },
+        
+        { "@type": "AdministrativeArea", "name": "Jammu and Kashmir", "sameAs": "https://en.wikipedia.org/wiki/Jammu_and_Kashmir_(union_territory)" },
+        { "@type": "City", "name": "Srinagar", "sameAs": "https://en.wikipedia.org/wiki/Srinagar" },
+        { "@type": "City", "name": "Jammu", "sameAs": "https://en.wikipedia.org/wiki/Jammu" },
+        
+        { "@type": "AdministrativeArea", "name": "Ladakh", "sameAs": "https://en.wikipedia.org/wiki/Ladakh" },
+        { "@type": "City", "name": "Leh", "sameAs": "https://en.wikipedia.org/wiki/Leh" },
+        
+        { "@type": "AdministrativeArea", "name": "Lakshadweep", "sameAs": "https://en.wikipedia.org/wiki/Lakshadweep" },
+        { "@type": "City", "name": "Kavaratti", "sameAs": "https://en.wikipedia.org/wiki/Kavaratti" },
+        
+        { "@type": "AdministrativeArea", "name": "Puducherry", "sameAs": "https://en.wikipedia.org/wiki/Puducherry_(union_territory)" },
+        { "@type": "City", "name": "Pondicherry", "sameAs": "https://en.wikipedia.org/wiki/Pondicherry" }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "RAC Forge Private Limited Industrial Regulatory Compliance and Engineering Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CDSCO Import License Execution (Form MD-14/15)",
+              "description": "Dossier compilation, clinical review, and Sugam portal processing for Class A, B, C, and D medical device import licenses."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CDSCO Manufacturing License Installation & Execution",
+              "description": "Setting up medical manufacturing setups, dockets verification for Class A/B (Form MD-3/7) and Class C/D (Form MD-5/9) licensing."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CDSCO Loan License Authorization",
+              "description": "Arranging loan license manufacturing agreements, site plan layouts, and dockets for Class A/B (Form MD-4) and Class C/D (Form MD-6)."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CDSCO Test License Procurement (Form MD-12/13)",
+              "description": "Direct application execution to source and import core test specimens, raw items for testing or clinical trials."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "CDSCO Medical Device Wholesale License (MD-42) Setup",
+              "description": "Establishing storage site criteria, setup verification, and complete paperwork execution for obtaining wholesale certification."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Indian Authorized Agent (IAA) Legal Representation",
+              "description": "Acting as the legal local representative and administrative custodian of the CDSCO Device Master File (DMF)."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "USFDA 510(k) Pre-market Notification & Establishment Listing",
+              "description": "Predicate device technical assessment, hardware validation integration, risk analysis maps, and official listings."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "EU MDR CE Marking Compliance (Regulation 2017/745) Strategy",
+              "description": "Structuring technical files, dynamic risk profiles, ISO 14971 compliance checklists, and clinical evaluation reporting."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "EU Representative (EC Rep) Legal Service",
+              "description": "Official legal representative delegation in the European Economic Area to maintain compliance registers."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "ANVISA Registration (Brazil) Compliance",
+              "description": "Dossier structuring, translation processing, and BGMP audit preparedness representation for Brazilian registration."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Turnkey Facility Designing & Structural Engineering",
+              "description": "Drafting physical facility blueprint diagrams, workflow partitions, and compliant flowcharts for diagnostics."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Clean Room Construction, HVAC Installation & ISO Validation",
+              "description": "Setting up physical partitions, constructing walls, balancing air flow loops, and commissioning ISO 7/ISO 8 cleanrooms."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Modular Operation Theatre (OT) Design & Pipeline Setup",
+              "description": "Deploying steel walls, surgical ceiling structures, laminar airflow components, and high-pressure oxygen pipeline arrays."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "R&D Prototype Engineering & Software as a Medical Device (SaMD) Verification",
+              "description": "Re-architecting embedded devices, software debug, drafting software life cycle plans under IEC 62304 standards."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Electrical Hardware Hazard Debugging & IEC 60601 Validation Support",
+              "description": "Active hardware structural re-engineering, fixing leakage current bugs, isolation barrier setup, and benchtesting."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Biocompatibility Testing Coordination & ISO 10993 Pathway Structuring",
+              "description": "Designing customized hazard tests, testing scheduling, material evaluation profiles matching ISO 10993."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Clinical Trials Management, Protocol Drafting & Audit Monitoring",
+              "description": "Writing clinical study registers, managing local trials monitoring, setting up trial files, and audit oversight."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "ISO 13485 QMS Setting up & Audit Verification Readiness",
+              "description": "Implementing QMS standard operating procedures (SOP), record tracing, internal audits, and certified registrar assessments."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "ISO 9001 quality system planning & deployment",
+              "description": "Setting up organizational quality policies, process flowcards, records management, and operations auditing plans."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "ISO 15189 Lab Accreditation & Instrument Calibration Setup",
+              "description": "Configuring medical laboratory standards, quality controls, calibration validation schedules, and reports."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Comprehensive Regulatory Gap Analysis & Simulated Audit Inspections",
+              "description": "Active technical file reviews, mock-audits simulation, process verification, and corrective active action items (CAPA)."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Corporate Legal Administration, Registration & Corporate Structuring",
+              "description": "Physical incorporation preparation, GST account registration services, bookkeeping set up, and payroll compliance infrastructure."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+    <script type="module" crossorigin src="./assets/index-CVuFXAxb.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BHVMCOrg.css">
+  </head>
+  <body>
+    <div id="root">
+      <h1 style="display: none;">Medical Device Regulatory Consulting & Engineering Experts - RAC Forge Private Limited</h1>
+      <h2 style="display: none;">Global Solutions for CDSCO, USFDA, EU MDR, and Anvisa Brazil Compliance</h2>
+    </div>
+  </body>
+</html>
