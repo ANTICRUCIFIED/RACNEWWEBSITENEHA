@@ -6,6 +6,7 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import { upload, processDocument, retrieveRelevantContext, documentStore } from './rag';
 
 dotenv.config();
 
@@ -44,6 +45,8 @@ async function startServer() {
       const { messages, userMessage } = req.body;
       
       const ai = getGoogleGenAI();
+      const context = await retrieveRelevantContext(userMessage, ai);
+      const augmentedMessage = context ? `Context information:\n\n${context}\n\nUser Message: ${userMessage}` : userMessage;
       
       // Filter out any leading model messages to guarantee the history starts with a user turn
       let startIndex = 0;
@@ -56,11 +59,12 @@ async function startServer() {
         parts: [{ text: m.text }]
       }));
 
-      contents.push({ role: 'user', parts: [{ text: userMessage }] });
+      contents.push({ role: 'user', parts: [{ text: augmentedMessage }] });
 
       const modelConfig = {
         config: {
-          systemInstruction: 'You are a highly expert Medical Device Regulatory Consultant for RAC Forge Pvt. Ltd. Your goal is to provide accurate, professional, and helpful advice regarding CDSCO (India), USFDA (USA), and EU MDR (Europe) regulations. Be concise but thorough. Always maintain a professional tone.',
+          tools: [{ googleSearch: {} }],
+          systemInstruction: 'You are VELO (Verification, Evaluation, & Licensing Operator), an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with Indian MDR 2017, USFDA, EU MDR, or other regulatory guidelines. Key facts on Indian MDR 2017 for Import Form MD-14, the official government fees are: Class A is $1000 USD per manufacturing site and $50 USD per distinct medical device; Class B is $2000 USD per manufacturing site and $1000 USD per distinct medical device; Class C Device is $3000 USD per site and $1500 USD per device; Class D Device is $3000 USD per site and $1500 USD per device. Ensure absolute factual accuracy of fees, timelines, and forms. Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.',
         },
         contents: contents,
       };
@@ -141,6 +145,20 @@ async function startServer() {
     } catch (error: any) {
       console.error('Image API Error:', error);
       res.status(500).json({ error: 'Failed to generate image', details: error.message || String(error) });
+    }
+  });
+
+  app.post('/api/upload', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+    }
+      const ai = getGoogleGenAI();
+      const chunksAdded = await processDocument(req.file, ai);
+      res.json({ success: true, chunksAdded });
+    } catch (error: any) {
+      console.error('Upload Error:', error);
+      res.status(500).json({ error: 'Failed to process document', details: error.message || String(error) });
     }
   });
 

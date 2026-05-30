@@ -1,10 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, Send, X, Bot, Loader2 } from 'lucide-react';
+import { MessageSquare, Send, X, Bot, Loader2, Paperclip } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 
 function getClientFallbackResponse(query: string): string {
+  const result = _getClientFallbackResponse(query);
+  return result + '\n\n**Disclaimer**: For confirmation and official guidance, please contact our team.';
+}
+function _getClientFallbackResponse(query: string): string {
   const q = query.toLowerCase();
 
   // 1. CDSCO path
@@ -102,7 +106,7 @@ Please let us know if you would like to schedule a technical audit or engineerin
   }
 
   // General default fallback
-  return `Welcome to the RAC Forge Private Limited Regulatory Intelligence Assistant. 
+  return `Welcome to VELO (Verification, Evaluation, & Licensing Operator), the RAC Forge Private Limited Regulatory Intelligence Assistant. 
 
 Even though we are currently operating in offline-compatibility mode on AWS Amplify, I have full knowledge of our core turnkey services. How can I assist you today? 
 
@@ -121,7 +125,7 @@ Just type your specific query (e.g., "Tell me about Atul's paper" or "What is MD
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([
-    { role: 'model', text: 'Hello! I am your RAC Forge Private Limited Regulatory Assistant. How can I help you with CDSCO, USFDA, or EU MDR compliance today?' }
+    { role: 'model', text: 'Hello! I am VELO (Verification, Evaluation, & Licensing Operator), your RAC Forge Private Limited Regulatory Assistant. How can I help you with CDSCO, USFDA, or EU MDR compliance today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -133,6 +137,35 @@ export default function Chatbot() {
     }
   }, [messages]);
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    setIsLoading(true);
+    setMessages(prev => [...prev, { role: 'user', text: `Uploading file: ${file.name}` }]);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) {
+        setMessages(prev => [...prev, { role: 'model', text: `System Notice: Document "${file.name}" processed successfully (${data.chunksAdded} chunks extracted). You can now ask questions about it!`}]);
+      } else {
+        setMessages(prev => [...prev, { role: 'model', text: `System Notice: Failed to process document: ${data.error || data.details}`}]);
+      }
+    } catch(error: any) {
+      setMessages(prev => [...prev, { role: 'model', text: `System Notice: Failed to upload document: ${error.message}`}]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -171,7 +204,36 @@ export default function Chatbot() {
       if (userFriendlyError.includes('Failed to fetch')) {
         userFriendlyError = 'Network error: backend unreachable. Please ensure the API exists and API Key is set in Settings.';
       }
-      setMessages(prev => [...prev, { role: 'model', text: 'System Notice: ' + userFriendlyError }]);
+
+      // Check if this error is due to a rate limit, quota exhaustion, billing, or resource issue
+      const lowercaseErr = userFriendlyError.toLowerCase();
+      const isQuotaError = lowercaseErr.includes('429') || 
+                           lowercaseErr.includes('quota') || 
+                           lowercaseErr.includes('exhausted') || 
+                           lowercaseErr.includes('billing') || 
+                           lowercaseErr.includes('rate-limit') || 
+                           lowercaseErr.includes('resource_exhausted');
+
+      let fallbackText = '';
+      if (isQuotaError) {
+        fallbackText = `⚠️ **Gemini API Notice**: Your selected API key has exceeded its quota limit, requires billing configuration, or is currently restricted (\`RESOURCE_EXHAUSTED\`). Please check your credit balance or selected key in AI Studio's settings.
+
+In the meantime, **VELO's Offline Regulatory Intelligence Engine** has automatically taken over to handle your request:
+
+---
+
+${getClientFallbackResponse(userMessage)}`;
+      } else {
+        fallbackText = `⚠️ **Assistant Notice**: ${userFriendlyError}
+
+To ensure continuity of your regulatory assessment, **VELO's Offline Regulatory Intelligence Engine** has automatically generated the following response for you:
+
+---
+
+${getClientFallbackResponse(userMessage)}`;
+      }
+
+      setMessages(prev => [...prev, { role: 'model', text: fallbackText }]);
     } finally {
       setIsLoading(false);
     }
@@ -192,7 +254,7 @@ export default function Chatbot() {
               <div className="flex items-center space-x-2 text-white">
                 <Bot size={24} className="text-[#2c8498]" />
                 <div>
-                  <h3 className="font-bold text-sm">Regulatory Assistant</h3>
+                  <h3 className="font-bold text-sm">VELO - Regulatory Assistant</h3>
                   <p className="text-[10px] text-white/70">Powered by Gemini AI</p>
                 </div>
               </div>
@@ -238,6 +300,16 @@ export default function Chatbot() {
             {/* Input */}
             <div className="p-4 border-t border-gray-100 bg-white">
               <div className="flex items-center space-x-2">
+    <label className="cursor-pointer bg-[#0a3651] text-white p-2 rounded-full hover:bg-[\#2c8498] transition-colors disabled:opacity-50">
+      <Paperclip size= {18} />
+      <input 
+        type="file" 
+        accept=".doc,.docx,.pdf,.txt"
+        onChange={handleFileUpload}
+        className="hidden"
+        disabled={isLoading}
+      />
+    </label>
                 <input
                   type="text"
                   value={input}
