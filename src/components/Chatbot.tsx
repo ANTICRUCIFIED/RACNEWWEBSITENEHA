@@ -142,65 +142,36 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      let response;
-      try {
-        response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: messages,
-            userMessage: userMessage
-          })
-        });
-      } catch (err) {
-        // Network/CORS/Offline or Endpoint doesn't exist (e.g. AWS Amplify)
-        console.warn('Network error or API endpoint not found. Flipped to client-side expert fallback.', err);
-        const fallbackText = getClientFallbackResponse(userMessage);
-        setMessages(prev => [...prev, { role: 'model', text: fallbackText }]);
-        setIsLoading(false);
-        return;
-      }
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages, userMessage })
+      });
 
       const contentType = response.headers.get('content-type') || '';
       
-      // If we got static index.html or not success
-      if (contentType.includes('text/html') || !response.ok) {
-        if (contentType.includes('text/html')) {
-          console.warn('Endpoint returned HTML layout (static router fallback). Using client-side expert fallback.');
-          const fallbackText = getClientFallbackResponse(userMessage);
-          setMessages(prev => [...prev, { role: 'model', text: fallbackText }]);
-          setIsLoading(false);
-          return;
-        }
+      if (contentType.includes('text/html')) {
+        throw new Error('API endpoint returned HTML. Server might not be running or you are using static preview.');
+      }
 
+      if (!response.ok) {
         let errorMsg = 'Failed to connect to assistant';
         try {
           const errData = await response.json();
-          if (errData && errData.details) {
-            errorMsg = errData.details;
-          } else if (errData && errData.error) {
-            errorMsg = errData.error;
-          }
+          errorMsg = errData.details || errData.error || errorMsg;
         } catch (_) {}
         throw new Error(errorMsg);
       }
 
-      let data;
-      try {
-        data = await response.json();
-      } catch (parseError) {
-        console.warn('Failed to parse response JSON. Using client-side expert fallback.', parseError);
-        const fallbackText = getClientFallbackResponse(userMessage);
-        setMessages(prev => [...prev, { role: 'model', text: fallbackText }]);
-        setIsLoading(false);
-        return;
-      }
-
+      const data = await response.json();
       setMessages(prev => [...prev, { role: 'model', text: data.text }]);
     } catch (error: any) {
       console.error('Chat Error:', error);
-      const userFriendlyError = error?.message || 'Sorry, I am having trouble connecting right now. Please try again later.';
-      setMessages(prev => [...prev, { role: 'model', text: userFriendlyError }]);
+      let userFriendlyError = error?.message || 'Sorry, I am having trouble connecting right now.';
+      if (userFriendlyError.includes('Failed to fetch')) {
+        userFriendlyError = 'Network error: backend unreachable. Please ensure the API exists and API Key is set in Settings.';
+      }
+      setMessages(prev => [...prev, { role: 'model', text: 'System Notice: ' + userFriendlyError }]);
     } finally {
       setIsLoading(false);
     }
