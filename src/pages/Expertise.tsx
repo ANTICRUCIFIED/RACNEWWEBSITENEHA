@@ -9,7 +9,7 @@ export default function Expertise() {
     {
       title: "CDSCO India Regulations",
       icon: <Flag className="w-12 h-12 text-orange-600" />,
-      image: "https://i.postimg.cc/RCWzCC3c/service1.png",
+      image: "https://anticrucified.github.io/MyWebP_Images/images/service-usfda.webp",
       items: [
         "In-depth understanding of the Indian MDR (Medical Devices Rules, 2017).",
         "Comprehensive knowledge across all 12 chapters and 8 schedules.",
@@ -20,7 +20,7 @@ export default function Expertise() {
     {
       title: "USFDA Requirements",
       icon: <Shield className="w-12 h-12 text-blue-600" />,
-      image: "https://i.postimg.cc/vH5kD4GW/service2.png",
+      image: "https://anticrucified.github.io/MyWebP_Images/images/service-eumdr.webp",
       items: [
         "Risk-based classification expertise (Class I, II, III).",
         "Specialization in 510(k), PMA, and FDA De Novo pathways.",
@@ -31,7 +31,7 @@ export default function Expertise() {
     {
       title: "EU MDR Compliance",
       icon: <Globe className="w-12 h-12 text-emerald-600" />,
-      image: "https://i.postimg.cc/SNZ86rQC/service3.png",
+      image: "https://anticrucified.github.io/MyWebP_Images/images/service-cdsco.webp",
       items: [
         "Complete CE Marking process under the EU MDR 2017/745.",
         "Technical Documentation requirements (Annex II & III), covering GSPR.",
@@ -42,7 +42,7 @@ export default function Expertise() {
     {
       title: "Anvisa Brazil Approval",
       icon: <CircleDollarSign className="w-12 h-12 text-yellow-600" />,
-      image: "https://i.postimg.cc/sXtHgrqV/Avisa.png",
+      image: "https://anticrucified.github.io/MyWebP_Images/images/service-anvisa.webp",
       items: [
         "Expedited approval pathways for the Brazilian market.",
         "Coordination with local alliances for seamless registration.",
@@ -53,7 +53,7 @@ export default function Expertise() {
     {
       title: "SaMD & R&D Strategy",
       icon: <Code2 className="w-12 h-12 text-purple-600" />,
-      image: "https://i.postimg.cc/52hXgKZZ/service4.png",
+      image: "https://anticrucified.github.io/MyWebP_Images/images/service-samd.webp",
       items: [
         "IEC 62304 Software Lifecycle and IEC 62366-1 Usability Engineering.",
         "Cybersecurity and AI/ML compliance for medical software.",
@@ -75,7 +75,7 @@ export default function Expertise() {
       {/* Expertise Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://racforge.com/wp-content/uploads/revslider/slider-3/slider-51.jpg"
+          <img src="https://anticrucified.github.io/MyWebP_Images/images/expertise-banner.jpg"
             alt="RAC Forge Private Limited Expertise | RAC Forge Consulting" title="RAC Forge Private Limited Expertise"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"

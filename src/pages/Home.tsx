@@ -32,31 +32,31 @@ const BLOG_POSTS = [
   {
     id: 'sterilization-validation',
     title: 'Sterilization Validation for Medical Devices',
-    image: 'https://picsum.photos/seed/sterilization/800/600',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp',
     date: '12 Oct'
   },
   {
     id: 'biocompatibility-testing',
     title: 'Biocompatibility Testing Strategies for Medical Devices',
-    image: 'https://picsum.photos/seed/biocompatibility/800/600',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
     date: '11 Oct'
   },
   {
     id: 'mastering-eu-mdr',
     title: 'Mastering EU MDR Technical Documentation',
-    image: 'https://i.postimg.cc/VsD4hzGx/mastering-eu-mdr1.png',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-eu-mdr.webp',
     date: '10 Oct'
   },
   {
     id: 'navigating-usfda-510k',
     title: 'Navigating USFDA’s 510(k) Submission Process',
-    image: 'https://i.postimg.cc/Hs0WmPMN/Navigating-USFDAs-510k-Submission-Process.png',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp',
     date: '10 Oct'
   },
   {
     id: 'understanding-cdsco-rules',
     title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    image: 'https://i.postimg.cc/NG9xfZQL/understanding-cdsco-rules.png',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
     date: '10 Oct'
   }
 ];
@@ -74,7 +74,7 @@ export default function Home() {
       {/* Banner Section */}
       <section className="relative min-h-screen flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://i.postimg.cc/yxYBn7fb/banner.png"
+          <img src="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp"
             alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR | RAC Forge Consulting"
             title="Global Medical Device Regulatory Consulting Services"
             className="w-full h-full object-cover"
@@ -333,7 +333,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="relative rounded-[3rem] overflow-hidden shadow-2xl"
             >
-              <img src="https://i.postimg.cc/02kdGh9z/image1.png" 
+              <img src="https://anticrucified.github.io/MyWebP_Images/images/strategic-consulting.webp" 
                 alt="Strategic Consulting | RAC Forge Consulting" title="Strategic Consulting" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

@@ -17,7 +17,7 @@ export default function USFDAPMA() {
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://picsum.photos/seed/usfdapma/1920/1080"
+          <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-usfdapma.webp"
             alt="USFDA PMA Application | RAC Forge Consulting" title="USFDA PMA Application"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"

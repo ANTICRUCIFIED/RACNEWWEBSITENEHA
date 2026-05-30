@@ -32,7 +32,7 @@ export default function About() {
       {/* Hero Banner */}
       <section className="relative min-h-[450px] flex items-center pt-24 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 overflow-hidden border-b border-slate-800/50">
         <div className="absolute inset-0 z-0 opacity-10">
-          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600"
+          <img src="https://anticrucified.github.io/MyWebP_Images/images/about-bg.webp"
             alt="Medical Laboratory background | RAC Forge Consulting" title="Medical Laboratory background"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -237,7 +237,7 @@ export default function About() {
                   transition={{ duration: 0.3 }}
                   className="rounded-2xl overflow-hidden aspect-square w-full max-w-[280px] md:max-w-xs shadow-lg relative border-4 border-slate-50 group bg-slate-100"
                 >
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=600"
+                  <img src="https://anticrucified.github.io/MyWebP_Images/images/about-founder.webp"
                     alt="Atul Sharma Sankhyayan - Founder & CEO | RAC Forge Consulting" title="Atul Sharma Sankhyayan - Founder & CEO"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     referrerPolicy="no-referrer"

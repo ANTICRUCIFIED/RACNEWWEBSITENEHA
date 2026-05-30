@@ -19,7 +19,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     "@type": type === 'article' ? "Article" : "Organization",
     "name": "RAC Forge Private Limited",
     "url": siteUrl,
-    "logo": "https://i.ibb.co/WNtHVDps/Whats-App-Image-2025-08-31-at-21-09-34-54925d9d.jpg",
+    "logo": "https://anticrucified.github.io/MyWebP_Images/images/logo.webp",
     "description": description,
     "identifier": {
       "@type": "PropertyValue",
@@ -78,13 +78,13 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       <meta property="og:type" content={type} />
       <meta property="og:url" content={`${siteUrl}${canonical || ""}`} />
       <meta property="og:site_name" content="RAC Forge Private Limited" />
-      <meta property="og:image" content="https://i.postimg.cc/yxYBn7fb/banner.png" />
+      <meta property="og:image" content="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://i.postimg.cc/yxYBn7fb/banner.png" />
+      <meta name="twitter:image" content="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp" />
       <meta name="twitter:site" content="@racforge" />
 
       {/* Structured Data */}
