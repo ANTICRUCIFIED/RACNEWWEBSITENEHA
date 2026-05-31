@@ -3,6 +3,8 @@ import { Image as ImageIcon, Wand2, Download, Loader2, AlertCircle } from 'lucid
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
+
 export default function ImageGenerator() {
   const [prompt, setPrompt] = useState('');
   const [size, setSize] = useState<'1K' | '2K' | '4K'>('1K');
@@ -18,7 +20,7 @@ export default function ImageGenerator() {
     setImageUrl(null);
 
     try {
-      const response = await fetch('/api/generate-image', {
+      const response = await fetch(`${API_BASE_URL}/api/generate-image`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

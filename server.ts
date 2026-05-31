@@ -6,7 +6,7 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import { upload, processDocument, retrieveRelevantContext, documentStore } from './rag';
+import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments } from './rag';
 
 dotenv.config();
 
@@ -38,7 +38,7 @@ async function startServer() {
   // Helper for generating high-quality local fallback responses when the Gemini API is rate-limited or quota is exceeded
   const getLocalFallbackResponse = (query: string): string => {
     const q = query.toLowerCase();
-    const intro = `⚠️ **VELO Regulatory Assistant (Local Resiliency Mode)**\n\n*The Gemini API is currently experiencing a temporary rate limit or quota restriction. To ensure zero-interruption service, VELO's compiled offline knowledge base has automatically activated to handle your inquiry.* \n\n---\n\n`;
+    const intro = '';
 
     // CDSCO
     if (q.includes('cdsco') || q.includes('sugam') || q.includes('licens') || q.includes('md-14') || q.includes('md-15') || q.includes('md-3') || q.includes('md-7') || q.includes('md-5') || q.includes('md-9') || q.includes('wholesale') || q.includes('md-42') || q.includes('import') || q.includes('manufact') || q.includes('loan') || q.includes('iaa') || q.includes('authorized agent') || q.includes('fee')) {
@@ -193,9 +193,9 @@ Please connect with us to schedule an engineering audit, cleanroom blueprint con
     }
 
     // General Fallback
-    return intro + `### VELO Regulatory Intelligence Engine (Offline Mode)
+    return intro + `### VELO Regulatory Intelligence Assistant
 
-I am **VELO** (Verification, Evaluation, & Licensing Operator), representing RAC Forge Pvt. Ltd. I have perfect access to our compiled offline databases. 
+I am **VELO** (Verification, Evaluation, & Licensing Operator), representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
 
 How can we assist you with medical product regulation or facility engineering today?
 
@@ -225,6 +225,10 @@ Please write what specific area you would like detailed guidance on!
       let context = '';
       try {
         const ai = getGoogleGenAI();
+        if (documentStore.length === 0) {
+          console.log('Document store is empty, initializing preloading for static files...');
+          await preloadStaticDocuments(ai);
+        }
         context = await retrieveRelevantContext(userMessage, ai);
       } catch (contextError) {
         console.warn('Could not retrieve context due to rate limit or key issue:', contextError);
@@ -247,8 +251,7 @@ Please write what specific area you would like detailed guidance on!
 
       const modelConfig = {
         config: {
-          tools: [{ googleSearch: {} }],
-          systemInstruction: 'You are VELO (Verification, Evaluation, & Licensing Operator), an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with Indian MDR 2017, USFDA, EU MDR, or other regulatory guidelines. Key facts on Indian MDR 2017 for Import Form MD-14, the official government fees are: Class A is $1000 USD per manufacturing site and $50 USD per distinct medical device; Class B is $2000 USD per manufacturing site and $1000 USD per distinct medical device; Class C Device is $3000 USD per site and $1500 USD per device; Class D Device is $3000 USD per site and $1500 USD per device. Ensure absolute factual accuracy of fees, timelines, and forms. Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.',
+          systemInstruction: 'You are VELO (Verification, Evaluation, & Licensing Operator), an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with the provided document context (like the Indian MDR 2017, ISO 13485, or other papers). Key facts on Indian MDR 2017 for Import Form MD-14: the official government fees are: Class A is $1000 USD per manufacturing site and $50 USD per distinct medical device; Class B is $2000 USD per manufacturing site and $1000 USD per distinct medical device; Class C Device is $3000 USD per site and $1500 USD per device; Class D Device is $3000 USD per site and $1500 USD per device. Ensure absolute factual accuracy of fees, timelines, and forms based on the document. Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.',
         },
         contents: contents,
       };
@@ -400,6 +403,16 @@ Please write what specific area you would like detailed guidance on!
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://localhost:${PORT}`);
+    try {
+      const ai = getGoogleGenAI();
+      preloadStaticDocuments(ai).then((chunks) => {
+        console.log(`Successfully preloaded static documents on startup. Total chunks: ${chunks}`);
+      }).catch((err) => {
+        console.warn('Could not preload static files on startup:', err);
+      });
+    } catch (e: any) {
+      console.warn('Preloading deferred until first user request (API Key not available on startup):', e.message || e);
+    }
   });
 }
 
