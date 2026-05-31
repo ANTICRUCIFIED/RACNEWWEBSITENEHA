@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'https://racnewwebsiteneha.vercel.app';
 
 function getClientFallbackResponse(query: string): string {
   const result = _getClientFallbackResponse(query);
