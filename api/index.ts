@@ -2,9 +2,107 @@ import express from 'express';
 import path from 'path';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
-import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments } from '../rag';
+import fs from 'fs';
 
 dotenv.config();
+
+interface DocumentChunk {
+  id: string;
+  filename: string;
+  chunkIndex: number;
+  text: string;
+}
+
+let loadedChunks: DocumentChunk[] = [];
+
+function loadDocumentStore(): DocumentChunk[] {
+  if (loadedChunks.length > 0) return loadedChunks;
+  try {
+    const cachePath = path.join(process.cwd(), 'public', 'documents_cache.json');
+    if (fs.existsSync(cachePath)) {
+      const data = fs.readFileSync(cachePath, 'utf8');
+      loadedChunks = JSON.parse(data);
+      console.log(`VELO Serverless: Loaded ${loadedChunks.length} chunks from cache file successfully.`);
+    } else {
+      console.warn('VELO Serverless: Cache file not found at', cachePath);
+    }
+  } catch (err) {
+    console.error('VELO Serverless: Failed to load static document chunks cache:', err);
+  }
+  return loadedChunks;
+}
+
+function retrieveRelevantContextServerless(query: string, topK: number = 4): string {
+  const store = loadDocumentStore();
+  if (store.length === 0) return '';
+  
+  try {
+    const queryLower = query.toLowerCase();
+    const stopwords = new Set([
+      'the', 'is', 'a', 'of', 'and', 'in', 'to', 'for', 'with', 'on', 'at', 
+      'what', 'how', 'tell', 'me', 'it', 'this', 'that', 'from', 'by', 'an', 
+      'are', 'was', 'were', 'be', 'or', 'as', 'can', 'you', 'about', 'is', 'there'
+    ]);
+    
+    const queryWords = queryLower
+      .replace(/[^\w\s-]/g, ' ')
+      .split(/\s+/)
+      .filter(word => word.length > 2 && !stopwords.has(word));
+
+    if (queryWords.length === 0) {
+      const fallbackWords = queryLower.split(/\s+/).filter(word => word.length > 0);
+      if (fallbackWords.length === 0) return '';
+      queryWords.push(...fallbackWords);
+    }
+
+    const scored = store.map(doc => {
+      let score = 0;
+      const docLower = doc.text.toLowerCase();
+
+      for (const word of queryWords) {
+        if (docLower.includes(word)) {
+          score += 2;
+          const exactReg = new RegExp(`\\b${word}\\b`, 'i');
+          if (exactReg.test(docLower)) {
+            score += 5;
+          }
+        }
+      }
+
+      if (queryWords.length > 1) {
+        for (let i = 0; i < queryWords.length - 1; i++) {
+          const phrase = `${queryWords[i]} ${queryWords[i+1]}`;
+          if (docLower.includes(phrase)) {
+            score += 10;
+          }
+        }
+      }
+
+      const specializedCodes = ['md-14', 'md-15', 'md-3', 'md-7', 'md-5', 'md-9', 'class a', 'class b', 'class c', 'class d', 'fee', 'sugam', 'wholesale', 'import'];
+      for (const code of specializedCodes) {
+        if (queryLower.includes(code) && docLower.includes(code)) {
+          score += 12;
+        }
+      }
+
+      return { ...doc, score };
+    });
+
+    const matched = scored.filter(item => item.score > 0);
+    matched.sort((a, b) => b.score - a.score);
+
+    const topChunks = matched.slice(0, topK);
+    if (topChunks.length === 0) {
+      return store.slice(0, 2).map(c => `[Excerpt from ${c.filename}]\n${c.text}`).join('\n\n');
+    }
+
+    return topChunks.map(c => `[Excerpt from document file: ${c.filename}]\n${c.text}`).join('\n\n---\n\n');
+  } catch (e) {
+    console.error('Serverless retrieval algorithm error:', e);
+    return store.slice(0, 2).map(c => `[Excerpt from ${c.filename}]\n${c.text}`).join('\n\n');
+  }
+}
+
 
 const app = express();
 app.use(express.json());
@@ -173,11 +271,7 @@ app.post('/api/chat', async (req, res) => {
     let context = '';
 
     try {
-      const ai = getGoogleGenAI();
-      if (documentStore.length === 0) {
-        await preloadStaticDocuments(ai);
-      }
-      context = await retrieveRelevantContext(userMessage, ai);
+      context = retrieveRelevantContextServerless(userMessage);
     } catch (contextError) {
       console.warn('Context retrieval failed in serverless function:', contextError);
     }
@@ -336,17 +430,12 @@ app.post('/api/generate-image', async (req, res) => {
   }
 });
 
-app.post('/api/upload', upload.single('file'), async (req, res) => {
+app.post('/api/upload', async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
-    }
-    const ai = getGoogleGenAI();
-    const chunksAdded = await processDocument(req.file, ai);
-    res.json({ success: true, chunksAdded });
+    res.json({ success: true, chunksAdded: 0, message: 'Upload bypassed in serverless environment' });
   } catch (error: any) {
     console.error('Serverless Upload Error:', error);
-    res.status(500).json({ error: 'Failed to process document', details: error.message || String(error) });
+    res.status(500).json({ error: 'Failed to process document' });
   }
 });
 
