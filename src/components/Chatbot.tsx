@@ -136,9 +136,9 @@ Just type your specific query (e.g., "Tell me about Atul's paper" or "What is MD
 // 2. Split your API Key (e.g. "AIzaSyDxxx-yyy-zzz") into three separate pieces.
 // 3. Paste Part 1 into GEMINI_KEY_PART_1, Part 2 into GEMINI_KEY_PART_2, and Part 3 into GEMINI_KEY_PART_3.
 // ============================================================================
-const GEMINI_KEY_PART_1: string = ""; // <-- PASTE PART 1 HERE (e.g. "AIzaSyB...")
-const GEMINI_KEY_PART_2: string = ""; // <-- PASTE PART 2 HERE
-const GEMINI_KEY_PART_3: string = ""; // <-- PASTE PART 3 HERE
+const GEMINI_KEY_PART_1: string = "AIzaSyAj3xKdVj"; // <-- PASTE PART 1 HERE (e.g. "AIzaSyB...")
+const GEMINI_KEY_PART_2: string = "DjNBXtKmw2"; // <-- PASTE PART 2 HERE
+const GEMINI_KEY_PART_3: string = "YbZg6-Kb33KlTcs"; // <-- PASTE PART 3 HERE
 
 function getPreSavedApiKey(): string {
   if (GEMINI_KEY_PART_1 && GEMINI_KEY_PART_2 && GEMINI_KEY_PART_3) {
