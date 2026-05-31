@@ -256,8 +256,7 @@ Please write what specific area you would like detailed guidance on!
       const modelsToTry = [
         'gemini-3.5-flash',
         'gemini-3.1-flash-lite',
-        'gemini-3-flash',
-        'gemini-2.5-flash',
+        'gemini-3.1-pro-preview',
         'gemini-flash-latest'
       ];
 
