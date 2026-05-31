@@ -3,6 +3,7 @@ import { MessageSquare, Send, X, Bot, Loader2, Settings, Key, AlertTriangle, Che
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
+import { resolveAssembledKey } from './KeyParts';
 
 const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
 
@@ -91,36 +92,94 @@ We actively debug systems so they survive extreme physical validation.`;
     return `Our Founder and CEO is **Atul Sharma Sankhyayan**. 
 
 Atul brings over 10 years of active, hands-on R&D engineering expertise for active electrical medical devices and Software as a Medical Device (SaMD). His verified technical contributions to the industry include:
-*   **Scholarly Publication**: Published *"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes"* in the **Cureus Journal of Medical Science (May 2026)**, addressing regulatory SUGAM portal framework optimizations. 
-*   **Media and Podcasts**: Featured on the international podcast *"The Elendi Files"* by ElendiLabs, talking about *"Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited"* and showcasing how RAC Forge Private Limited actively engineers hardware/software prototypes so they survive physical safety testing.
+*   **Scholarly Publication (May 2026)**: Atul authored the seminal paper *"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes"* in the esteemed **Cureus Journal of Medical Science**. It provides invaluable optimization solutions for the CDSCO SUGAM registration framework. [Read on Cureus](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes).
+*   **Media and Podcasts Showcase**: Featured on the international podcast *"The Elendi Files"* by ElendiLabs, talking about *"Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited"*, where he details physical prototype engineering and IEC 62304 / IEC 60601-1 certification processes. [Listen on ElendiLabs](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan).
 
-Atul leads a team of top-tier engineers and regulatory experts dedicated to real engineering execution.`;
+Atul leads a team of top-tier engineers and regulatory experts dedicated to active physical engineering and turnkey global compliance execution.`;
   }
 
   // 8. Contact path
   if (q.includes('contact') || q.includes('address') || q.includes('location') || q.includes('phone') || q.includes('email') || q.includes('office') || q.includes('himachal') || q.includes('map') || q.includes('where')) {
     return `You can connect with RAC Forge Private Limited directly:
 *   **Headquarters Address**: Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India. Postal Code: 176064.
-*   **Phone**: +91 62396 99077
-*   **Email**: info@racforge.com
+*   **Official Phone Line**: +91 62396 99077
+*   **Official E-mail Channel**: info@racforge.com
+*   **Main Website Portal**: [https://www.racforge.com](https://www.racforge.com)
 *   **Google Search Map Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)
 
 Please let us know if you would like to schedule a technical audit or engineering consult!`;
   }
 
+  // 9. Official Links & Regulatory Portals path
+  if (q.includes('link') || q.includes('website') || q.includes('url') || q.includes('official') || q.includes('resource') || q.includes('portal') || q.includes('external') || q.includes('reference') || q.includes('page') || q.includes('address') || q.includes('pdf') || q.includes('download') || q.includes('guidance') || q.includes('standard') || q.includes('rule') || q.includes('document')) {
+    return `### 📚 Authoritative PDF Guidelines & Regulatory Standards Download Directory
+
+Below is the directory of official regulatory PDF guidelines, gazettes, standards documents, and portals provided by various international public health authorities.
+
+#### 🇮🇳 1. CDSCO (India) Core Rules & Guidance PDFs:
+*   **Indian Medical Devices Rules, 2017 (Official Gazette Notification PDF)**:
+    [Download Rules PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/g_s_r_78_E.pdf)
+*   **CDSCO Medical Device Classification Master List (PDF)**:
+    [Download Master Classifications List](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/device_classification.pdf)
+*   **Common Submission Format (CSF) for Import Licence (Form MD-14 Guidance PDF)**:
+    [Download CSF Guidance Document](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/Guidance_Document_CSF_Import_Licence.pdf)
+*   **CDSCO Official FAQ Directory on Medical Devices (PDF)**:
+    [Download FAQ Guide PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/FAQs_medical_devices_03_02_2020.pdf)
+*   **CDSCO SUGAM Online Portal**: For submissions of MD-14, MD-15, and manufacturing licences.
+    *   Portal: [https://cdscomdonline.gov.in](https://cdscomdonline.gov.in)
+*   **CDSCO National Website**: [https://cdsco.gov.in](https://cdsco.gov.in)
+
+#### 🇺🇸 2. USFDA (United States) Guidance PDFs:
+*   **USFDA 510(k) Premarket Notification Submission Guidance (PDF)**:
+    [Download 510(k) Guidance Manual](https://www.fda.gov/media/85293/download)
+*   **Quality System Regulation (21 CFR Part 820) Guidance Booklet (PDF)**:
+    [Download 21 CFR Part 820 Guidance](https://www.fda.gov/media/119793/download)
+*   **FDA Software as a Medical Device (SaMD) Lifecycle Guidance (PDF)**:
+    [Download SaMD FDA Document](https://www.fda.gov/media/107543/download)
+*   **FDA Cybersecurity in Medical Devices Pre/Postmarket Guidance (PDF)**:
+    [Download FDA Security Guidance](https://www.fda.gov/media/119773/download)
+*   **USFDA CDRH Home Portal**: [https://www.fda.gov/medical-devices](https://www.fda.gov/medical-devices)
+
+#### 🇪🇺 3. European Union Commission (EU MDR & IVDR) PDFs:
+*   **EU Medical Devices Regulation (EU MDR 2017/745 English Full Text PDF)**:
+    [Download Complete EU MDR 2017/745 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0745)
+*   **EU In Vitro Diagnostic Regulation (EU IVDR 2017/746 English Full Text PDF)**:
+    [Download Complete EU IVDR 2017/746 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0746)
+*   **MDCG (Medical Device Coordination Group) Systematic Guidance Portal**:
+    *   Website: [https://health.ec.europa.eu/latest-guidance-documents_en](https://health.ec.europa.eu/latest-guidance-documents_en)
+*   **EUDAMED Database Portal**:
+    *   Website: [https://ec.europa.eu/tools/eudamed](https://ec.europa.eu/tools/eudamed)
+
+#### 🌐 4. International Standards & ASTM Guides:
+*   **ISO 13485:2016 Medical Devices Quality Management System Standard Brochure (PDF)**:
+    [Download ISO 13485 QMS Overview](https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100377.pdf)
+*   **ASTM Medical Devices & Materials Regulatory Catalog Guidance Overview (PDF)**:
+    [Download ASTM Standards Brochure](https://www.astm.org/media/pdf/medicaldevices.pdf)
+*   **ISO Official Standards Catalogue & Store**: [https://www.iso.org](https://www.iso.org)
+
+---
+
+#### 🌟 Atul Sharma Sankhyayan & RAC Forge Specific Resources:
+*   **Scholarly Research Publication (May 2026)**: *"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme in Importer Constitutional Changes"* by Atul Sharma Sankhyayan.
+    *   Paper Link: [Read the Cureus Article](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes)
+*   **The Elendi Files Podcast Showcase**: *"Navigating Medical Device Registration in India"* featured with ElendiLabs.
+    *   Episode Link: [Listen on ElendiLabs](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan)
+*   **RAC Forge Pvt. Ltd. Main Portal**: [https://www.racforge.com](https://www.racforge.com)
+*   **Google Maps Location Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)`;
+  }
+
   // General default fallback
   return `Welcome to VELO (Verification, Evaluation, & Licensing Operator), the RAC Forge Private Limited Regulatory Intelligence Assistant. How can I assist you with CDSCO, USFDA, or EU MDR compliance today? 
-
-Please select or key in a topic of interest:
 1.  **CDSCO Sugam Portal Pathways** (Import MD-14/15, Manufacturing, Loan Licenses)
 2.  **Global Registrations** (USFDA 510k, EU MDR CE-Mark, ANVISA Brazil)
 3.  **Turnkey Physical Construction** (ISO Clean Rooms, HVAC, Modular OTs)
 4.  **Active R&D Support** (Electrical Validation IEC 60601, SaMD IEC 62304, Biocompatibility ISO 10993)
 5.  **Quality Management Systems** (ISO 13485 QMS, Gap Analysis, ISO 9001, ISO 15189)
 6.  **Our Leadership & Research** (Atul Sharma Sankhyayan, Cureus Journal SIS paper, Elendi Podcast)
-7.  **Contact Info & Geographical Locations**
+7.  **Contact Info & Geographical Locations** (HQ Himachal Pradesh, Phone, Google Maps)
+8.  **Official Regulatory Links & Portals Directory**
 
-Just type your specific query (e.g., "Tell me about Atul's paper" or "What is MD-14?")!`;
+Just type your specific query (e.g., "Give me CDSCO website link" or "Tell me about Atul's podcast")!`;
 }
 
 // ============================================================================
@@ -136,11 +195,16 @@ Just type your specific query (e.g., "Tell me about Atul's paper" or "What is MD
 // 2. Split your API Key (e.g. "AIzaSyDxxx-yyy-zzz") into three separate pieces.
 // 3. Paste Part 1 into GEMINI_KEY_PART_1, Part 2 into GEMINI_KEY_PART_2, and Part 3 into GEMINI_KEY_PART_3.
 // ============================================================================
-const GEMINI_KEY_PART_1: string = "AIzaSyAj3xKdVj"; // <-- PASTE PART 1 HERE (e.g. "AIzaSyB...")
-const GEMINI_KEY_PART_2: string = "DjNBXtKmw2"; // <-- PASTE PART 2 HERE
-const GEMINI_KEY_PART_3: string = "YbZg6-Kb33KlTcs"; // <-- PASTE PART 3 HERE
+const GEMINI_KEY_PART_1: string = ""; // <-- PASTE PART 1 HERE (e.g. "AIzaSyB...")
+const GEMINI_KEY_PART_2: string = ""; // <-- PASTE PART 2 HERE
+const GEMINI_KEY_PART_3: string = ""; // <-- PASTE PART 3 HERE
 
 function getPreSavedApiKey(): string {
+  // Try retrieving from the newly isolated, secure KeyParts file first
+  const isolatedKey = resolveAssembledKey();
+  if (isolatedKey) {
+    return isolatedKey;
+  }
   if (GEMINI_KEY_PART_1 && GEMINI_KEY_PART_2 && GEMINI_KEY_PART_3) {
     return `${GEMINI_KEY_PART_1.trim()}${GEMINI_KEY_PART_2.trim()}${GEMINI_KEY_PART_3.trim()}`;
   }

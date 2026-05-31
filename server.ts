@@ -166,8 +166,8 @@ We make sure your software code and electronics meet the real, raw physical stan
 RAC Forge Pvt. Ltd. is led by **Atul Sharma Sankhyayan**, a pioneer with more than a decade of hands-on R&D hardware design and Software as a Medical Device (SaMD) experience.
 
 #### Notable Publications & Industry Contributions:
-*   **Cureus Journal of Medical Science (May 2026)**: Atul authored the seminal paper *"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes"*. This scholarly work explores improvements and optimizations inside the CDSCO's SUGAM registration portal.
-*   **Podcast Showcase**: Featured on ElendiLabs' international podcast **"The Elendi Files"** in the episode: *"Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited"*. The discussion explores the detailed methodologies employed by RAC Forge in physically testing electronic hardware prototypes and validating software logic to achieve regulatory success.
+*   **Cureus Journal of Medical Science (May 2026)**: Atul authored the seminal paper *"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes"*. This scholarly work explores improvements and optimizations inside the CDSCO's SUGAM registration portal. [Read on Cureus](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes).
+*   **Podcast Showcase**: Featured on ElendiLabs' international podcast **"The Elendi Files"** in the episode: *"Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited"*. The discussion explores the detailed methodologies employed by RAC Forge in physically testing electronic hardware prototypes and validating software logic to achieve regulatory success. [Listen on ElendiLabs](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan).
 
 Atul maintains active oversight over all medical device engineering, cleanroom constructions, and global submissions undertaken by RAC Forge Pvt. Ltd.
 
@@ -184,9 +184,69 @@ Our core consulting and turnkey mechanical facility is headquartered in Himachal
 *   **Corporate Headquarters**: Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India. PIN Code: 176064
 *   **Official Helpline Phone**: **+91 62396 99077**
 *   **Official E-mail Channel**: **info@racforge.com**
+*   **Main Website Portal**: [https://www.racforge.com](https://www.racforge.com)
 *   **Google Search Map Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)
 
 Please connect with us to schedule an engineering audit, cleanroom blueprint consultation, or global regulatory briefing.
+
+---
+**Disclaimer**: For confirmation, please contact our team.`;
+    }
+
+    // Official Links & Regulatory Portals
+    if (q.includes('link') || q.includes('website') || q.includes('url') || q.includes('official') || q.includes('resource') || q.includes('portal') || q.includes('external') || q.includes('reference') || q.includes('page') || q.includes('address') || q.includes('pdf') || q.includes('download') || q.includes('guidance') || q.includes('standard') || q.includes('rule') || q.includes('document')) {
+      return intro + `### 📚 Authoritative PDF Guidelines & Regulatory Standards Download Directory
+
+Below is the directory of official regulatory PDF guidelines, gazettes, standards documents, and portals provided by various international public health authorities.
+
+#### 🇮🇳 1. CDSCO (India) Core Rules & Guidance PDFs:
+*   **Indian Medical Devices Rules, 2017 (Official Gazette Notification PDF)**:
+    [Download Rules PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/g_s_r_78_E.pdf)
+*   **CDSCO Medical Device Classification Master List (PDF)**:
+    [Download Master Classifications List](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/device_classification.pdf)
+*   **Common Submission Format (CSF) for Import Licence (Form MD-14 Guidance PDF)**:
+    [Download CSF Guidance Document](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/Guidance_Document_CSF_Import_Licence.pdf)
+*   **CDSCO Official FAQ Directory on Medical Devices (PDF)**:
+    [Download FAQ Guide PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/FAQs_medical_devices_03_02_2020.pdf)
+*   **CDSCO SUGAM Online Portal**: For submissions of MD-14, MD-15, and manufacturing licences.
+    *   Portal: [https://cdscomdonline.gov.in](https://cdscomdonline.gov.in)
+*   **CDSCO National Website**: [https://cdsco.gov.in](https://cdsco.gov.in)
+
+#### 🇺🇸 2. USFDA (United States) Guidance PDFs:
+*   **USFDA 510(k) Premarket Notification Submission Guidance (PDF)**:
+    [Download 510(k) Guidance Manual](https://www.fda.gov/media/85293/download)
+*   **Quality System Regulation (21 CFR Part 820) Guidance Booklet (PDF)**:
+    [Download 21 CFR Part 820 Guidance](https://www.fda.gov/media/119793/download)
+*   **FDA Software as a Medical Device (SaMD) Lifecycle Guidance (PDF)**:
+    [Download SaMD FDA Document](https://www.fda.gov/media/107543/download)
+*   **FDA Cybersecurity in Medical Devices Pre/Postmarket Guidance (PDF)**:
+    [Download FDA Security Guidance](https://www.fda.gov/media/119773/download)
+*   **USFDA CDRH Home Portal**: [https://www.fda.gov/medical-devices](https://www.fda.gov/medical-devices)
+
+#### 🇪🇺 3. European Union Commission (EU MDR & IVDR) PDFs:
+*   **EU Medical Devices Regulation (EU MDR 2017/745 English Full Text PDF)**:
+    [Download Complete EU MDR 2017/745 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0745)
+*   **EU In Vitro Diagnostic Regulation (EU IVDR 2017/746 English Full Text PDF)**:
+    [Download Complete EU IVDR 2017/746 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0746)
+*   **MDCG (Medical Device Coordination Group) Systematic Guidance Portal**:
+    *   Website: [https://health.ec.europa.eu/latest-guidance-documents_en](https://health.ec.europa.eu/latest-guidance-documents_en)
+*   **EUDAMED Database Portal**:
+    *   Website: [https://ec.europa.eu/tools/eudamed](https://ec.europa.eu/tools/eudamed)
+
+#### 🌐 4. International Standards & ASTM Guides:
+*   **ISO 13485:2016 Medical Devices Quality Management System Standard Brochure (PDF)**:
+    [Download ISO 13485 QMS Overview](https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100377.pdf)
+*   **ASTM Medical Devices & Materials Regulatory Catalog Guidance Overview (PDF)**:
+    [Download ASTM Standards Brochure](https://www.astm.org/media/pdf/medicaldevices.pdf)
+*   **ISO Official Standards Catalogue & Store**: [https://www.iso.org](https://www.iso.org)
+
+---
+
+#### 🌟 Atul Sharma Sankhyayan & RAC Forge Specific Resources:
+*   **Scholarly Research Publication (May 2026)**: [Read on Cureus](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes)
+*   **The Elendi Files Podcast Showcase**: [Listen on ElendiLabs](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan)
+*   **RAC Forge Pvt. Ltd. Main Portal**: [https://www.racforge.com](https://www.racforge.com)
+*   **Google Maps Location Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
@@ -206,6 +266,8 @@ Please ask about any of the following structured expertise areas:
 4.  **Regulatory R&D Validation**: IEC 62304 SaMD life cycle documentation, IEC 60601-1 electrical safety testing, ISO 10993 toxicology matrices.
 5.  **Quality Systems**: ISO 13485:2016 QMS, SOP workflows, gap analysis reviews.
 6.  **Leadership & Research**: Founder Atul Sharma Sankhyayan's May 2026 Cureus research publication on SIS, Elendi podcast features.
+7.  **Contact Info & Locations**: HQ Himachal Pradesh, Google Maps location.
+8.  **Official Regulatory Links**: Portals directory.
 
 Please write what specific area you would like detailed guidance on!
 
@@ -251,7 +313,39 @@ Please write what specific area you would like detailed guidance on!
 
       const modelConfig = {
         config: {
-          systemInstruction: 'You are VELO (Verification, Evaluation, & Licensing Operator), an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with the provided document context (like the Indian MDR 2017, ISO 13485, or other papers). Key facts on Indian MDR 2017 for Import Form MD-14: the official government fees are: Class A is $1000 USD per manufacturing site and $50 USD per distinct medical device; Class B is $2000 USD per manufacturing site and $1000 USD per distinct medical device; Class C Device is $3000 USD per site and $1500 USD per device; Class D Device is $3000 USD per site and $1500 USD per device. Ensure absolute factual accuracy of fees, timelines, and forms based on the document. Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.',
+          systemInstruction: `You are VELO (Verification, Evaluation, & Licensing Operator), an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently, naturally, and professionally, providing accurate, trustworthy advice on medical device compliance, facility engineering (cleanrooms, HVAC, modular OTs), Quality Management Systems (ISO 13485), and global approval pipelines (CDSCO, USFDA, EU MDR, ANVISA).
+
+You possess key authority information regarding:
+1. RAC Forge Private Limited (Main Portal: https://www.racforge.com), headquartered in Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064 (Phone: +91 62396 99077, Email: info@racforge.com, Google Maps Location: https://share.google/GNUkTQHynWoYKpWY3).
+2. Founder & CEO: Atul Sharma Sankhyayan, an industry veteran with more than 10 years of hands-on R&D biomedical hardware, active electrical safety, testing, and Software as a Medical Device (SaMD) engineering experience.
+3. Scholarly Research: Atul authored the seminal paper "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes" in the Cureus Journal of Medical Science (May 2026, Article URL: https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes).
+4. Podcast Spotlight: Featured on the international podcast "The Elendi Files" by ElendiLabs in the episode "Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited" (Episode URL: https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan).
+5. Authoritative Regulatory Portals & Core Downloadable PDFs Database:
+   - CDSCO Website: https://cdsco.gov.in
+   - CDSCO SUGAM Digital Portal: https://cdscomdonline.gov.in
+   - CDSCO Medical Devices Rules, 2017 Gazette PDF: https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/g_s_r_78_E.pdf
+   - CDSCO Device Classification List PDF: https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/device_classification.pdf
+   - CDSCO Import Form MD-14 Guidance PDF: https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/Guidance_Document_CSF_Import_Licence.pdf
+   - CDSCO FAQ Guide PDF: https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/FAQs_medical_devices_03_02_2020.pdf
+   - USFDA Official Portal: https://www.fda.gov
+   - USFDA Medical Devices (CDRH) Portal: https://www.fda.gov/medical-devices
+   - USFDA 510(k) Guidance Manual PDF: https://www.fda.gov/media/85293/download
+   - USFDA Quality System Regulation Guidance PDF: https://www.fda.gov/media/119793/download
+   - USFDA SaMD Guidance PDF: https://www.fda.gov/media/107543/download
+   - USFDA Cybersecurity Guidance PDF: https://www.fda.gov/media/119773/download
+   - European Union Commission (EU MDR): https://health.ec.europa.eu/medical-devices-sector_en
+   - European Union MDR 2017/745 Text PDF: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0745
+   - European Union IVDR 2017/746 Text PDF: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0746
+   - EUDAMED Database Portal: https://ec.europa.eu/tools/eudamed
+   - MDCG Guidelines Portal: https://health.ec.europa.eu/latest-guidance-documents_en
+   - ISO 13485:2016 QMS Standard Guide PDF: https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100377.pdf
+   - ASTM Medical Devices Catalog Guide PDF: https://www.astm.org/media/pdf/medicaldevices.pdf
+   - ISO Catalogue & Store: https://www.iso.org
+
+Key regulatory fact matrix:
+- Import Licence Form MD-14 Official CDSCO Government Fees: Class A ($1000 USD site fee + $50 USD per device); Class B ($2000 USD site fee + $1000 USD per device); Class C ($3000 USD site fee + $1500 USD per device); Class D ($3000 USD site fee + $1500 USD per device). Ensure absolute factual accuracy when discussing numbers.
+
+Draft responses strictly, citing or outputting these direct download links whenever the user requests standards, guidelines, rules, forms, PDFs, or official documents. Always append this exact disclaimer at the end of every message: "Disclaimer: For confirmation, please contact our team."`,
         },
         contents: contents,
       };

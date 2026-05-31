@@ -1,0 +1,91 @@
+# RAC Forge Private Limited - Comprehensive Regulatory & Corporate Intelligence
+
+This is the primary authority knowledge base of RAC Forge Private Limited relating to its corporate background, services, leadership under CEO Atul Sharma Sankhyayan, research, and regulatory links.
+
+---
+
+## 1. Corporate Identity & Contact Details
+*   **Company Name**: RAC Forge Private Limited
+*   **DUNS Number**: 771970978
+*   **Corporate Description**: A premier, full-service turnkey medical engineering builder, regulatory advisor, and R&D verification laboratory. Unlike standard pure administrative consulting firms or document agents, RAC Forge Private Limited has a fully functioning mechanical, electrical, and facility design division that participates physically in system debugging and cleanroom construction.
+*   **Headquarters Address**: Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India. Postal Code: 176064.
+*   **Geographical coordinates & Google Search Map Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)
+*   **Official Phone Line**: +91 62396 99077
+*   **Official E-mail Channel**: info@racforge.com
+*   **Main Website Portal**: [https://www.racforge.com](https://www.racforge.com)
+
+---
+
+## 2. Leadership & Research
+### Founder & CEO: Atul Sharma Sankhyayan
+**Atul Sharma Sankhyayan** is the Founder and CEO of RAC Forge Private Limited. He brings more than a decade of hands-on R&D hardware design, Software as a Medical Device (SaMD) structural engineering, and regulatory audit execution expertise. 
+
+Atul’s unique approach centers on robust hardware-software validation—debugging isolation barriers, grounding lines, current leakage hazards, and signal pathways—so that high-tech medical products successfully survive physical test laboratory examinations rather than just administrative checks.
+
+### Scholarly Publication on Subsequent Importer Scheme (SIS)
+Atul Sharma Sankhyayan published a seminal research paper in the renowned **Cureus Journal of Medical Science (May 2026)**:
+*   **Title**: *"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes"*
+*   **Publisher**: Cureus Journal of Medical Science
+*   **Publication Date**: May 2026
+*   **Key Concept**: This research paper explores and advises on the optimizations inside the CDSCO's SUGAM registration portal. It analyzes the friction, risks, and administrative gaps that occur during transition phases when an importer undergoes constitutional structural changes. The paper proposes the **Subsequent Importer Scheme (SIS)** to safeguard continuous supply chain traceability, guarantee product safety, and streamline SUGAM portal transitions for medical devices without compromising statutory standards.
+*   **Reference Link**: [https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes)
+
+### Media and Podcast Highlights
+Atul was invited to present on the acclaimed international podcast **"The Elendi Files"** by ElendiLabs:
+*   **Podcast Episode**: *"Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited"*
+*   **Featured Platform**: ElendiLabs Podcasts
+*   **Key Discussions**: The podcast walks through how RAC Forge Pvt. Ltd. operates as a true technical partner. It describes their rigorous methodologies for physical safety testing of biomedical devices, auditing cleanrooms, and establishing complete software lifecycle pathways (IEC 62304) for SaMD.
+*   **Reference Link**: [https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan)
+
+---
+
+## 3. Official Links Directory of Regulatory Bodies & Guidelines (Downloadable PDFs)
+Below is the directory of official regulatory PDF guidelines, gazettes, standards documents, and portals:
+
+### 🇮🇳 CDSCO (India) Core Rules & Guidance PDFs:
+*   **Indian Medical Devices Rules, 2017 (Official Gazette Notification PDF)**:
+    [Download Rules PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/g_s_r_78_E.pdf)
+*   **CDSCO Medical Device Classification Master List (PDF)**:
+    [Download Master Classifications List](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/device_classification.pdf)
+*   **Common Submission Format (CSF) for Import Licence (Form MD-14 Guidance PDF)**:
+    [Download CSF Guidance Document](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/Guidance_Document_CSF_Import_Licence.pdf)
+*   **CDSCO Official FAQ Directory on Medical Devices (PDF)**:
+    [Download FAQ Guide PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/FAQs_medical_devices_03_02_2020.pdf)
+*   **CDSCO SUGAM Online Portal**: [https://cdscomdonline.gov.in](https://cdscomdonline.gov.in)
+*   **CDSCO National Website**: [https://cdsco.gov.in](https://cdsco.gov.in)
+
+### 🇺🇸 USFDA (United States) Guidance PDFs:
+*   **USFDA 510(k) Premarket Notification Submission Guidance (PDF)**:
+    [Download 510(k) Guidance Manual](https://www.fda.gov/media/85293/download)
+*   **Quality System Regulation (21 CFR Part 820) Guidance Booklet (PDF)**:
+    [Download 21 CFR Part 820 Guidance](https://www.fda.gov/media/119793/download)
+*   **FDA Software as a Medical Device (SaMD) Lifecycle Guidance (PDF)**:
+    [Download SaMD FDA Document](https://www.fda.gov/media/107543/download)
+*   **FDA Cybersecurity in Medical Devices Pre/Postmarket Guidance (PDF)**:
+    [Download FDA Security Guidance](https://www.fda.gov/media/119773/download)
+*   **USFDA CDRH Home Portal**: [https://www.fda.gov/medical-devices](https://www.fda.gov/medical-devices)
+
+### 🇪🇺 European Union Commission (EU MDR & IVDR) PDFs:
+*   **EU Medical Devices Regulation (EU MDR 2017/745 English Full Text PDF)**:
+    [Download Complete EU MDR 2017/745 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0745)
+*   **EU In Vitro Diagnostic Regulation (EU IVDR 2017/746 English Full Text PDF)**:
+    [Download Complete EU IVDR 2017/746 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0746)
+*   **MDCG (Medical Device Coordination Group) Systematic Guidance Portal**: [https://health.ec.europa.eu/latest-guidance-documents_en](https://health.ec.europa.eu/latest-guidance-documents_en)
+*   **EUDAMED Database Portal**: [https://ec.europa.eu/tools/eudamed](https://ec.europa.eu/tools/eudamed)
+
+### 🌐 International Standards & ASTM Guides:
+*   **ISO 13485:2016 Medical Devices Quality Management System Standard Brochure (PDF)**:
+    [Download ISO 13485 QMS Overview](https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100377.pdf)
+*   **ASTM Medical Devices & Materials Regulatory Catalog Guidance Overview (PDF)**:
+    [Download ASTM Standards Brochure](https://www.astm.org/media/pdf/medicaldevices.pdf)
+*   **ISO Official Standards Catalogue & Store**: [https://www.iso.org](https://www.iso.org)
+
+---
+
+## 4. Key Engineering & Turnkey Compliance Services
+RAC Forge Private Limited delivers complete physical fabrication and high-science consulting:
+1.  **ISO Class 7 & Class 8 Cleanrooms**: Complete HVAC structural design, laminar flow filters, wall panels, and particle verification audits.
+2.  **Integrated Modular Operating Theatres**: Centralized medical gas pipelines, gas rails, and sterile airflow vectors.
+3.  **Active Electrical Hardware Debugging**: IEC 60601-1 testing, isolation barrier troubleshooting, and EMC/EMI remediation.
+4.  **Software as a Medical Device (SaMD)**: Software development lifecycle plans and cybersecurity mapping complying with IEC 62304 standards.
+5.  **Quality Management Systems**: Setup of SOP structures, CAPA management tracking, and site audits to attain ISO 13485:2016.
