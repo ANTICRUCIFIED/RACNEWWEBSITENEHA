@@ -12,6 +12,7 @@ const Resources = lazy(() => import('./pages/Resources'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
 const InfoDetail = lazy(() => import('./pages/Information/InfoDetail'));
+const VeloPage = lazy(() => import('./pages/VeloPage'));
 
 // Service Sub-pages
 const CDSCOManufacturing = lazy(() => import('./pages/Services/CDSCOManufacturing'));
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="/blogs/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/information/:slug" element={<InfoDetail />} />
+            <Route path="/velo-ai" element={<VeloPage />} />
 
             {/* Service Sub-routes */}
             <Route path="/services/cdsco-manufacturing-license" element={<CDSCOManufacturing />} />

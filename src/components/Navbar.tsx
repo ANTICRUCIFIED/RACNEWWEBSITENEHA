@@ -59,6 +59,7 @@ const NAV_LINKS = [
       }
     ]
   },
+  { name: 'VELO AI', path: '/velo-ai' },
   { name: 'Expertise', path: '/expertise' },
   { name: 'Resources', path: '/blogs/resources' }
 ];

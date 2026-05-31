@@ -40,7 +40,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Quick Links</h4>
             <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'Expertise', 'Resources', 'Contact'].map((item) => (
+              {['Home', 'About Us', 'Services', 'VELO AI', 'Expertise', 'Resources', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
                     to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Resources' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
@@ -59,6 +59,7 @@ export default function Footer() {
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Our Services</h4>
             <ul className="space-y-4">
               {[
+                { name: 'VELO Regulatory AI', path: '/velo-ai' },
                 { name: 'CDSCO Licences', path: '/services' },
                 { name: 'USFDA 510(k)', path: '/services/usfda-510k-submission' },
                 { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },

@@ -229,6 +229,17 @@ export default function Chatbot() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    const handleToggle = () => setIsOpen(prev => !prev);
+    window.addEventListener('open-velo-chatbot', handleOpen);
+    window.addEventListener('toggle-velo-chatbot', handleToggle);
+    return () => {
+      window.removeEventListener('open-velo-chatbot', handleOpen);
+      window.removeEventListener('toggle-velo-chatbot', handleToggle);
+    };
+  }, []);
+
+  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
