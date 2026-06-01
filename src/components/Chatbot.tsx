@@ -5,24 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
-let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
-if (API_BASE_URL && !API_BASE_URL.startsWith('http')) {
-  API_BASE_URL = `https://${API_BASE_URL}`;
-}
-if (typeof window !== 'undefined') {
-  if (API_BASE_URL.startsWith('http://') && window.location.protocol === 'https:') {
-    console.warn('VELO: Dropping insecure HTTP API_BASE_URL to prevent Mixed Content exception.');
-    API_BASE_URL = '';
-  }
-  if (window.location.hostname.includes('.run.app') || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    API_BASE_URL = ''; // Force local backend in AI Studio preview
-  }
-}
-// Strip trailing slash
-if (API_BASE_URL && API_BASE_URL.endsWith('/')) {
-  API_BASE_URL = API_BASE_URL.slice(0, -1);
-}
-console.log('VELO: Safe API_BASE_URL is:', API_BASE_URL || 'relative path "/"');
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 function getClientFallbackResponse(query: string): string {
   const result = _getClientFallbackResponse(query);
