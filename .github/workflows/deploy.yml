@@ -6,6 +6,10 @@ on:
     branches:
       - main
       - master
+  pull_request:
+    branches:
+      - main
+      - master
 
 permissions:
   contents: write
@@ -36,6 +40,7 @@ jobs:
           VITE_APP_ENV: production
 
       - name: Deploy to GitHub Pages (gh-pages branch)
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
