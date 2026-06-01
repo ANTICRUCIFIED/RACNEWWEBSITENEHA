@@ -39,7 +39,7 @@ export default function BiocompatibilityTesting() {
             transition={{ delay: 0.1 }}
             className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
           >
-            End-to-end biological validation, material characterization and toxicological evaluation in partnership with <strong>Chromed Biosciences</strong>.
+            End-to-end biological validation, material characterization and toxicological evaluation in partnership with <a href="https://chromedbio.com/" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-emerald-300 transition-colors">Chromed Biosciences</a>.
           </motion.p>
         </div>
       </section>
@@ -52,7 +52,7 @@ export default function BiocompatibilityTesting() {
               <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Partnership with Chromed Biosciences</h2>
                 <p className="text-lg animate-fade-in">
-                  Ensuring your device is safe for patient use is non-negotiable. In collaboration with <strong>Chromed Biosciences</strong>, we manage the complete biological evaluation of your medical device as per ISO 10993. We coordinate a full suite of tests, including Cytotoxicity, Genotoxicity, Systemic Toxicity, and Implantation studies, delivering the robust data required for regulatory submission.
+                  Ensuring your device is safe for patient use is non-negotiable. In collaboration with <a href="https://chromedbio.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold hover:underline">Chromed Biosciences</a>, we manage the complete biological evaluation of your medical device as per ISO 10993. We coordinate a full suite of tests, including Cytotoxicity, Genotoxicity, Systemic Toxicity, and Implantation studies, delivering the robust data required for regulatory submission.
                 </p>
 
                 <div className="my-10 bg-gradient-to-r from-blue-500/10 to-teal-500/10 p-8 rounded-3xl border border-blue-500/20">
