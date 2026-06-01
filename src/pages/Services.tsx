@@ -36,6 +36,7 @@ const SERVICES = [
     links: [
       { name: "Manufacturing License (MD-5/9)", path: "/services/cdsco-manufacturing-license-md5-md9" },
       { name: "Import License (MD-14)", path: "/services/cdsco-import-license-md14" },
+      { name: "Indian Authorized Representative", path: "/services/indian-authorized-representative" },
       { name: "Loan License (MD-6/10)", path: "/services/cdsco-loan-license-md6-md10" },
       { name: "Test License (MD-13)", path: "/services/cdsco-test-license-md13" },
       { name: "Clinical Investigation", path: "/services/cdsco-clinical-investigation" }
@@ -190,6 +191,122 @@ export default function Services() {
                 Get Started Today
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The 24-Location National SEO Network directory */}
+      <section className="py-24 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span className="text-[#0D9488] font-extrabold text-xs uppercase tracking-widest block font-mono">Geographic Support Pipeline</span>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-deep tracking-tight">Our 24-Location National Support Network</h2>
+            <p className="text-slate-600 text-base font-medium">
+              Providing localized on-site audit readiness, regulatory coordination, facility design, and joint-licensing support across India's key industrial hubs.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            
+            {/* Zone 1 */}
+            <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-red-600">Zone 1: Northern Belt</h4>
+              <ul className="space-y-2">
+                {[
+                  { name: "Chandigarh & Mohali", path: "/locations/chandigarh-mohali" },
+                  { name: "Baddi & Solan", path: "/locations/baddi-solan-nalagarh" },
+                  { name: "Delhi NCR Importers", path: "/locations/delhi-ncr" },
+                  { name: "Ludhiana & Forgings", path: "/locations/ludhiana-jalandhar" },
+                  { name: "Haridwar & Consumables", path: "/locations/haridwar-dehradun" }
+                ].map((loc) => (
+                  <li key={loc.path}>
+                    <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
+                      • {loc.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Zone 2 */}
+            <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-teal-600">Zone 2: Western Power</h4>
+              <ul className="space-y-2">
+                {[
+                  { name: "Ahmedabad & Sanand", path: "/locations/ahmedabad-sanand" },
+                  { name: "Mumbai & Importers", path: "/locations/mumbai-thane" },
+                  { name: "Pune & IEC 60601", path: "/locations/pune" },
+                  { name: "Rajkot & Vadodara", path: "/locations/rajkot-vadodara" }
+                ].map((loc) => (
+                  <li key={loc.path}>
+                    <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
+                      • {loc.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Zone 3 */}
+            <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-emerald-600">Zone 3: Southern Parks</h4>
+              <ul className="space-y-2">
+                {[
+                  { name: "Visakhapatnam (AMTZ)", path: "/locations/visakhapatnam-amtz" },
+                  { name: "Bengaluru SaMD Hub", path: "/locations/bengaluru" },
+                  { name: "Hyderabad & Genome", path: "/locations/hyderabad-genome-valley" },
+                  { name: "Chennai & Imaging", path: "/locations/chennai-kanchipuram" },
+                  { name: "Kerala & Biomaterials", path: "/locations/thiruvananthapuram-kochi" }
+                ].map((loc) => (
+                  <li key={loc.path}>
+                    <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
+                      • {loc.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Zone 4 */}
+            <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-indigo-650">Zone 4: Tactical Gateways</h4>
+              <ul className="space-y-2">
+                {[
+                  { name: "Indore & Ujjain Park", path: "/locations/ujjain-indore" },
+                  { name: "Kolkata Trade Node", path: "/locations/kolkata" },
+                  { name: "Jaipur Molding Hub", path: "/locations/jaipur" }
+                ].map((loc) => (
+                  <li key={loc.path}>
+                    <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
+                      • {loc.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Zone 5 */}
+            <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
+              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-amber-600">Zone 5: State Rules</h4>
+              <ul className="space-y-2">
+                {[
+                  { name: "Gujarat Registry Rules", path: "/india/gujarat-regulatory-compliance" },
+                  { name: "Maharashtra Licensing", path: "/india/maharashtra-medtech-licensing" },
+                  { name: "Karnataka SaMD Guide", path: "/india/karnataka-samd-guidelines" },
+                  { name: "Tamil Nadu Registration", path: "/india/tamil-nadu-device-registration" },
+                  { name: "Telangana Lab Guide", path: "/india/telangana-biomedical-frameworks" },
+                  { name: "Uttar Pradesh Strategy", path: "/india/uttar-pradesh-manufacturing-consultant" },
+                  { name: "Himachal Joint Pathways", path: "/india/himachal-punjab-regional-pathways" }
+                ].map((loc) => (
+                  <li key={loc.path}>
+                    <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
+                      • {loc.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
         </div>
       </section>

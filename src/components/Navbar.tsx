@@ -28,6 +28,7 @@ const NAV_LINKS = [
         items: [
           { name: 'Manufacturing License (MD-5/9)', path: '/services/cdsco-manufacturing-license-md5-md9' },
           { name: 'Import License (MD-14)', path: '/services/cdsco-import-license-md14' },
+          { name: 'Indian Authorized Representative (AR)', path: '/services/indian-authorized-representative' },
           { name: 'Loan License (MD-6/10)', path: '/services/cdsco-loan-license-md6-md10' },
           { name: 'Test License (MD-13)', path: '/services/cdsco-test-license-md13' },
           { name: 'Clinical Investigation', path: '/services/cdsco-clinical-investigation' }

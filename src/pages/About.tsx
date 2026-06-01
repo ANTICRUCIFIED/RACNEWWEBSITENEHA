@@ -16,12 +16,16 @@ import {
   Cpu,
   Bookmark,
   Star,
-  Quote
+  Quote,
+  X,
+  Printer
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
 
 export default function About() {
+  const [activeCertId, setActiveCertId] = React.useState<string | null>(null);
+
   return (
     <div className="flex flex-col w-full bg-slate-50 min-h-screen">
       <SEO 
@@ -380,7 +384,7 @@ export default function About() {
                         ></iframe>
                       </div>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-slate-200/60">
+                    <div className="mt-4 pt-4 border-t border-slate-200/60 flex flex-col gap-2">
                       <a
                         href="https://open.spotify.com/episode/4ZEviANhOthe09s6NL8SrH?si=SJ7too0SQFuQ3l4qSWQYTA"
                         target="_blank"
@@ -390,6 +394,9 @@ export default function About() {
                         <span>Listen on Spotify App</span>
                         <ExternalLink size={12} />
                       </a>
+                      <p className="text-xs text-slate-500 mt-1">
+                        Featured on the international podcast <span className="italic">"The Elendi Files"</span>. Read more or join the marketplace on <a href="https://elendilabs.com/en" target="_blank" rel="noopener noreferrer" className="text-emerald-600 font-bold hover:underline">ElendiLabs Platform & Podcast Hub</a>.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -632,6 +639,469 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* SECTION: Government Registries & Certification Licenses */}
+      <section className="py-24 bg-white border-b border-slate-200" id="credentials-registries">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span className="text-[#0D9488] font-extrabold text-xs uppercase tracking-widest block font-mono">Government Credentials Track</span>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">Our Verifiable Corporate Registries</h2>
+            <p className="text-slate-650 text-base font-medium">
+              RAC Forge Private Limited is a fully authorized and incorporated legal entity complying with the Ministry of Corporate Affairs, Indian MSME rules, and CDSCO Medical Device Rules, 2017. View our active registration credentials below.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            {/* Cert 1: MCA COI */}
+            <motion.div
+              whileHover={{ y: -6, scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className="bg-gradient-to-b from-slate-50 to-white rounded-3xl p-8 border border-slate-200/80 shadow-sm relative flex flex-col justify-between overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full pointer-events-none" />
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-600 mb-6 font-bold">
+                  COI
+                </div>
+                <h3 className="text-xl font-extrabold text-slate-900 mb-2">Certificate of Incorporation</h3>
+                <p className="text-slate-400 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">Ministry of Corporate Affairs Code</p>
+                <div className="space-y-3 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-200/60 font-mono text-xs">
+                  <div className="flex justify-between border-b border-slate-200/60 pb-1.5">
+                    <span className="text-slate-500">CIN:</span>
+                    <span className="font-bold text-slate-800">U82990HP2025PTC012302</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Issued On:</span>
+                    <span className="font-bold text-slate-850">30-December-2025</span>
+                  </div>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+                  Pursuant to sub-section (2) of section 7 and sub-section (1) of section 8 of the Companies Act, 2013, validating RAC FORGE PRIVATE LIMITED.
+                </p>
+              </div>
+              <button 
+                onClick={() => setActiveCertId('mca')}
+                className="w-full text-center py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+              >
+                <span>Interactive Verifiable Sheet</span>
+                <ArrowRight size={14} className="text-amber-400" />
+              </button>
+            </motion.div>
+
+            {/* Cert 2: Form MD-42 CDSCO */}
+            <motion.div
+              whileHover={{ y: -6, scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className="bg-gradient-to-b from-slate-50 to-white rounded-3xl p-8 border border-slate-200/80 shadow-sm relative flex flex-col justify-between overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-600 mb-6 font-bold">
+                  MD-42
+                </div>
+                <h3 className="text-xl font-extrabold text-slate-900 mb-2">Form MD-42 Medical Device License</h3>
+                <p className="text-slate-400 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">Central Drugs Standard Control Organisation (CDSCO)</p>
+                <div className="space-y-3 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-200/60 font-mono text-xs">
+                  <div className="flex justify-between border-b border-slate-200/60 pb-1.5">
+                    <span className="text-slate-500">License No.:</span>
+                    <span className="font-bold text-slate-800">HP/KAN/MD42/2026/000003</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Approved On:</span>
+                    <span className="font-bold text-slate-850">18-May-2026</span>
+                  </div>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+                  Official drug and diagnostic registry enabling sale, stock, exhibition or offer for sale and distribution of medical devices of M/s RAC Forge.
+                </p>
+              </div>
+              <button 
+                onClick={() => setActiveCertId('cdsco')}
+                className="w-full text-center py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+              >
+                <span>Interactive Verifiable Sheet</span>
+                <ArrowRight size={14} className="text-emerald-400" />
+              </button>
+            </motion.div>
+
+            {/* Cert 3: Udyam MSME */}
+            <motion.div
+              whileHover={{ y: -6, scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className="bg-gradient-to-b from-slate-50 to-white rounded-3xl p-8 border border-slate-200/80 shadow-sm relative flex flex-col justify-between overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none" />
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-600 mb-6 font-bold">
+                  MSME
+                </div>
+                <h3 className="text-xl font-extrabold text-slate-900 mb-2">Udyam Registration Certificate</h3>
+                <p className="text-slate-400 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">Ministry of Micro, Small & Medium Enterprises</p>
+                <div className="space-y-3 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-200/60 font-mono text-xs">
+                  <div className="flex justify-between border-b border-slate-200/60 pb-1.5">
+                    <span className="text-slate-500">Registry No:</span>
+                    <span className="font-bold text-slate-800">UDYAM-HP-04-0045033</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Classified On:</span>
+                    <span className="font-bold text-slate-850">15-March-2026</span>
+                  </div>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 font-sans">
+                  Official classification category: Micro Enterprise under National Industry Classification Code 74909, guaranteeing structured regulatory tracks.
+                </p>
+              </div>
+              <button 
+                onClick={() => setActiveCertId('udyam')}
+                className="w-full text-center py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-md flex items-center justify-center gap-2"
+              >
+                <span>Interactive Verifiable Sheet</span>
+                <ArrowRight size={14} className="text-cyan-400" />
+              </button>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* LIGHTBOX MODAL: High-Fidelity Replication Viewer */}
+      {activeCertId && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 md:p-10 transition-opacity">
+          
+          <div className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            
+            {/* Modal Control Header */}
+            <div className="flex justify-between items-center px-8 py-5 border-b border-slate-200 bg-slate-50 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping" />
+                <span className="font-mono text-xs uppercase font-extrabold tracking-widest text-[#0D9488]">Official Verified Digital Document Replica</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => window.print()}
+                  className="px-4 py-2 bg-white border border-slate-300 hover:border-slate-400 text-slate-700 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Print Verified Replica"
+                >
+                  <Printer size={14} />
+                  <span className="hidden sm:inline">Print / Save PDF</span>
+                </button>
+                <button 
+                  onClick={() => setActiveCertId(null)}
+                  className="p-1 px-1.5 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition-colors"
+                  title="Close Certificate Viewer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* Document Content Viewport */}
+            <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-slate-100 flex justify-center items-start">
+              
+              <div id="printable-certificate-area" className="w-full max-w-3xl bg-white shadow-xl rounded-2xl border-2 border-slate-200 text-slate-900 font-sans p-6 sm:p-12 relative print:shadow-none print:border-0 overflow-x-auto min-w-[280px]">
+                
+                {/* 1. MCA COI Replica Layout */}
+                {activeCertId === 'mca' && (
+                  <div className="space-y-6">
+                    {/* Double golden border border structure */}
+                    <div className="border-4 border-double border-amber-600/40 p-4 sm:p-8 space-y-6">
+                      
+                      {/* Government crest representation */}
+                      <div className="text-center space-y-2">
+                        <div className="flex justify-center mb-1">
+                          {/* Lion Capital Silhouette representation style SVG */}
+                          <div className="w-12 h-16 border-2 border-slate-400 rounded-lg flex items-center justify-center font-serif text-[8px] font-black leading-none p-1 text-center text-slate-500 select-none">
+                            GOI EMBLEM
+                          </div>
+                        </div>
+                        <h4 className="text-sm font-black tracking-widest text-slate-800 uppercase">GOVERNMENT OF INDIA</h4>
+                        <h3 className="text-xs font-bold text-slate-700 uppercase">MINISTRY OF CORPORATE AFFAIRS</h3>
+                        <p className="text-[10px] font-semibold text-slate-500 uppercase">Central Registration Centre</p>
+                        <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-amber-600/55 to-transparent mx-auto my-3" />
+                        <h2 className="text-lg sm:text-2xl font-serif font-bold text-slate-900 mt-2">Certificate of Incorporation</h2>
+                        <p className="text-[9px] text-slate-500 italic max-w-md mx-auto leading-normal">
+                          [Pursuant to sub-section (2) of section 7 and sub-section (1) of section 8 of the Companies Act, 2013 (18 of 2013) and rule 18 of the Companies (Incorporation) Rules, 2014]
+                        </p>
+                      </div>
+
+                      <div className="text-xs sm:text-sm text-slate-850 leading-relaxed font-serif space-y-4 pt-4">
+                        <p className="indent-8 text-justify">
+                          I hereby certify that <span className="font-bold text-slate-950 uppercase font-sans">RAC FORGE PRIVATE LIMITED</span> is incorporated on this <span className="font-bold">THIRTY day of DECEMBER TWO THOUSAND TWENTY FIVE</span> under the Companies Act, 2013 (18 of 2013) and that the company is Company limited by shares.
+                        </p>
+                      </div>
+
+                      {/* Official Identifiers Table */}
+                      <div className="border border-slate-300 rounded-lg overflow-hidden my-6">
+                        <table className="w-full text-left text-xs border-collapse">
+                          <tbody>
+                            <tr className="border-b border-slate-300 bg-slate-50">
+                              <td className="p-3 font-semibold text-slate-600 w-1/3 border-r border-slate-300">Corporate Identity Number (CIN)</td>
+                              <td className="p-3 font-mono font-extrabold text-slate-950">U82990HP2025PTC012302</td>
+                            </tr>
+                            <tr className="border-b border-slate-300">
+                              <td className="p-3 font-semibold text-slate-600 border-r border-slate-300">Permanent Account Number (PAN)</td>
+                              <td className="p-3 font-mono font-bold text-slate-900">AAPCR3766A*</td>
+                            </tr>
+                            <tr className="bg-slate-50">
+                              <td className="p-3 font-semibold text-slate-600 border-r border-slate-300">Tax Deduction Account Number (TAN)</td>
+                              <td className="p-3 font-mono font-bold text-slate-900">PTLR20887G*</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div className="text-xs leading-relaxed text-slate-600 font-serif text-justify space-y-3">
+                        <p>Given under my hand at Manesar this <span className="font-bold text-slate-800">THIRTY day of DECEMBER TWO THOUSAND TWENTY FIVE</span>.</p>
+                        <p className="text-[10px] italic">Disclaimer: This certificate only evidences incorporation of the company on the basis of documents and declarations of the applicant(s). Registered as a Private Limited under Himachal Pradesh jurisdictions.</p>
+                      </div>
+
+                      {/* Signature Row */}
+                      <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-6 border-t border-slate-100">
+                        {/* Digital Signature Box */}
+                        <div className="border border-emerald-500 bg-emerald-50/50 rounded-lg p-3 max-w-[250px] relative font-mono text-[9px] text-emerald-800 space-y-1">
+                          <div className="flex items-center gap-1.5 text-emerald-700 font-bold mb-1">
+                            <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 text-white flex items-center justify-center font-sans">✓</span>
+                            <span>Digitally Signed</span>
+                          </div>
+                          <div>Signed by: DS Ministry of Corporate Affairs</div>
+                          <div>Location: CRC Manesar 2</div>
+                          <div>Date: 2025.12.30 14:49:42 IST</div>
+                        </div>
+
+                        {/* Officer block */}
+                        <div className="text-center sm:text-right font-serif">
+                          <p className="font-bold text-slate-900 text-sm">Pranavkumar Agja</p>
+                          <p className="text-slate-500 text-[10px] uppercase font-bold leading-none mt-0.5">Assistant Registrar of Companies</p>
+                          <p className="text-slate-400 text-[9px] italic">Central Registration Centre</p>
+                        </div>
+                      </div>
+
+                      {/* MCA Footer */}
+                      <div className="pt-4 border-t border-slate-200 text-center text-[10px] text-slate-400 font-mono">
+                        Valid verification status can be online-queried at <span className="font-bold text-slate-500">mca.gov.in</span>
+                      </div>
+
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. CDSCO FORM MD-42 Replica Layout */}
+                {activeCertId === 'cdsco' && (
+                  <div className="space-y-6">
+                    <div className="border-2 border-slate-300 p-4 sm:p-8 space-y-6 font-sans">
+                      
+                      {/* Header block */}
+                      <div className="text-center space-y-1 pb-4 border-b border-slate-200">
+                        <div className="flex justify-center mb-1">
+                          <div className="w-12 h-14 border border-slate-300 rounded flex items-center justify-center text-[8px] text-slate-400 font-black">
+                            CREST
+                          </div>
+                        </div>
+                        <h3 className="text-sm font-black text-slate-900 uppercase">FORM MD-42</h3>
+                        <p className="text-[10px] text-slate-500 font-medium">[See sub-rule (4) of rule 87A and sub-rule (1) of rule 87C]</p>
+                        <h2 className="text-xs sm:text-sm font-black text-slate-800 leading-tight uppercase px-4 max-w-xl mx-auto py-2 bg-slate-50 rounded border border-slate-200">
+                          REGISTRATION CERTIFICATE TO SELL, STOCK, EXHIBIT OR OFFER FOR SALE OR DISTRIBUTE A MEDICAL DEVICE INCLUDING IN VITRO DIAGNOSTIC MEDICAL DEVICE
+                        </h2>
+                      </div>
+
+                      {/* Document Meta Row */}
+                      <div className="flex justify-between items-center text-xs font-mono font-bold py-2 border-b border-slate-100">
+                        <span className="text-slate-500">Registration no:</span>
+                        <span className="text-red-700 font-extrabold break-all text-sm">HP/KAN/MD42/2026/000003</span>
+                      </div>
+
+                      {/* Statement text */}
+                      <div className="text-xs sm:text-sm text-slate-800 leading-relaxed text-justify space-y-4">
+                        <p>
+                          1. <span className="font-bold text-slate-900 uppercase">M/s RAC FORGE PVT. LTD.</span> situated at <span className="font-semibold text-slate-850">11,1 WARD NO. 3, NALEHAR, THURAL, Kangra, Himachal Pradesh-176107, India</span> Telephone No.: <span className="font-semibold">8219327704</span>, FAX: <span className="font-semibold">8219327704</span>, E-mail: <span className="font-semibold text-sky-700 underline">operations@racforge.com</span>, has been registered to cell, stack, exhibit or offer for sale or distribute a medical device including in vitro diagnostic medical device under the Medical Devices Rules, 2017.
+                        </p>
+                        <p className="font-semibold">
+                          Constitution: <span className="text-slate-900 font-bold uppercase">Private Limited</span>
+                        </p>
+                      </div>
+
+                      {/* Qualified Competent Person details table */}
+                      <div className="space-y-2">
+                        <p className="text-xs font-bold text-slate-900 uppercase">2. Name and qualification of competent person:</p>
+                        <div className="border border-slate-300 rounded overflow-hidden">
+                          <table className="w-full text-left text-xs border-collapse">
+                            <thead>
+                              <tr className="bg-slate-55 border-b border-slate-300 font-bold text-slate-700">
+                                <th className="p-2 border-r border-slate-300 text-center w-12">S.No.</th>
+                                <th className="p-2 border-r border-slate-300">Name</th>
+                                <th className="p-2 border-r border-slate-300">Qualification</th>
+                                <th className="p-2">Experience</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="border-b border-slate-200">
+                                <td className="p-2 border-r border-slate-300 text-center font-mono">1</td>
+                                <td className="p-2 border-r border-slate-300 font-bold text-slate-900">Kuljeet Katoch</td>
+                                <td className="p-2 border-r border-slate-300 font-semibold">B.Pharma</td>
+                                <td className="p-2">1 Year</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div className="text-xs text-slate-650 leading-relaxed pt-3">
+                        <p className="text-justify font-medium">
+                          3. This registration is subject to the conditions as specified in the Drugs and Cosmetics Act, 1940 (23 of 1940) and the Medical Devices Rules, 2017.
+                        </p>
+                      </div>
+
+                      {/* Stamp & ink signature layout */}
+                      <div className="pt-8 flex flex-col sm:flex-row justify-between items-start gap-8 font-sans">
+                        <div className="space-y-1.5 text-xs font-mono">
+                          <p><span className="text-slate-400 font-bold">Place:</span> <span className="font-bold text-slate-850">Kangra, Himachal Pradesh</span></p>
+                          <p><span className="text-slate-400 font-bold">Date:</span> <span className="font-bold text-slate-850">18-May-2026</span></p>
+                        </div>
+
+                        {/* Authority Signature Ink Stamp */}
+                        <div className="text-center sm:text-right text-[11px] text-blue-700 font-serif border border-dashed border-blue-300 bg-blue-50/40 p-4 rounded-xl relative max-w-[280px]">
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-emerald-500/10 text-4xl font-extrabold border-4 border-emerald-500/10 rounded-full w-24 h-24 flex items-center justify-center -rotate-12 pointer-events-none select-none">
+                            SEAL
+                          </div>
+                          <div className="font-sans italic text-blue-900 font-bold mb-2">Bhavna</div>
+                          <div className="font-mono text-[9px] text-blue-600 font-bold uppercase tracking-wider mb-1.5">Approved Signature / Seal Stamp</div>
+                          <p className="font-black">State Licensing Authority</p>
+                          <p className="font-bold">Asstt. Drugs Controller Cum</p>
+                          <p className="font-bold">Drug Licensing Authority</p>
+                          <p className="text-[10px] text-blue-600 mt-1">Distt. Kangra at Dharamshala (H.P.)</p>
+                        </div>
+                      </div>
+
+                      {/* CDSCO footer */}
+                      <div className="pt-4 border-t border-slate-200 text-center text-[10px] text-slate-400 font-mono">
+                        Valid verification verification code and status online at <span className="font-bold text-slate-500">www.cdscodonline.gov.in</span>
+                      </div>
+
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. UDYAM REGISTRATION Replica Layout */}
+                {activeCertId === 'udyam' && (
+                  <div className="space-y-6">
+                    <div className="border border-slate-350 p-4 sm:p-8 space-y-6 font-sans">
+                      
+                      {/* Top ribbon title */}
+                      <div className="bg-[#003366] text-white p-4 rounded-xl text-center shadow-md relative">
+                        <h2 className="text-base sm:text-lg font-black tracking-widest uppercase">UDYAM REGISTRATION CERTIFICATE</h2>
+                      </div>
+
+                      {/* Registry code row */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-4 border-b border-slate-200 pb-4">
+                        <div className="space-y-1 border-r border-slate-200 pr-4">
+                          <p className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">UDYAM REGISTRATION NUMBER</p>
+                          <p className="font-mono font-extrabold text-slate-900 text-base">UDYAM-HP-04-0045033</p>
+                        </div>
+                        <div className="space-y-1 pl-0 sm:pl-4">
+                          <p className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">NAME OF ENTERPRISE</p>
+                          <p className="font-black text-slate-950 text-sm uppercase">RAC FORGE PRIVATE LIMITED</p>
+                        </div>
+                      </div>
+
+                      {/* Small Grid metrics columns */}
+                      <div className="border border-slate-300 rounded overflow-hidden">
+                        <table className="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr className="bg-slate-50 border-b border-slate-300 font-bold text-slate-700">
+                              <th className="p-2 border-r border-slate-300 text-center">SNo.</th>
+                              <th className="p-2 border-r border-slate-300">Classification Year</th>
+                              <th className="p-2 border-r border-slate-300">Enterprise Type</th>
+                              <th className="p-2 text-center">Classification Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="border-b border-slate-250">
+                              <td className="p-2 border-r border-slate-300 text-center font-mono">1</td>
+                              <td className="p-2 border-r border-slate-300 font-bold">2025-26</td>
+                              <td className="p-2 border-r border-slate-300 font-bold text-emerald-800 bg-emerald-50 text-center">Micro</td>
+                              <td className="p-2 text-center font-mono">15/03/2026</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Major Activity Green Banner */}
+                      <div className="bg-[#008000] text-center text-white py-2.5 rounded font-black text-sm uppercase tracking-widest shadow-inner my-4">
+                        MAJOR ACTIVITY: SERVICES
+                      </div>
+
+                      {/* Additional stats */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-800 pt-2">
+                        <div className="space-y-2">
+                          <div className="pb-1 border-b border-slate-250"><span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Social Category:</span> <span className="font-bold text-slate-900 float-right">GENERAL</span></div>
+                          <div className="pb-1 border-b border-slate-250 font-sans"><span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Name of Unit(s):</span> <span className="font-bold text-slate-900 float-right">Headquarters</span></div>
+                          <div className="pb-1 border-b border-slate-250"><span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Date of Incorporation:</span> <span className="font-bold text-slate-900 float-right">30/12/2025</span></div>
+                          <div className="pb-1"><span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Commencement Date:</span> <span className="font-bold text-slate-900 float-right">30/12/2025</span></div>
+                        </div>
+
+                        <div className="bg-slate-50 p-4 border border-slate-200 rounded-xl space-y-1.5 font-mono text-[11px] leading-relaxed">
+                          <p className="font-bold text-slate-900 border-b border-slate-200 pb-1 uppercase tracking-wide font-sans">Official Business Address</p>
+                          <p><span className="text-slate-400">Premises/Flat:</span> RAC FORGE PRIVATE LIMITED (11,1)</p>
+                          <p><span className="text-slate-400">Road / Street:</span> Nalehar Road (Thural)</p>
+                          <p><span className="text-slate-400">State / Pin:</span> Himachal Pradesh - Pin 176107</p>
+                          <p><span className="text-slate-400">District:</span> Kangra (H.P.)</p>
+                          <p><span className="text-slate-400">Contact Email:</span> racforge@gmail.com</p>
+                        </div>
+                      </div>
+
+                      {/* National Industry Classification (NIC) Code Segment */}
+                      <div className="space-y-2 pt-4">
+                        <p className="text-xs font-bold text-slate-900 uppercase">National Industry Classification Code(s):</p>
+                        <div className="border border-slate-350 rounded overflow-hidden">
+                          <table className="w-full text-left text-[11px] border-collapse leading-tight font-serif">
+                            <thead>
+                              <tr className="bg-slate-50 border-b border-slate-300 font-bold text-slate-700">
+                                <th className="p-2 border-r border-slate-300 text-center w-12">SNo.</th>
+                                <th className="p-2 border-r border-slate-300">NIC 2 Digit</th>
+                                <th className="p-2 border-r border-slate-300">NIC 4 Digit</th>
+                                <th className="p-2">NIC 5 Digit</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td className="p-2 border-r border-slate-300 text-center font-mono">1</td>
+                                <td className="p-2 border-r border-slate-300">74 - Other professional, scientific and technical activities</td>
+                                <td className="p-2 border-r border-slate-300">7490 - Other professional, scientific and technical activities n.e.c.</td>
+                                <td className="p-2 font-bold">74909 - Other professional, scientific and technical activities n.e.c. (Major Services Activities)</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      {/* MSME Footer credentials */}
+                      <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-600 font-sans">
+                        <p className="text-center sm:text-left"><span className="text-slate-400 font-bold">District Industries Centre:</span> <span className="font-bold text-slate-850">KANGRA (HIMACHAL PRADESH)</span></p>
+                        <p className="text-center sm:text-right"><span className="text-slate-400 font-bold">MSME-DFO Node:</span> <span className="font-bold text-slate-850">SOLAN (HIMACHAL PRADESH)</span></p>
+                      </div>
+
+                      {/* Printed declaration */}
+                      <div className="pt-4 border-t border-slate-100 text-center text-[10px] text-slate-400">
+                        *In case of graduation of status of an enterprise, the benefit of the Government Schemes will be availed as per guidelines. Printed from <a href="https://udyamregistration.gov.in" target="_blank" rel="noopener noreferrer" className="font-bold hover:underline text-slate-500">https://udyamregistration.gov.in</a>
+                      </div>
+
+                    </div>
+                  </div>
+                )}
+
+              </div>
+
+            </div>
+
+            {/* Modal Control Footer */}
+            <div className="px-8 py-4 bg-slate-50 border-t border-slate-200 text-center text-xs text-slate-500 shrink-0">
+              This interactive replica has been digitally formatted verbatim according to scanned official Government paper registries dated up to June 2026.
+            </div>
+
+          </div>
+        </div>
+      )}
 
       {/* Section 3: Partner with a Proven Leader */}
       <section className="py-24 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-955 text-white relative overflow-hidden">

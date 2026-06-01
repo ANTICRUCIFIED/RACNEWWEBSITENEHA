@@ -35,6 +35,8 @@ const EUAuthorizedRepresentative = lazy(() => import('./pages/Services/EUAuthori
 const ISO13485Certification = lazy(() => import('./pages/Services/ISO13485Certification'));
 const BiocompatibilityTesting = lazy(() => import('./pages/Services/BiocompatibilityTesting'));
 const RegulatoryAuditReadiness = lazy(() => import('./pages/Services/RegulatoryAuditReadiness'));
+const IndianAuthorizedRepresentative = lazy(() => import('./pages/Services/IndianAuthorizedRepresentative'));
+const SEOPage = lazy(() => import('./pages/SEOPage'));
 
 const Loading = () => (
   <div className="min-h-screen flex items-center justify-center bg-white">
@@ -87,6 +89,9 @@ export default function App() {
             <Route path="/services/iso-13485-certification-audit" element={<ISO13485Certification />} />
             <Route path="/services/biocompatibility-testing-iso-10993" element={<BiocompatibilityTesting />} />
             <Route path="/services/regulatory-audit-readiness" element={<RegulatoryAuditReadiness />} />
+            <Route path="/services/indian-authorized-representative" element={<IndianAuthorizedRepresentative />} />
+            <Route path="/locations/:cityId" element={<SEOPage />} />
+            <Route path="/india/:stateId" element={<SEOPage />} />
           </Routes>
         </Suspense>
       </Layout>
