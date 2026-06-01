@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, FileText, ShieldCheck, Zap, Microscope, Code2
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function RDandSaMD() {
   return (
@@ -87,6 +88,12 @@ export default function RDandSaMD() {
                     </li>
                   ))}
                 </ul>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['iso-13485', 'qms', 'dmf', 'pmf']} 
+                  title="Software & Quality Engineering Standard Codex" 
+                />
               </div>
             </div>
 

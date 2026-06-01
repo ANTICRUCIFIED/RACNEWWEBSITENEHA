@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Flag, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function CDSCOImport() {
   return (
@@ -94,6 +95,12 @@ export default function CDSCOImport() {
                 <p>
                   Any foreign manufacturer wanting to distribute medical range Class A, B, C, or D systems in India must secure a Form MD-14 through an Authorized Indian Agent. This registry links your production facilities globally to a local physical distribution node, ensuring that risk management, complaints handling, and post-market tracking loops remain unbroken.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['md-14', 'md-15', 'iaa', 'fsc', 'poa', 'dmf', 'sugam']} 
+                  title="Import License Forms & Specifications" 
+                />
               </div>
             </div>
 

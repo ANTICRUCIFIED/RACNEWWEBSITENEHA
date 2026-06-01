@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Microscope, Zap, ClipboardCheck } from 'lucid
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function CDSCOClinical() {
   return (
@@ -94,6 +95,12 @@ export default function CDSCOClinical() {
                 <p>
                   High-risk and innovative Class C or D medical systems usually require active human clinical performance statistics. SEC committees closely vet experimental endpoints to safeguard local users. Our specialists help bridge international research data with Indian clinical trial rules perfectly.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['md-22', 'md-23', 'md-24', 'md-25', 'md-26', 'md-27', 'md-28', 'md-29', 'gcp', 'sugam']} 
+                  title="Clinical Trial Licensing Forms & Specifications" 
+                />
               </div>
             </div>
 

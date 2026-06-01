@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Cpu, ShieldCheck, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function ElectricalPrototyping() {
   return (
@@ -94,6 +95,12 @@ export default function ElectricalPrototyping() {
                 <p>
                   For any active electrical device, building the physical prototype is only half the battle. Regulatory auditors inspect the entire DHF trail to see how requirements are traced to mechanical modules, electrical protections, and safety mitigations. Our team ensures that your design process leaves a pristine, unassailable audit trail.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['iso-13485', 'qms', 'dmf', 'pmf']} 
+                  title="Electrical and Quality Standards" 
+                />
               </div>
             </div>
 

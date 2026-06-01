@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Zap, Flag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function CDSCOManufacturing() {
   return (
@@ -94,6 +95,12 @@ export default function CDSCOManufacturing() {
                 <p>
                   Obtaining a manufacturing license requires structural audits. Class A and B devices require Notified Body inspections overseen by the State Licensing Authority (SLA), while Class C and D devices require federal audits by the Central Licensing Authority (CLA). We sit down with your manufacturing team to align all workflows beforehand.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['md-3', 'md-5', 'md-7', 'md-9', 'pmf', 'smf', 'class-a', 'class-b', 'class-c', 'class-d', 'sugam']} 
+                  title="Manufacturing License Forms & Specifications" 
+                />
               </div>
             </div>
 

@@ -7,20 +7,23 @@ interface SEOProps {
   keywords?: string;
   canonical?: string;
   type?: 'website' | 'article';
+  datePublished?: string;
+  authorName?: string;
 }
 
-export default function SEO({ title, description, keywords, canonical, type = 'website' }: SEOProps) {
+export default function SEO({ title, description, keywords, canonical, type = 'website', datePublished, authorName }: SEOProps) {
   const fullTitle = `${title} | RAC Forge Private Limited`;
   const siteUrl = "https://www.racforge.com"; 
-  const defaultKeywords = "RAC Forge Private Limited, USFDA, FDA, CDSCO, EU MDR, MDR, ANVISA, Medical Device Regulation, Regulatory Consulting, Medical Device License, India, USA, Europe, Brazil, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant";
+  const defaultKeywords = "RAC Forge Private Limited, CDSCO medical device registration consultant India, SUGAM portal registration support, medical device compliance consulting India, medical device manufacturing license consultant, Form MD-5 MD-9 MD-14 registration, Class A B C D medical device consultant, ISO 13485 QMS certification India, medical device clinical trial coordinator India, Indian Authorized Representative, IAR consultant, medical device regulatory consulting firms, CDSCO Class B approval timelines, CDSCO Loan License MD-6 MD-10 consultant, medical device technical file preparation CDSCO, USFDA, fda 510(k) clearance consultant, EU MDR consultant India, CE marking medical devices India, medical device compliance consultant, regulatory affairs agency India";
 
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": type === 'article' ? "Article" : "Organization",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     "name": "RAC Forge Private Limited",
     "url": siteUrl,
     "logo": "https://anticrucified.github.io/MyWebP_Images/images/logo.webp",
-    "description": description,
+    "description": "RAC Forge Private Limited is an elite medical device regulatory and quality compliance consulting agency specializing in CDSCO registrations, USFDA 510(k), and EU MDR compliance.",
     "identifier": {
       "@type": "PropertyValue",
       "name": "D-U-N-S Number",
@@ -53,6 +56,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
     "name": "RAC Forge Private Limited",
     "url": siteUrl,
     "potentialAction": {
@@ -62,7 +66,36 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     }
   };
 
-  const schemaData = type === 'article' ? organizationSchema : [organizationSchema, websiteSchema];
+  // Base schema is always Organization & WebSite
+  const schemaList: any[] = [organizationSchema, websiteSchema];
+
+  // If this is an article page, output a rich TechArticle schema targeting expert EEAT indexes
+  if (type === 'article') {
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `${siteUrl}${canonical || ""}`
+      },
+      "headline": title,
+      "description": description,
+      "image": "https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp",
+      "datePublished": datePublished || new Date().toISOString(),
+      "author": {
+        "@type": "Person",
+        "name": authorName || "Atul Sharma Sankhyayan",
+        "jobTitle": "Director & Principal Consultant",
+        "url": "https://www.linkedin.com/company/rac-forge/",
+        "knowsAbout": ["Medical Devices Rules 2017", "CDSCO compliance", "Biocompatibility safety", "Software as a Medical Device (SaMD)", "Quality Management Systems (ISO 13485)"]
+      },
+      "publisher": {
+        "@id": `${siteUrl}/#organization`
+      },
+      "inLanguage": "en-US"
+    };
+    schemaList.push(articleSchema);
+  }
 
   return (
     <Helmet>
@@ -89,7 +122,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
 
       {/* Structured Data */}
       <script type="application/ld+json">
-        {JSON.stringify(schemaData)}
+        {JSON.stringify(schemaList)}
       </script>
     </Helmet>
   );

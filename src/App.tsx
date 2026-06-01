@@ -38,6 +38,21 @@ const RegulatoryAuditReadiness = lazy(() => import('./pages/Services/RegulatoryA
 const IndianAuthorizedRepresentative = lazy(() => import('./pages/Services/IndianAuthorizedRepresentative'));
 const SEOPage = lazy(() => import('./pages/SEOPage'));
 
+// Dedicated service pages for unique menu options
+const UKCAMark = lazy(() => import('./pages/Services/UKCAMark'));
+const EmbeddedMedicalFirmware = lazy(() => import('./pages/Services/EmbeddedMedicalFirmware'));
+const UsabilityEngineering = lazy(() => import('./pages/Services/UsabilityEngineering'));
+const HardwareVVProtocols = lazy(() => import('./pages/Services/HardwareVVProtocols'));
+const MDSAPJointAudits = lazy(() => import('./pages/Services/MDSAPJointAudits'));
+const PreclinicalSafety = lazy(() => import('./pages/Services/PreclinicalSafety'));
+const ToxicologicalRisk = lazy(() => import('./pages/Services/ToxicologicalRisk'));
+const ExtractablesLeachables = lazy(() => import('./pages/Services/ExtractablesLeachables'));
+const GCPAudit = lazy(() => import('./pages/Services/GCPAudit'));
+const IECElectricalSafety = lazy(() => import('./pages/Services/IECElectricalSafety'));
+const ISORiskManagement = lazy(() => import('./pages/Services/ISORiskManagement'));
+const SterileBarrierValidation = lazy(() => import('./pages/Services/SterileBarrierValidation'));
+const PostMarketSurveillance = lazy(() => import('./pages/Services/PostMarketSurveillance'));
+
 const Loading = () => (
   <div className="min-h-screen flex items-center justify-center bg-white">
     <div className="w-16 h-16 border-4 border-brand-teal border-t-transparent rounded-full animate-spin"></div>
@@ -75,7 +90,10 @@ export default function App() {
 
             {/* Precise Target Direct Paths */}
             <Route path="/services/samd-architecture-development" element={<SaMDArchitecture />} />
+            <Route path="/services/embedded-medical-firmware" element={<EmbeddedMedicalFirmware />} />
+            <Route path="/services/usability-engineering-iec-62366" element={<UsabilityEngineering />} />
             <Route path="/services/electrical-medical-device-prototyping" element={<ElectricalPrototyping />} />
+            <Route path="/services/hardware-vv-protocols" element={<HardwareVVProtocols />} />
             <Route path="/services/facility-cleanroom-design" element={<FacilityCleanroom />} />
             <Route path="/services/cdsco-manufacturing-license-md5-md9" element={<CDSCOManufacturing />} />
             <Route path="/services/cdsco-import-license-md14" element={<CDSCOImport />} />
@@ -84,10 +102,20 @@ export default function App() {
             <Route path="/services/cdsco-clinical-investigation" element={<CDSCOClinical />} />
             <Route path="/services/usfda-510k-de-novo" element={<USFDA510k />} />
             <Route path="/services/eu-mdr-ce-marking" element={<EUMDRCompliance />} />
+            <Route path="/services/ukca-mark-certification" element={<UKCAMark />} />
             <Route path="/services/eu-authorized-representative" element={<EUAuthorizedRepresentative />} />
             <Route path="/services/anvisa-brazil-registration" element={<AnvisaBrazil />} />
             <Route path="/services/iso-13485-certification-audit" element={<ISO13485Certification />} />
+            <Route path="/services/mdsap-joint-audits" element={<MDSAPJointAudits />} />
             <Route path="/services/biocompatibility-testing-iso-10993" element={<BiocompatibilityTesting />} />
+            <Route path="/services/preclinical-safety-evaluation" element={<PreclinicalSafety />} />
+            <Route path="/services/toxicological-risk-assessment" element={<ToxicologicalRisk />} />
+            <Route path="/services/extractables-leachables" element={<ExtractablesLeachables />} />
+            <Route path="/services/gcp-audit" element={<GCPAudit />} />
+            <Route path="/services/iec-60601-electrical-safety" element={<IECElectricalSafety />} />
+            <Route path="/services/iso-14971-risk-management" element={<ISORiskManagement />} />
+            <Route path="/services/sterile-barrier-validation" element={<SterileBarrierValidation />} />
+            <Route path="/services/post-market-surveillance-pms" element={<PostMarketSurveillance />} />
             <Route path="/services/regulatory-audit-readiness" element={<RegulatoryAuditReadiness />} />
             <Route path="/services/indian-authorized-representative" element={<IndianAuthorizedRepresentative />} />
             <Route path="/locations/:cityId" element={<SEOPage />} />

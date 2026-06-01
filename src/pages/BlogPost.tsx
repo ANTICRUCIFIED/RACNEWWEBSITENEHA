@@ -118,7 +118,7 @@ export default function BlogPost() {
     return (
       <div className="pt-32 pb-20 text-center">
         <h1 className="text-2xl font-bold text-brand-deep">Article Not Found</h1>
-        <Link to="/blogs/resources" className="text-brand-teal hover:underline mt-4 inline-block">Back to Resources</Link>
+        <Link to="/blogs/resources" className="text-brand-teal hover:underline mt-4 inline-block">Back to Blogs</Link>
       </div>
     );
   }
@@ -179,13 +179,15 @@ export default function BlogPost() {
         keywords={`${post.tags.join(', ')}, ${post.category}, medical device regulations, USFDA, CDSCO, EU MDR`}
         canonical={`/blogs/${id}`}
         type="article"
+        datePublished={post.date ? new Date(post.date).toISOString().split('T')[0] : undefined}
+        authorName={post.author}
       />
 
       {/* Post Header */}
       <section className="pt-32 pb-20 bg-brand-deep text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/blogs/resources" className="inline-flex items-center text-brand-teal font-bold mb-8 hover:translate-x-[-4px] transition-transform group">
-            <ArrowLeft className="mr-2 group-hover:scale-110" size={20} /> Back to Resources
+            <ArrowLeft className="mr-2 group-hover:scale-110" size={20} /> Back to Blogs
           </Link>
           <div className="max-w-4xl">
             <div className="flex items-center space-x-4 mb-6">

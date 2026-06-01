@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Microscope, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function CDSCOTest() {
   return (
@@ -94,6 +95,12 @@ export default function CDSCOTest() {
                 <p>
                   As devices imported under Form MD-13 are not licensed for sell-through or clinical treatment, strict records of lab testing custody, waste disposal, and return-shipment schedules must be maintained to avoid heavy administrative actions during subsequent commercial license requests.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['md-16', 'md-17', 'sugam']} 
+                  title="Test License Forms & Specifications" 
+                />
               </div>
             </div>
 

@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Globe, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function AnvisaBrazil() {
   return (
@@ -94,6 +95,12 @@ export default function AnvisaBrazil() {
                 <p>
                   As Brazil requires extensive testing on-site for various electrical and battery-powered medical systems, matching international ISO 14971 risk profiles with INMETRO standards upfront is essential. Our team maps this process to minimize unexpected project delays.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['anvisa', 'bgmp', 'inmetro', 'anatel', 'aia', 'poa', 'fsc']} 
+                  title="ANVISA Brazil Registration Codex" 
+                />
               </div>
             </div>
 

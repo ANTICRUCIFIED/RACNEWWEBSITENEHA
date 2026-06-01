@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
+import FormsHub from '../../components/FormsHub';
 
 export default function IndianAuthorizedRepresentative() {
   return (
@@ -394,6 +395,12 @@ export default function IndianAuthorizedRepresentative() {
                   ))}
                 </div>
               </motion.div>
+
+              {/* Direct Inline Forms Codex */}
+              <FormsHub 
+                keys={['iaa', 'md-14', 'md-15', 'poa', 'fsc', 'sugam']} 
+                title="Indian Authorized Agent & CDSCO Codex" 
+              />
 
             </div>
 

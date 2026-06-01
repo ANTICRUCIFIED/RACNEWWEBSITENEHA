@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ChevronDown, Globe, Shield, Flag, Code2, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, Shield, Flag, Code2, ArrowRight, Microscope } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const NAV_LINKS = [
@@ -18,7 +18,10 @@ const NAV_LINKS = [
         items: [
           { name: 'SaMD Architecture', path: '/services/samd-architecture-development' },
           { name: 'Electrical Device Prototyping', path: '/services/electrical-medical-device-prototyping' },
-          { name: 'Facility & Cleanroom Design', path: '/services/facility-cleanroom-design' }
+          { name: 'Facility & Cleanroom Design', path: '/services/facility-cleanroom-design' },
+          { name: 'Embedded Medical Firmware', path: '/services/embedded-medical-firmware' },
+          { name: 'Usability Engineering (IEC 62366)', path: '/services/usability-engineering-iec-62366' },
+          { name: 'Hardware V&V Protocols', path: '/services/hardware-vv-protocols' }
         ]
       },
       { 
@@ -42,7 +45,22 @@ const NAV_LINKS = [
           { name: 'USFDA 510(k) & De Novo', path: '/services/usfda-510k-de-novo' },
           { name: 'EU MDR & CE Marking', path: '/services/eu-mdr-ce-marking' },
           { name: 'EU Authorized Representative', path: '/services/eu-authorized-representative' },
-          { name: 'Anvisa Brazil Registration', path: '/services/anvisa-brazil-registration' }
+          { name: 'Anvisa Brazil Registration', path: '/services/anvisa-brazil-registration' },
+          { name: 'UKCA Mark Certification', path: '/services/ukca-mark-certification' },
+          { name: 'MDSAP Joint Audits', path: '/services/mdsap-joint-audits' }
+        ]
+      },
+      { 
+        title: 'Preclinical & Trials', 
+        path: '/services/biocompatibility-testing-iso-10993',
+        icon: <Microscope className="w-5 h-5 text-indigo-600" />,
+        items: [
+          { name: 'Biocompatibility Testing (ISO 10993)', path: '/services/biocompatibility-testing-iso-10993' },
+          { name: 'Preclinical Safety Evaluation', path: '/services/preclinical-safety-evaluation' },
+          { name: 'Clinical Trials & SEC Presentation', path: '/services/cdsco-clinical-investigation' },
+          { name: 'Toxicological Risk Assessment', path: '/services/toxicological-risk-assessment' },
+          { name: 'Extractables & Leachables (E&L)', path: '/services/extractables-leachables' },
+          { name: 'Good Clinical Practices (GCP) Audit', path: '/services/gcp-audit' }
         ]
       },
       { 
@@ -51,15 +69,18 @@ const NAV_LINKS = [
         icon: <Shield className="w-5 h-5 text-emerald-600" />,
         items: [
           { name: 'ISO 13485 & 9001 Certification', path: '/services/iso-13485-certification-audit' },
-          { name: 'Biocompatibility Testing (ISO 10993)', path: '/services/biocompatibility-testing-iso-10993' },
-          { name: 'Regulatory Audit Readiness', path: '/services/regulatory-audit-readiness' }
+          { name: 'Regulatory Audit Readiness', path: '/services/regulatory-audit-readiness' },
+          { name: 'IEC 60601-1 Electrical Safety', path: '/services/iec-60601-electrical-safety' },
+          { name: 'ISO 14971 Risk Management', path: '/services/iso-14971-risk-management' },
+          { name: 'Sterile Barrier Validation', path: '/services/sterile-barrier-validation' },
+          { name: 'Post-Market Surveillance (PMS)', path: '/services/post-market-surveillance-pms' }
         ]
       }
     ]
   },
   { name: 'VELO AI', path: '/velo-ai' },
   { name: 'Expertise', path: '/expertise' },
-  { name: 'Resources', path: '/blogs/resources' }
+  { name: 'Blogs', path: '/blogs/resources' }
 ];
 
 export default function Navbar() {
@@ -88,7 +109,10 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center group">
             <img src="https://anticrucified.github.io/MyWebP_Images/images/logo.webp" alt="RAC Forge Medical Device Regulatory Consulting Logo" aria-label="RAC Forge Logo" title="RAC FORGE" 
-              className="h-12 w-auto transition-all duration-500 mix-blend-multiply" 
+              className={cn(
+                "w-auto transition-all duration-500 mix-blend-multiply",
+                scrolled ? "h-16 sm:h-20" : "h-24 sm:h-28"
+              )}
             />
           </Link>
 
@@ -116,9 +140,9 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[1180px]"
+                        className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[1240px]"
                       >
-                        <div className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-8 grid grid-cols-4 gap-6">
+                        <div className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-8 grid grid-cols-5 gap-5">
                           {link.dropdown.map((section) => (
                             <div key={section.title} className="space-y-6">
                               <div className="flex items-center space-x-3">

@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Home, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function FacilityCleanroom() {
   return (
@@ -94,6 +95,12 @@ export default function FacilityCleanroom() {
                 <p>
                   Sterile packaging and high-risk classifications necessitate strict containment. We structure HVAC layouts and filtration thresholds so that cleanroom validation certificates are issued securely without delays by certified testing authorities.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['smf', 'pmf', 'iso-13485', 'qms']} 
+                  title="Sterile & Facility Layout Codex" 
+                />
               </div>
             </div>
 

@@ -190,19 +190,19 @@ export default function SEOPage() {
                 </div>
               </motion.div>
 
-              {/* Authority Stamp E-E-A-T Block */}
+              {/* Technical Authority and Leadership Verification */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="p-8 bg-slate-50 rounded-3xl border border-slate-200 relative overflow-hidden"
-                id="authority-stamp-e-e-a-t"
+                id="technical-authority-leadership"
               >
                 <div className="absolute top-6 right-6 text-slate-200">
                   <Award size={48} className="stroke-[1.5]" />
                 </div>
                 
-                <h4 className="text-xs font-extrabold text-[#0D9488] uppercase tracking-widest mb-2">The Authority Stamp (E-E-A-T Validation)</h4>
+                <h4 className="text-xs font-extrabold text-[#0D9488] uppercase tracking-widest mb-2">Technical Authority & Leadership Verification</h4>
                 <h3 className="text-xl font-black text-brand-deep mb-4">Our National Authority, Your Local Advantage</h3>
                 <p className="text-slate-650 text-sm leading-relaxed mb-6">
                   Our localized expertise is backed by nationally recognized, peer-reviewed scientific research and global industry collaborations. Our founder, **Atul Sharma Sankhyayan**, is an active medical device regulatory consultant, published author in the <strong>Cureus Journal of Medical Science</strong>, and a recognized regulatory architect across major MedTech states.

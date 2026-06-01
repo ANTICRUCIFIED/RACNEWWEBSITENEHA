@@ -37,7 +37,7 @@ export default function Resources() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Medical Device Regulatory Resources & Blogs" 
+        title="Medical Device Regulatory Blogs & Insights" 
         description="Latest insights on CDSCO, USFDA, and EU MDR compliance. Expert articles on 510k submission, sterilization validation, and biocompatibility testing."
         keywords="regulatory blogs, medical device insights, CDSCO news, USFDA 510k tips, EU MDR technical documentation articles, sterilization validation guide, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/blogs/resources"
@@ -47,7 +47,7 @@ export default function Resources() {
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img src="https://anticrucified.github.io/MyWebP_Images/images/resources-banner.png"
-            alt="RAC Forge Private Limited Resources | RAC Forge Consulting" title="RAC Forge Private Limited Resources"
+            alt="RAC Forge Private Limited Blogs | RAC Forge Consulting" title="RAC Forge Private Limited Blogs"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
            loading="lazy" />
@@ -59,7 +59,7 @@ export default function Resources() {
             
           >
 <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-            Resources & Insights
+            Blogs & Insights
           </h1>
 </motion.div>
           <motion.p
@@ -172,8 +172,8 @@ export default function Resources() {
             {/* Sidebar */}
             <aside className="space-y-12">
               {/* Search */}
-              <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100">
-                <h4 className="text-xl font-bold text-brand-deep mb-6">Search Resources</h4>
+              <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 font-bold">
+                <h4 className="text-xl font-bold text-brand-deep mb-6">Search Blogs</h4>
                 <div className="relative">
                   <input 
                     type="text" 

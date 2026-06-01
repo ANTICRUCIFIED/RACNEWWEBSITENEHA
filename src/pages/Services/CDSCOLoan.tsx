@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Zap, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function CDSCOLoan() {
   return (
@@ -94,6 +95,12 @@ export default function CDSCOLoan() {
                 <p>
                   Loan licensing provides startups and foreign organizations a highly safe, rapid, and budget-friendly distribution launch in India. Since host plants are pre-audited, the timeline to secure a final grant certificate is often cut by 50% compared to custom plant installations.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                  keys={['md-4', 'md-6', 'md-8', 'md-10', 'sugam', 'qms']} 
+                  title="Loan License Forms & Specifications" 
+                />
               </div>
             </div>
 

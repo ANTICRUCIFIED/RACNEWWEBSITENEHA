@@ -20,7 +20,8 @@ import {
   Star,
   Quote,
   X,
-  Printer
+  Printer,
+  Percent
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
@@ -453,46 +454,91 @@ export default function About() {
       </section>
 
       {/* Brands We Work With */}
-      <section className="py-16 bg-white border-b border-slate-200">
+      <section className="py-20 bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-emerald-450 font-extrabold tracking-widest uppercase text-xs mb-3 block">Our Collaborative Network</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
               Brands We Are Proud to Work With
             </h2>
             <p className="mt-4 text-slate-650 text-base leading-relaxed">
-              Partnering with forward-thinking medical technology pioneers and global healthcare leaders to deliver top-tier compliance architecture.
+              We provide strategic regulatory alignment and compliance architecture for premier global medical device brands, enabling smooth market authorizations across international borders.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center justify-center p-6 bg-slate-50 border border-slate-150 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-[260px] h-[130px]"
-            >
-              <img 
-                src="https://anticrucified.github.io/MyWebP_Images/images/brand1.webp" 
-                alt="Partner Brand Logo - Dentalkart" 
-                className="max-w-full max-h-[80px] object-contain"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-              />
-            </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+            {/* Left: Product Image Card */}
+            <div className="lg:col-span-4 flex flex-col items-center">
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center justify-center p-6 bg-white border border-slate-150 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 w-full aspect-square"
+              >
+                <img 
+                  src="https://anticrucified.github.io/MyWebP_Images/images/brand1.webp" 
+                  alt="Centrix FluoroDose FDA and CDSCO Clearance" 
+                  className="max-w-full max-h-[220px] object-contain"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                />
+              </motion.div>
+              
+              <div className="mt-6 w-full text-center">
+                <span className="inline-block text-[11px] font-mono tracking-wider font-extrabold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-250">
+                  CDSCO & FDA CLEARED PRODUCT
+                </span>
+                <p className="text-[11px] text-slate-400 mt-2 font-mono">
+                  Product Identifier: FluoroDose® 5% NaF Varnish
+                </p>
+              </div>
+            </div>
 
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center justify-center p-6 bg-slate-50 border border-slate-150 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-[260px] h-[130px]"
-            >
-              <img 
-                src="https://anticrucified.github.io/MyWebP_Images/images/brand2.webp" 
-                alt="Partner Brand Logo - Foshan Wenjian" 
-                className="max-w-full max-h-[84px] object-contain"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-              />
-            </motion.div>
+            {/* Right: Rich Brand & Regulatory Context */}
+            <div className="lg:col-span-8 space-y-6">
+              <div>
+                <span className="text-xs font-black text-emerald-700 tracking-wider uppercase bg-emerald-50 px-2.5 py-1 rounded-md">
+                  Spotlight Partner: Centrix Inc. (USA)
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 mt-3 tracking-tight">
+                  FluoroDose® — The Clinical Gold Standard in Fluoride Treatment
+                </h3>
+              </div>
+
+              <div className="space-y-4 text-slate-650 text-base leading-relaxed">
+                <p>
+                  For over fifty years, <strong>Centrix Inc. USA</strong> has been a global pioneer in developing specialized dental drug delivery platforms and innovative clinical consumables. Their flagship protective varnish, <strong>FluoroDose®</strong>, is an award-winning 5% Sodium Fluoride Varnish with Xylitol, repeatedly voted the <em>"Top Fluoride Varnish"</em> by Clinical Advisor and trusted by dentists worldwide.
+                </p>
+                <p>
+                  As their regulatory counsel, RAC Forge has delivered comprehensive end-to-end medical device compliance strategies for Centrix products. We verified and structured the import dossiers, ensured compliance with Indian <strong>CDSCO Medical Device Rules (MDR) 2017</strong>, and established the quality management system structures needed to sustain legal, high-volume healthcare distributions.
+                </p>
+              </div>
+
+              {/* Technical Specifications and Quality Attributes */}
+              <div className="pt-6 border-t border-slate-200">
+                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                  <span className="inline-block w-1.5 h-3 bg-emerald-500 rounded" />
+                  Technical Quality & Safety Credentials
+                </h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-white p-4 rounded-xl border border-slate-150 space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 font-mono">Regulatory Status</span>
+                    <p className="text-sm font-bold text-slate-850">USFDA 510(k) Cleared & CDSCO MD-15 Registered</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-xl border border-slate-150 space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 font-mono">Sterility & Safety</span>
+                    <p className="text-sm font-bold text-slate-850">Single-unit Dose Lollitray™ (Hygienic Execution)</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-xl border border-slate-150 space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 font-mono">Quality Standard</span>
+                    <p className="text-sm font-bold text-slate-850">ISO 13485 Certified Medical Manufacturing</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-xl border border-slate-150 space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 font-mono">Biocompatibility</span>
+                    <p className="text-sm font-bold text-slate-850">Conforms to ISO 10993 Systemic Toxicity standards</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -516,15 +562,15 @@ export default function About() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             
-            {/* Feedback 1: Dr. Vikas Agarwal */}
+            {/* Feedback 1: Anonymous CEO of NSE Listed Company */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="lg:col-span-12 xl:col-span-8 bg-white rounded-3xl p-8 shadow-md border border-slate-200/85 hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+              className="bg-white rounded-3xl p-8 shadow-md border border-slate-200/85 hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
             >
               {/* Decorative Big Quote */}
               <div className="absolute right-6 top-6 text-slate-100 pointer-events-none">
@@ -535,7 +581,7 @@ export default function About() {
                 {/* Meta Row: Date and Stars */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
                   <div className="text-slate-400 font-mono text-xs font-semibold">
-                    Customer Feedback: 19/2/2026
+                    Customer Feedback: 19/2/2026 (Anonymous Record)
                   </div>
                   <div className="flex gap-1 text-amber-400">
                     <Star size={16} fill="currentColor" />
@@ -547,7 +593,7 @@ export default function About() {
                 </div>
 
                 {/* Main Quote Content */}
-                <div className="space-y-4 text-slate-700 text-base leading-relaxed font-normal mb-8">
+                <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed font-normal mb-8">
                   <p>
                     "We would like to acknowledge and appreciate the strong understanding and structured approach demonstrated towards regulatory affairs and compliance requirements."
                   </p>
@@ -564,19 +610,21 @@ export default function About() {
               </div>
 
               {/* Author Info */}
-              <div className="pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4 relative z-10">
+              <div className="pt-6 border-t border-slate-100 space-y-4 relative z-10">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-slate-900 border-2 border-emerald-450 flex items-center justify-center shrink-0">
-                    <span className="text-white font-black text-base font-sans">D</span>
+                    <span className="text-white font-black text-base font-sans">C</span>
                   </div>
                   <div>
-                    <h3 className="text-slate-900 font-extrabold text-lg leading-tight">Dr. Vikas Agarwal</h3>
-                    <p className="text-emerald-700 font-bold text-xs uppercase tracking-wider mt-0.5">CEO and founder of Dentalkart</p>
-                    <p className="text-slate-400 text-[10px] uppercase font-bold mt-0.5 tracking-wider">A NSE listed company</p>
+                    <h3 className="text-slate-900 font-extrabold text-base sm:text-lg leading-tight">CEO and Founder</h3>
+                    <p className="text-emerald-700 font-bold text-xs uppercase tracking-wider mt-0.5">Under Strict Anonymity Protocol</p>
+                    <p className="text-slate-400 text-[10px] uppercase font-bold mt-0.5 tracking-wider">A leading NSE listed dental venture & industry tycoon</p>
                   </div>
                 </div>
-                <div className="text-[10px] text-slate-400 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200/60 font-medium">
-                  Verified Digital Record
+                
+                {/* NDA Disclaimer banner */}
+                <div className="text-[10px] text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-150 font-normal leading-relaxed">
+                  <strong>Anonymity Disclaimer</strong>: Under reciprocal Non-Disclosure Agreements (NDAs), the corporate name and executive identifiers are withheld. The original physical certified appraisal is cataloged and fully verifiable by regulatory auditors at our Corporate Headquarters.
                 </div>
               </div>
             </motion.div>
@@ -587,7 +635,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="lg:col-span-12 xl:col-span-4 bg-white rounded-3xl p-8 shadow-md border border-slate-200/85 hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+              className="bg-white rounded-3xl p-8 shadow-md border border-slate-200/85 hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
             >
               {/* Decorative Big Quote */}
               <div className="absolute right-6 top-6 text-slate-100 pointer-events-none">
@@ -610,7 +658,7 @@ export default function About() {
                 </div>
 
                 {/* Main Quote Content */}
-                <div className="text-slate-700 text-base md:text-[15px] leading-relaxed font-normal mb-8 space-y-4">
+                <div className="text-slate-700 text-sm sm:text-base leading-relaxed font-normal mb-6 space-y-4">
                   <p>
                     "RAC Forge Pvt. Ltd. provides top-tier regulatory support with a focus on efficiency and professionalism. Their team handles complex tasks promptly while remaining easy to communicate with and deeply reliable."
                   </p>
@@ -618,17 +666,37 @@ export default function About() {
                     "We appreciate their dedicated approach and look forward to continuing our successful partnership."
                   </p>
                 </div>
+
+                {/* Embedded Context about Foshan Wenjian low/high speed handpieces & regulatory achievements */}
+                <div className="bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100 text-xs text-slate-650 space-y-2 mb-6">
+                  <h4 className="font-bold text-emerald-900 border-b border-emerald-100/60 pb-1 flex items-center gap-1.5 uppercase tracking-wider text-[10px]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    Foshan Wenjian Manufacturing Synergy
+                  </h4>
+                  <p>
+                    <strong>Foshan Wenjian Medical Instrument Co., Ltd.</strong> is a high-technology dental engineering company revered for manufacturing precision low-speed micromotors and ultra-precise high-speed air turbine dental handpieces.
+                  </p>
+                  <p className="text-emerald-805 font-medium">
+                    RAC Forge acted as legal compliance counsel, delivering successful <strong>USFDA Nice Enterprise (NE) registry filing</strong>, <strong>Certificate to Foreign Government (CFG)</strong> clearances, and Indian <strong>CDSCO registrations</strong> to assure unrestricted international trade compliance.
+                  </p>
+                </div>
               </div>
 
               {/* Author Info */}
               <div className="pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4 relative z-10">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-slate-900 border-2 border-emerald-450 flex items-center justify-center shrink-0">
-                    <span className="text-white font-black text-base font-sans">M</span>
+                  <div className="w-16 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0 p-1 bg-slate-50/50">
+                    <img 
+                      src="https://anticrucified.github.io/MyWebP_Images/images/brand2.webp" 
+                      alt="Foshan Wenjian Brand Logo" 
+                      className="max-w-full max-h-full object-contain"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
                   </div>
                   <div>
                     <h3 className="text-slate-900 font-extrabold text-base leading-tight">Ms. Tian Yiwen</h3>
-                    <p className="text-emerald-700 font-bold text-xs uppercase tracking-wider mt-0.5">Manager (Designation)</p>
+                    <p className="text-emerald-700 font-bold text-xs uppercase tracking-wider mt-0.5">International Regulatory Manager</p>
                     <p className="text-slate-400 text-[10px] uppercase font-bold mt-0.5 tracking-wider">Foshan Wenjian Medical Instrument Co., Ltd.</p>
                   </div>
                 </div>
@@ -638,6 +706,185 @@ export default function About() {
               </div>
             </motion.div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: Our Collaborative Network */}
+      <section className="py-20 bg-white border-b border-slate-200" id="collaborative-network">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-[#0D9488] font-extrabold text-xs uppercase tracking-widest block font-mono mb-3">Synergistic Infrastructure</span>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">Our Collaborative Network</h2>
+            <p className="mt-4 text-slate-650 text-base leading-relaxed">
+              We leverage an extensive global network of certified laboratories, ISO-accredited testing institutes, and clinical research teams to expedite our clients' certification pathways.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            
+            {/* Card 1: PINNACLEMED B.V. */}
+            <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-250/60 shadow-sm relative overflow-hidden flex flex-col justify-between group hover:border-[#0D9488]/40 transition-all duration-300">
+              <div className="space-y-4">
+                <div className="w-full h-32 bg-white rounded-2xl border border-slate-150 flex items-center justify-center p-1 shadow-sm overflow-hidden relative">
+                  <img 
+                    src="https://anticrucified.github.io/MyWebP_Images/images/pinacle.webp" 
+                    alt="Pinacle - Pinnaclemed EU Rep Logo" 
+                    className="max-w-full max-h-full object-contain scale-[1.75]"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-extrabold tracking-wider uppercase bg-teal-50 text-teal-800 border border-teal-200/90 shadow-sm">
+                    <span className="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse" />
+                    EU Authorized Representative (EU Rep)
+                  </span>
+                  <h3 className="text-xl font-black text-slate-900 mt-2">PINNACLEMED B.V.</h3>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  Pinnaclemed B.V. serves as our premier European Authorized Representative (EU Rep) partner based in the Netherlands. They represent global manufacturers before the EEA Competent Authorities, manage CE compliance documentation, handle safety vigilances, and secure long-term European market access under the rigorous EU MDR 2017/745.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: Chromed Biosciences Pvt. Ltd. */}
+            <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-250/60 shadow-sm relative overflow-hidden flex flex-col justify-between group hover:border-[#0D9488]/40 transition-all duration-300">
+              <div className="space-y-4">
+                <div className="w-full h-32 bg-white rounded-2xl border border-slate-150 flex items-center justify-center p-4 shadow-sm">
+                  <img 
+                    src="https://anticrucified.github.io/MyWebP_Images/images/Cromed_Bio.webp" 
+                    alt="Cromed_Bio - Chromed Biosciences Logo" 
+                    className="max-w-full max-h-full object-contain"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-extrabold tracking-wider uppercase bg-emerald-50 text-emerald-800 border border-emerald-200/90 shadow-sm">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                    Preclinical & Clinical Validation
+                  </span>
+                  <h3 className="text-xl font-black text-slate-900 mt-2">Chromed Biosciences</h3>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  Chromed Biosciences Pvt. Ltd. is our key laboratory partner for preclinical safety profiling, dynamic biocompatibility evaluations (conforming to ISO 10993 standards), and end-to-end clinical trial management. Their ISO/GLP-aligned diagnostic capabilities deliver rigorous medical device validation data necessary for seamless filings.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-200 mt-4">
+                <a 
+                  href="https://chromedbio.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-990 transition-colors"
+                >
+                  Visit Chromed Biosciences <ExternalLink size={12} />
+                </a>
+              </div>
+            </div>
+
+            {/* Card 3: ElendiLabs */}
+            <div className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-250/60 shadow-sm relative overflow-hidden flex flex-col justify-between group hover:border-[#0D9488]/40 transition-all duration-300">
+              <div className="space-y-4">
+                <div className="w-full h-32 bg-white rounded-2xl border border-slate-150 flex items-center justify-center p-4 shadow-sm">
+                  <img 
+                    src="https://anticrucified.github.io/MyWebP_Images/images/Elendilabs.webp" 
+                    alt="Elendilabs - ElendiLabs Logo" 
+                    className="max-w-full max-h-full object-contain"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-extrabold tracking-wider uppercase bg-blue-50 text-blue-800 border border-blue-200/90 shadow-sm">
+                    <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+                    Chinese Market Strategic Partner
+                  </span>
+                  <h3 className="text-xl font-black text-slate-900 mt-2">ElendiLabs</h3>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  ElendiLabs serves as our key strategic gateway to the Chinese medical devices landscape. They coordinate crucial local clinical trials, direct NMPA registrations, and localized technical dossiers to ensure fully compliant entry into Asia's highly regulated healthcare sector.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-200 mt-4">
+                <a 
+                  href="https://elendilabs.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-900 transition-colors"
+                >
+                  Visit ElendiLabs <ExternalLink size={12} />
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Partnership Perks/Notice Banners */}
+          <div className="mb-12 p-6 bg-[#00f5d4]/5 rounded-3xl border border-[#0D9488]/20 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#0D9488]/5 rounded-bl-full pointer-events-none" />
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-md">
+                <Percent size={22} className="animate-pulse" />
+              </div>
+              <div className="space-y-1 text-left">
+                <span className="inline-block text-[10px] uppercase font-bold text-teal-800 bg-teal-100/70 px-2.5 py-0.5 rounded-md font-mono">Special Alliance Subsidies</span>
+                <h4 className="text-base font-black text-slate-900">Partner Benefit Privilege</h4>
+                <p className="text-xs text-slate-650 leading-relaxed max-w-2xl font-normal">
+                  We look out for your project's overall economics. Contact us to avail special discount on the services from our partners.
+                </p>
+              </div>
+            </div>
+            <a 
+              href="#contact" 
+              className="px-6 py-3 bg-[#0D9488] hover:bg-[#0c857a] text-white text-xs font-black rounded-xl shadow-md transition-all uppercase tracking-wider shrink-0 text-center w-full md:w-auto hover:scale-[1.02]"
+            >
+              Claim Discount Rates
+            </a>
+          </div>
+
+          {/* Collaborative NDA Protected Alliances Row */}
+          <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[#0D9488]/5 rounded-bl-full pointer-events-none" />
+            <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <span className="inline-block w-2.5 h-5 bg-[#0D9488] rounded-md" />
+              Confidential Regulatory Alliances (Under Strict NDA)
+            </h3>
+            <p className="text-xs text-slate-650 leading-relaxed mb-6">
+              To sustain global market authorization speed, we maintain additional reciprocal alliances mapped directly to international registrars. Under reciprocal Non-Disclosure Agreements, these specialized consultation pipelines handle:
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-white p-4 rounded-xl border border-slate-200/90 flex items-start gap-3">
+                <span className="text-[#0D9488] font-bold text-base bg-[#0D9488]/10 w-6 h-6 rounded-lg flex items-center justify-center shrink-0">✓</span>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-850 uppercase tracking-wide">ANVISA Alliance</h4>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-normal">
+                    Direct validation channels for rapid medical device registrations in the Brazilian market.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl border border-slate-200/90 flex items-start gap-3">
+                <span className="text-[#0D9488] font-bold text-base bg-[#0D9488]/10 w-6 h-6 rounded-lg flex items-center justify-center shrink-0">✓</span>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-850 uppercase tracking-wide">Notified Bodies Co-ordination</h4>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-normal">
+                    Direct pathways with peak European registrars to expedite CE mark compliance files.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl border border-slate-200/90 flex items-start gap-3">
+                <span className="text-[#0D9488] font-bold text-base bg-[#0D9488]/10 w-6 h-6 rounded-lg flex items-center justify-center shrink-0">✓</span>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-850 uppercase tracking-wide">Legal Consultancy & Services</h4>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-normal">
+                    Comprehensive legal support for safe cross-border technology transfers and IP protection.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -663,7 +910,8 @@ export default function About() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full pointer-events-none" />
               <div>
-                <div className="w-20 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-600 mb-6 font-bold">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-amber-50 text-amber-800 border border-amber-200 shadow-sm mb-6 font-mono">
+                  <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
                   COI
                 </div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-2">Certificate of Incorporation</h3>
@@ -699,7 +947,8 @@ export default function About() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-600 mb-6 font-bold">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-sm mb-6 font-mono">
+                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
                   MD-42
                 </div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-2">Form MD-42 Medical Device License</h3>
@@ -735,7 +984,8 @@ export default function About() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none" />
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-600 mb-6 font-bold">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-cyan-50 text-cyan-800 border border-cyan-200 shadow-sm mb-6 font-mono">
+                  <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse" />
                   MSME
                 </div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-2">Udyam Registration Certificate</h3>

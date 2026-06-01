@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="space-y-8">
             <Link to="/" className="flex items-center group">
               <img src="https://anticrucified.github.io/MyWebP_Images/images/logo.webp" alt="RAC Forge Medical Device Regulatory Consulting Logo" aria-label="RAC Forge Logo" title="RAC FORGE" 
-                className="h-12 w-auto mix-blend-multiply" 
+                className="h-24 sm:h-28 w-auto mix-blend-multiply" 
               />
             </Link>
             <p className="text-gray-600 leading-relaxed text-sm">
@@ -40,10 +40,10 @@ export default function Footer() {
           <div>
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Quick Links</h4>
             <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'VELO AI', 'Expertise', 'Resources', 'Contact'].map((item) => (
+              {['Home', 'About Us', 'Services', 'VELO AI', 'Expertise', 'Blogs', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
-                    to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Resources' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
+                    to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Blogs' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
                     className="text-gray-600 hover:text-brand-teal transition-colors flex items-center group font-medium"
                   >
                     <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -60,11 +60,11 @@ export default function Footer() {
             <ul className="space-y-4">
               {[
                 { name: 'VELO Regulatory AI', path: '/velo-ai' },
-                { name: 'CDSCO Licences', path: '/services' },
-                { name: 'USFDA 510(k)', path: '/services/usfda-510k-submission' },
-                { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },
-                { name: 'Anvisa Brazil', path: '/services/anvisa-brazil-approval' },
-                { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
+                { name: 'CDSCO Licenses (MD-5/9/14)', path: '/services/cdsco-manufacturing-license-md5-md9' },
+                { name: 'USFDA 510(k) & De Novo', path: '/services/usfda-510k-de-novo' },
+                { name: 'EU MDR & CE Marking', path: '/services/eu-mdr-ce-marking' },
+                { name: 'Preclinical & Clinical Trials', path: '/services/biocompatibility-testing-iso-10993' },
+                { name: 'ISO 13485 QMS Certification', path: '/services/iso-13485-certification-audit' }
               ].map((service) => (
                 <li key={service.name}>
                   <Link 

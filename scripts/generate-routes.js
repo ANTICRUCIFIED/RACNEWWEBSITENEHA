@@ -41,6 +41,46 @@ blogIds.forEach(id => {
   staticRoutes.push(`/blogs/${id}`);
 });
 
+// Location and State dynamic routes for perfect SEO crawls on GitHub Pages
+const locationSlugs = [
+  'chandigarh-mohali',
+  'baddi-solan-nalagarh',
+  'delhi-ncr',
+  'ludhiana-jalandhar',
+  'haridwar-dehradun',
+  'ahmedabad-sanand',
+  'mumbai-thane',
+  'pune',
+  'rajkot-vadodara',
+  'visakhapatnam-amtz',
+  'bengaluru',
+  'hyderabad-genome-valley',
+  'chennai-kanchipuram',
+  'thiruvananthapuram-kochi',
+  'ujjain-indore',
+  'kolkata',
+  'jaipur'
+];
+
+const stateSlugs = [
+  'gujarat-regulatory-compliance',
+  'maharashtra-medtech-licensing',
+  'karnataka-samd-guidelines',
+  'tamil-nadu-device-registration',
+  'telangana-biomedical-frameworks',
+  'uttar-pradesh-manufacturing-consultant',
+  'himachal-punjab-regional-pathways',
+  'uttarakhand-regulatory-compliance'
+];
+
+locationSlugs.forEach(slug => {
+  staticRoutes.push(`/locations/${slug}`);
+});
+
+stateSlugs.forEach(slug => {
+  staticRoutes.push(`/india/${slug}`);
+});
+
 // InfoData routes (forms, classes, standards, etc.)
 const infoDataKeys = [
   'md-16', 'md-17', 'md-3', 'md-5', 'md-7', 'md-9', 'md-14', 'md-15', 'md-4', 'md-6', 'md-8', 'md-10', 

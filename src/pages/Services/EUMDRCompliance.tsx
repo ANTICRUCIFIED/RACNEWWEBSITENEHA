@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Globe, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
+import FormsHub from '../../components/FormsHub';
 
 export default function EUMDRCompliance() {
   return (
@@ -94,6 +95,12 @@ export default function EUMDRCompliance() {
                 <p>
                   With major backlogs across European Notified Bodies, preparing an unassailable, robust technical dossier on your first submission is critical to avoiding years of delay. We coordinate with regulatory leads to complete structural and documentation reviews beforehand.
                 </p>
+
+                {/* Direct Inline Forms Codex */}
+                <FormsHub 
+                   keys={['eu-mdr', 'gspr', 'cer', 'pms', 'pmcf', 'psur', 'eudamed', 'udi', 'prrc']} 
+                   title="EU MDR CE Marking & Technical Dossier Codex" 
+                />
               </div>
             </div>
 

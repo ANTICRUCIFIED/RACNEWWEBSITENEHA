@@ -25,7 +25,10 @@ const SERVICES = [
     links: [
       { name: "SaMD Architecture", path: "/services/samd-architecture-development" },
       { name: "Electrical Device Prototyping", path: "/services/electrical-medical-device-prototyping" },
-      { name: "Facility & Cleanroom Design", path: "/services/facility-cleanroom-design" }
+      { name: "Facility & Cleanroom Design", path: "/services/facility-cleanroom-design" },
+      { name: "Embedded Medical Firmware", path: "/services/embedded-medical-firmware" },
+      { name: "Usability Engineering (IEC 62366)", path: "/services/usability-engineering-iec-62366" },
+      { name: "Hardware V&V Protocols", path: "/services/hardware-vv-protocols" }
     ]
   },
   {
@@ -51,18 +54,37 @@ const SERVICES = [
       { name: "USFDA 510(k) & De Novo", path: "/services/usfda-510k-de-novo" },
       { name: "EU MDR & CE Marking", path: "/services/eu-mdr-ce-marking" },
       { name: "EU Authorized Representative", path: "/services/eu-authorized-representative" },
-      { name: "Anvisa Brazil Registration", path: "/services/anvisa-brazil-registration" }
+      { name: "Anvisa Brazil Registration", path: "/services/anvisa-brazil-registration" },
+      { name: "UKCA Mark Certification", path: "/services/ukca-mark-certification" },
+      { name: "MDSAP Joint Audits", path: "/services/mdsap-joint-audits" }
+    ]
+  },
+  {
+    title: "Preclinical & Clinical Trials",
+    icon: <Microscope className="w-8 h-8 text-indigo-600" />,
+    bg: "bg-indigo-100/30",
+    description: "End-to-end biological safety, toxicology risk assessments, characterization studies, clinical trial management, and GCP audit readiness validation.",
+    links: [
+      { name: "Biocompatibility Testing (ISO 10993)", path: "/services/biocompatibility-testing-iso-10993" },
+      { name: "Preclinical Safety & Evaluation", path: "/services/preclinical-safety-evaluation" },
+      { name: "Clinical Trials & SEC Presentation", path: "/services/cdsco-clinical-investigation" },
+      { name: "Toxicological Risk Assessment", path: "/services/toxicological-risk-assessment" },
+      { name: "Extractables & Leachables (E&L)", path: "/services/extractables-leachables" },
+      { name: "Good Clinical Practices (GCP) Audit", path: "/services/gcp-audit" }
     ]
   },
   {
     title: "Certification & Audits",
     icon: <CheckCircle className="w-8 h-8 text-emerald-600" />,
     bg: "bg-emerald-100/30",
-    description: "Accredited biological appraisals, QMS audits, and preparation to pass Notified Body inspections confidently.",
+    description: "Quality management systems (QMS), internal auditing, process validation (IQ/OQ/PQ), and preparation to pass official on-site inspections.",
     links: [
       { name: "ISO 13485 & 9001 Certification", path: "/services/iso-13485-certification-audit" },
-      { name: "Biocompatibility Testing (ISO 10993)", path: "/services/biocompatibility-testing-iso-10993" },
-      { name: "Regulatory Audit Readiness", path: "/services/regulatory-audit-readiness" }
+      { name: "Regulatory Audit Readiness", path: "/services/regulatory-audit-readiness" },
+      { name: "IEC 60601-1 Electrical Safety", path: "/services/iec-60601-electrical-safety" },
+      { name: "ISO 14971 Risk Management", path: "/services/iso-14971-risk-management" },
+      { name: "Sterile Barrier Validation", path: "/services/sterile-barrier-validation" },
+      { name: "Post-Market Surveillance (PMS)", path: "/services/post-market-surveillance-pms" }
     ]
   }
 ];
@@ -136,10 +158,10 @@ export default function Services() {
               >
                 <div className="mb-8">{service.icon}</div>
                 <h3 className="text-3xl font-extrabold text-brand-deep mb-6">{service.title}</h3>
-                <p className="text-gray-600 mb-10 leading-relaxed flex-grow">
+                <p className="text-gray-600 mb-10 leading-relaxed">
                   <InfoLink text={service.description} />
                 </p>
-                <div className="space-y-4">
+                <div className="space-y-4 mt-auto">
                   {service.links.map((link, lIdx) => (
                     <Link 
                       key={lIdx} 
@@ -195,12 +217,12 @@ export default function Services() {
         </div>
       </section>
 
-      {/* The 24-Location National SEO Network directory */}
+      {/* The 25-Location National SEO Network directory */}
       <section className="py-24 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <span className="text-[#0D9488] font-extrabold text-xs uppercase tracking-widest block font-mono">Geographic Support Pipeline</span>
-            <h2 className="text-3xl md:text-5xl font-black text-brand-deep tracking-tight">Our 24-Location National Support Network</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-deep tracking-tight">Our 25-Location National Support Network</h2>
             <p className="text-slate-600 text-base font-medium">
               Providing localized on-site audit readiness, regulatory coordination, facility design, and joint-licensing support across India's key industrial hubs.
             </p>
@@ -210,14 +232,14 @@ export default function Services() {
             
             {/* Zone 1 */}
             <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
-              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-red-600">Zone 1: Northern Belt</h4>
+              <h4 className="font-extrabold text-brand-deep text-sm border-b border-slate-200 pb-2 uppercase tracking-wider">Zone 1: Northern Belt</h4>
               <ul className="space-y-2">
                 {[
-                  { name: "Chandigarh & Mohali", path: "/locations/chandigarh-mohali" },
-                  { name: "Baddi & Solan", path: "/locations/baddi-solan-nalagarh" },
-                  { name: "Delhi NCR Importers", path: "/locations/delhi-ncr" },
-                  { name: "Ludhiana & Forgings", path: "/locations/ludhiana-jalandhar" },
-                  { name: "Haridwar & Consumables", path: "/locations/haridwar-dehradun" }
+                  { name: "Chandigarh, Mohali & CDSCO Sub-Zonal", path: "/locations/chandigarh-mohali" },
+                  { name: "Nalagarh Mega Park (Baddi & Solan)", path: "/locations/baddi-solan-nalagarh" },
+                  { name: "Delhi NCR, Gurugram & Faridabad (Haryana)", path: "/locations/delhi-ncr" },
+                  { name: "Ludhiana Forgings & Northern IVD Hubs", path: "/locations/ludhiana-jalandhar" },
+                  { name: "Haridwar & customs Port Clearance", path: "/locations/haridwar-dehradun" }
                 ].map((loc) => (
                   <li key={loc.path}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
@@ -230,13 +252,13 @@ export default function Services() {
 
             {/* Zone 2 */}
             <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
-              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-teal-600">Zone 2: Western Power</h4>
+              <h4 className="font-extrabold text-brand-deep text-sm border-b border-slate-200 pb-2 uppercase tracking-wider">Zone 2: Western Power</h4>
               <ul className="space-y-2">
                 {[
-                  { name: "Ahmedabad & Sanand", path: "/locations/ahmedabad-sanand" },
-                  { name: "Mumbai & Importers", path: "/locations/mumbai-thane" },
-                  { name: "Pune & IEC 60601", path: "/locations/pune" },
-                  { name: "Rajkot & Vadodara", path: "/locations/rajkot-vadodara" }
+                  { name: "Ahmedabad, Sanand & CDSCO Zonal", path: "/locations/ahmedabad-sanand" },
+                  { name: "Mumbai, Thane & Nhava Sheva Maritime Port", path: "/locations/mumbai-thane" },
+                  { name: "Pune Electronic Hardware & SaMD Cluster", path: "/locations/pune" },
+                  { name: "Rajkot, Vadodara & Western IVD Hubs", path: "/locations/rajkot-vadodara" }
                 ].map((loc) => (
                   <li key={loc.path}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
@@ -249,14 +271,14 @@ export default function Services() {
 
             {/* Zone 3 */}
             <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
-              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-emerald-600">Zone 3: Southern Parks</h4>
+              <h4 className="font-extrabold text-brand-deep text-sm border-b border-slate-200 pb-2 uppercase tracking-wider">Zone 3: Southern Parks</h4>
               <ul className="space-y-2">
                 {[
-                  { name: "Visakhapatnam (AMTZ)", path: "/locations/visakhapatnam-amtz" },
-                  { name: "Bengaluru SaMD Hub", path: "/locations/bengaluru" },
-                  { name: "Hyderabad & Genome", path: "/locations/hyderabad-genome-valley" },
-                  { name: "Chennai & Imaging", path: "/locations/chennai-kanchipuram" },
-                  { name: "Kerala & Biomaterials", path: "/locations/thiruvananthapuram-kochi" }
+                  { name: "Visakhapatnam (AMTZ Flagship Park)", path: "/locations/visakhapatnam-amtz" },
+                  { name: "Bengaluru SaMD & Dedicated IVD segment", path: "/locations/bengaluru" },
+                  { name: "Hyderabad Genome Valley & CDSCO Zonal", path: "/locations/hyderabad-genome-valley" },
+                  { name: "Chennai Imaging & Maritime Port Hubs", path: "/locations/chennai-kanchipuram" },
+                  { name: "Kerala Biomaterials & Specialized Implants", path: "/locations/thiruvananthapuram-kochi" }
                 ].map((loc) => (
                   <li key={loc.path}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
@@ -269,12 +291,13 @@ export default function Services() {
 
             {/* Zone 4 */}
             <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
-              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-indigo-650">Zone 4: Tactical Gateways</h4>
+              <h4 className="font-extrabold text-brand-deep text-sm border-b border-slate-200 pb-2 uppercase tracking-wider">Zone 4: Tactical Gateways</h4>
               <ul className="space-y-2">
                 {[
-                  { name: "Indore & Ujjain Park", path: "/locations/ujjain-indore" },
-                  { name: "Kolkata Trade Node", path: "/locations/kolkata" },
-                  { name: "Jaipur Molding Hub", path: "/locations/jaipur" }
+                  { name: "Indore, Ujjain Park & MP Corridor", path: "/locations/ujjain-indore" },
+                  { name: "Kolkata Node, Bihar & East Port Gateways", path: "/locations/kolkata" },
+                  { name: "Jaipur Molding & North-West Port Clusters", path: "/locations/jaipur" },
+                  { name: "Assam, Odisha & North-East Trade Hubs", path: "/locations/kolkata" }
                 ].map((loc) => (
                   <li key={loc.path}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
@@ -287,16 +310,17 @@ export default function Services() {
 
             {/* Zone 5 */}
             <div className="space-y-4 p-6 bg-slate-50/50 rounded-3xl border border-slate-100">
-              <h4 className="font-extrabold text-slate-900 text-sm border-b border-slate-200 pb-2 uppercase tracking-wider text-amber-600">Zone 5: State Rules</h4>
+              <h4 className="font-extrabold text-brand-deep text-sm border-b border-slate-200 pb-2 uppercase tracking-wider">Zone 5: State Rules</h4>
               <ul className="space-y-2">
                 {[
-                  { name: "Gujarat Registry Rules", path: "/india/gujarat-regulatory-compliance" },
-                  { name: "Maharashtra Licensing", path: "/india/maharashtra-medtech-licensing" },
-                  { name: "Karnataka SaMD Guide", path: "/india/karnataka-samd-guidelines" },
-                  { name: "Tamil Nadu Registration", path: "/india/tamil-nadu-device-registration" },
-                  { name: "Telangana Lab Guide", path: "/india/telangana-biomedical-frameworks" },
-                  { name: "Uttar Pradesh Strategy", path: "/india/uttar-pradesh-manufacturing-consultant" },
-                  { name: "Himachal Joint Pathways", path: "/india/himachal-punjab-regional-pathways" }
+                  { name: "Gujarat Registry & SLA Dual-Inspections", path: "/india/gujarat-regulatory-compliance" },
+                  { name: "Maharashtra Licensing & IVD Frameworks", path: "/india/maharashtra-medtech-licensing" },
+                  { name: "Karnataka SaMD & CDSCO Guidelines", path: "/india/karnataka-samd-guidelines" },
+                  { name: "Tamil Nadu Board & AMTZ Partnerships", path: "/india/tamil-nadu-device-registration" },
+                  { name: "Telangana Lab & Medical Device Park", path: "/india/telangana-biomedical-frameworks" },
+                  { name: "UP Strategy & YEIDA MedTech Park (Jewar)", path: "/india/uttar-pradesh-manufacturing-consultant" },
+                  { name: "Himachal Nalagarh Mega Park Pathway", path: "/india/himachal-punjab-regional-pathways" },
+                  { name: "Uttarakhand & East Region SLA Licensing", path: "/india/uttarakhand-regulatory-compliance" }
                 ].map((loc) => (
                   <li key={loc.path}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
