@@ -489,6 +489,14 @@ Please write what specific area you would like detailed guidance on!
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
   };
+  app.use((req, res, next) => {
+    if (req.method === "GET" && req.path !== "/" && req.path.endsWith("/") && !req.path.startsWith("/api/")) {
+      const query = req.url.slice(req.path.length);
+      const safePath = req.path.slice(0, -1);
+      return res.redirect(301, safePath + query);
+    }
+    next();
+  });
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", timestamp: (/* @__PURE__ */ new Date()).toISOString() });
   });
