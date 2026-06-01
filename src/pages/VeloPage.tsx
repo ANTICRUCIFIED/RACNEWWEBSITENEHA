@@ -69,7 +69,7 @@ export default function VeloPage() {
   const faqs = [
     {
       q: "What does RAAAHI stand for?",
-      a: "RAAAHI stands for Regulatory Affairs And Aprroval Haromized Inteligence. 'Raahi' (राही) also represents a guide or traveler in Hindi, reflecting our mission to act as your expert navigator through complex regulatory pipelines, built directly by RAC Forge Pvt. Ltd."
+      a: "RAAAHI stands for Regulatory Affairs And Approval Harmonized Intelligence. 'Raahi' (राही) also represents a guide or traveler in Hindi, reflecting our mission to act as your expert navigator through complex regulatory pipelines, built directly by RAC Forge Pvt. Ltd."
     },
     {
       q: "How does RAAAHI help medical device manufacturers save time?",
@@ -100,7 +100,7 @@ export default function VeloPage() {
     <div className="flex flex-col w-full bg-[#f8fafc] min-h-screen">
       <SEO 
         title="RAAAHI: Regulatory Affairs & Approval Harmonized Intelligence Assistant" 
-        description="Meet RAAAHI (राही), RAC Forge's Regulatory Affairs And Aprroval Haromized Inteligence helper. The first dedicated assistant for CDSCO MDR 2017, USFDA 510(k), and EU MDR compliance, featuring real-time document search and diagram generation."
+        description="Meet RAAAHI (राही), RAC Forge's Regulatory Affairs And Approval Harmonized Intelligence helper. The first dedicated assistant for CDSCO MDR 2017, USFDA 510(k), and EU MDR compliance, featuring real-time document search and diagram generation."
         keywords="RAAAHI, राही, medical device assistant, regulatory affairs client, CDSCO search, USFDA 510k submission, medical device compliance chatbot, RAC Forge premium regulatory assistant, EU MDR compliance helper, ISO 13485 consulting, CDSCO Sugam portal registration assistant, medical device manufacturing license consultant, verification evaluation licensing operator, medical dev regulatory affairs"
         canonical="/services/regulatory-ai-velo"
       />

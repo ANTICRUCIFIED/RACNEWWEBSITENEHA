@@ -1,0 +1,14 @@
+### Schedules of the Medical Devices Rules (MDR) 2017 (India)
+
+The Medical Devices Rules, 2017, issued by CDSCO, categorize regulatory requirements into several Schedules. Here is a summary of the most critical schedules:
+
+*   **First Schedule**: Classification of medical devices and in vitro diagnostic (IVD) medical devices. It outlines the parameters and rules for classifying devices into Class A (low risk), Class B (low-moderate risk), Class C (moderate-high risk), and Class D (high risk).
+*   **Second Schedule**: Fee structure. Specifies the official government fees required to be paid for various applications, such as import licenses (e.g., $1000 for Class A manufacturing site, $50 per distinct device), manufacturing licenses, test licenses, and clinical investigations.
+*   **Third Schedule**: Documents required for registration and licensing. It lists the exact dossier requirements, technical file contents, and plant master file details needed for obtaining import or manufacturing licenses.
+*   **Fourth Schedule**: Requirements for the Quality Management System (QMS). It mandates compliance with standards analogous to ISO 13485 for the manufacturing of medical devices and IVDs in India.
+*   **Fifth Schedule**: Requirements for conducting clinical investigations. It dictates the protocols, ethics committee approvals, and reporting formatting required for trials of investigational medical devices in human subjects.
+*   **Sixth Schedule**: Post-Market Surveillance (PMS) and exemptions.
+*   **Seventh Schedule**: Requirements for clinical performance evaluation of new in vitro diagnostic (IVD) medical devices.
+*   **Eighth Schedule**: Exemption of specific medical devices from the provisions of the rules.
+
+These schedules form the backbone of regulatory compliance for both domestic manufacturing and importing medical devices into the Indian market.

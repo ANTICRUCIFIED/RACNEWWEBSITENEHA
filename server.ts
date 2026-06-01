@@ -6,7 +6,7 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments } from './rag';
+import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './rag';
 
 dotenv.config();
 
@@ -15,24 +15,32 @@ async function startServer() {
   const PORT = 3000;
 
   app.use(express.json());
+  
+  // CORS configuration to prevent "Failed to fetch" on different origins
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With');
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200);
+      return;
+    }
+    next();
+  });
 
-  let aiClient: GoogleGenAI | null = null;
-  const getGoogleGenAI = () => {
-    const apiKey = process.env.GEMINI_API_KEY;
+  const getGoogleGenAI = (customKey?: string) => {
+    const apiKey = customKey || process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error('GEMINI_API_KEY environment variable is not defined. Please ensure your API key has been added in the Settings > Secrets panel of your AI Studio visual environment.');
+      throw new Error('GEMINI_API_KEY environment variable is not defined and no custom key provided.');
     }
-    if (!aiClient) {
-      aiClient = new GoogleGenAI({
-        apiKey: apiKey,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build',
-          }
+    return new GoogleGenAI({
+      apiKey: apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
         }
-      });
-    }
-    return aiClient;
+      }
+    });
   };
 
   // Helper for generating high-quality local fallback responses when the Gemini API is rate-limited or quota is exceeded
@@ -41,7 +49,7 @@ async function startServer() {
     const intro = '';
 
     // CDSCO
-    if (q.includes('cdsco') || q.includes('sugam') || q.includes('licens') || q.includes('md-14') || q.includes('md-15') || q.includes('md-3') || q.includes('md-7') || q.includes('md-5') || q.includes('md-9') || q.includes('wholesale') || q.includes('md-42') || q.includes('import') || q.includes('manufact') || q.includes('loan') || q.includes('iaa') || q.includes('authorized agent') || q.includes('fee')) {
+    if (q.includes('indian mdr') || q.includes('cdsco') || q.includes('sugam') || q.includes('licens') || q.includes('md-14') || q.includes('md-15') || q.includes('md-3') || q.includes('md-7') || q.includes('md-5') || q.includes('md-9') || q.includes('wholesale') || q.includes('md-42') || q.includes('import') || q.includes('manufact') || q.includes('loan') || q.includes('iaa') || q.includes('authorized agent') || q.includes('fee')) {
       return intro + `### CDSCO SUGAM Portal & Indian MDR 2017 Pathways
 
 RAC Forge Private Limited is your premium, hands-on partner for CDSCO registrations. Under the **Indian Medical Device Rules (MDR) 2017**, import and manufacturing activities require strategic compilation on the SUGAM portal.
@@ -89,7 +97,7 @@ Unlike document brokers, we physically analyze schematics and testing standards 
     }
 
     // EU MDR
-    if (q.includes('eu') || q.includes('mdr') || q.includes('ce') || q.includes('ce mark') || q.includes('2017/745') || q.includes('ec rep') || q.includes('representative')) {
+    if (q.includes('eu') || (q.includes('mdr') && !q.includes('indian')) || q.includes('ce') || q.includes('ce mark') || q.includes('2017/745') || q.includes('ec rep') || q.includes('representative')) {
       return intro + `### European Union Medical Device Regulation (EU MDR 2017/745)
 
 Compliance under the strict European EU MDR guidelines is an engineering and documentation challenge. RAC Forge Pvt. Ltd. guides your hardware and software systems to satisfy MDR criteria.
@@ -252,12 +260,26 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
 **Disclaimer**: For confirmation, please contact our team.`;
     }
 
+    if (q === 'hi' || q === 'hello' || q === 'hey' || q === 'greetings') {
+      return intro + `Hello! I am RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence, representing RAC Forge Pvt. Ltd. How can I assist you with medical device regulation or facility engineering today?
+
+Disclaimer: For confirmation, please contact our team.`;
+    }
+
+    if (q.includes('thank')) {
+      return intro + `You're welcome! Let me know if you need any further assistance with CDSCO, EU MDR, USFDA, or facility engineering.
+      
+Disclaimer: For confirmation, please contact our team.`;
+    }
+
     // General Fallback
-    return intro + `### RAAAHI (राही) — Regulatory Affairs And Aprroval Haromized Inteligence
+    return intro + `I am currently operating in a limited offline capacity. 
 
-I am **RAAAHI (राही)** — **Regulatory Affairs And Aprroval Haromized Inteligence**, representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
+### RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence
 
-How can we assist you with medical product regulation or facility engineering today?
+I am **RAAAHI (राही)** — **Regulatory Affairs And Approval Harmonized Intelligence**, representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
+
+If you are asking about a specific regulatory topic (e.g., CDSCO, SUGAM, EU MDR, USFDA 510k, ISO 13485), please specify your query. For other non-regulatory topics, I may not be able to provide detailed assistance right now.
 
 Please ask about any of the following structured expertise areas:
 1.  **CDSCO SUGAM Pathways**: MD-14 Import Licenses ($1000-$3000 USD government site fees/device fees), Manufacturing Form 3/5/7/9, Loan Form 4/8/6/10, test approvals.
@@ -266,8 +288,6 @@ Please ask about any of the following structured expertise areas:
 4.  **Regulatory R&D Validation**: IEC 62304 SaMD life cycle documentation, IEC 60601-1 electrical safety testing, ISO 10993 toxicology matrices.
 5.  **Quality Systems**: ISO 13485:2016 QMS, SOP workflows, gap analysis reviews.
 6.  **Leadership & Research**: Founder Atul Sharma Sankhyayan's May 2026 Cureus research publication on SIS, Elendi podcast features.
-7.  **Contact Info & Locations**: HQ Himachal Pradesh, Google Maps location.
-8.  **Official Regulatory Links**: Portals directory.
 
 Please write what specific area you would like detailed guidance on!
 
@@ -290,23 +310,39 @@ Please write what specific area you would like detailed guidance on!
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  const getDynamicModels = async (apiKey: string): Promise<string[]> => {
+    return [
+      'gemini-2.5-flash',
+      'gemini-2.5-pro',
+      'gemini-2.0-flash',
+      'gemini-2.0-flash-lite-001'
+    ];
+  };
+
   app.post('/api/chat', async (req, res) => {
+    let context = '';
     try {
-      const { messages, userMessage } = req.body;
-      
-      let context = '';
+      const { messages = [], userMessage, apiKey } = req.body;
       try {
-        const ai = getGoogleGenAI();
         if (documentStore.length === 0) {
           console.log('Document store is empty, initializing preloading for static files...');
-          await preloadStaticDocuments(ai);
+          let aiClient;
+          try { aiClient = getGoogleGenAI(apiKey); } catch (e) {}
+          await preloadStaticDocuments(aiClient);
         }
-        context = await retrieveRelevantContext(userMessage, ai);
+        let aiForRetrieve;
+        try { aiForRetrieve = getGoogleGenAI(apiKey); } catch (e) {}
+        context = await retrieveRelevantContext(userMessage, aiForRetrieve);
       } catch (contextError) {
-        console.warn('Could not retrieve context due to rate limit or key issue:', contextError);
+        console.warn('Could not retrieve context directly:', contextError);
       }
 
-      const augmentedMessage = context ? `Context information:\n\n${context}\n\nUser Message: ${userMessage}` : userMessage;
+      const augmentedMessage = context ? `Use the following context from our company knowledge base to answer the user's question naturally and conversationally. Do not blindly copy-paste the context. Synthesize it to directly and precisely answer the question.
+
+Knowledge Base Context:
+${context}
+
+User Message: ${userMessage}` : userMessage;
       
       // Filter out any leading model messages to guarantee the history starts with a user turn
       let startIndex = 0;
@@ -323,7 +359,8 @@ Please write what specific area you would like detailed guidance on!
 
       const modelConfig = {
         config: {
-          systemInstruction: `You are RAAAHI (राही) — Regulatory Affairs And Aprroval Haromized Inteligence, an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently, naturally, and professionally, providing accurate, trustworthy advice on medical device compliance, facility engineering (cleanrooms, HVAC, modular OTs), Quality Management Systems (ISO 13485), and global approval pipelines (CDSCO, USFDA, EU MDR, ANVISA).
+          systemInstruction: `You are RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence, an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You converse naturally, intelligently, and professionally like a human expert.
+Be precise and direct in answering the user's specific query. Do not provide unrequested information or generic data dumps. Provide exactly what is requested in an empathetic and helpful tone. Provide accurate, trustworthy advice on medical device compliance, facility engineering (cleanrooms, HVAC, modular OTs), Quality Management Systems (ISO 13485), and global approval pipelines (CDSCO, USFDA, EU MDR, ANVISA).
 
 You possess key authority information regarding:
 1. RAC Forge Private Limited (Main Portal: https://www.racforge.com), headquartered in Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064 (Phone: +91 62396 99077, Email: info@racforge.com, Google Maps Location: https://share.google/GNUkTQHynWoYKpWY3).
@@ -355,23 +392,18 @@ You possess key authority information regarding:
 Key regulatory fact matrix:
 - Import Licence Form MD-14 Official CDSCO Government Fees: Class A ($1000 USD site fee + $50 USD per device); Class B ($2000 USD site fee + $1000 USD per device); Class C ($3000 USD site fee + $1500 USD per device); Class D ($3000 USD site fee + $1500 USD per device). Ensure absolute factual accuracy when discussing numbers.
 
-Draft responses strictly, citing or outputting these direct download links whenever the user requests standards, guidelines, rules, forms, PDFs, or official documents. Always append this exact disclaimer at the end of every message: "Disclaimer: For confirmation, please contact our team."`,
+Draft responses thoughtfully based only on the query contexts provided and your system knowledge. Do not hallucinate. Provide direct download links if the user asks for standards, rules, or PDFs. Always append this exact disclaimer at the end of every message: "Disclaimer: For confirmation, please contact our team."`,
         },
         contents: contents,
       };
 
-      const modelsToTry = [
-        'gemini-3.5-flash',
-        'gemini-3.1-flash-lite',
-        'gemini-3.1-pro-preview',
-        'gemini-flash-latest'
-      ];
+      const modelsToTry = await getDynamicModels(apiKey);
 
       let result = null;
       let lastError = null;
 
       try {
-        const ai = getGoogleGenAI();
+        const ai = getGoogleGenAI(apiKey);
         for (const modelInstance of modelsToTry) {
           try {
             console.log(`VELO: Attempting generation with model: ${modelInstance}`);
@@ -395,18 +427,27 @@ Draft responses strictly, citing or outputting these direct download links whene
       }
 
       if (result && result.text) {
+        // Continuous learning: Save successful online interactions
+        await appendLearnedKnowledge(userMessage, result.text);
         res.json({ text: result.text });
       } else {
         // High quality offline fallback rather than throwing a breaking 500 error
         console.warn('VELO: All model options failed or rate-limited. Activating local intelligence response.');
-        const fallbackResponse = getLocalFallbackResponse(userMessage);
+        let fallbackResponse = getLocalFallbackResponse(userMessage);
+
+        if (context) {
+          fallbackResponse = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:\n\n${context}\n\n---\n\n${fallbackResponse}`;
+        }
         res.json({ text: fallbackResponse, isFallback: true });
       }
     } catch (err: any) {
       console.error('Core Chat API Error occurred:', err);
       // Absolute failsafe
       try {
-        const fallbackText = getLocalFallbackResponse(req.body?.userMessage || '');
+        let fallbackText = getLocalFallbackResponse(req.body?.userMessage || '');
+        if (context) {
+          fallbackText = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:\n\n${context}\n\n---\n\n${fallbackText}`;
+        }
         res.json({ text: fallbackText, isFallback: true });
       } catch (innerErr) {
         res.status(500).json({ error: 'Failed to generate response', details: String(err) });
@@ -416,8 +457,8 @@ Draft responses strictly, citing or outputting these direct download links whene
 
   app.post('/api/generate-image', async (req, res) => {
     try {
-      const { prompt, size } = req.body;
-      const ai = getGoogleGenAI();
+      const { prompt, size, apiKey } = req.body;
+      const ai = getGoogleGenAI(apiKey);
 
       const modelConfig = {
         contents: {
@@ -438,14 +479,14 @@ Draft responses strictly, citing or outputting these direct download links whene
       let result;
       try {
         result = await ai.models.generateContent({
-          model: 'gemini-3-pro-image-preview',
+          model: 'imagen-4.0-generate-001',
           ...modelConfig,
         });
       } catch (primaryError: any) {
-        console.warn('Primary image model gemini-3-pro-image-preview failed, attempting fallback to gemini-2.5-flash-image...', primaryError);
+        console.warn('Primary image model imagen-4.0-generate-001 failed, attempting fallback to imagen-4.0-fast-generate-001...', primaryError);
         try {
           result = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-image',
+            model: 'imagen-4.0-fast-generate-001',
             ...modelConfig,
           });
         } catch (secondaryError: any) {
@@ -472,7 +513,8 @@ Draft responses strictly, citing or outputting these direct download links whene
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
-      const ai = getGoogleGenAI();
+      const apiKey = req.body?.apiKey;
+      const ai = getGoogleGenAI(apiKey);
       const chunksAdded = await processDocument(req.file, ai);
       res.json({ success: true, chunksAdded });
     } catch (error: any) {

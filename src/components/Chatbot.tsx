@@ -5,8 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
-
 function getClientFallbackResponse(query: string): string {
   const result = _getClientFallbackResponse(query);
   return result + '\n\n**Disclaimer**: For confirmation and official guidance, please contact our team.';
@@ -16,7 +14,7 @@ function _getClientFallbackResponse(query: string): string {
   const q = query.toLowerCase();
 
   // 1. CDSCO path
-  if (q.includes('cdsco') || q.includes('sugam') || q.includes('license') || q.includes('md-14') || q.includes('md-15') || q.includes('md-3') || q.includes('md-7') || q.includes('md-5') || q.includes('md-9') || q.includes('wholesale') || q.includes('md-42') || q.includes('import') || q.includes('manufact') || q.includes('loan') || q.includes('iaa') || q.includes('authorized agent')) {
+  if (q.includes('indian mdr') || q.includes('cdsco') || q.includes('sugam') || q.includes('license') || q.includes('md-14') || q.includes('md-15') || q.includes('md-3') || q.includes('md-7') || q.includes('md-5') || q.includes('md-9') || q.includes('wholesale') || q.includes('md-42') || q.includes('import') || q.includes('manufact') || q.includes('loan') || q.includes('iaa') || q.includes('authorized agent')) {
     return `RAC Forge Private Limited is an industry-leading expert in CDSCO (Central Drugs Standard Control Organisation) pathways. 
 
 Our core execution services include:
@@ -43,7 +41,7 @@ Unlike document brokers, we actively verify hardware and software specifications
   }
 
   // 3. EU MDR path
-  if (q.includes('eu') || q.includes('mdr') || q.includes('ce') || q.includes('ce mark') || q.includes('2017/745') || q.includes('ec rep') || q.includes('representative')) {
+  if (q.includes('eu') || (q.includes('mdr') && !q.includes('indian')) || q.includes('ce') || q.includes('ce mark') || q.includes('2017/745') || q.includes('ec rep') || q.includes('representative')) {
     return `We provide end-to-end alignment with the European Medical Device Regulation (EU MDR 2017/745):
 *   **Comprehensive CE Marking Strategy** for medical hardware, Software as a Medical Device (SaMD), and IVDs.
 *   **Structuring Technical Files and Clinical Evaluation Reports (CER)**.
@@ -168,8 +166,22 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
 *   **Google Maps Location Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)`;
   }
 
+  if (q === 'hi' || q === 'hello' || q === 'hey' || q === 'greetings') {
+    return 'Hello! I am RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence, representing RAC Forge Pvt. Ltd. How can I assist you with medical device regulation or facility engineering today?';
+  }
+  
+  if (q.includes('thank')) {
+    return `You're welcome! Let me know if you need any further assistance with CDSCO, EU MDR, USFDA, or facility engineering.`;
+  }
+
   // General default fallback
-  return `Welcome to **RAAAHI (राही)** — **Regulatory Affairs And Aprroval Haromized Inteligence**, your premier RAC Forge Private Limited Regulatory Intelligence Assistant. How can I assist you with CDSCO, USFDA, or EU MDR compliance today? 
+  return `I am currently operating in a limited offline capacity. 
+
+### RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence
+
+I am **RAAAHI (राही)**. If you are asking about a specific regulatory topic (e.g., CDSCO, SUGAM, EU MDR, USFDA 510k, ISO 13485), please specify your query. For other non-regulatory topics, I may not be able to provide detailed assistance right now.
+
+Please ask about any of the following structured expertise areas:
 1.  **CDSCO Sugam Portal Pathways** (Import MD-14/15, Manufacturing, Loan Licenses)
 2.  **Global Registrations** (USFDA 510k, EU MDR CE-Mark, ANVISA Brazil)
 3.  **Turnkey Physical Construction** (ISO Clean Rooms, HVAC, Modular OTs)
@@ -214,17 +226,12 @@ function getPreSavedApiKey(): string {
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([
-    { role: 'model', text: 'Hello! I am **RAAAHI (राही)** — **Regulatory Affairs And Aprroval Haromized Inteligence**, your RAC Forge Private Limited Regulatory Assistant. How can I help you with CDSCO, USFDA, or EU MDR compliance today?' }
+    { role: 'model', text: 'Hello! I am **RAAAHI (राही)** — **Regulatory Affairs And Approval Harmonized Intelligence**, your RAC Forge Private Limited Regulatory Assistant. How can I help you with CDSCO, USFDA, or EU MDR compliance today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isStaticMode, setIsStaticMode] = useState(false);
+  const [isLocalMode, setIsLocalMode] = useState(false);
   const [staticChunks, setStaticChunks] = useState<any[]>([]);
-  const [localApiKey, setLocalApiKey] = useState(() => {
-    return localStorage.getItem('RAAAHI_GEMINI_API_KEY') || localStorage.getItem('RAAHI_GEMINI_API_KEY') || localStorage.getItem('VELO_GEMINI_API_KEY') || getPreSavedApiKey() || '';
-  });
-  const [showKeyInput, setShowKeyInput] = useState(false);
-  const [tempKey, setTempKey] = useState('');
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -249,28 +256,12 @@ export default function Chatbot() {
     }
   }, [messages]);
 
-  // Determine if full-stack backend is available or if we are loaded as index.html statically (GitHub Pages)
+  // Pre-load documents cache if available (for GitHub Pages fallback index)
   useEffect(() => {
-    fetch(`${API_BASE_URL}/api/health`)
-      .then(res => {
-        const contentType = res.headers.get('content-type') || '';
-        if (res.ok && contentType.includes('application/json')) {
-          setIsStaticMode(false);
-          console.log("RAAAHI: Connected to Express API successfully. Running in standard Full-Stack mode.");
-        } else {
-          setIsStaticMode(true);
-          console.log("RAAAHI: Health check didn't return JSON. Running in Static mode (GitHub Pages compatible).");
-        }
-      })
-      .catch((err) => {
-        setIsStaticMode(true);
-        console.log("RAAAHI: Express API unreachable. Activating Static host mode.", err);
-      });
-
     // Pre-retrieve parsed documents index for search fallback
     const loadCache = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/documents_cache.json`);
+        const res = await fetch('/documents_cache.json');
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) setStaticChunks(data);
@@ -345,77 +336,14 @@ export default function Chatbot() {
       return { ...chunk, score };
     });
 
-    const matched = scored.filter(c => c.score > 0);
+    const matched = scored.filter(c => c.score >= 2);
     matched.sort((a, b) => b.score - a.score);
 
     const top = matched.slice(0, topK);
-    if (top.length === 0) return '';
+    // If scores are too low (e.g. only partial matches), reject
+    if (top.length === 0 || top[0].score < 5) return '';
 
     return top.map(c => `[From Document: ${c.filename}]\n${c.text}`).join('\n\n---\n\n');
-  };
-
-  // Direct Browser call to Google Gemini endpoint for Static hosts (GitHub Pages)
-  const callBrowserGeminiAPI = async (userMsg: string, contextText: string) => {
-    const key = localApiKey.trim();
-    if (!key) {
-      throw new Error("API Key missing");
-    }
-
-    let history = messages.map(m => ({
-      role: m.role === 'model' ? 'model' : 'user',
-      parts: [{ text: m.text }]
-    }));
-
-    const augmentedUserMsg = contextText
-      ? `Context information from provided documents:\n\n${contextText}\n\nUser Message: ${userMsg}`
-      : userMsg;
-
-    history.push({
-      role: 'user',
-      parts: [{ text: augmentedUserMsg }]
-    });
-
-    const systemInstruction = 'You are RAAAHI (राही) — Regulatory Affairs And Aprroval Haromized Inteligence, representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with the provided document context (like the Indian MDR 2017, ISO 13485, etc.). Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.';
-
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        contents: history,
-        systemInstruction: {
-          parts: [{ text: systemInstruction }]
-        }
-      })
-    });
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || `Gemini API returned code ${response.status}`);
-    }
-
-    const resData = await response.json();
-    const txt = resData.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!txt) throw new Error("Empty AI response received.");
-    return txt;
-  };
-
-  const handleSaveLocalKey = () => {
-    if (tempKey.trim()) {
-      localStorage.setItem('RAAAHI_GEMINI_API_KEY', tempKey.trim());
-      setLocalApiKey(tempKey.trim());
-      setShowKeyInput(false);
-      setTempKey('');
-    }
-  };
-
-  const handleRemoveLocalKey = () => {
-    localStorage.removeItem('RAAAHI_GEMINI_API_KEY');
-    localStorage.removeItem('RAAHI_GEMINI_API_KEY');
-    localStorage.removeItem('VELO_GEMINI_API_KEY');
-    setLocalApiKey('');
-    setShowKeyInput(false);
   };
 
   const handleSend = async () => {
@@ -429,49 +357,13 @@ export default function Chatbot() {
     // Retrieve matching context locally or server-side
     const context = searchLocalContext(userMessage);
 
-    // 1. Static mode handler
-    if (isStaticMode) {
-      if (localApiKey.trim()) {
-        try {
-          const aiResponse = await callBrowserGeminiAPI(userMessage, context);
-          setMessages(prev => [...prev, { role: 'model', text: aiResponse }]);
-        } catch (apiErr: any) {
-          console.error("Direct Browser Gemini Call failed:", apiErr);
-          const fallback = getClientFallbackResponse(userMessage);
-          setMessages(prev => [...prev, { role: 'model', text: `⚠️ **Session Notice**: Direct Gemini connection failed: *${apiErr.message || apiErr}*.\n\nHere is RAAAAHI's compiled intelligence lookup alternative:\n\n${fallback}` }]);
-        } finally {
-          setIsLoading(false);
-        }
-      } else {
-        // Direct local matching without API Key
-        setTimeout(() => {
-          if (context) {
-            setMessages(prev => [...prev, {
-              role: 'model',
-              text: `### 🔍 RAAAHI Document Intelligence Search (Static Host Mode)
-Based on your inquiry, I scanned our pre-loaded regulatory documents and found this matching standard:
-
-${context}
-
-*To activate general AI reasoning conversations privately on your static GitHub Pages site, click the ⚙️ settings icon above and add your personal Gemini API Key.*
-\n\n**Disclaimer**: For confirmation and official guidance, please contact our team.`
-            }]);
-          } else {
-            const fallback = getClientFallbackResponse(userMessage);
-            setMessages(prev => [...prev, { role: 'model', text: fallback }]);
-          }
-          setIsLoading(false);
-        }, 600);
-      }
-      return;
-    }
-
-    // 2. Full-stack mode (reaches out to backend API)
+    // Full-stack mode (reaches out to backend API)
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat`, {
+      const apiKey = getPreSavedApiKey();
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages, userMessage })
+        body: JSON.stringify({ messages, userMessage, apiKey })
       });
 
       const contentType = response.headers.get('content-type') || '';
@@ -489,17 +381,23 @@ ${context}
       }
 
       const data = await response.json();
+      if (data.isFallback) {
+        setIsLocalMode(true);
+      } else {
+        setIsLocalMode(false);
+      }
       setMessages(prev => [...prev, { role: 'model', text: data.text }]);
     } catch (error: any) {
       console.error('Express Chat Call failed:', error);
+      setIsLocalMode(true);
       // Perfect seamless fallback
       let fallbackText = '';
       if (context) {
-        fallbackText = `### 🔍 RAAAHI Document Intelligence Search (Local Search Mode)
-I detected a temporary connection issue to the core server, but I indexed our regulatory files and found this matching guidelines block:
+        fallbackText = `I am currently operating in **Local Offline Mode** due to a brief connection issue. However, I have scanned RAC Forge's internal regulatory knowledge base and found the following relevant information for you:
 
 ${context}
-\n\n**Disclaimer**: For confirmation and official guidance, please contact our team.`;
+
+**Disclaimer**: For comprehensive guidance, please wait a moment and try asking again, or contact our team directly.`;
       } else {
         fallbackText = getClientFallbackResponse(userMessage);
       }
@@ -526,82 +424,22 @@ ${context}
                 <div>
                   <h3 className="font-bold text-sm flex items-center">
                     RAAAHI (राही)
-                    {isStaticMode && (
+                    {isLocalMode && (
                       <span className="ml-2 px-1.5 py-0.5 text-[8px] bg-[#2c8498] text-white rounded font-normal uppercase tracking-wider">
-                        Static Web
+                        Local Search
                       </span>
                     )}
                   </h3>
-                  <p className="text-[10px] text-white/70">Regulatory Affairs And Aprroval Haromized Inteligence</p>
+                  <p className="text-[10px] text-white/70">Regulatory Affairs And Approval Harmonized Intelligence</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-2">
-                {isStaticMode && (
-                  <button 
-                    onClick={() => setShowKeyInput(!showKeyInput)} 
-                    className="p-1 hover:bg-white/10 rounded transition-colors text-white"
-                    title="Setup GitHub Pages Gemini API Key"
-                  >
-                    <Settings size={18} />
-                  </button>
-                )}
                 <button onClick={() => setIsOpen(false)} className="text-white/70 hover:text-white">
                   <X size={20} />
                 </button>
               </div>
             </div>
-
-            {/* Keys Settings Modal Overlay for Static Sub-hosting (GitHub Pages / AWS static) */}
-            <AnimatePresence>
-              {showKeyInput && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="bg-gray-100 border-b border-gray-200 p-4 text-xs text-[#0a3651] space-y-2 overflow-hidden z-10"
-                >
-                  <div className="flex items-center space-x-1.5 text-[#2c8498] font-bold">
-                    <Key size={14} />
-                    <span>Setup GitHub Pages API Key</span>
-                  </div>
-                  <p className="text-[11px] text-gray-600">
-                    To connect this bot directly to Gemini on GitHub Pages securely, paste your own API Key. It is only stored in your browser's local safety store.
-                  </p>
-                  
-                  {localApiKey ? (
-                    <div className="flex items-center justify-between p-2 bg-emerald-50 text-emerald-800 border border-emerald-100 rounded">
-                      <div className="flex items-center space-x-1">
-                        <CheckCircle size={14} className="text-emerald-600" />
-                        <span>API Key loaded (ending in ...{localApiKey.slice(-4)})</span>
-                      </div>
-                      <button 
-                        onClick={handleRemoveLocalKey} 
-                        className="text-red-700 hover:underline font-semibold"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex space-x-2">
-                      <input 
-                        type="password"
-                        placeholder="AI Studio API Key..."
-                        value={tempKey}
-                        onChange={(e) => setTempKey(e.target.value)}
-                        className="flex-1 bg-white border border-gray-300 rounded px-2.5 py-1 text-xs outline-none focus:border-[#2c8498]"
-                      />
-                      <button 
-                        onClick={handleSaveLocalKey}
-                        className="bg-[#2c8498] text-white px-3 py-1 rounded font-semibold text-xs hover:bg-[#0a3651] transition-colors"
-                      >
-                        Save
-                      </button>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
 
             {/* Messages */}
             <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">

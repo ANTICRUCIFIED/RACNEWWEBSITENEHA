@@ -1,15 +1,4 @@
 import multer from 'multer';
-import * as pdfParseModule from 'pdf-parse';
-
-let pdfParse: any;
-if (typeof pdfParseModule === 'function') {
-  pdfParse = pdfParseModule;
-} else if (pdfParseModule && typeof (pdfParseModule as any).default === 'function') {
-  pdfParse = (pdfParseModule as any).default;
-} else {
-  pdfParse = (pdfParseModule as any)?.default || pdfParseModule;
-}
-
 import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';
@@ -22,6 +11,57 @@ export interface DocumentChunk {
 }
 
 export const documentStore: DocumentChunk[] = [];
+
+function writeStaticCache() {
+  const data = JSON.stringify(documentStore, null, 2);
+  try {
+    const publicDir = path.join(process.cwd(), 'public');
+    if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+    fs.writeFileSync(path.join(publicDir, 'documents_cache.json'), data);
+  } catch (e) {
+    console.warn('Could not update static documents cache in public', e);
+  }
+  try {
+    const distDir = path.join(process.cwd(), 'dist');
+    if (fs.existsSync(distDir)) {
+      fs.writeFileSync(path.join(distDir, 'documents_cache.json'), data);
+    }
+  } catch (e) {
+    console.warn('Could not update static documents cache in dist', e);
+  }
+}
+
+/**
+ * Appends continuous learning knowledge from chat interactions.
+ */
+export async function appendLearnedKnowledge(query: string, response: string) {
+  try {
+    const docsDir = path.join(process.cwd(), 'documents');
+    if (!fs.existsSync(docsDir)) {
+      fs.mkdirSync(docsDir, { recursive: true });
+    }
+    const learningFile = path.join(docsDir, 'continuous_learning.txt');
+    
+    // Create learning chunk
+    const learnedText = `[Learned Interaction - ${new Date().toISOString()}]\nUser Query: ${query}\nRAAAHI Expert Answer: ${response}\n`;
+    
+    fs.appendFileSync(learningFile, `\n\n---\n\n${learnedText}`);
+
+    // Add to in-memory store dynamically to be available immediately offline or online
+    const newChunk: DocumentChunk = {
+      id: `learned-${Date.now()}-${documentStore.length}`,
+      filename: 'continuous_learning.txt',
+      chunkIndex: documentStore.length,
+      text: learnedText.trim()
+    };
+    
+    documentStore.push(newChunk);
+    
+    writeStaticCache();
+  } catch (err) {
+    console.error('Failed to append learned knowledge:', err);
+  }
+}
 
 /**
  * Preloads and parses static medical/regulatory documents from the /documents folder.
@@ -53,8 +93,8 @@ export async function preloadStaticDocuments(aiClient?: GoogleGenAI) {
       const buffer = fs.readFileSync(filePath);
       let text = '';
       if (filename.toLowerCase().endsWith('.pdf')) {
-        const data = await pdfParse(buffer);
-        text = data.text;
+        console.warn('PDF parsing is disabled. Skipping PDF file.');
+        continue;
       } else {
         text = buffer.toString('utf8');
       }
@@ -110,19 +150,7 @@ export async function preloadStaticDocuments(aiClient?: GoogleGenAI) {
     }
   }
 
-  // Simultaneously write a static cache file to public directory so the React frontend
-  // can fetch and perform full RAG locally when deployed to GitHub Pages or AWS Amplify statically!
-  try {
-    const publicDir = path.join(process.cwd(), 'public');
-    if (!fs.existsSync(publicDir)) {
-      fs.mkdirSync(publicDir, { recursive: true });
-    }
-    const cachePath = path.join(publicDir, 'documents_cache.json');
-    fs.writeFileSync(cachePath, JSON.stringify(documentStore, null, 2));
-    console.log(`VELO RAG: Saved local static documents cache to ${cachePath} for GitHub Pages static compatibility.`);
-  } catch (err) {
-    console.warn('VELO RAG: Could not write static JSON cache to /public directory:', err);
-  }
+    writeStaticCache();
 
   return totalChunks;
 }
@@ -135,8 +163,7 @@ export const upload = multer({ storage: multer.memoryStorage() });
 export async function processDocument(file: Express.Multer.File, aiClient?: GoogleGenAI) {
   let text = '';
   if (file.mimetype === 'application/pdf') {
-    const data = await pdfParse(file.buffer);
-    text = data.text;
+    text = ''; // PDF parsing disabled
   } else {
     text = file.buffer.toString('utf8');
   }
@@ -175,13 +202,7 @@ export async function processDocument(file: Express.Multer.File, aiClient?: Goog
     addedChunks.push(chunk);
   }
 
-  // Update static json cache
-  try {
-    const cachePath = path.join(process.cwd(), 'public', 'documents_cache.json');
-    fs.writeFileSync(cachePath, JSON.stringify(documentStore, null, 2));
-  } catch (e) {
-    console.warn('Could not update static documents cache after upload:', e);
-  }
+  writeStaticCache();
 
   return addedChunks.length;
 }
@@ -254,20 +275,20 @@ export async function retrieveRelevantContext(query: string, aiClient?: GoogleGe
       return { ...doc, score };
     });
 
-    // Sort descending and keep matched chunks
-    const matched = scored.filter(item => item.score > 0);
+    // Sort descending and keep matched chunks (require a high barrier like 5 to avoid partial word matches)
+    const matched = scored.filter(item => item.score >= 5);
     matched.sort((a, b) => b.score - a.score);
 
     const topChunks = matched.slice(0, topK);
-    if (topChunks.length === 0) {
-      // If nothing matches keywords directly, return first 2 chunks as default context rather than empty
-      return documentStore.slice(0, 2).map(c => `[Excerpt from ${c.filename}]\n${c.text}`).join('\n\n');
+    if (topChunks.length === 0 || topChunks[0].score < 5) {
+      // Return empty if no strictly relevant chunks match
+      return '';
     }
 
     return topChunks.map(c => `[Excerpt from document file: ${c.filename}]\n${c.text}`).join('\n\n---\n\n');
   } catch (e) {
     console.error('Local retrieval algorithm error:', e);
     // Silent fail safe
-    return documentStore.slice(0, 2).map(c => `[Excerpt from ${c.filename}]\n${c.text}`).join('\n\n');
+    return '';
   }
 }
