@@ -40,10 +40,10 @@ export default function Footer() {
           <div>
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Quick Links</h4>
             <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'VELO AI', 'Expertise', 'Blogs', 'Contact'].map((item) => (
+              {['Home', 'About Us', 'Services', 'RAAAHI (राही)', 'Expertise', 'Blogs', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
-                    to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Blogs' ? '/blogs/resources' : `/${item.toLowerCase().replace(' ', '-')}`} 
+                    to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Blogs' ? '/blogs/resources' : item === 'RAAAHI (राही)' ? '/raaahi-ai' : `/${item.toLowerCase().replace(' ', '-')}`} 
                     className="text-gray-600 hover:text-brand-teal transition-colors flex items-center group font-medium"
                   >
                     <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -59,7 +59,7 @@ export default function Footer() {
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Our Services</h4>
             <ul className="space-y-4">
               {[
-                { name: 'VELO Regulatory AI', path: '/velo-ai' },
+                { name: 'RAAAHI (राही) Regulatory Support', path: '/raaahi-ai' },
                 { name: 'CDSCO Licenses (MD-5/9/14)', path: '/services/cdsco-manufacturing-license-md5-md9' },
                 { name: 'USFDA 510(k) & De Novo', path: '/services/usfda-510k-de-novo' },
                 { name: 'EU MDR & CE Marking', path: '/services/eu-mdr-ce-marking' },

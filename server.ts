@@ -253,9 +253,9 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
     }
 
     // General Fallback
-    return intro + `### VELO Regulatory Intelligence Assistant
+    return intro + `### RAAAHI (राही) — Regulatory Affairs And Aprroval Haromized Inteligence
 
-I am **VELO** (Verification, Evaluation, & Licensing Operator), representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
+I am **RAAAHI (राही)** — **Regulatory Affairs And Aprroval Haromized Inteligence**, representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
 
 How can we assist you with medical product regulation or facility engineering today?
 
@@ -323,7 +323,7 @@ Please write what specific area you would like detailed guidance on!
 
       const modelConfig = {
         config: {
-          systemInstruction: `You are VELO (Verification, Evaluation, & Licensing Operator), an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently, naturally, and professionally, providing accurate, trustworthy advice on medical device compliance, facility engineering (cleanrooms, HVAC, modular OTs), Quality Management Systems (ISO 13485), and global approval pipelines (CDSCO, USFDA, EU MDR, ANVISA).
+          systemInstruction: `You are RAAAHI (राही) — Regulatory Affairs And Aprroval Haromized Inteligence, an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently, naturally, and professionally, providing accurate, trustworthy advice on medical device compliance, facility engineering (cleanrooms, HVAC, modular OTs), Quality Management Systems (ISO 13485), and global approval pipelines (CDSCO, USFDA, EU MDR, ANVISA).
 
 You possess key authority information regarding:
 1. RAC Forge Private Limited (Main Portal: https://www.racforge.com), headquartered in Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064 (Phone: +91 62396 99077, Email: info@racforge.com, Google Maps Location: https://share.google/GNUkTQHynWoYKpWY3).

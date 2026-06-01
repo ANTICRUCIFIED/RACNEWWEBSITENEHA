@@ -78,7 +78,7 @@ const NAV_LINKS = [
       }
     ]
   },
-  { name: 'VELO AI', path: '/velo-ai' },
+  { name: 'RAAAHI (राही)', path: '/raaahi-ai' },
   { name: 'Expertise', path: '/expertise' },
   { name: 'Blogs', path: '/blogs/resources' }
 ];

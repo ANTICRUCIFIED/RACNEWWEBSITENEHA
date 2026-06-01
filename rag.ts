@@ -1,6 +1,15 @@
 import multer from 'multer';
 import * as pdfParseModule from 'pdf-parse';
-const pdfParse: any = (pdfParseModule as any).default || pdfParseModule;
+
+let pdfParse: any;
+if (typeof pdfParseModule === 'function') {
+  pdfParse = pdfParseModule;
+} else if (pdfParseModule && typeof (pdfParseModule as any).default === 'function') {
+  pdfParse = (pdfParseModule as any).default;
+} else {
+  pdfParse = (pdfParseModule as any)?.default || pdfParseModule;
+}
+
 import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';

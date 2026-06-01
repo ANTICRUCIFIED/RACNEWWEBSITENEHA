@@ -3,7 +3,7 @@ import { Image as ImageIcon, Wand2, Download, Loader2, AlertCircle } from 'lucid
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'https://racnewwebsiteneha.vercel.app';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
 
 export default function ImageGenerator() {
   const [prompt, setPrompt] = useState('');

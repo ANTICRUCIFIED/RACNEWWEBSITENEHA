@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'https://racnewwebsiteneha.vercel.app';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
 
 function getClientFallbackResponse(query: string): string {
   const result = _getClientFallbackResponse(query);
@@ -169,7 +169,7 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
   }
 
   // General default fallback
-  return `Welcome to VELO (Verification, Evaluation, & Licensing Operator), the RAC Forge Private Limited Regulatory Intelligence Assistant. How can I assist you with CDSCO, USFDA, or EU MDR compliance today? 
+  return `Welcome to **RAAAHI (राही)** — **Regulatory Affairs And Aprroval Haromized Inteligence**, your premier RAC Forge Private Limited Regulatory Intelligence Assistant. How can I assist you with CDSCO, USFDA, or EU MDR compliance today? 
 1.  **CDSCO Sugam Portal Pathways** (Import MD-14/15, Manufacturing, Loan Licenses)
 2.  **Global Registrations** (USFDA 510k, EU MDR CE-Mark, ANVISA Brazil)
 3.  **Turnkey Physical Construction** (ISO Clean Rooms, HVAC, Modular OTs)
@@ -214,14 +214,14 @@ function getPreSavedApiKey(): string {
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([
-    { role: 'model', text: 'Hello! I am VELO (Verification, Evaluation, & Licensing Operator), your RAC Forge Private Limited Regulatory Assistant. How can I help you with CDSCO, USFDA, or EU MDR compliance today?' }
+    { role: 'model', text: 'Hello! I am **RAAAHI (राही)** — **Regulatory Affairs And Aprroval Haromized Inteligence**, your RAC Forge Private Limited Regulatory Assistant. How can I help you with CDSCO, USFDA, or EU MDR compliance today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isStaticMode, setIsStaticMode] = useState(false);
   const [staticChunks, setStaticChunks] = useState<any[]>([]);
   const [localApiKey, setLocalApiKey] = useState(() => {
-    return localStorage.getItem('VELO_GEMINI_API_KEY') || getPreSavedApiKey() || '';
+    return localStorage.getItem('RAAAHI_GEMINI_API_KEY') || localStorage.getItem('RAAHI_GEMINI_API_KEY') || localStorage.getItem('VELO_GEMINI_API_KEY') || getPreSavedApiKey() || '';
   });
   const [showKeyInput, setShowKeyInput] = useState(false);
   const [tempKey, setTempKey] = useState('');
@@ -233,9 +233,13 @@ export default function Chatbot() {
     const handleToggle = () => setIsOpen(prev => !prev);
     window.addEventListener('open-velo-chatbot', handleOpen);
     window.addEventListener('toggle-velo-chatbot', handleToggle);
+    window.addEventListener('open-raahi-chatbot', handleOpen);
+    window.addEventListener('toggle-raahi-chatbot', handleToggle);
     return () => {
       window.removeEventListener('open-velo-chatbot', handleOpen);
       window.removeEventListener('toggle-velo-chatbot', handleToggle);
+      window.removeEventListener('open-raahi-chatbot', handleOpen);
+      window.removeEventListener('toggle-raahi-chatbot', handleToggle);
     };
   }, []);
 
@@ -252,15 +256,15 @@ export default function Chatbot() {
         const contentType = res.headers.get('content-type') || '';
         if (res.ok && contentType.includes('application/json')) {
           setIsStaticMode(false);
-          console.log("VELO: Connected to Express API successfully. Running in standard Full-Stack mode.");
+          console.log("RAAAHI: Connected to Express API successfully. Running in standard Full-Stack mode.");
         } else {
           setIsStaticMode(true);
-          console.log("VELO: Health check didn't return JSON. Running in Static mode (GitHub Pages compatible).");
+          console.log("RAAAHI: Health check didn't return JSON. Running in Static mode (GitHub Pages compatible).");
         }
       })
       .catch((err) => {
         setIsStaticMode(true);
-        console.log("VELO: Express API unreachable. Activating Static host mode.", err);
+        console.log("RAAAHI: Express API unreachable. Activating Static host mode.", err);
       });
 
     // Pre-retrieve parsed documents index for search fallback
@@ -281,7 +285,7 @@ export default function Chatbot() {
           if (Array.isArray(data)) setStaticChunks(data);
         }
       } catch (err) {
-        console.warn("VELO: Local regulatory files cache could not be loaded statically.", err);
+        console.warn("RAAAHI: Local regulatory files cache could not be loaded statically.", err);
       }
     };
     loadCache();
@@ -371,7 +375,7 @@ export default function Chatbot() {
       parts: [{ text: augmentedUserMsg }]
     });
 
-    const systemInstruction = 'You are VELO (Verification, Evaluation, & Licensing Operator), representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with the provided document context (like the Indian MDR 2017, ISO 13485, etc.). Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.';
+    const systemInstruction = 'You are RAAAHI (राही) — Regulatory Affairs And Aprroval Haromized Inteligence, representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You chat intelligently and naturally, just like a helpful human or Gemini, while providing accurate, professional, and helpful advice. Draft responses strictly in line with the provided document context (like the Indian MDR 2017, ISO 13485, etc.). Always include a disclaimer at the end of your response stating: "Disclaimer: For confirmation, please contact our team." Maintain a warm, conversational, yet professional tone.';
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
       method: 'POST',
@@ -399,7 +403,7 @@ export default function Chatbot() {
 
   const handleSaveLocalKey = () => {
     if (tempKey.trim()) {
-      localStorage.setItem('VELO_GEMINI_API_KEY', tempKey.trim());
+      localStorage.setItem('RAAAHI_GEMINI_API_KEY', tempKey.trim());
       setLocalApiKey(tempKey.trim());
       setShowKeyInput(false);
       setTempKey('');
@@ -407,6 +411,8 @@ export default function Chatbot() {
   };
 
   const handleRemoveLocalKey = () => {
+    localStorage.removeItem('RAAAHI_GEMINI_API_KEY');
+    localStorage.removeItem('RAAHI_GEMINI_API_KEY');
     localStorage.removeItem('VELO_GEMINI_API_KEY');
     setLocalApiKey('');
     setShowKeyInput(false);
@@ -432,7 +438,7 @@ export default function Chatbot() {
         } catch (apiErr: any) {
           console.error("Direct Browser Gemini Call failed:", apiErr);
           const fallback = getClientFallbackResponse(userMessage);
-          setMessages(prev => [...prev, { role: 'model', text: `⚠️ **Session Notice**: Direct Gemini connection failed: *${apiErr.message || apiErr}*.\n\nHere is VELO's compiled intelligence lookup alternative:\n\n${fallback}` }]);
+          setMessages(prev => [...prev, { role: 'model', text: `⚠️ **Session Notice**: Direct Gemini connection failed: *${apiErr.message || apiErr}*.\n\nHere is RAAAAHI's compiled intelligence lookup alternative:\n\n${fallback}` }]);
         } finally {
           setIsLoading(false);
         }
@@ -442,7 +448,7 @@ export default function Chatbot() {
           if (context) {
             setMessages(prev => [...prev, {
               role: 'model',
-              text: `### 🔍 VELO Document Intelligence Search (Static Host Mode)
+              text: `### 🔍 RAAAHI Document Intelligence Search (Static Host Mode)
 Based on your inquiry, I scanned our pre-loaded regulatory documents and found this matching standard:
 
 ${context}
@@ -489,7 +495,7 @@ ${context}
       // Perfect seamless fallback
       let fallbackText = '';
       if (context) {
-        fallbackText = `### 🔍 VELO Document Intelligence Search (Local Search Mode)
+        fallbackText = `### 🔍 RAAAHI Document Intelligence Search (Local Search Mode)
 I detected a temporary connection issue to the core server, but I indexed our regulatory files and found this matching guidelines block:
 
 ${context}
@@ -519,14 +525,14 @@ ${context}
                 <Bot size={24} className="text-[#2c8498]" />
                 <div>
                   <h3 className="font-bold text-sm flex items-center">
-                    VELO Assistant
+                    RAAAHI (राही)
                     {isStaticMode && (
                       <span className="ml-2 px-1.5 py-0.5 text-[8px] bg-[#2c8498] text-white rounded font-normal uppercase tracking-wider">
                         Static Web
                       </span>
                     )}
                   </h3>
-                  <p className="text-[10px] text-white/70">Medical Device Regulatory Advisor</p>
+                  <p className="text-[10px] text-white/70">Regulatory Affairs And Aprroval Haromized Inteligence</p>
                 </div>
               </div>
               

@@ -74,6 +74,8 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/information/:slug" element={<InfoDetail />} />
             <Route path="/velo-ai" element={<VeloPage />} />
+            <Route path="/raahi-ai" element={<VeloPage />} />
+            <Route path="/raaahi-ai" element={<VeloPage />} />
 
             {/* Service Sub-routes */}
             {/* Old Aliases */}

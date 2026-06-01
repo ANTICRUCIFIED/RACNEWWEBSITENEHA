@@ -68,20 +68,20 @@ export default function VeloPage() {
 
   const faqs = [
     {
-      q: "What does VELO stand for?",
-      a: "VELO stands for Verification, Evaluation, & Licensing Operator. It is a highly specialized AI-driven Regulatory Affairs Assistant engineered specifically for the global medical device and IVD industries, built directly by RAC Forge Pvt. Ltd."
+      q: "What does RAAAHI stand for?",
+      a: "RAAAHI stands for Regulatory Affairs And Aprroval Haromized Inteligence. 'Raahi' (राही) also represents a guide or traveler in Hindi, reflecting our mission to act as your expert navigator through complex regulatory pipelines, built directly by RAC Forge Pvt. Ltd."
     },
     {
-      q: "How does VELO help medical device manufacturers save time?",
-      a: "Finding regulatory answers manually involves parsing thousands of pages of CDSCO Gazettes, FDA CFR Title 21, and EU MDR guidelines. VELO uses advanced document intelligence (including RAG - Retrieval-Augmented Generation) to deliver accurate, cited, and contextual regulatory answers in seconds, reducing research time by up to 90%."
+      q: "How does RAAAHI help medical device manufacturers save time?",
+      a: "Finding regulatory answers manually involves parsing thousands of pages of CDSCO Gazettes, FDA CFR Title 21, and EU MDR guidelines. RAAAHI uses advanced document intelligence (including RAG - Retrieval-Augmented Generation) to deliver accurate, cited, and contextual regulatory answers in seconds, reducing research status time by up to 90%."
     },
     {
-      q: "Can VELO assist with CDSCO Sugam Portal registrations in India?",
-      a: "Yes. VELO provides complete structured walkthroughs for both manufacturing (Form MD-3/5, MD-7/9) and import setups (Form MD-14/15) inside the Sugam Portal, explaining the required checklists, government fees, and typical inspection preparation needs."
+      q: "Can RAAAHI assist with CDSCO Sugam Portal registrations in India?",
+      a: "Yes. RAAAHI provides complete structured walkthroughs for both manufacturing (Form MD-3/5, MD-7/9) and import setups (Form MD-14/15) inside the Sugam Portal, explaining the required checklists, government fees, and typical inspection preparation needs."
     },
     {
-      q: "How does VELO's regulatory diagram generator work?",
-      a: "VELO includes an advanced, model-driven Image Generator that lets you describe mechanical regulatory blueprints or cleanroom workflows in natural language. It generates real-time diagrams and concept drawings to help you draft visual documents quickly."
+      q: "How does RAAAHI's regulatory diagram generator work?",
+      a: "RAAAHI includes an advanced, model-driven Image Generator that lets you describe mechanical regulatory blueprints or cleanroom layouts in natural language. It generates real-time diagrams and concept drawings to help you draft visual documents quickly."
     },
     {
       q: "Are my device specifications and regulatory queries secure?",
@@ -99,9 +99,9 @@ export default function VeloPage() {
   return (
     <div className="flex flex-col w-full bg-[#f8fafc] min-h-screen">
       <SEO 
-        title="VELO AI: Premier Medical Device Regulatory Affairs AI Assistant" 
-        description="Meet VELO, RAC Forge's Verification, Evaluation, & Licensing Operator. The first dedicated AI assistant for CDSCO MDR 2017, USFDA 510(k), and EU MDR compliance, featuring real-time document search and diagram generation."
-        keywords="VELO AI, medical device AI assistant, regulatory affairs AI client, CDSCO AI search, USFDA 510k submission AI, medical device compliance chatbot, RAC Forge premium regulatory AI, EU MDR compliance helper, ISO 13485 AI consulting, CDSCO Sugam portal registration assistant, medical device manufacturing license consultant, verification evaluation licensing operator AI, medical dev regulatory affairs"
+        title="RAAAHI: Regulatory Affairs & Approval Harmonized Intelligence Assistant" 
+        description="Meet RAAAHI (राही), RAC Forge's Regulatory Affairs And Aprroval Haromized Inteligence helper. The first dedicated assistant for CDSCO MDR 2017, USFDA 510(k), and EU MDR compliance, featuring real-time document search and diagram generation."
+        keywords="RAAAHI, राही, medical device assistant, regulatory affairs client, CDSCO search, USFDA 510k submission, medical device compliance chatbot, RAC Forge premium regulatory assistant, EU MDR compliance helper, ISO 13485 consulting, CDSCO Sugam portal registration assistant, medical device manufacturing license consultant, verification evaluation licensing operator, medical dev regulatory affairs"
         canonical="/services/regulatory-ai-velo"
       />
 
@@ -122,7 +122,7 @@ export default function VeloPage() {
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2c8498]/20 border border-[#2c8498]/30 text-teal-300 text-sm font-semibold tracking-wider uppercase"
               >
                 <Bot size={16} className="text-teal-400" />
-                <span>MEET VELO — RAC FORGE REGULATORY AI</span>
+                <span>MEET RAAAHI — RAC FORGE REGULATORY INTELLIGENCE</span>
               </motion.div>
 
               <motion.h1
@@ -131,7 +131,7 @@ export default function VeloPage() {
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight"
               >
-                Verification, Evaluation & <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-[#2c8498]">Licensing Operator</span> AI
+                Regulatory Affairs & Approval <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-[#2c8498]">Harmonized Intelligence</span>
               </motion.h1>
 
               <motion.p
@@ -140,7 +140,7 @@ export default function VeloPage() {
                 transition={{ delay: 0.2 }}
                 className="text-lg md:text-xl text-slate-300 leading-relaxed"
               >
-                Accelerate global medical device and IVD market authorizations. VELO combines RAC Forge's senior consultant precision with deep semantic search and instant technical diagram drafting.
+                Accelerate global medical device and IVD market authorizations. RAAAHI (राही) combines RAC Forge's senior consultant precision with deep semantic search and instant technical diagram drafting.
               </motion.p>
 
               {/* Instant CTAs */}
@@ -155,7 +155,7 @@ export default function VeloPage() {
                   className="bg-[#2c8498] text-white px-8 py-4 rounded-full font-bold text-base hover:bg-emerald-500 hover:scale-105 transition-all flex items-center gap-3 shadow-lg shadow-[#2c8498]/20 cursor-pointer"
                 >
                   <MessageSquare size={18} />
-                  <span>Launch VELO Assistant</span>
+                  <span>Launch RAAAHI (राही)</span>
                 </button>
                 <Link
                   to="/contact"
@@ -201,7 +201,7 @@ export default function VeloPage() {
                       <Bot size={22} />
                     </div>
                     <div>
-                      <h3 className="font-bold text-white text-md">VELO Regulatory Core</h3>
+                      <h3 className="font-bold text-white text-md">RAAAHI Regulatory Core</h3>
                       <p className="text-xs text-slate-400">Online & Document Index Active</p>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default function VeloPage() {
                   </div>
 
                   <div className="bg-[#2c8498]/10 rounded-2xl p-4 border border-[#2c8498]/20 space-y-2">
-                    <p className="text-emerald-400 text-xs font-mono">VELO CO-PILOT RESPONSE:</p>
+                    <p className="text-emerald-400 text-xs font-mono">RAAAHI CO-PILOT RESPONSE:</p>
                     <p className="text-xs text-slate-300 leading-relaxed">
                       "Under **CDSCO Medical Devices Rules 2017**, Class B orthopaedic implants require a manufacturing license on **Form MD-5**... Key checklists: ISO 13485 certification, Plant Layout Plan, device details, and proof of Sugam Portal fees... [Section 20]"
                     </p>
@@ -242,7 +242,7 @@ export default function VeloPage() {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-xs uppercase tracking-widest font-extrabold text-[#2c8498]">GLOBAL REGULATORY INTELLIGENCE OVERVIEW</h2>
           <p className="text-3xl md:text-4xl font-black text-[#0a3651] tracking-tight leading-tight">
-            How VELO Redefines Medical Compliance Workflows
+            How RAAAHI (राही) Redefines Medical Compliance Workflows
           </p>
           <p className="text-gray-600">
             By combining advanced natural language architectures with expert vetted schemas, RAC Forge Pvt. Ltd. delivers an administrative-grade copilot to expedite commercial market clearances.
@@ -283,7 +283,7 @@ export default function VeloPage() {
               <span className="text-xs font-black uppercase text-[#2c8498] tracking-widest">REGULATORY TIMELINE DEEP DIVE</span>
               <h2 className="text-3xl font-black text-[#0a3651] leading-tight">Structured Approvals Guidance</h2>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Navigating distinct jurisdictional gates shouldn't be guesswork. VELO holds the correct pathways for both Indian CDSCO licensing and global submissions.
+                Navigating distinct jurisdictional gates shouldn't be guesswork. RAAAHI (राही) holds the correct pathways for both Indian CDSCO licensing and global submissions.
               </p>
               <div className="space-y-3 pt-2">
                 <div className="flex items-center gap-3 text-sm text-gray-700">
@@ -332,7 +332,7 @@ export default function VeloPage() {
                 </div>
 
                 <div className="p-4 bg-slate-50 text-center text-xs text-gray-500 border-t border-gray-100">
-                  Matrix data is dynamically mapped of actual guidelines. Ask VELO for specific exceptions.
+                  Matrix data is dynamically mapped of actual guidelines. Ask RAAAHI (राही) for specific exceptions.
                 </div>
               </div>
             </div>
@@ -357,7 +357,7 @@ export default function VeloPage() {
                 Instantly Start Asking Regulatory Queries
               </h2>
               <p className="text-slate-300 max-w-xl">
-                Ready to bypass tedious index queries? Try out the interactive VELO Regulatory Affairs AI now. Simply tap below or click the conversation bubble in the bottom right.
+                Ready to bypass tedious index queries? Try out the interactive RAAAHI (राही) now. Simply tap below or click the conversation bubble in the bottom right.
               </p>
             </div>
 
@@ -366,7 +366,7 @@ export default function VeloPage() {
                 onClick={triggerChatbot}
                 className="bg-white text-[#0a3651] hover:bg-[#2c8498] hover:text-white px-10 py-5 rounded-full font-black text-lg transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
               >
-                Launch VELO Chatbot
+                Launch RAAAHI Chatbot
               </button>
             </div>
 
@@ -382,7 +382,7 @@ export default function VeloPage() {
               <HelpCircle size={14} />
               FREQUENTLY ASKED QUESTIONS
             </h2>
-            <h3 className="text-3xl font-black text-[#0a3651]">VELO AI Assistant Directory</h3>
+            <h3 className="text-3xl font-black text-[#0a3651]">RAAAHI (राही) Assistant Directory</h3>
             <p className="text-gray-500">
               Answers regarding our embedded compliance operator, indexing mechanisms, and precision support.
             </p>
