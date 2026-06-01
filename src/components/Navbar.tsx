@@ -102,16 +102,16 @@ export default function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white",
-      scrolled ? "shadow-lg py-3" : "py-6"
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-100",
+      scrolled ? "shadow-md py-2" : "py-4 sm:py-5"
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center group">
             <img src="https://anticrucified.github.io/MyWebP_Images/images/logo.webp" alt="RAC Forge Medical Device Regulatory Consulting Logo" aria-label="RAC Forge Logo" title="RAC FORGE" 
               className={cn(
-                "w-auto transition-all duration-500 mix-blend-multiply",
-                scrolled ? "h-16 sm:h-20" : "h-24 sm:h-28"
+                "w-auto transition-all duration-300 mix-blend-multiply",
+                scrolled ? "h-12 sm:h-14" : "h-16 sm:h-20"
               )}
             />
           </Link>
@@ -196,7 +196,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
+            className="lg:hidden bg-white border-t border-gray-100 max-h-[calc(100vh-100px)] overflow-y-auto pb-12 shadow-inner"
           >
             <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
               {NAV_LINKS.map((link) => (

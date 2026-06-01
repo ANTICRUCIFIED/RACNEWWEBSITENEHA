@@ -50,7 +50,7 @@ export default function SEOPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative h-[480px] flex items-center pt-20 bg-brand-deep overflow-hidden">
+      <section className="relative h-[480px] flex items-center pt-32 lg:pt-40 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-25">
           <img 
             src="https://anticrucified.github.io/MyWebP_Images/images/page-service-manufacturing.webp"

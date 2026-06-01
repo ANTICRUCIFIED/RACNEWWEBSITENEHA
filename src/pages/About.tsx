@@ -39,7 +39,7 @@ export default function About() {
       />
 
       {/* Hero Banner */}
-      <section className="relative min-h-[450px] flex items-center pt-24 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 overflow-hidden border-b border-slate-800/50">
+      <section className="relative min-h-[450px] flex items-center pt-32 lg:pt-40 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 overflow-hidden border-b border-slate-800/50">
         <div className="absolute inset-0 z-0 opacity-10">
           <img src="https://anticrucified.github.io/MyWebP_Images/images/about-bg.webp"
             alt="Medical Laboratory background | RAC Forge Consulting" title="Medical Laboratory background"

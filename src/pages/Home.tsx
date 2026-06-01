@@ -72,7 +72,7 @@ export default function Home() {
       />
 
       {/* Banner Section */}
-      <section className="relative min-h-screen flex items-center pt-20 bg-brand-deep overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-32 sm:pt-40 lg:pt-48 pb-12 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img src="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp"
             alt="RAC Forge Private Limited - Premier Medical Device Regulatory Consulting & Engineering Experts for CDSCO, USFDA, EU MDR | RAC Forge Consulting"

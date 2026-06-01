@@ -44,7 +44,7 @@ export default function Resources() {
       />
 
       {/* Resources Hero */}
-      <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
+      <section className="relative h-[440px] flex items-center pt-32 lg:pt-40 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img src="https://anticrucified.github.io/MyWebP_Images/images/resources-banner.png"
             alt="RAC Forge Private Limited Blogs | RAC Forge Consulting" title="RAC Forge Private Limited Blogs"
