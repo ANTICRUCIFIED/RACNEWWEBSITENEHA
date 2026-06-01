@@ -1,18 +1,14 @@
 import { GoogleGenAI } from '@google/genai';
 
-let aiClient: GoogleGenAI | null = null;
-const getGoogleGenAI = () => {
-  const apiKey = process.env.GEMINI_API_KEY;
+const getGoogleGenAI = (customKey?: string) => {
+  const apiKey = customKey || process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error('GEMINI_API_KEY environment variable is not defined.');
+    throw new Error('GEMINI_API_KEY environment variable is not defined and no custom key provided.');
   }
-  if (!aiClient) {
-    aiClient = new GoogleGenAI({
-      apiKey: apiKey,
-      httpOptions: { headers: { 'User-Agent': 'vercel-build' } }
-    });
-  }
-  return aiClient;
+  return new GoogleGenAI({
+    apiKey: apiKey,
+    httpOptions: { headers: { 'User-Agent': 'vercel-build' } }
+  });
 };
 
 export default async function handler(req: any, res: any) {
@@ -33,8 +29,8 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   try {
-    const { messages, userMessage } = req.body;
-    const ai = getGoogleGenAI();
+    const { messages, userMessage, apiKey } = req.body;
+    const ai = getGoogleGenAI(apiKey);
 
     // Reconstruct simplified config for Vercel edge/serverless function
     const modelConfig = {
