@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
@@ -105,19 +106,8 @@ function retrieveRelevantContextServerless(query: string, topK: number = 4): str
 
 
 const app = express();
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
-
-// Enable CORS for external requests (e.g. from GitHub Pages custom domains)
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-    return;
-  }
-  next();
-});
 
 let aiClient: GoogleGenAI | null = null;
 const getGoogleGenAI = () => {

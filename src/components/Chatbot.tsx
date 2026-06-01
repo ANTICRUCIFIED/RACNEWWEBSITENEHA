@@ -6,6 +6,9 @@ import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
 let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+if (API_BASE_URL && !API_BASE_URL.startsWith('http')) {
+  API_BASE_URL = `https://${API_BASE_URL}`;
+}
 if (typeof window !== 'undefined') {
   if (API_BASE_URL.startsWith('http://') && window.location.protocol === 'https:') {
     console.warn('VELO: Dropping insecure HTTP API_BASE_URL to prevent Mixed Content exception.');
