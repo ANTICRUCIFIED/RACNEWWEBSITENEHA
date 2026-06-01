@@ -1,6 +1,7 @@
 import sharp from 'sharp';
 import os from 'os';
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
@@ -14,19 +15,9 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Use standard cors middleware
+  app.use(cors());
   app.use(express.json());
-  
-  // CORS configuration to prevent "Failed to fetch" on different origins
-  app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With');
-    if (req.method === 'OPTIONS') {
-      res.sendStatus(200);
-      return;
-    }
-    next();
-  });
 
   const getGoogleGenAI = (customKey?: string) => {
     const apiKey = customKey || process.env.GEMINI_API_KEY;

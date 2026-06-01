@@ -5,6 +5,13 @@ import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
+let API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
+if (typeof window !== 'undefined' && API_BASE_URL.startsWith('http://') && window.location.protocol === 'https:') {
+  console.warn('VELO: Dropping insecure HTTP API_BASE_URL to prevent Mixed Content exception.');
+  API_BASE_URL = '';
+}
+console.log('VELO: Safe API_BASE_URL is:', API_BASE_URL || 'relative path "/"');
+
 function getClientFallbackResponse(query: string): string {
   const result = _getClientFallbackResponse(query);
   return result + '\n\n**Disclaimer**: For confirmation and official guidance, please contact our team.';
@@ -360,7 +367,7 @@ export default function Chatbot() {
     // Full-stack mode (reaches out to backend API)
     try {
       const apiKey = getPreSavedApiKey();
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages, userMessage, apiKey })
