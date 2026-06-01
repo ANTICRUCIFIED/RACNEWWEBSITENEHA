@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, ArrowRight, FileText, ShieldCheck, Zap, Microscope } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Microscope, Zap, ClipboardCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
@@ -9,37 +9,37 @@ export default function CDSCOClinical() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="CDSCO Clinical Investigation" 
-        description="Expert guidance for CDSCO Clinical Investigation (MD-22, MD-23) protocols and permissions for medical devices in India."
+        title="CDSCO Clinical Investigation Approval & Trial Management | RAC Forge" 
+        description="Securing clinical trial permissions from CDSCO under Medical Devices Rules 2017. Clinical trial design, Subject Expert Committee presentation, and GCP compliance audits."
+        keywords="CDSCO Clinical Investigation, clinical trials medical devices India, Subject Expert Committee SEC presentation, GCP compliance, trial protocol, Clinical Investigation Plan"
         canonical="/services/cdsco-clinical-investigation"
       />
 
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-clinical.webp"
-            alt="CDSCO Clinical Investigation | RAC Forge Consulting" title="CDSCO Clinical Investigation"
+          <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-manufacturing.webp"
+            alt="CDSCO Clinical Investigation | RAC Forge" title="CDSCO Clinical Investigation"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
-           loading="lazy" />
+            loading="lazy" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            
           >
-<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-            CDSCO Clinical Investigation
-          </h1>
-</motion.div>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+              CDSCO Clinical Investigation Pathways
+            </h1>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/80 max-w-3xl leading-relaxed"
+            className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
           >
-            Navigating <InfoLink text="MD-22" /> and <InfoLink text="MD-23" /> pathways for medical device clinical studies in India.
+            Securing ethical, operational, and clinical test permissions from central authorities with flawless accuracy.
           </motion.p>
         </div>
       </section>
@@ -49,61 +49,65 @@ export default function CDSCOClinical() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-8 space-y-12">
-              <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
-                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Navigating Clinical Investigations in India</h2>
-                <p>
-                  Clinical investigation is the cornerstone of demonstrating the safety and performance of high-risk medical devices (Class C and D) and novel technologies. Under the Medical Devices Rules, 2017, the <InfoLink text="CDSCO" /> requires a rigorous and ethically sound process for conducting these studies. This involves not only the Central Licensing Authority (CLA) but also registered <strong>Ethics Committees (EC)</strong> and qualified investigators.
+              <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
+                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Navigate CDSCO Clinical Investigation Pathways with Expert Guidance</h2>
+                <p className="text-lg">
+                  Securing clinical trial permissions from CDSCO is complex and heavily audited. We manage the clinical investigation approval pipeline under the Medical Devices Rules 2017, ensuring safety protocols, ethical requirements, and experimental test structures are robust enough to earn regulatory clearance.
                 </p>
-                <p>
-                  The process begins with the development of a comprehensive <strong>Clinical Investigation Plan (CIP)</strong> and an <strong>Investigator's Brochure (IB)</strong>. These documents must be reviewed and approved by both the Ethics Committee and the CDSCO before any subjects can be enrolled.
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-                  <div className="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
-                    <h4 className="text-xl font-bold text-brand-deep mb-4">Investigational Medical Devices</h4>
-                    <p className="text-sm font-bold mb-4">Form MD-22 & MD-23</p>
-                    <p className="text-sm mb-4 leading-relaxed">Application (MD-22) and Grant (MD-23) of permission to conduct a clinical investigation of an investigational medical device. This is mandatory for devices that do not have a predicate in the Indian market.</p>
-                    <p className="text-sm"><strong>Ethics Committee Approval:</strong> All clinical investigations must be approved by an Ethics Committee registered with the CDSCO to ensure the protection of human subjects.</p>
-                  </div>
-                  <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
-                    <h4 className="text-xl font-bold text-brand-deep mb-4">New In Vitro Diagnostics (IVDs)</h4>
-                    <p className="text-sm font-bold mb-4">Form MD-24 & MD-25</p>
-                    <p className="text-sm mb-4 leading-relaxed">Application (MD-24) and Grant (MD-25) of permission to conduct a performance evaluation of a new IVD. This focuses on analytical and clinical performance characteristics.</p>
-                    <p className="text-sm"><strong>GCP Compliance:</strong> All studies must be conducted in accordance with Good Clinical Practice (GCP) guidelines to ensure data integrity and subject safety.</p>
+
+                <div className="my-10 bg-gradient-to-r from-teal-500/10 to-indigo-500/10 p-8 rounded-3xl border border-teal-500/20">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-white rounded-2xl border border-teal-100 shadow-sm text-teal-600">
+                      <ClipboardCheck size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-900 mb-2">Subject Expert Committee Presentations</h4>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        We don't just file papers; we prepare technical presentations defending investigational parameters and clinical benchmarks directly to CDSCO SEC panels.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-brand-deep mb-6">Our Clinical Investigation Consulting Services</h3>
-                <ul className="space-y-4">
+                <h3 className="text-2xl font-bold text-brand-deep mb-6">Our Services Include:</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                   {[
-                    "Preparation of Clinical Investigation Plan (CIP) and Investigator's Brochure (IB)",
-                    "Support for Ethics Committee (EC) approval and registration",
-                    "Preparation of Case Report Forms (CRFs) and Informed Consent Documents (ICDs)",
-                    "Management of application for MD-22/23/24/25 on SUGAM portal",
-                    "Coordination with Clinical Research Organizations (CROs) and trial sites",
-                    "Support for clinical investigation reports and data analysis",
-                    "Compliance with Good Clinical Practice (GCP) guidelines"
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <Zap className="text-brand-teal mr-4 shrink-0 mt-1" size={20} />
-                      <span className="font-bold text-brand-deep">{item}</span>
-                    </li>
+                    { title: "Drafting of Clinical Investigation Plan (CIP)", desc: "Developing rigorous, statistical schemas matching trial cohorts, endpoints, and validation standards." },
+                    { title: "Investigator's Brochure (IB) Preparation", desc: "Consolidating pre-clinical bench data, biocompatibility parameters, and animal studies into standard manuals." },
+                    { title: "SUGAM Trial Application Submissions", desc: "Detailed administrative filing ensuring that all protocol templates are uploaded cleanly according to standard classifications." },
+                    { title: "SEC Defense Presentation Support", desc: "Assembling medical evidence slide packs, structuring clinical defenses, and supporting teams during SEC hearings." },
+                    { title: "GCP Compliance Audits for Trial Sites", desc: "Executing pre-audit reviews of trial sites, investigator logs, and informed consent (ICD) storage protocols." }
+                  ].map((service, idx) => (
+                    <div key={idx} className="p-6 bg-slate-50 rounded-2xl border border-slate-150 shadow-sm flex flex-col justify-between">
+                      <div>
+                        <h4 className="font-extrabold text-[#0D9488]/90 text-base mb-2 flex items-center gap-2">
+                          <CheckCircle2 size={16} className="text-teal-500 shrink-0" />
+                          {service.title}
+                        </h4>
+                        <p className="text-slate-650 text-sm leading-relaxed">{service.desc}</p>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
+
+                <h3 className="text-2xl font-bold text-brand-deep mb-6">SEC Committee Alignment</h3>
+                <p>
+                  High-risk and innovative Class C or D medical systems usually require active human clinical performance statistics. SEC committees closely vet experimental endpoints to safeguard local users. Our specialists help bridge international research data with Indian clinical trial rules perfectly.
+                </p>
               </div>
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-4">
               <div className="sticky top-32 space-y-8">
-                <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                  <h4 className="text-xl font-bold text-brand-deep mb-6">Related CDSCO Services</h4>
+                <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-150 shadow-sm">
+                  <h4 className="text-xl font-bold text-brand-deep mb-6">CDSCO India Pathways</h4>
                   <ul className="space-y-4">
                     {[
-                      { name: 'Manufacturing License', path: '/services/cdsco-manufacturing-license' },
-                      { name: 'Import License', path: '/services/cdsco-import-license' },
-                      { name: 'Loan License', path: '/services/cdsco-loan-license' },
-                      { name: 'Test License', path: '/services/cdsco-test-license' }
+                      { name: 'Manufacturing License (MD-5/9)', path: '/services/cdsco-manufacturing-license-md5-md9' },
+                      { name: 'Import License (MD-14)', path: '/services/cdsco-import-license-md14' },
+                      { name: 'Loan License (MD-6/10)', path: '/services/cdsco-loan-license-md6-md10' },
+                      { name: 'Test License (MD-13)', path: '/services/cdsco-test-license-md13' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">
@@ -118,9 +122,9 @@ export default function CDSCOClinical() {
                 <div className="bg-white p-10 rounded-[2.5rem] text-brand-deep relative overflow-hidden border border-gray-200 shadow-xl">
                   <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/5 skew-x-12 translate-x-1/4"></div>
                   <div className="relative z-10">
-                    <h4 className="text-2xl font-bold mb-4 text-brand-deep">Need Expert Help?</h4>
+                    <h4 className="text-2xl font-bold mb-4 text-brand-deep font-sans tracking-tight">Need Expert Help?</h4>
                     <p className="text-gray-600 text-sm mb-8 font-medium">
-                      Our regulatory team has extensive experience in CDSCO clinical investigation protocols.
+                      Our Indian regulatory specialists hold deep domain credentials with CDSCO processes and the SUGAM online platform.
                     </p>
                     <Link to="/contact" className="block text-center bg-brand-deep text-white py-4 rounded-2xl font-bold hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20">
                       Contact Us

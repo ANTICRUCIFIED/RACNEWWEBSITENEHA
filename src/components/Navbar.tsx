@@ -12,49 +12,46 @@ const NAV_LINKS = [
     path: '/services',
     dropdown: [
       { 
-        title: 'CDSCO India Regulatory Services', 
-        path: '/services/cdsco-manufacturing-license',
+        title: 'Engineering & R&D', 
+        path: '/services/samd-architecture-development',
+        icon: <Code2 className="w-5 h-5 text-purple-600" />,
+        items: [
+          { name: 'SaMD Architecture', path: '/services/samd-architecture-development' },
+          { name: 'Electrical Device Prototyping', path: '/services/electrical-medical-device-prototyping' },
+          { name: 'Facility & Cleanroom Design', path: '/services/facility-cleanroom-design' }
+        ]
+      },
+      { 
+        title: 'CDSCO India Regulatory', 
+        path: '/services/cdsco-manufacturing-license-md5-md9',
         icon: <Flag className="w-5 h-5 text-orange-600" />,
         items: [
-          { name: 'Manufacturing License', path: '/services/cdsco-manufacturing-license' },
-          { name: 'Import License', path: '/services/cdsco-import-license' },
-          { name: 'Loan License', path: '/services/cdsco-loan-license' },
-          { name: 'Test License', path: '/services/cdsco-test-license' },
+          { name: 'Manufacturing License (MD-5/9)', path: '/services/cdsco-manufacturing-license-md5-md9' },
+          { name: 'Import License (MD-14)', path: '/services/cdsco-import-license-md14' },
+          { name: 'Loan License (MD-6/10)', path: '/services/cdsco-loan-license-md6-md10' },
+          { name: 'Test License (MD-13)', path: '/services/cdsco-test-license-md13' },
           { name: 'Clinical Investigation', path: '/services/cdsco-clinical-investigation' }
         ]
       },
       { 
-        title: 'USFDA (USA) Regulatory Services', 
-        path: '/services/usfda-510k-submission',
-        icon: <Shield className="w-5 h-5 text-blue-600" />,
+        title: 'Global Market Access', 
+        path: '/services/usfda-510k-de-novo',
+        icon: <Globe className="w-5 h-5 text-blue-600" />,
         items: [
-          { name: '510(k) Submission', path: '/services/usfda-510k-submission' },
-          { name: 'PMA Application', path: '/services/usfda-pma-application' },
-          { name: 'De Novo Classification', path: '/services/usfda-de-novo-classification' }
+          { name: 'USFDA 510(k) & De Novo', path: '/services/usfda-510k-de-novo' },
+          { name: 'EU MDR & CE Marking', path: '/services/eu-mdr-ce-marking' },
+          { name: 'EU Authorized Representative', path: '/services/eu-authorized-representative' },
+          { name: 'Anvisa Brazil Registration', path: '/services/anvisa-brazil-registration' }
         ]
       },
       { 
-        title: 'EU MDR (Europe) CE Marking', 
-        path: '/services/eu-mdr-compliance',
-        icon: <Globe className="w-5 h-5 text-emerald-600" />,
+        title: 'Certification & Audits', 
+        path: '/services/iso-13485-certification-audit',
+        icon: <Shield className="w-5 h-5 text-emerald-600" />,
         items: [
-          { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' }
-        ]
-      },
-      { 
-        title: 'Anvisa (Brazil) Regulatory Services', 
-        path: '/services/anvisa-brazil-approval',
-        icon: <Globe className="w-5 h-5 text-yellow-600" />,
-        items: [
-          { name: 'Anvisa Brazil Approval', path: '/services/anvisa-brazil-approval' }
-        ]
-      },
-      { 
-        title: 'Development of Electrical Medical Devices & SaMD', 
-        path: '/services/rd-and-samd',
-        icon: <Code2 className="w-5 h-5 text-purple-600" />,
-        items: [
-          { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
+          { name: 'ISO 13485 & 9001 Certification', path: '/services/iso-13485-certification-audit' },
+          { name: 'Biocompatibility Testing (ISO 10993)', path: '/services/biocompatibility-testing-iso-10993' },
+          { name: 'Regulatory Audit Readiness', path: '/services/regulatory-audit-readiness' }
         ]
       }
     ]
@@ -118,9 +115,9 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[800px]"
+                        className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[1180px]"
                       >
-                        <div className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-10 grid grid-cols-2 gap-10">
+                        <div className="bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 p-8 grid grid-cols-4 gap-6">
                           {link.dropdown.map((section) => (
                             <div key={section.title} className="space-y-6">
                               <div className="flex items-center space-x-3">

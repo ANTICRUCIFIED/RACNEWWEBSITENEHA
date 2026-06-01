@@ -18,54 +18,50 @@ import InfoLink from '../components/InfoLink';
 
 const SERVICES = [
   {
-    title: "CDSCO India",
-    icon: <Flag className="w-8 h-8 text-orange-600" />,
-    bg: "bg-orange-50",
-    description: "Comprehensive regulatory pathways for the Indian market under Medical Devices Rules 2017.",
+    title: "Engineering & R&D",
+    icon: <Code2 className="w-8 h-8 text-purple-600" />,
+    bg: "bg-purple-100/30",
+    description: "Innovative engineering and regulatory-compliant R&D services for active hardware, firmware, and digital health Software as a Medical Device (SaMD) solutions.",
     links: [
-      { name: "Manufacturing License", path: "/services/cdsco-manufacturing-license" },
-      { name: "Import License", path: "/services/cdsco-import-license" },
-      { name: "Loan License", path: "/services/cdsco-loan-license" },
-      { name: "Test License", path: "/services/cdsco-test-license" },
+      { name: "SaMD Architecture", path: "/services/samd-architecture-development" },
+      { name: "Electrical Device Prototyping", path: "/services/electrical-medical-device-prototyping" },
+      { name: "Facility & Cleanroom Design", path: "/services/facility-cleanroom-design" }
+    ]
+  },
+  {
+    title: "CDSCO India Regulatory",
+    icon: <Flag className="w-8 h-8 text-orange-600" />,
+    bg: "bg-orange-100/30",
+    description: "Complete pathways for Class A, B, C, & D licensing under the Indian Medical Device Rules 2017 via the SUGAM portal.",
+    links: [
+      { name: "Manufacturing License (MD-5/9)", path: "/services/cdsco-manufacturing-license-md5-md9" },
+      { name: "Import License (MD-14)", path: "/services/cdsco-import-license-md14" },
+      { name: "Loan License (MD-6/10)", path: "/services/cdsco-loan-license-md6-md10" },
+      { name: "Test License (MD-13)", path: "/services/cdsco-test-license-md13" },
       { name: "Clinical Investigation", path: "/services/cdsco-clinical-investigation" }
     ]
   },
   {
-    title: "USFDA (USA)",
-    icon: <Shield className="w-8 h-8 text-blue-600" />,
-    bg: "bg-blue-50",
-    description: "Strategic guidance for U.S. market entry, from classification to final clearance.",
+    title: "Global Market Access",
+    icon: <Globe2 className="w-8 h-8 text-blue-600" />,
+    bg: "bg-blue-100/30",
+    description: "Reliable strategic submission pathways for major worldwide systems including USFDA, European CE Mark, and Latin America.",
     links: [
-      { name: "510(k) Submission", path: "/services/usfda-510k-submission" },
-      { name: "PMA Application", path: "/services/usfda-pma-application" },
-      { name: "De Novo Classification", path: "/services/usfda-de-novo-classification" }
+      { name: "USFDA 510(k) & De Novo", path: "/services/usfda-510k-de-novo" },
+      { name: "EU MDR & CE Marking", path: "/services/eu-mdr-ce-marking" },
+      { name: "EU Authorized Representative", path: "/services/eu-authorized-representative" },
+      { name: "Anvisa Brazil Registration", path: "/services/anvisa-brazil-registration" }
     ]
   },
   {
-    title: "EU MDR (Europe)",
-    icon: <Globe2 className="w-8 h-8 text-emerald-600" />,
-    bg: "bg-emerald-50",
-    description: "Expert transition and compliance services for the European Medical Device Regulations.",
+    title: "Certification & Audits",
+    icon: <CheckCircle className="w-8 h-8 text-emerald-600" />,
+    bg: "bg-emerald-100/30",
+    description: "Accredited biological appraisals, QMS audits, and preparation to pass Notified Body inspections confidently.",
     links: [
-      { name: "EU MDR Compliance", path: "/services/eu-mdr-compliance" }
-    ]
-  },
-  {
-    title: "Anvisa (Brazil)",
-    icon: <CircleDollarSign className="w-8 h-8 text-yellow-600" />,
-    bg: "bg-yellow-50",
-    description: "Navigating the Brazilian regulatory landscape with local expertise and alliances.",
-    links: [
-      { name: "Anvisa Approval", path: "/services/anvisa-brazil-approval" }
-    ]
-  },
-  {
-    title: "Development of Electrical Medical Devices & SaMD",
-    icon: <Code2 className="w-8 h-8 text-purple-600" />,
-    bg: "bg-purple-50",
-    description: "End-to-end development, technical documentation, and strategy for Electrical Medical Devices, Software as a Medical Device (SaMD), and R&D projects.",
-    links: [
-      { name: "Development of Electrical Medical Devices & SaMD", path: "/services/rd-and-samd" }
+      { name: "ISO 13485 & 9001 Certification", path: "/services/iso-13485-certification-audit" },
+      { name: "Biocompatibility Testing (ISO 10993)", path: "/services/biocompatibility-testing-iso-10993" },
+      { name: "Regulatory Audit Readiness", path: "/services/regulatory-audit-readiness" }
     ]
   }
 ];
@@ -127,7 +123,7 @@ export default function Services() {
       {/* Services Grid */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {SERVICES.map((service, idx) => (
               <motion.div
                 key={idx}

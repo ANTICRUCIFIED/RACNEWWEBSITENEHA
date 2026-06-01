@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, ArrowRight, FileText, ShieldCheck, Zap, Microscope } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Globe, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
@@ -9,38 +9,37 @@ export default function AnvisaBrazil() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Anvisa Brazil Medical Device Approval & Registration" 
-        description="Expert guidance for Anvisa Brazil medical device approval. We help with BGMP (RDC 665/2022) compliance, technical dossiers, and BRH representation."
-        keywords="Anvisa Brazil approval, Brazilian medical device registration, BGMP compliance, RDC 665/2022, ANVISA consultant, medical device market Brazil, BRH service, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
-        canonical="/services/anvisa-brazil-approval"
+        title="Anvisa Brazil Regulatory Registration | RAC Forge" 
+        description="Providing end-to-end support for Anvisa Brazil medical device approvals. Complete BGMP (RDC 665/2022) audit prep and Brazilian Registration Holder representation."
+        keywords="Anvisa Brazil registration, medical device Brazil, BGMP compliance RDC 665/2022, Brazilian Registration Holder BRH, INMETRO certified"
+        canonical="/services/anvisa-brazil-registration"
       />
 
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-anvisa.webp"
-            alt="Anvisa Brazil Approval | RAC Forge Consulting" title="Anvisa Brazil Approval"
+          <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-manufacturing.webp"
+            alt="Anvisa Brazil Registration | RAC Forge" title="Anvisa Brazil Registration"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
-           loading="lazy" />
+            loading="lazy" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            
           >
-<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-            Anvisa Brazil Approval
-          </h1>
-</motion.div>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+              Complete Anvisa Registration for the Brazil Medical Market
+            </h1>
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/80 max-w-3xl leading-relaxed"
+            className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
           >
-            Navigating the Brazilian regulatory landscape with local expertise and expedited approval pathways.
+            Streamlining classification, BGMP audits, and Brazilian market entry for physical or digital health solutions.
           </motion.p>
         </div>
       </section>
@@ -50,57 +49,64 @@ export default function AnvisaBrazil() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-8 space-y-12">
-              <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
-                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Unlocking the Brazilian Market with Anvisa Approval</h2>
-                <p>
-                  Entering the South American market begins with the <InfoLink text="Anvisa" /> (Agência Nacional de Vigilância Sanitária) in Brazil. The regulatory environment in Brazil is unique, requiring foreign manufacturers to appoint a <strong>Brazilian Registration Holder (BRH)</strong>—a local company that acts as the legal representative and host for product registrations.
+              <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
+                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Expert Anvisa Registration Support</h2>
+                <p className="text-lg">
+                  Navigate Latin America's largest medical market with confidence. RAC Forge handles the complete Anvisa registration process, assisting with regulatory classification, Portuguese dossier compilation, and the coordination of the Brazilian Good Manufacturing Practices (BGMP) audits.
                 </p>
-                <p>
-                  Compliance with the Brazilian Good Manufacturing Practices (<strong>BGMP</strong>), specifically <strong>RDC 665/2022</strong>, is a prerequisite for most registrations. Anvisa may conduct on-site inspections for high-risk (Class III and IV) devices to verify BGMP compliance.
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-                  <div className="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
-                    <h4 className="text-xl font-bold text-brand-deep mb-4">INMETRO & ANATEL Certifications</h4>
-                    <p className="text-sm leading-relaxed">Medical electrical equipment often requires <strong>INMETRO</strong> certification for safety, while devices with wireless communication (Bluetooth, Wi-Fi) require <strong>ANATEL</strong> approval. We coordinate with local laboratories to facilitate these processes.</p>
-                  </div>
-                  <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100">
-                    <h4 className="text-xl font-bold text-brand-deep mb-4">Registration Pathways</h4>
-                    <p className="text-sm leading-relaxed mb-4">Low-risk devices (Class I and II) follow the <strong>Notification</strong> pathway, while high-risk devices (Class III and IV) require a full <strong>Registration</strong> (Registro) with more extensive data review.</p>
+
+                <div className="my-10 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 p-8 rounded-3xl border border-yellow-500/20">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-white rounded-2xl border border-yellow-105 shadow-sm text-yellow-600">
+                      <Globe size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-slate-900 mb-2">BGMP (RDC 665/2022) Alignment</h4>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Anvisa requires active certification for Class III and IV devices. We align quality manuals directly with RDC 665/2022 to pass inspections.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-brand-deep mb-6">Our Anvisa Brazil Consulting Services</h3>
-                <ul className="space-y-4">
+                <h3 className="text-2xl font-bold text-brand-deep mb-6">Our Services Include:</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                   {[
-                    "Selection and management of a Brazilian Registration Holder (BRH)",
-                    "Preparation of the technical dossier for Anvisa submission",
-                    "Support for BGMP (RDC 665/2022) compliance and readiness audits",
-                    "Coordination of INMETRO and ANATEL certification processes",
-                    "Gap analysis of existing data against Anvisa requirements",
-                    "Translation of technical documents and labeling into Portuguese",
-                    "Management of Anvisa interactions and RFI (Request for Information) responses",
-                    "Assistance with product renewals and amendments"
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <Zap className="text-brand-teal mr-4 shrink-0 mt-1" size={20} />
-                      <span className="font-bold text-brand-deep">{item}</span>
-                    </li>
+                    { title: "Cost-Effective Device Classification", desc: "Verifying exact Anvisa risk categories (Class I to IV) and estimating submission fee budgets accurately." },
+                    { title: "Technical Dossier Compilation in Portuguese", desc: "High-fidelity translation and structuring of safety profiles, instructions for use, and performance parameters." },
+                    { title: "INMETRO & ANATEL Certification Coordination", desc: "Setting up and passing mandatory local testing checks for electric medical systems or communication modules." },
+                    { title: "Brazilian Registration Holder (BRH) Representation", desc: "Serving as your localized legal anchor or assisting you in configuring and maintaining a fully independent BRH node." },
+                    { title: "BGMP Audit Documentation Prep", desc: "Comprehensive training and folder auditing to align local operations with South American inspection guidelines." }
+                  ].map((service, idx) => (
+                    <div key={idx} className="p-6 bg-slate-50 rounded-2xl border border-slate-150 shadow-sm flex flex-col justify-between">
+                      <div>
+                        <h4 className="font-extrabold text-[#D97706]/90 text-base mb-2 flex items-center gap-2">
+                          <CheckCircle2 size={16} className="text-amber-500 shrink-0" />
+                          {service.title}
+                        </h4>
+                        <p className="text-slate-650 text-sm leading-relaxed">{service.desc}</p>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
+
+                <h3 className="text-2xl font-bold text-brand-deep mb-6">Strategic Local Entry</h3>
+                <p>
+                  As Brazil requires extensive testing on-site for various electrical and battery-powered medical systems, matching international ISO 14971 risk profiles with INMETRO standards upfront is essential. Our team maps this process to minimize unexpected project delays.
+                </p>
               </div>
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-4">
               <div className="sticky top-32 space-y-8">
-                <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                  <h4 className="text-xl font-bold text-brand-deep mb-6">Related Services</h4>
+                <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-150 shadow-sm">
+                  <h4 className="text-xl font-bold text-brand-deep mb-6">Global Market Access</h4>
                   <ul className="space-y-4">
                     {[
-                      { name: 'USFDA Compliance', path: '/services/usfda-510k-submission' },
-                      { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },
-                      { name: 'Development of Electrical Medical Devices & SaMD', path: '/services/rd-and-samd' }
+                      { name: 'USFDA 510(k) & De Novo', path: '/services/usfda-510k-de-novo' },
+                      { name: 'EU MDR & CE Marking', path: '/services/eu-mdr-ce-marking' },
+                      { name: 'EU Authorized Rep (EAR)', path: '/services/eu-authorized-representative' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">
@@ -115,9 +121,9 @@ export default function AnvisaBrazil() {
                 <div className="bg-white p-10 rounded-[2.5rem] text-brand-deep relative overflow-hidden border border-gray-200 shadow-xl">
                   <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-teal/5 skew-x-12 translate-x-1/4"></div>
                   <div className="relative z-10">
-                    <h4 className="text-2xl font-bold mb-4 text-brand-deep">Need Expert Help?</h4>
+                    <h4 className="text-2xl font-bold mb-4 text-brand-deep font-sans tracking-tight">Need Expert Help?</h4>
                     <p className="text-gray-600 text-sm mb-8 font-medium">
-                      Our regulatory team has extensive experience in Anvisa Brazil approvals and local alliances.
+                      Our international market access team has steered multiple diagnostic systems and implants to successful clearances.
                     </p>
                     <Link to="/contact" className="block text-center bg-brand-deep text-white py-4 rounded-2xl font-bold hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20">
                       Contact Us

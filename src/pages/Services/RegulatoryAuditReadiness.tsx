@@ -1,25 +1,25 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, ArrowRight, Zap, Flag } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ClipboardCheck, ShieldAlert, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
 
-export default function CDSCOManufacturing() {
+export default function RegulatoryAuditReadiness() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="CDSCO Manufacturing License (MD-5/9) Support | RAC Forge" 
-        description="Navigate CDSCO's approval process for Class A, B, C, & D medical devices. Complete support for obtaining Form MD-5 & MD-9 licenses on the SUGAM portal."
-        keywords="CDSCO Manufacturing License, Form MD-5, Form MD-9, SUGAM portal medical devices, State Licensing Authority SLA, Central Licensing Authority CLA"
-        canonical="/services/cdsco-manufacturing-license-md5-md9"
+        title="Regulatory Audit Readiness & QMS Preparation | RAC Forge" 
+        description="Ensure effortless approval and zero severe non-conformities during CDSCO, USFDA, or Notified Body inspections. Expert mock audits and QMS reviews."
+        keywords="regulatory audit readiness, CDSCO audit prep, USFDA inspection pre-audit, mock audit medical devices, QMS compliance, CAPA remediation"
+        canonical="/services/regulatory-audit-readiness"
       />
 
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-manufacturing.webp"
-            alt="CDSCO Manufacturing License | RAC Forge" title="CDSCO Manufacturing License"
+            alt="Regulatory Audit Readiness | RAC Forge" title="Regulatory Audit Readiness"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
             loading="lazy" />
@@ -30,7 +30,7 @@ export default function CDSCOManufacturing() {
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-              Secure Your CDSCO Manufacturing License (Form MD-5 & MD-9)
+              Regulatory Audit Readiness & QMS Preparation
             </h1>
           </motion.div>
           <motion.p
@@ -39,7 +39,7 @@ export default function CDSCOManufacturing() {
             transition={{ delay: 0.1 }}
             className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
           >
-            Form MD-5 (Class A & B) and Form MD-9 (Class C & D) licensing walkthroughs, auditing guidelines, and digital filings.
+            Preparing operations, engineering documents, and personnel for official regulatory assessments with zero friction.
           </motion.p>
         </div>
       </section>
@@ -50,20 +50,20 @@ export default function CDSCOManufacturing() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-8 space-y-12">
               <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
-                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">CDSCO Manufacturing Approvals under Medical Device Rules 2017</h2>
+                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Gain 100% Assurance with Regulatory Audit Readiness</h2>
                 <p className="text-lg">
-                  Navigate the CDSCO's rigorous approval process for medical device manufacturing with confidence. RAC Forge provides end-to-end support for obtaining Form MD-5 (Class A & B) and MD-9 (Class C & D) licenses. We manage everything from initial application on the SUGAM portal to final inspection readiness, ensuring a smooth and efficient approval.
+                  Minimize the risk of audit failures and compliance findings. RAC Forge prepares your team, processes, and documentation for audits from Notified Bodies, FDA investigators, CDSCO auditors, or international regulators, ensuring immediate and smooth approval.
                 </p>
 
-                <div className="my-10 bg-gradient-to-r from-orange-500/10 to-red-500/10 p-8 rounded-3xl border border-orange-500/20">
+                <div className="my-10 bg-gradient-to-r from-teal-500/10 to-indigo-500/10 p-8 rounded-3xl border border-teal-500/20">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-white rounded-2xl border border-orange-100 shadow-sm text-orange-600">
-                      <Flag size={24} />
+                    <div className="p-3 bg-white rounded-2xl border border-teal-100 shadow-sm text-teal-600">
+                      <ClipboardCheck size={24} />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold text-slate-900 mb-2">Centralized Digital Filings</h4>
+                      <h4 className="text-xl font-bold text-slate-900 mb-2">Simulated Inspector Protocols</h4>
                       <p className="text-sm text-slate-600 leading-relaxed">
-                        We configure and audit all files submitted via SUGAM, reducing the risk of procedural queries and technical objections that block project timelines.
+                        We replicate live regulatory inspection processes down to individual document requests and mock developer interviews to bulletproof quality systems.
                       </p>
                     </div>
                   </div>
@@ -72,16 +72,16 @@ export default function CDSCOManufacturing() {
                 <h3 className="text-2xl font-bold text-brand-deep mb-6">Our Services Include:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                   {[
-                    { title: "Form MD-3 and Form MD-7 Application", desc: "Interactive mapping of application pathways for regional SLAs (Class A & B) or national CLA inspectors (Class C & D)." },
-                    { title: "Drafting Site Master File (SMF) & Plant Master File (PMF)", desc: "Rigorous description vectors detail facility floor schematics, cleanrooms, and sanitation rules." },
-                    { title: "Device Description & Technical Dossier", desc: "Compiling testing logs, biocompatibility assays, safety standards, and performance specifications." },
-                    { title: "Performance Evaluation Reports (PER)", desc: "Validating clinical evaluations and medical trace files for robust compliance verification." },
-                    { title: "Inspection Mapping & Mock Audits", desc: "Support, documentation staging, and responder training to confidently navigate onsite regulatory assessments." }
+                    { title: "Simulated Mock Regulatory Audits", desc: "Rigorous trial run replicates FDA QSIT, CDSCO, or EU MDR Notified Body assessment methodologies." },
+                    { title: "Clean QMS & Design History Reviews", desc: "Granular pre-audit file analysis verifying specifications, validation records, and material sourcing logs." },
+                    { title: "Interaction & Staff Response Workshops", desc: "Preparing engineers and managers with proven interaction strategies, query response protocols, and presentation plans." },
+                    { title: "Remediating Non-Conformities & CAPA", desc: "Proactive, rapid correction of underlying systemic design issues or previous auditing findings." },
+                    { title: "Real-time Auditing Support (Remote/On-site)", desc: "Direct active support, document staging, and real-time defense assistance during official investigator site visits." }
                   ].map((service, idx) => (
                     <div key={idx} className="p-6 bg-slate-50 rounded-2xl border border-slate-150 shadow-sm flex flex-col justify-between">
                       <div>
-                        <h4 className="font-extrabold text-[#EA580C]/90 text-base mb-2 flex items-center gap-2">
-                          <CheckCircle2 size={16} className="text-orange-500 shrink-0" />
+                        <h4 className="font-extrabold text-[#0D9488]/90 text-base mb-2 flex items-center gap-2">
+                          <CheckCircle2 size={16} className="text-teal-500 shrink-0" />
                           {service.title}
                         </h4>
                         <p className="text-slate-650 text-sm leading-relaxed">{service.desc}</p>
@@ -90,9 +90,9 @@ export default function CDSCOManufacturing() {
                   ))}
                 </div>
 
-                <h3 className="text-2xl font-bold text-brand-deep mb-6">Navigating Audits (SLA & CLA)</h3>
+                <h3 className="text-2xl font-bold text-brand-deep mb-6">Active CAPA Resolution</h3>
                 <p>
-                  Obtaining a manufacturing license requires structural audits. Class A and B devices require Notified Body inspections overseen by the State Licensing Authority (SLA), while Class C and D devices require federal audits by the Central Licensing Authority (CLA). We sit down with your manufacturing team to align all workflows beforehand.
+                  A previous auditing citation (Form 483, major non-conformities, etc.) requires immediate, reliable corrective actions. We work directly with quality leaders to structure robust correct/prevent (CAPA) trails that satisfy auditor expectations, restoring active registration states.
                 </p>
               </div>
             </div>
@@ -101,13 +101,11 @@ export default function CDSCOManufacturing() {
             <div className="lg:col-span-4">
               <div className="sticky top-32 space-y-8">
                 <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-150 shadow-sm">
-                  <h4 className="text-xl font-bold text-brand-deep mb-6">CDSCO India Pathways</h4>
+                  <h4 className="text-xl font-bold text-brand-deep mb-6">Accredited Audits</h4>
                   <ul className="space-y-4">
                     {[
-                      { name: 'Import License (MD-14)', path: '/services/cdsco-import-license-md14' },
-                      { name: 'Loan License (MD-6/10)', path: '/services/cdsco-loan-license-md6-md10' },
-                      { name: 'Test License (MD-13)', path: '/services/cdsco-test-license-md13' },
-                      { name: 'Clinical Investigation', path: '/services/cdsco-clinical-investigation' }
+                      { name: 'ISO 13485 QMS Certification', path: '/services/iso-13485-certification-audit' },
+                      { name: 'Biocompatibility Testing', path: '/services/biocompatibility-testing-iso-10993' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">
@@ -124,7 +122,7 @@ export default function CDSCOManufacturing() {
                   <div className="relative z-10">
                     <h4 className="text-2xl font-bold mb-4 text-brand-deep font-sans tracking-tight">Need Expert Help?</h4>
                     <p className="text-gray-600 text-sm mb-8 font-medium">
-                      Our Indian regulatory specialists hold deep domain credentials with CDSCO processes and the SUGAM online platform.
+                      Our skilled auditors maintain direct active credentials to map, deploy, and verify global QMS setups flawlessly.
                     </p>
                     <Link to="/contact" className="block text-center bg-brand-deep text-white py-4 rounded-2xl font-bold hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20">
                       Contact Us

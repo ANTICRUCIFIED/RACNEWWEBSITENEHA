@@ -14,7 +14,9 @@ import {
   Sparkles,
   Fingerprint,
   Cpu,
-  Bookmark
+  Bookmark,
+  Star,
+  Quote
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
@@ -315,21 +317,80 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="mt-8 p-6 rounded-2xl bg-slate-50 border border-slate-200 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 bg-slate-100 text-slate-300 transform translate-x-4 -translate-y-4">
-                    <Bookmark size={55} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                  {/* Research & Academic Contributions */}
+                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative overflow-hidden flex flex-col justify-between">
+                    <div className="absolute top-0 right-0 bg-slate-100 text-slate-300 transform translate-x-4 -translate-y-4 opacity-50">
+                      <Bookmark size={55} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <BookOpen size={18} className="text-emerald-600" />
+                        Research & Academic Contributions
+                      </h4>
+                      <p className="text-slate-650 text-sm leading-relaxed mb-4">
+                        A contributor to medical regulatory literature, Atul actively engages in academic discourse regarding policy and product safety.
+                      </p>
+                      <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+                        <p className="text-slate-800 text-sm leading-relaxed">
+                          Latest Publication (May 2026): Authored "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes" published in the <span className="text-emerald-700 italic">Cureus Journal of Medical Science</span> (Part of Springer Nature).
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-200/60">
+                      <a
+                        href="https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-600 transition-colors"
+                      >
+                        <span>Read on PubMed/Cureus</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    </div>
                   </div>
-                  <h4 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-                    <BookOpen size={18} className="text-emerald-600" />
-                    Research & Academic Contributions
-                  </h4>
-                  <p className="text-slate-650 text-sm leading-relaxed mb-4">
-                    A contributor to medical regulatory literature, Atul actively engages in academic discourse regarding policy and product safety.
-                  </p>
-                  <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
-                    <p className="text-slate-800 text-sm md:text-base font-semibold leading-relaxed">
-                      Latest Publication (May 2026): Authored "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes" published in the <span className="text-emerald-700 italic">Cureus Journal of Medical Science</span> (Part of Springer Nature).
-                    </p>
+
+                  {/* Featured Spotify Podcast */}
+                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                          <svg className="w-5 h-5 text-[#1ED760]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.565.387-.86.207-2.377-1.454-5.37-1.783-8.892-.982-.336.076-.67-.135-.746-.47-.077-.337.135-.67.472-.747 3.847-.88 7.14-.51 9.814 1.127.295.18.387.563.207.865zm1.224-2.72c-.226.367-.71.488-1.077.262-2.72-1.67-6.87-2.154-10.076-1.182-.413.125-.85-.107-.975-.522-.125-.413.107-.85.522-.975 3.666-1.11 8.243-.573 11.36 1.344.367.226.488.71.262 1.077zm.106-2.833C14.384 8.78 8.526 8.583 5.14 9.61c-.52.158-1.066-.134-1.224-.655-.158-.52.135-1.066.655-1.224 3.9-1.185 10.37-.96 14.43 1.45.47.28.62.89.34 1.36-.28.47-.89.62-1.36.34z"/>
+                          </svg>
+                          CEO's Spotify Podcast
+                        </h4>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded">
+                          Featured Episode
+                        </span>
+                      </div>
+                      <p className="text-slate-650 text-sm leading-relaxed mb-4">
+                        Listen to our founder and CEO discuss state-of-the-art medical technology advancements, global compliance strategy, and startup regulations.
+                      </p>
+                      <div className="rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                        <iframe 
+                          style={{ borderRadius: '0.75rem' }}
+                          src="https://open.spotify.com/embed/episode/4ZEviANhOthe09s6NL8SrH?utm_source=generator" 
+                          width="100%" 
+                          height="152" 
+                          frameBorder="0" 
+                          allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                          loading="lazy"
+                          className="block"
+                        ></iframe>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-200/60">
+                      <a
+                        href="https://open.spotify.com/episode/4ZEviANhOthe09s6NL8SrH?si=SJ7too0SQFuQ3l4qSWQYTA"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 hover:text-emerald-700 transition-colors"
+                      >
+                        <span>Listen on Spotify App</span>
+                        <ExternalLink size={12} />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -379,6 +440,196 @@ export default function About() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* Brands We Work With */}
+      <section className="py-16 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-emerald-450 font-extrabold tracking-widest uppercase text-xs mb-3 block">Our Collaborative Network</span>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              Brands We Are Proud to Work With
+            </h2>
+            <p className="mt-4 text-slate-650 text-base leading-relaxed">
+              Partnering with forward-thinking medical technology pioneers and global healthcare leaders to deliver top-tier compliance architecture.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-16">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center justify-center p-6 bg-slate-50 border border-slate-150 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-[260px] h-[130px]"
+            >
+              <img 
+                src="https://anticrucified.github.io/MyWebP_Images/images/brand1.webp" 
+                alt="Partner Brand Logo - Dentalkart" 
+                className="max-w-full max-h-[80px] object-contain"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </motion.div>
+
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center justify-center p-6 bg-slate-50 border border-slate-150 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-[260px] h-[130px]"
+            >
+              <img 
+                src="https://anticrucified.github.io/MyWebP_Images/images/brand2.webp" 
+                alt="Partner Brand Logo - Foshan Wenjian" 
+                className="max-w-full max-h-[84px] object-contain"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials / Feedback Section */}
+      <section className="py-20 bg-slate-50 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center md:text-left md:flex md:items-end md:justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="text-emerald-450 font-extrabold tracking-widest uppercase text-xs mb-3 block">Verified Appraisals</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Peerless Customer Feedback
+              </h2>
+              <p className="mt-3 text-slate-650 text-base md:text-lg">
+                Transparent and comprehensive appraisals from industry executives confirming our commitment to quality.
+              </p>
+            </div>
+            <div className="mt-4 md:mt-0 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 text-emerald-700 text-xs font-bold inline-flex items-center gap-1.5 self-start whitespace-nowrap">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              <span>Verified Digital Records</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            {/* Feedback 1: Dr. Vikas Agarwal */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-12 xl:col-span-8 bg-white rounded-3xl p-8 shadow-md border border-slate-200/85 hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+            >
+              {/* Decorative Big Quote */}
+              <div className="absolute right-6 top-6 text-slate-100 pointer-events-none">
+                <Quote size={100} className="opacity-40" />
+              </div>
+
+              <div className="relative z-10">
+                {/* Meta Row: Date and Stars */}
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                  <div className="text-slate-400 font-mono text-xs font-semibold">
+                    Customer Feedback: 19/2/2026
+                  </div>
+                  <div className="flex gap-1 text-amber-400">
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                  </div>
+                </div>
+
+                {/* Main Quote Content */}
+                <div className="space-y-4 text-slate-700 text-base leading-relaxed font-normal mb-8">
+                  <p>
+                    "We would like to acknowledge and appreciate the strong understanding and structured approach demonstrated towards regulatory affairs and compliance requirements."
+                  </p>
+                  <p>
+                    "The team has consistently shown clarity in interpreting applicable regulations, maintaining required documentation, and aligning operational processes with relevant statutory and quality standards. Their proactive approach towards compliance, responsiveness to evolving regulatory frameworks, and commitment to maintaining transparent and well-documented systems reflects a mature and responsible business practice."
+                  </p>
+                  <p>
+                    "Particularly noteworthy is their ability to integrate regulatory requirements into day-to-day business operations without compromising efficiency, ensuring that quality, safety, and compliance remain central to all activities. The organization demonstrates a clear awareness of global compliance expectations and maintains readiness to adapt to new regulatory developments as required."
+                  </p>
+                  <p className="font-semibold text-emerald-800">
+                    "We believe this structured and disciplined approach towards regulatory affairs significantly strengthens their operational reliability and credibility as a professional organization."
+                  </p>
+                </div>
+              </div>
+
+              {/* Author Info */}
+              <div className="pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4 relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-slate-900 border-2 border-emerald-450 flex items-center justify-center shrink-0">
+                    <span className="text-white font-black text-base font-sans">D</span>
+                  </div>
+                  <div>
+                    <h3 className="text-slate-900 font-extrabold text-lg leading-tight">Dr. Vikas Agarwal</h3>
+                    <p className="text-emerald-700 font-bold text-xs uppercase tracking-wider mt-0.5">CEO and founder of Dentalkart</p>
+                    <p className="text-slate-400 text-[10px] uppercase font-bold mt-0.5 tracking-wider">A NSE listed company</p>
+                  </div>
+                </div>
+                <div className="text-[10px] text-slate-400 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200/60 font-medium">
+                  Verified Digital Record
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Feedback 2: Ms. Tian Yiwen */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="lg:col-span-12 xl:col-span-4 bg-white rounded-3xl p-8 shadow-md border border-slate-200/85 hover:shadow-lg transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+            >
+              {/* Decorative Big Quote */}
+              <div className="absolute right-6 top-6 text-slate-100 pointer-events-none">
+                <Quote size={100} className="opacity-40" />
+              </div>
+
+              <div className="relative z-10">
+                {/* Meta Row: Date and Stars */}
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                  <div className="text-slate-400 font-mono text-xs font-semibold">
+                    Customer Feedback: 2026/3/18
+                  </div>
+                  <div className="flex gap-1 text-amber-400">
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                    <Star size={16} fill="currentColor" />
+                  </div>
+                </div>
+
+                {/* Main Quote Content */}
+                <div className="text-slate-700 text-base md:text-[15px] leading-relaxed font-normal mb-8 space-y-4">
+                  <p>
+                    "RAC Forge Pvt. Ltd. provides top-tier regulatory support with a focus on efficiency and professionalism. Their team handles complex tasks promptly while remaining easy to communicate with and deeply reliable."
+                  </p>
+                  <p className="font-semibold text-emerald-800">
+                    "We appreciate their dedicated approach and look forward to continuing our successful partnership."
+                  </p>
+                </div>
+              </div>
+
+              {/* Author Info */}
+              <div className="pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4 relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-slate-900 border-2 border-emerald-450 flex items-center justify-center shrink-0">
+                    <span className="text-white font-black text-base font-sans">M</span>
+                  </div>
+                  <div>
+                    <h3 className="text-slate-900 font-extrabold text-base leading-tight">Ms. Tian Yiwen</h3>
+                    <p className="text-emerald-700 font-bold text-xs uppercase tracking-wider mt-0.5">Manager (Designation)</p>
+                    <p className="text-slate-400 text-[10px] uppercase font-bold mt-0.5 tracking-wider">Foshan Wenjian Medical Instrument Co., Ltd.</p>
+                  </div>
+                </div>
+                <div className="text-[10px] text-slate-400 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200/60 font-medium">
+                  Verified Digital Record
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 

@@ -1,25 +1,25 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, ArrowRight, Zap, Flag } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ClipboardCheck, Zap, Handshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import InfoLink from '../../components/InfoLink';
 
-export default function CDSCOManufacturing() {
+export default function ISO13485Certification() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="CDSCO Manufacturing License (MD-5/9) Support | RAC Forge" 
-        description="Navigate CDSCO's approval process for Class A, B, C, & D medical devices. Complete support for obtaining Form MD-5 & MD-9 licenses on the SUGAM portal."
-        keywords="CDSCO Manufacturing License, Form MD-5, Form MD-9, SUGAM portal medical devices, State Licensing Authority SLA, Central Licensing Authority CLA"
-        canonical="/services/cdsco-manufacturing-license-md5-md9"
+        title="ISO 13485 & 9001 Certification Services | RAC Forge" 
+        description="Achieve accredited internationally recognized ISO 13485:2016 and ISO 9001:2015 certifications. Comprehensive gap analysis and QMS drafting in partnership with DPPB Solutions."
+        keywords="ISO 13485:2016, ISO 9001:2015 certification, medical QMS consultant, DPPB Solutions partnership, gap analysis, SOP auditing"
+        canonical="/services/iso-13485-certification-audit"
       />
 
       {/* Hero */}
       <section className="relative h-[400px] flex items-center pt-20 bg-brand-deep overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <img src="https://anticrucified.github.io/MyWebP_Images/images/page-service-manufacturing.webp"
-            alt="CDSCO Manufacturing License | RAC Forge" title="CDSCO Manufacturing License"
+            alt="ISO 13485 & 9001 Certification | RAC Forge" title="ISO 13485 & 9001 Certification"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
             loading="lazy" />
@@ -30,7 +30,7 @@ export default function CDSCOManufacturing() {
             animate={{ opacity: 1, y: 0 }}
           >
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-              Secure Your CDSCO Manufacturing License (Form MD-5 & MD-9)
+              Achieve Accredited ISO 13485 & 9001 Certification
             </h1>
           </motion.div>
           <motion.p
@@ -39,7 +39,7 @@ export default function CDSCOManufacturing() {
             transition={{ delay: 0.1 }}
             className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
           >
-            Form MD-5 (Class A & B) and Form MD-9 (Class C & D) licensing walkthroughs, auditing guidelines, and digital filings.
+            Guided quality management implementation pathways for medical hardware or digital diagnostics in formal MOU alignment with <strong>DPPB Solutions</strong>.
           </motion.p>
         </div>
       </section>
@@ -50,20 +50,20 @@ export default function CDSCOManufacturing() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <div className="lg:col-span-8 space-y-12">
               <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
-                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">CDSCO Manufacturing Approvals under Medical Device Rules 2017</h2>
-                <p className="text-lg">
-                  Navigate the CDSCO's rigorous approval process for medical device manufacturing with confidence. RAC Forge provides end-to-end support for obtaining Form MD-5 (Class A & B) and MD-9 (Class C & D) licenses. We manage everything from initial application on the SUGAM portal to final inspection readiness, ensuring a smooth and efficient approval.
+                <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Partnership with DPPB Solutions</h2>
+                <p className="text-lg animate-fade-in">
+                  Beyond consultancy, we deliver results. Through our formal MOU with <strong>DPPB Solutions</strong>, we provide a direct pathway to achieving internationally accredited ISO 13485:2016 (Medical Device QMS) and ISO 9001:2015 certifications. Our comprehensive service includes gap analysis, QMS implementation, documentation, and liaison with accredited certification bodies to ensure you pass your audit successfully.
                 </p>
 
-                <div className="my-10 bg-gradient-to-r from-orange-500/10 to-red-500/10 p-8 rounded-3xl border border-orange-500/20">
+                <div className="my-10 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 p-8 rounded-3xl border border-emerald-500/20">
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-white rounded-2xl border border-orange-100 shadow-sm text-orange-600">
-                      <Flag size={24} />
+                    <div className="p-3 bg-white rounded-2xl border border-emerald-110 shadow-sm text-emerald-600">
+                      <Handshake size={24} />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold text-slate-900 mb-2">Centralized Digital Filings</h4>
+                      <h4 className="text-xl font-bold text-slate-900 mb-2">DPPB Solutions MOU Synergy</h4>
                       <p className="text-sm text-slate-600 leading-relaxed">
-                        We configure and audit all files submitted via SUGAM, reducing the risk of procedural queries and technical objections that block project timelines.
+                        This strategic alignment combines our detailed regulatory drafting with accredited, internationally Recognized auditing pathways.
                       </p>
                     </div>
                   </div>
@@ -72,16 +72,16 @@ export default function CDSCOManufacturing() {
                 <h3 className="text-2xl font-bold text-brand-deep mb-6">Our Services Include:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                   {[
-                    { title: "Form MD-3 and Form MD-7 Application", desc: "Interactive mapping of application pathways for regional SLAs (Class A & B) or national CLA inspectors (Class C & D)." },
-                    { title: "Drafting Site Master File (SMF) & Plant Master File (PMF)", desc: "Rigorous description vectors detail facility floor schematics, cleanrooms, and sanitation rules." },
-                    { title: "Device Description & Technical Dossier", desc: "Compiling testing logs, biocompatibility assays, safety standards, and performance specifications." },
-                    { title: "Performance Evaluation Reports (PER)", desc: "Validating clinical evaluations and medical trace files for robust compliance verification." },
-                    { title: "Inspection Mapping & Mock Audits", desc: "Support, documentation staging, and responder training to confidently navigate onsite regulatory assessments." }
+                    { title: "QMS Gap Analysis against ISO Standards", desc: "Detailed mapping of operational files, tracing standard gaps and defining precise milestones to bridge them." },
+                    { title: "Designing Custom Quality Manuals & SOPs", desc: "Tailoring clean protocols detailing risk evaluation, trace management, sourcing, and complaints handling processes." },
+                    { title: "Strict Design Controls & Supplier Auditing", desc: "Implementing absolute verification chains ensuring that third parties hold required safety credentials." },
+                    { title: "Internal Quality Auditing & CAPA Execution", desc: "Performing simulated test audits and resolving discrepancies beforehand with strong corrective actions." },
+                    { title: "Accredited Audit Liaison & Support", desc: "Direct logistical representation, response mapping, and documentation coordination during official registration audits." }
                   ].map((service, idx) => (
                     <div key={idx} className="p-6 bg-slate-50 rounded-2xl border border-slate-150 shadow-sm flex flex-col justify-between">
                       <div>
-                        <h4 className="font-extrabold text-[#EA580C]/90 text-base mb-2 flex items-center gap-2">
-                          <CheckCircle2 size={16} className="text-orange-500 shrink-0" />
+                        <h4 className="font-extrabold text-[#0D9488]/90 text-base mb-2 flex items-center gap-2">
+                          <CheckCircle2 size={16} className="text-teal-500 shrink-0" />
                           {service.title}
                         </h4>
                         <p className="text-slate-650 text-sm leading-relaxed">{service.desc}</p>
@@ -90,9 +90,9 @@ export default function CDSCOManufacturing() {
                   ))}
                 </div>
 
-                <h3 className="text-2xl font-bold text-brand-deep mb-6">Navigating Audits (SLA & CLA)</h3>
+                <h3 className="text-2xl font-bold text-brand-deep mb-6">Why ISO Certification Matters</h3>
                 <p>
-                  Obtaining a manufacturing license requires structural audits. Class A and B devices require Notified Body inspections overseen by the State Licensing Authority (SLA), while Class C and D devices require federal audits by the Central Licensing Authority (CLA). We sit down with your manufacturing team to align all workflows beforehand.
+                  An internationally verified QMS (ISO 13485) represents the underlying framework for all major pathways including USFDA 510(k), Anvisa Brazil, and EU MDR. It signals to international distributors and hospital purchasing committees that safety and operational quality guidelines are strictly followed.
                 </p>
               </div>
             </div>
@@ -101,13 +101,11 @@ export default function CDSCOManufacturing() {
             <div className="lg:col-span-4">
               <div className="sticky top-32 space-y-8">
                 <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-150 shadow-sm">
-                  <h4 className="text-xl font-bold text-brand-deep mb-6">CDSCO India Pathways</h4>
+                  <h4 className="text-xl font-bold text-brand-deep mb-6">Accredited Audits</h4>
                   <ul className="space-y-4">
                     {[
-                      { name: 'Import License (MD-14)', path: '/services/cdsco-import-license-md14' },
-                      { name: 'Loan License (MD-6/10)', path: '/services/cdsco-loan-license-md6-md10' },
-                      { name: 'Test License (MD-13)', path: '/services/cdsco-test-license-md13' },
-                      { name: 'Clinical Investigation', path: '/services/cdsco-clinical-investigation' }
+                      { name: 'Biocompatibility Testing', path: '/services/biocompatibility-testing-iso-10993' },
+                      { name: 'Audit Readiness', path: '/services/regulatory-audit-readiness' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">
@@ -124,7 +122,7 @@ export default function CDSCOManufacturing() {
                   <div className="relative z-10">
                     <h4 className="text-2xl font-bold mb-4 text-brand-deep font-sans tracking-tight">Need Expert Help?</h4>
                     <p className="text-gray-600 text-sm mb-8 font-medium">
-                      Our Indian regulatory specialists hold deep domain credentials with CDSCO processes and the SUGAM online platform.
+                      Our skilled auditors maintain direct active credentials to map, deploy, and verify global QMS setups flawlessly.
                     </p>
                     <Link to="/contact" className="block text-center bg-brand-deep text-white py-4 rounded-2xl font-bold hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20">
                       Contact Us
