@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
@@ -661,7 +663,7 @@ export default function About() {
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full pointer-events-none" />
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-600 mb-6 font-bold">
+                <div className="w-20 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-600 mb-6 font-bold">
                   COI
                 </div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-2">Certificate of Incorporation</h3>
