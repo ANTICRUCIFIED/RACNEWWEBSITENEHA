@@ -8,7 +8,7 @@ import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from '../rag';
-import { BLOG_POSTS } from '../src/data/blogData';
+import { BLOG_POSTS } from './staticBlogPosts';
 import admin from 'firebase-admin';
 
 dotenv.config();

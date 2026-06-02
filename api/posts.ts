@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import admin from 'firebase-admin';
-import { BLOG_POSTS } from '../src/data/blogData';
+import { BLOG_POSTS } from './staticBlogPosts';
 import dotenv from 'dotenv';
 
 dotenv.config();
