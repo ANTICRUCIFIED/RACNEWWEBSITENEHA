@@ -7,7 +7,7 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './rag';
+import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from '../rag';
 
 dotenv.config();
 

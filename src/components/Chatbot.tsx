@@ -5,7 +5,18 @@ import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { resolveAssembledKey } from './KeyParts';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://racnewwebsiteneha.vercel.app';
+if (API_BASE_URL && !API_BASE_URL.startsWith('http')) {
+  API_BASE_URL = `https://${API_BASE_URL}`;
+}
+if (typeof window !== 'undefined') {
+  if (API_BASE_URL.startsWith('http://') && window.location.protocol === 'https:') {
+    API_BASE_URL = 'https://racnewwebsiteneha.vercel.app';
+  }
+}
+if (API_BASE_URL && API_BASE_URL.endsWith('/')) {
+  API_BASE_URL = API_BASE_URL.slice(0, -1);
+}
 
 function getClientFallbackResponse(query: string): string {
   const result = _getClientFallbackResponse(query);
