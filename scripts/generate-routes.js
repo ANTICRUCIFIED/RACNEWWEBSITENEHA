@@ -4,6 +4,120 @@ import path from 'path';
 const distPath = path.join(process.cwd(), 'dist');
 const indexHtmlPath = path.join(distPath, 'index.html');
 
+// Helper function to parse blog posts from src/data/blogData.ts
+function parseBlogPostsFromTs() {
+  const filePath = path.join(process.cwd(), 'src/data/blogData.ts');
+  if (!fs.existsSync(filePath)) return [];
+  const content = fs.readFileSync(filePath, 'utf8');
+  const posts = [];
+  
+  // Split by "id: '"
+  const segments = content.split("id: '");
+  for (let i = 1; i < segments.length; i++) {
+    const seg = segments[i];
+    const id = seg.split("'")[0];
+    
+    // find title
+    let title = "";
+    const titleMatch = seg.match(/title:\s*['"`]([^'"`<>]+)['"`]/);
+    if (titleMatch) {
+      title = titleMatch[1];
+    }
+    
+    // find excerpt
+    let excerpt = "";
+    const excerptMatch = seg.match(/excerpt:\s*['"`]([^'`]+?)['"`],/);
+    if (excerptMatch) {
+      excerpt = excerptMatch[1];
+    } else {
+      // backup regex if it spans lines
+      const excerptMatchAlt = seg.match(/excerpt:\s*['"`]([\s\S]*?)['"`],/);
+      if (excerptMatchAlt) {
+        excerpt = excerptMatchAlt[1].replace(/\n/g, ' ').trim();
+      }
+    }
+    
+    // find date
+    let date = "";
+    const dateMatch = seg.match(/date:\s*['"`]([^'"`]+)['"`]/);
+    if (dateMatch) {
+      date = dateMatch[1];
+    }
+    
+    posts.push({ id, title, excerpt, date });
+  }
+  return posts;
+}
+
+// Helper function to parse locations and states from src/data/locationData.ts
+function parseLocationDataFromTs() {
+  const filePath = path.join(process.cwd(), 'src/data/locationData.ts');
+  if (!fs.existsSync(filePath)) return {};
+  const content = fs.readFileSync(filePath, 'utf8');
+  const locations = {};
+  
+  const segments = content.split(/slug:\s*["']/);
+  for (let i = 1; i < segments.length; i++) {
+    const seg = segments[i];
+    const slug = seg.split(/["']/)[0];
+    
+    let title = "";
+    const titleMatch = seg.match(/title:\s*["']([^"']+)["']/);
+    if (titleMatch) title = titleMatch[1];
+    
+    let intro = "";
+    const introMatch = seg.match(/intro:\s*["']([^"']+)["']/);
+    if (introMatch) intro = introMatch[1];
+    
+    if (slug) {
+      locations[slug] = { title, intro };
+    }
+  }
+  return locations;
+}
+
+// Helper function to parse info items from src/data/infoData.ts
+function parseInfoDataFromTs() {
+  const filePath = path.join(process.cwd(), 'src/data/infoData.ts');
+  if (!fs.existsSync(filePath)) return {};
+  const content = fs.readFileSync(filePath, 'utf8');
+  const infoData = {};
+  
+  const segments = content.split(/["']:\s*\{/);
+  for (let i = 0; i < segments.length - 1; i++) {
+    const segBefore = segments[i];
+    const keyParts = segBefore.split(/["']/);
+    const key = keyParts[keyParts.length - 1].trim();
+    
+    const segAfter = segments[i + 1];
+    
+    let title = "";
+    const titleMatch = segAfter.match(/title:\s*["']([^"']+)["']/);
+    if (titleMatch) title = titleMatch[1];
+    
+    let description = "";
+    const contentMatch = segAfter.match(/content:\s*["']([^"']+)["']/);
+    if (contentMatch) {
+      description = contentMatch[1].replace(/\n/g, ' ').substring(0, 180) + '...';
+    }
+    
+    if (key && key.length < 50) {
+      infoData[key.toLowerCase()] = { title, description };
+    }
+  }
+  return infoData;
+}
+
+// Load dynamic data on-the-fly
+const blogPosts = parseBlogPostsFromTs();
+const locationsData = parseLocationDataFromTs();
+const infoDataItems = parseInfoDataFromTs();
+
+console.log(`Parsed dynamic data counts: `);
+console.log(`- Dynamic Blogs: ${blogPosts.length}`);
+console.log(`- Dynamic Locations/States: ${Object.keys(locationsData).length}`);
+console.log(`- Dynamic Informational Guides: ${Object.keys(infoDataItems).length}`);
+
 // We have physical routes we want to generate static folders for (all of our SPA pages)
 const coreRoutes = [
   '/',
@@ -59,25 +173,6 @@ const serviceRoutes = [
   '/services/indian-authorized-representative'
 ];
 
-const blogIds = [
-  'sterilization-validation',
-  'biocompatibility-testing',
-  'mastering-eu-mdr',
-  'navigating-usfda-510k',
-  'understanding-cdsco-rules',
-  'fda-510k-indian-medtech',
-  'master-technical-file-global-access',
-  'cdsco-forensic-audit-landscape',
-  'audit-ready-dossiers-fourth-schedule',
-  'demystifying-iec-62304-software-traceability',
-  'cdsco-ai-ml-medtech-requirements',
-  'subsequent-importer-entity-change-license',
-  'beyond-nabl-globac-testing-parity',
-  'regional-medtech-msme-documentation-gap',
-  'publishing-academic-evidence-cureus-medtech',
-  'saas-medtech-podcast-elendi-labs'
-];
-
 const locationSlugs = [
   'chandigarh-mohali',
   'baddi-solan-nalagarh',
@@ -118,25 +213,24 @@ const infoDataKeys = [
   'estar', 'pma', 'ide', 'pai', 'q-sub', 'rta', 'ai', 'cbom', 'ai-ml', 'mdr', 'sla', 'cla', 'sugam'
 ];
 
-// All route strings compiled together
+// Compile all routes
 const allRoutes = [];
 coreRoutes.forEach(r => allRoutes.push(r));
 serviceRoutes.forEach(r => allRoutes.push(r));
-blogIds.forEach(id => allRoutes.push(`/blogs/${id}`));
+blogPosts.forEach(post => allRoutes.push(`/blogs/${post.id}`));
 locationSlugs.forEach(slug => allRoutes.push(`/locations/${slug}`));
 stateSlugs.forEach(slug => allRoutes.push(`/india/${slug}`));
 infoDataKeys.forEach(key => allRoutes.push(`/information/${key}`));
 
-// Remove duplicates in allRoutes if any
+// Remove duplicates in allRoutes
 const uniqueRoutes = [...new Set(allRoutes)];
-
 console.log(`Audited unique routes count: ${uniqueRoutes.length}`);
 
-// 1. GENERATE THE DIRECTORIES only if index.html exists in dist
+// 1. GENERATE THE PHYSICAL DIRECTORIES ON VITE BUILD (needed for proper static/GitHub deployment crawling)
 if (fs.existsSync(indexHtmlPath)) {
-  console.log(`Generating ${uniqueRoutes.length} physical directories for SEO indexing on GitHub Pages...`);
+  console.log(`Generating ${uniqueRoutes.length} physical directories for SEO indexing...`);
   uniqueRoutes.forEach(route => {
-    if (route === '/') return; // No need to duplicate root
+    if (route === '/') return;
     const targetDir = path.join(distPath, route);
     try {
       fs.mkdirSync(targetDir, { recursive: true });
@@ -145,14 +239,13 @@ if (fs.existsSync(indexHtmlPath)) {
       console.error(`Error generating route path ${route}:`, err);
     }
   });
-  console.log("Successfully generated physical routing directories! Google Search Console can now crawl every page with a 200 OK.");
+  console.log("Successfully generated physical routing directories!");
 }
 
-// 2. GENERATE SITEMAP.XML in public/sitemap.xml (this is the build source of truth)
+// 2. GENERATE SITEMAP.XML (SEO Standard)
 const publicDir = path.join(process.cwd(), 'public');
-const sitemapPath = path.join(publicDir, 'sitemap.xml');
-
-const today = new Date().toISOString().split('T')[0];
+const sitemapXmlPath = path.join(publicDir, 'sitemap.xml');
+const todayIso = new Date().toISOString().split('T')[0];
 
 let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -194,7 +287,7 @@ uniqueRoutes.forEach(route => {
   const cleanRoute = route === '/' ? '' : route;
   sitemapXml += `  <url>
     <loc>https://www.racforge.com${cleanRoute}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${todayIso}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>
@@ -204,11 +297,325 @@ uniqueRoutes.forEach(route => {
 sitemapXml += `</urlset>
 `;
 
-fs.writeFileSync(sitemapPath, sitemapXml);
-console.log(`Successfully generated public/sitemap.xml containing ${uniqueRoutes.length} URLs.`);
+fs.writeFileSync(sitemapXmlPath, sitemapXml);
+console.log(`Successfully generated public/sitemap.xml with ${uniqueRoutes.length} urls.`);
 
-// Also copy it to dist/sitemap.xml if dist directory exists so it gets deployed immediately
+// 3. GENERATE SITEMAP.RSS (Fully synchronized with all exact custom names and descriptions)
+const sitemapRssPath = path.join(publicDir, 'sitemap.rss');
+const todayRfc = new Date().toUTCString();
+
+let sitemapRss = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2000/Atom">
+<channel>
+  <title>RAC Forge - Medical Device Regulatory Consulting</title>
+  <link>https://www.racforge.com/</link>
+  <description>Your Global Medical Device Regulatory Partner. Strategic guidance and thorough documentation services for successful market entry.</description>
+  <language>en-us</language>
+  <lastBuildDate>${todayRfc}</lastBuildDate>
+  <atom:link href="https://www.racforge.com/sitemap.rss" rel="self" type="application/rss+xml" />
+`;
+
+// Helper map to associate metadata
+function getRouteMetadata(route) {
+  // Core Page Metadata
+  if (route === '/') {
+    return {
+      title: "RAC Forge - Global Medical Device Regulatory Partner",
+      description: "Your Global Medical Device Regulatory Partner. Turnkey CDSCO, USFDA, and EU MDR compliance for medical device and SaMD manufacturers.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/about') {
+    return {
+      title: "About Us | RAC Forge Private Limited",
+      description: "Learn about the team, regulatory experts, and leadership behind RAC Forge's turnkey compliance engineering.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/services') {
+    return {
+      title: "Medical Device Regulatory Services - USFDA, CDSCO, EU MDR",
+      description: "Comprehensive regulatory consulting: CDSCO manufacturing/import licenses, USFDA 510(k), EU MDR Technical Documentation, and Anvisa approvals.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/expertise') {
+    return {
+      title: "Regulatory Architecture & Design Controls Expertise | RAC Forge",
+      description: "Discover our deep engineering and regulatory capabilities in medical electrical equipment, software validation, and biocompatibility protocols.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/blogs/resources') {
+    return {
+      title: "Resource Directories & Knowledge Base | RAC Forge",
+      description: "Explore our publications, whitepapers, and guides on sterilization validation, biocompatibility strategies, and CDSCO rules.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/contact') {
+    return {
+      title: "Contact Our Regulatory Experts | RAC Forge",
+      description: "Speak with a compliance engineer about your medical device or SaMD project. Locations in Chandigarh, Ahmedabad, Bengaluru, Delhi NCR, and more.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/velo-ai' || route === '/raahi-ai' || route === '/raaahi-ai') {
+    return {
+      title: "RAAAHI (राही) - MedTech Regulatory Copilot & Search",
+      description: "Our innovative semantic search and schema builder powered by generative AI. Map complex global medical device regulations in seconds.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+
+  // Bespoke Services Metadata
+  const staticServices = {
+    '/services/cdsco-manufacturing-license-md5-md9': {
+      title: 'CDSCO Manufacturing License (MD-5 & MD-9) | RAC Forge',
+      description: 'Turnkey CDSCO Class A, B, C, & D manufacturing licensing support. Step-by-step documentation, site master files compilation, and on-site joint check preparation.'
+    },
+    '/services/cdsco-import-license-md14': {
+      title: 'CDSCO Import License (MD-14 & MD-15) | RAC Forge',
+      description: 'Secure your Indian CDSCO MD-14 import registration quickly. Full legal coordination, foreign manufacturing site registrations, and dossier evaluations.'
+    },
+    '/services/indian-authorized-representative': {
+      title: 'Indian Authorized Representative (IAR) Services | RAC Forge',
+      description: 'Legally appointed Indian Authorized Representative representation. Full liaison support, device vigilance compliance, and direct CDSCO coordination.'
+    },
+    '/services/cdsco-loan-license-md6-md10': {
+      title: 'CDSCO Loan License (MD-6 & MD-10) Compliance | RAC Forge',
+      description: 'Set up compliant contract manufacturing and loan licensing pipelines. Full assistance with MD-6/10 licensing pathways, audits, and SLA clearances.'
+    },
+    '/services/cdsco-test-license-md13': {
+      title: 'CDSCO Test License (MD-13) for Clinical/R&D | RAC Forge',
+      description: 'Secure CDSCO Form MD-13 test license for clinical investigation, testing, and evaluation of regulatory prototypes and imported medical devices.'
+    },
+    '/services/cdsco-clinical-investigation': {
+      title: 'Clinical Investigation & SEC Presentations | RAC Forge',
+      description: 'End-to-end clinical trial management, protocol designs, GCP compliance, and representation before CDSCO Subject Expert Committees (SEC).'
+    },
+    '/services/usfda-510k-de-novo': {
+      title: 'USFDA 510(k) Pre-Market Notification & De Novo | RAC Forge',
+      description: 'Expert premarket notification submissions, regulatory predicate mapping, and De Novo classifications to gain rapid USFDA market clearance.'
+    },
+    '/services/eu-mdr-ce-marking': {
+      title: 'EU MDR 2017/745 Compliance & CE Marking | RAC Forge',
+      description: 'Complete European Union Medical Device Regulation compliance. Technical documentation compilation, GSPR checklists, and Clinical Evaluation Reports (CER).'
+    },
+    '/services/eu-authorized-representative': {
+      title: 'European Authorized Representative (EC Rep) Support | RAC Forge',
+      description: 'Acquire fully compliant EU-based Authorized Representative representation. Manage SRN registration under EUDAMED and incident notification support.'
+    },
+    '/services/anvisa-brazil-registration': {
+      title: 'ANVISA Brazil Medical Device Registration | RAC Forge',
+      description: 'Navigate ANVISA medical device registration requirements in Brazil. Comprehensive BGMP audits, technical dossiers, and local registration support.'
+    },
+    '/services/ukca-mark-certification': {
+      title: 'UKCA Mark Certification & MHRA Compliance | RAC Forge',
+      description: 'Secure regulatory clearance in the United Kingdom. Transition seamlessly from CE to UKCA, register with MHRA, and navigate UK healthcare pathways.'
+    },
+    '/services/mdsap-joint-audits': {
+      title: 'MDSAP Joint Quality Audits & Certification | RAC Forge',
+      description: 'Multi-Market Joint Audit compliance. Prepare your Quality Management System to pass one unified MDSAP audit covering US, Canada, Brazil, Japan, and Australia.'
+    },
+    '/services/biocompatibility-testing-iso-10993': {
+      title: 'Biocompatibility Testing (ISO 10993) & BER | RAC Forge',
+      description: 'Expert biocompatibility program planning, chemical characterization studies (ISO 10993-18), toxicological risk assessment, and Biological Evaluation Reports (BER).'
+    },
+    '/services/preclinical-safety-evaluation': {
+      title: 'Preclinical Safety Evaluation & Testing | RAC Forge',
+      description: 'Preclinical trial protocols, efficacy validation, animal studies coordination, and laboratory testing support satisfying CDSCO and international bodies.'
+    },
+    '/services/toxicological-risk-assessment': {
+      title: 'Toxicological Risk Assessment (ISO 10993-17) | RAC Forge',
+      description: 'Pristine toxicological risk evaluations, leachables characterization, safety margin calculations, and certified toxicologist signoffs for global compliance.'
+    },
+    '/services/extractables-leachables': {
+      title: 'Extractables & Leachables (E&L) Testing | RAC Forge',
+      description: 'Custom E&L methodology designs, GC-MS/LC-MS material characterization studies, and risk-based biocompatibility profiles for liquid pathways.'
+    },
+    '/services/gcp-audit': {
+      title: 'Good Clinical Practice (GCP) Audit Readiness | RAC Forge',
+      description: 'Comprehensive GCP pre-audits, investigator site preparation, trial document reviews, and monitoring to pass strict clinical inspection guidelines.'
+    },
+    '/services/iso-13485-certification-audit': {
+      title: 'ISO 13485 & ISO 9001 QMS Certification | RAC Forge',
+      description: 'Corporate QMS design and audit preparation. Direct implementation, Standard Operating Procedures (SOPs) development, and certification audits assistance.'
+    },
+    '/services/regulatory-audit-readiness': {
+      title: 'Regulatory Site Audit & Inspection Readiness | RAC Forge',
+      description: 'Mock inspections, Gap Analysis, on-site personnel training, and rapid corrective action plans to guarantee success in joint CDSCO and Notified Body audits.'
+    },
+    '/services/iec-60601-electrical-safety': {
+      title: 'IEC 60601-1 Medical Electrical Safety | RAC Forge',
+      description: 'Expert analysis and compliance planning for medical electrical equipment. Navigate electromagnetic compatibility (EMC) testing and safety reviews.'
+    },
+    '/services/iso-14971-risk-management': {
+      title: 'ISO 14971 Risk Management for Devices | RAC Forge',
+      description: 'Bespoke lifecycle risk management files. Hazard identification, risk estimation, control validation, and post-market safety synchronization.'
+    },
+    '/services/sterile-barrier-validation': {
+      title: 'Sterile Barrier System Validation (ISO 11607) | RAC Forge',
+      description: 'Packaging seal integrity testing, accelerated aging validation, distribution simulation protocols, and sterilization validation (EtO, Gamma).'
+    },
+    '/services/post-market-surveillance-pms': {
+      title: 'Post-Market Surveillance (PMS) & PMCF | RAC Forge',
+      description: 'Formulate comprehensive Post-Market Clinical Follow-up protocols, Periodic Safety Update Reports (PSUR), and direct regulatory alert reporting.'
+    },
+    '/services/samd-architecture-development': {
+      title: 'Software as a Medical Device (SaMD) Architecture | RAC Forge',
+      description: 'Architecting robust, FDA-grade digital health products. Direct compliance mapping for IEC 62304 and agile regulatory software life cycle support.'
+    },
+    '/services/embedded-medical-firmware': {
+      title: 'Embedded Medical Video & Device Firmware | RAC Forge',
+      description: 'Hardware-level firmware design conforming to IEC 62304. Secure boot configuration, safety-critical routines, and code testing trace structures.'
+    },
+    '/services/usability-engineering-iec-62366': {
+      title: 'Usability Engineering (IEC 62366-1) & UX | RAC Forge',
+      description: 'Formative and summative usability test protocols, user interface error mitigation, and human factors dossiers built for seamless USFDA reviews.'
+    },
+    '/services/electrical-medical-device-prototyping': {
+      title: 'Electrical Medical Device Prototyping | RAC Forge',
+      description: 'Regulatory-compliant electrical hardware prototyping, multi-layer PCB layout designs, and pre-validation testing against EMC limits.'
+    },
+    '/services/hardware-vv-protocols': {
+      title: 'Hardware Verification & Validation (V&V) | RAC Forge',
+      description: 'Custom automated V&V scripts, environment stressing protocols, stress lifecycle audits, and structured device design history files.'
+    },
+    '/services/facility-cleanroom-design': {
+      title: 'Medical Device Facility & Cleanroom Design | RAC Forge',
+      description: 'Civil layout designs, HVAC airflow systems integration, pressure differential mapping, and particle verification qualifying for CDSCO Class C & D.'
+    },
+    '/services/cdsco-manufacturing-license': {
+      title: 'CDSCO Manufacturing License Regulatory Services | RAC Forge',
+      description: 'Liaison and design controls compliance services for medical device and in-vitro diagnostics manufacturing configurations under CDSCO guidelines.'
+    },
+    '/services/cdsco-import-license': {
+      title: 'CDSCO Import License Consulting | RAC Forge',
+      description: 'Acquire CDSCO importer registrations and import authorizations for globally made Class A, B, C, and D medical devices smoothly.'
+    },
+    '/services/cdsco-loan-license': {
+      title: 'CDSCO Loan License Consulting & QMS Audits | RAC Forge',
+      description: 'Process and infrastructure audits for medical devices developed via contract or leased manufacturing facilities.'
+    },
+    '/services/cdsco-test-license': {
+      title: 'CDSCO Test License Consultation | RAC Forge',
+      description: 'Register and acquire trial, testing, and evaluation licenses to validate your electronic or biochemical prototypes in India.'
+    },
+    '/services/usfda-510k-submission': {
+      title: 'USFDA 510(k) Premarket Submissions Consulting | RAC Forge',
+      description: 'Prepare detailed USFDA 510(k) clearances with predicate equivalence comparisons, software documentation, and laboratory reports.'
+    },
+    '/services/usfda-pma-application': {
+      title: 'USFDA Premarket Approval (PMA) Applications | RAC Forge',
+      description: 'Bespoke clinical pathways, statistical analysis, and master files compilation for Class III medical devices to gain Premarket FDA Approval.'
+    },
+    '/services/usfda-de-novo-classification': {
+      title: 'USFDA De Novo Classification Requirements | RAC Forge',
+      description: 'Establish classification paths for novel medical apps or devices lacking a recognized market predicate.'
+    },
+    '/services/eu-mdr-compliance': {
+      title: 'EU MDR Compliance & CE Mark Documentation | RAC Forge',
+      description: 'Develop harmonized technical files mapping out General Safety and Performance Requirements (GSPR) to satisfy European Notified Bodies.'
+    },
+    '/services/anvisa-brazil-approval': {
+      title: 'Brazil ANVISA Approvals & Registration | RAC Forge',
+      description: 'Compilation of BGMP records and technical portfolios required to secure device clearancing in Brazilian market.'
+    },
+    '/services/rd-and-samd': {
+      title: 'Medical Devices R&D and Software as a Medical Device (SaMD) | RAC Forge',
+      description: 'Pristine product conceptualization and technical architecture for physical instruments and software-driven innovations.'
+    }
+  };
+
+  if (staticServices[route]) {
+    return {
+      title: staticServices[route].title,
+      description: staticServices[route].description,
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+
+  // Dynamic Blogs
+  if (route.startsWith('/blogs/')) {
+    const id = route.split('/')[2];
+    const post = blogPosts.find(p => p.id === id);
+    if (post) {
+      let dateUtc = "Thu, 30 Apr 2026 12:00:00 +0000";
+      try {
+        const d = new Date(post.date);
+        if (!isNaN(d.getTime())) {
+          dateUtc = d.toUTCString();
+        }
+      } catch (e) {}
+      return {
+        title: `${post.title} | RAC Forge Journal`,
+        description: post.excerpt,
+        date: dateUtc
+      };
+    }
+  }
+
+  // Dynamic Locations & States
+  if (route.startsWith('/locations/') || route.startsWith('/india/')) {
+    const slug = route.split('/')[2];
+    const loc = locationsData[slug];
+    if (loc) {
+      return {
+        title: loc.title,
+        description: loc.intro,
+        date: "Thu, 30 Apr 2026 12:00:00 +0000"
+      };
+    }
+  }
+
+  // Dynamic Information Guides
+  if (route.startsWith('/information/')) {
+    const key = route.split('/')[2];
+    const info = infoDataItems[key];
+    if (info) {
+      return {
+        title: `${info.title} - Critical Document Guide | RAC Forge`,
+        description: info.description,
+        date: "Thu, 30 Apr 2026 12:00:00 +0000"
+      };
+    }
+  }
+
+  // Standard Fallback Title Generation
+  const parts = route.split('/').filter(Boolean);
+  const lastPart = parts[parts.length - 1];
+  const cleanTitle = lastPart ? lastPart.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : "Page Resource";
+  return {
+    title: `${cleanTitle} Services - Medical Device Compliance`,
+    description: `Expert medical device regulatory guidance, documentation schemas, and validation services for ${cleanTitle}.`,
+    date: "Thu, 30 Apr 2026 12:00:00 +0000"
+  };
+}
+
+uniqueRoutes.forEach(route => {
+  const meta = getRouteMetadata(route);
+  const cleanRoute = route === '/' ? '' : route;
+  sitemapRss += `  <item>
+    <title>${meta.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</title>
+    <link>https://www.racforge.com${cleanRoute}</link>
+    <description>${meta.description.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</description>
+    <pubDate>${meta.date}</pubDate>
+    <guid>https://www.racforge.com${cleanRoute}</guid>
+  </item>
+`;
+});
+
+sitemapRss += `</channel>
+</rss>
+`;
+
+fs.writeFileSync(sitemapRssPath, sitemapRss);
+console.log(`Successfully generated public/sitemap.rss with ${uniqueRoutes.length} items.`);
+
+// Copy to dist/ directory if it exists for immediate production deployment
 if (fs.existsSync(distPath)) {
   fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapXml);
-  console.log("Successfully copied sitemap.xml to dist/");
+  fs.writeFileSync(path.join(distPath, 'sitemap.rss'), sitemapRss);
+  console.log("Successfully copied sitemap.xml and sitemap.rss to dist/");
 }

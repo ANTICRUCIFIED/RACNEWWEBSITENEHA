@@ -58,6 +58,11 @@ service cloud.firestore {
       }
     }
 
+    match /blog_posts/{postId} {
+      allow read: if true; // Public blogs are readable
+      allow write, create, update, delete: if false; // Protected from client-side manipulation
+    }
+
     match /contact_inquiries/{inquiryId} {
       allow create: if isValidId(inquiryId) && isValidInquiry(incoming());
       allow read, update, delete: if false; // System only access

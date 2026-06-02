@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Calendar, User, ArrowRight, Tag as TagIcon, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -9,22 +9,39 @@ export default function Resources() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTag = searchParams.get('tag');
   const [searchQuery, setSearchQuery] = useState('');
+  const [posts, setPosts] = useState(BLOG_POSTS);
+
+  useEffect(() => {
+    fetch('/api/posts')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to retrieve blog posts indexes');
+        return res.json();
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setPosts(data);
+        }
+      })
+      .catch(err => {
+        console.warn('Could not load dynamic posts, relying on static indices backup.', err);
+      });
+  }, []);
 
   const filteredPosts = useMemo(() => {
-    return BLOG_POSTS.filter(post => {
+    return posts.filter(post => {
       const matchesTag = !activeTag || post.tags.some(t => t.toLowerCase() === activeTag.toLowerCase());
       const matchesSearch = !searchQuery || 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesTag && matchesSearch;
     });
-  }, [activeTag, searchQuery]);
+  }, [posts, activeTag, searchQuery]);
 
   const allTags = useMemo(() => {
     const tags = new Set<string>();
-    BLOG_POSTS.forEach(post => post.tags.forEach(t => tags.add(t)));
+    posts.forEach(post => post.tags.forEach(t => tags.add(t)));
     return Array.from(tags).sort();
-  }, []);
+  }, [posts]);
 
   const handleTagClick = (tag: string | null) => {
     if (tag) {

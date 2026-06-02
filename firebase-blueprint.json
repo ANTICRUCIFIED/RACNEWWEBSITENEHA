@@ -25,6 +25,25 @@
         "isStaff": { "type": "boolean", "description": "Whether the reply is from a staff member." }
       },
       "required": ["author", "text", "createdAt"]
+    },
+    "BlogPost": {
+      "title": "Blog Post",
+      "description": "A blog post received from external AWS Lambda bot.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the blog post." },
+        "content": { "type": "string", "description": "The markdown content of the blog post." },
+        "author": { "type": "string", "description": "The author name." },
+        "date": { "type": "string", "description": "Date of publication." },
+        "status": { "type": "string", "description": "The publishing status (e.g., draft, published)." },
+        "excerpt": { "type": "string", "description": "A quick summary excerpt." },
+        "image": { "type": "string", "description": "Default illustrative image URL." },
+        "tags": { "type": "array", "description": "A list of tags associated with this blog post." },
+        "category": { "type": "string", "description": "The topic or category." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp if applicable." }
+      },
+      "required": ["title", "content"]
+    },
     "ContactInquiry": {
       "title": "Contact Inquiry",
       "description": "A message sent via the contact form.",
@@ -41,6 +60,10 @@
     }
   },
   "firestore": {
+    "/blog_posts/{postId}": {
+      "schema": "BlogPost",
+      "description": "Blog posts received from the external AWS Lambda bot."
+    },
     "/blog_comments/{commentId}": {
       "schema": "Comment",
       "description": "Public blog comments."

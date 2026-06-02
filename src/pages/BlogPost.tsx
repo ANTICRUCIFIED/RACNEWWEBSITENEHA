@@ -67,14 +67,40 @@ interface ReplyData {
 
 export default function BlogPost() {
   const { id } = useParams<{ id: string }>();
-  const post = BLOG_POSTS.find(p => p.id === id);
+  const [post, setPost] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState<CommentData[]>([]);
   const [replyText, setReplyText] = useState<{ [key: string]: string }>({});
   const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      setIsLoading(false);
+      return;
+    }
+
+    const staticPost = BLOG_POSTS.find(p => p.id === id);
+    if (staticPost) {
+      setPost(staticPost);
+      setIsLoading(false);
+    } else {
+      fetch(`/api/posts/${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Article target not found');
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.title) {
+            setPost(data);
+          }
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.warn('Target blog post read failure:', err);
+          setIsLoading(false);
+        });
+    }
 
     const q = query(
       collection(db, 'blog_comments'),
@@ -113,6 +139,15 @@ export default function BlogPost() {
 
     return () => unsubscribe();
   }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="pt-32 pb-20 text-center flex flex-col items-center justify-center min-h-[50vh]">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-brand-teal mb-4"></div>
+        <p className="text-gray-500 font-medium">Retrieving article content...</p>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
