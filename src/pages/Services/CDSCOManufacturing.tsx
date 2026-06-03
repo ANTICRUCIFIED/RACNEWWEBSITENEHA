@@ -30,7 +30,7 @@ export default function CDSCOManufacturing() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+            <h1 className="text-1xl text-xl md:text-2xl lg:text-3xl font-black text-white mb-6 leading-tight tracking-tight">
               Secure Your CDSCO Manufacturing License (Form MD-5 & MD-9)
             </h1>
           </motion.div>
@@ -38,7 +38,7 @@ export default function CDSCOManufacturing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
+            className="text-xl text-white/80 max-w-7xl leading-relaxed font-medium"
           >
             Form MD-5 (Class A & B) and Form MD-9 (Class C & D) licensing walkthroughs, auditing guidelines, and digital filings.
           </motion.p>

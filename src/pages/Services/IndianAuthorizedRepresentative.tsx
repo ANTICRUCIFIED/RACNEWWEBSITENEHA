@@ -44,7 +44,7 @@ export default function IndianAuthorizedRepresentative() {
         <div className="absolute bottom-0 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center lg:text-left">
-          <div className="max-w-3xl">
+          <div className="max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,7 +58,7 @@ export default function IndianAuthorizedRepresentative() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6"
+              className="text-1xl text-xl md:text-2xl lg:text-3xl font-black text-white mb-6 leading-tight tracking-tight"
             >
               Establish Your Medical Device Business in India with <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-indigo-300">100% Control</span>
             </motion.h1>

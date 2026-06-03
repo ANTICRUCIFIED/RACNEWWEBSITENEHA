@@ -28,7 +28,7 @@ export default function ISO13485Certification() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-brand-deep via-brand-deep/90 to-transparent z-1" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="max-w-3xl">
+          <div className="max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ export default function ISO13485Certification() {
             <motion.h1 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight"
+              className="text-1xl text-xl md:text-2xl lg:text-3xl font-black text-white mb-6 leading-tight tracking-tight"
             >
               Accredited ISO 13485 & 9001 Certification Services
             </motion.h1>

@@ -29,7 +29,7 @@ export default function USFDADeNovo() {
             animate={{ opacity: 1, y: 0 }}
             
           >
-<h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+<h1 className="text-1xl text-xl md:text-2xl lg:text-3xl font-black text-white mb-6 leading-tight tracking-tight">
             USFDA De Novo Classification
           </h1>
 </motion.div>
@@ -37,7 +37,7 @@ export default function USFDADeNovo() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/80 max-w-3xl leading-relaxed"
+            className="text-xl text-white/80 max-w-7xl leading-relaxed"
           >
             Navigating the classification process for novel, low-to-moderate risk medical devices with no predicate.
           </motion.p>

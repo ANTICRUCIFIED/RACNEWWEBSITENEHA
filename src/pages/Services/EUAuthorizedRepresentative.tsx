@@ -28,7 +28,7 @@ export default function EUAuthorizedRepresentative() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-brand-deep via-brand-deep/90 to-transparent z-1" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="max-w-3xl">
+          <div className="max-w-7xl">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function EUAuthorizedRepresentative() {
               <Globe size={12} />
               <span>European Market Entry</span>
             </motion.div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+            <h1 className="text-1xl text-xl md:text-2xl lg:text-3xl font-black text-white mb-6 leading-tight tracking-tight">
               European Authorized Representative (EAR) Proxy Representation
             </h1>
             <p className="text-lg md:text-xl text-white/85 leading-relaxed font-semibold max-w-2xl">

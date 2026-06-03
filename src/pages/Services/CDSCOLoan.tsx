@@ -30,7 +30,7 @@ export default function CDSCOLoan() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+            <h1 className="text-1xl text-xl md:text-2xl lg:text-3xl font-black text-white mb-6 leading-tight tracking-tight">
               Acquire Your CDSCO Loan License (Form MD-6 & MD-10)
             </h1>
           </motion.div>
@@ -38,7 +38,7 @@ export default function CDSCOLoan() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-white/80 max-w-3xl leading-relaxed font-medium"
+            className="text-xl text-white/80 max-w-7xl leading-relaxed font-medium"
           >
             Form MD-6 (Class A & B) and Form MD-10 (Class C & D) licenses for strategic manufacturing alliances in India.
           </motion.p>
