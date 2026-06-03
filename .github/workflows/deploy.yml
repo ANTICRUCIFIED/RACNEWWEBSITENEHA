@@ -4,16 +4,14 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main      # Change this to "master" if your default branch is master
-  workflow_dispatch: # Allows you to manually trigger the deployment from the Actions tab
+      - main
+  workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow clean deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -46,7 +44,7 @@ jobs:
       - name: Upload Static Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # Build output directory to host
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
