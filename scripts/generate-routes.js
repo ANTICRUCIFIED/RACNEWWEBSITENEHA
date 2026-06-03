@@ -118,8 +118,92 @@ console.log(`- Dynamic Blogs: ${blogPosts.length}`);
 console.log(`- Dynamic Locations/States: ${Object.keys(locationsData).length}`);
 console.log(`- Dynamic Informational Guides: ${Object.keys(infoDataItems).length}`);
 
-// We have physical routes we want to generate static folders for (all of our SPA pages)
-const coreRoutes = [
+// Dynamic route parser from App.tsx
+function parseRoutesFromApp() {
+  const filePath = path.join(process.cwd(), 'src/App.tsx');
+  if (!fs.existsSync(filePath)) return { core: [], services: [] };
+  const content = fs.readFileSync(filePath, 'utf8');
+  
+  const core = new Set(['/']);
+  const services = new Set();
+  
+  const pathRegex = /path=["']([^"']+)["']/g;
+  let match;
+  while ((match = pathRegex.exec(content)) !== null) {
+    const route = match[1];
+    if (route.includes(':')) continue; // skip dynamic routes
+    
+    if (route.startsWith('/services/')) {
+      services.add(route);
+    } else if (route !== '/') {
+      core.add(route);
+    }
+  }
+  
+  return {
+    core: Array.from(core),
+    services: Array.from(services)
+  };
+}
+
+// Dynamic location & state parser from locationData.ts
+function parseLocationSlugsFromData() {
+  const filePath = path.join(process.cwd(), 'src/data/locationData.ts');
+  if (!fs.existsSync(filePath)) return { cities: [], states: [] };
+  const content = fs.readFileSync(filePath, 'utf8');
+  
+  const cities = new Set();
+  const states = new Set();
+  
+  // Parse CITIES_DATA structure
+  const citiesSegment = content.match(/export\s+const\s+CITIES_DATA[\s\S]*?=\s*\{([\s\S]*?)\n\};/);
+  if (citiesSegment) {
+    const block = citiesSegment[1];
+    const slugRegex = /["']?slug["']?\s*:\s*["']([^"']+)["']/g;
+    let match;
+    while ((match = slugRegex.exec(block)) !== null) {
+      cities.add(match[1]);
+    }
+  }
+  
+  // Parse STATES_DATA structure
+  const statesSegment = content.match(/export\s+const\s+STATES_DATA[\s\S]*?=\s*\{([\s\S]*?)\n\};/);
+  if (statesSegment) {
+    const block = statesSegment[1];
+    const slugRegex = /["']?slug["']?\s*:\s*["']([^"']+)["']/g;
+    let match;
+    while ((match = slugRegex.exec(block)) !== null) {
+      states.add(match[1]);
+    }
+  }
+  
+  return {
+    cities: Array.from(cities),
+    states: Array.from(states)
+  };
+}
+
+// Dynamic info guide key parser from infoData.ts
+function parseInfoKeysFromData() {
+  const filePath = path.join(process.cwd(), 'src/data/infoData.ts');
+  if (!fs.existsSync(filePath)) return [];
+  const content = fs.readFileSync(filePath, 'utf8');
+  const keys = new Set();
+  
+  const regex = /^\s*['"]([^'"]+)['"]\s*:\s*\{/gm;
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    keys.add(match[1]);
+  }
+  return Array.from(keys);
+}
+
+// Parse all elements dynamically with robust native hardcoded backups
+const parsedRoutes = parseRoutesFromApp();
+const parsedLocations = parseLocationSlugsFromData();
+const parsedInfoKeys = parseInfoKeysFromData();
+
+const coreRoutes = parsedRoutes.core.length > 0 ? parsedRoutes.core : [
   '/',
   '/about',
   '/services',
@@ -131,7 +215,7 @@ const coreRoutes = [
   '/raaahi-ai'
 ];
 
-const serviceRoutes = [
+const serviceRoutes = parsedRoutes.services.length > 0 ? parsedRoutes.services : [
   '/services/cdsco-manufacturing-license',
   '/services/cdsco-import-license',
   '/services/cdsco-loan-license',
@@ -173,7 +257,7 @@ const serviceRoutes = [
   '/services/indian-authorized-representative'
 ];
 
-const locationSlugs = [
+const locationSlugs = parsedLocations.cities.length > 0 ? parsedLocations.cities : [
   'chandigarh-mohali',
   'baddi-solan-nalagarh',
   'delhi-ncr',
@@ -193,7 +277,7 @@ const locationSlugs = [
   'jaipur'
 ];
 
-const stateSlugs = [
+const stateSlugs = parsedLocations.states.length > 0 ? parsedLocations.states : [
   'gujarat-regulatory-compliance',
   'maharashtra-medtech-licensing',
   'karnataka-samd-guidelines',
@@ -204,7 +288,7 @@ const stateSlugs = [
   'uttarakhand-regulatory-compliance'
 ];
 
-const infoDataKeys = [
+const infoDataKeys = parsedInfoKeys.length > 0 ? parsedInfoKeys : [
   'md-16', 'md-17', 'md-3', 'md-5', 'md-7', 'md-9', 'md-14', 'md-15', 'md-4', 'md-6', 'md-8', 'md-10', 
   'md-22', 'md-23', 'md-24', 'md-25', 'md-26', 'md-27', 'class-a', 'class-b', 'class-c', 'class-d', 
   'eu-mdr', 'usfda', 'fda', 'cdsco', 'anvisa', 'samd', 'iso-13485', 'iso-14971', 'iec-62304', 

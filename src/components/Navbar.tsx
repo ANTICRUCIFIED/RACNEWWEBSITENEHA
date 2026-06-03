@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ChevronDown, Globe, Shield, Flag, Code2, ArrowRight, Microscope } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe, Shield, Flag, Code2, ArrowRight, Microscope, Search } from 'lucide-react';
 import { cn } from '../lib/utils';
+import GlobalSearch from './GlobalSearch';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -85,9 +86,22 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Toggle search on Cmd/Ctrl + K
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -171,6 +185,18 @@ export default function Navbar() {
                 )}
               </div>
             ))}
+            {/* Desktop Search Button Trigger */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="flex items-center space-x-2 text-gray-400 hover:text-brand-teal px-3.5 py-2 rounded-full border border-gray-150 bg-gray-50/50 hover:bg-white hover:border-brand-teal/30 hover:shadow-sm cursor-pointer transition-all group scale-95"
+              title="Search directory (⌘K)"
+              aria-label="Open search"
+            >
+              <Search size={14} className="text-gray-400 group-hover:text-brand-teal transition-colors" />
+              <span className="text-xs font-black uppercase tracking-wider text-gray-500 group-hover:text-brand-teal transition-colors">Search</span>
+              <kbd className="hidden xl:inline-flex items-center text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-250">⌘K</kbd>
+            </button>
+
             <Link 
               to="/contact" 
               className="bg-brand-teal text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-brand-deep transition-all shadow-lg shadow-brand-teal/20 transform hover:scale-105 active:scale-95"
@@ -179,13 +205,25 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
-          <button 
-            className="lg:hidden p-2 rounded-xl transition-colors text-brand-deep hover:bg-gray-100"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Mobile Search and Menu Toggle Triggers */}
+          <div className="lg:hidden flex items-center space-x-1">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2.5 rounded-xl text-brand-deep hover:bg-gray-100 cursor-pointer transition-colors"
+              title="Search menu options"
+              aria-label="Open mobile search"
+            >
+              <Search size={22} className="text-brand-deep" />
+            </button>
+            <button 
+              className="p-2.5 rounded-xl transition-colors text-brand-deep hover:bg-gray-100 cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+              title="Toggle navigation index menu"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -239,6 +277,9 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Global Interactive Search Command Center Dialog */}
+      <GlobalSearch isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </nav>
   );
 }
