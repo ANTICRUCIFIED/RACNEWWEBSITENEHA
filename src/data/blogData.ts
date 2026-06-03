@@ -12,6 +12,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'navigating-gspr-compliance-under-eu-mdr-a-strategic-overview',
+    title: 'Navigating GSPR Compliance Under EU MDR: A Strategic Overview',
+    excerpt: 'An authoritative technical analysis mapping out global medical device alignment strategies.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-regulatory-compliance-checklist.webp',
+    date: '03 Jun 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `## Understanding the GSPR Mandate\nThe General Safety and Performance Requirements (GSPR) represent the core regulatory hurdle for manufacturers seeking CE marking under the EU Medical Device Regulation (MDR) 2017/745. Annex I of the regulation establishes the rigorous standards for design and manufacture that every device must satisfy before entering the European market. Unlike the previous Directives, the GSPR mandates a more prescriptive approach to risk management, clinical evaluation, and post-market surveillance. Establishing a comprehensive GSPR checklist is not merely a documentation exercise but a foundational requirement to demonstrate that the device achieves its intended performance while maintaining an acceptable benefit-risk profile throughout its lifecycle.\n\n## Structure and Implementation of the Checklist\nAn effective GSPR checklist must map every specific requirement in Annex I—covering chemical, physical, mechanical, and biological properties—to the technical documentation of the device. Manufacturers should adopt a traceability matrix approach, explicitly identifying which harmonized standards (such as EN ISO 14971 or ISO 10993) are applied to satisfy each requirement. If a particular requirement is deemed not applicable, the technical file must contain a robust justification, often rooted in the specific design characteristics or intended use of the device. This systematic mapping process ensures that Notified Bodies can quickly verify compliance during conformity assessments, reducing the likelihood of Major Non-Conformities.\n\n## Maintaining Compliance Through Lifecycle Management\nCompliance with GSPR is a dynamic, continuous obligation that persists long after the initial market authorization. The EU MDR requires that the GSPR checklist be updated in real-time as a result of ongoing clinical evaluation and post-market surveillance data. Any design change, software update, or shift in the clinical state-of-the-art necessitates a formal review of the GSPR status to ensure that safety benchmarks remain met. By integrating the GSPR checklist into the Quality Management System (QMS), manufacturers transition from reactive document gathering to proactive safety management, ensuring sustained regulatory alignment and long-term commercial viability in the EU.`
+  },
+  {
     id: 'optimizing-infrastructure-roadmap-protocols-for-cdsco-wholesale-license-process-md-42',
     title: 'Optimizing Infrastructure Roadmap Protocols for Cdsco Wholesale License Process Md 42',
     excerpt: 'An authoritative technical analysis mapping out global medical device alignment strategies.',
