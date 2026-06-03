@@ -3,14 +3,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, MapPin, Mail, Phone, Facebook, Twitter, Linkedin, Instagram, Youtube, Send } from 'lucide-react';
 import SEO from '../components/SEO';
 import { COMPANY_INFO } from '../constants';
-import { db } from '../lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    phoneNumber: '',
     subject: '',
     message: ''
   });
@@ -24,14 +23,23 @@ export default function Contact() {
     setError(null);
 
     try {
-      await addDoc(collection(db, 'contact_inquiries'), {
-        ...formData,
-        createdAt: serverTimestamp()
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Server responded with an error');
+      }
+
       setIsSubmitted(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Submission error:', err);
-      setError('Form submission failed. Please try again or email us directly.');
+      setError(err.message || 'Form submission failed. Please try again or email us directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -208,16 +216,29 @@ export default function Contact() {
                               />
                             </div>
                           </div>
-                          <div className="space-y-3">
-                            <label className="text-sm font-bold text-brand-deep uppercase tracking-widest">Email Address *</label>
-                            <input 
-                              required 
-                              type="email" 
-                              name="email" 
-                              value={formData.email}
-                              onChange={handleChange}
-                              className="w-full px-8 py-5 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/10 outline-none transition-all bg-white" 
-                            />
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-3">
+                              <label className="text-sm font-bold text-brand-deep uppercase tracking-widest">Email Address *</label>
+                              <input 
+                                required 
+                                type="email" 
+                                name="email" 
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="w-full px-8 py-5 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/10 outline-none transition-all bg-white" 
+                              />
+                            </div>
+                            <div className="space-y-3">
+                              <label className="text-sm font-bold text-brand-deep uppercase tracking-widest">Phone Number *</label>
+                              <input 
+                                required 
+                                type="tel" 
+                                name="phoneNumber" 
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                                className="w-full px-8 py-5 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/10 outline-none transition-all bg-white" 
+                              />
+                            </div>
                           </div>
                           <div className="space-y-3">
                             <label className="text-sm font-bold text-brand-deep uppercase tracking-widest">Subject *</label>

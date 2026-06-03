@@ -10,6 +10,7 @@ import fs from 'fs';
 import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './rag';
 import { BLOG_POSTS } from './src/data/blogData';
 import admin from 'firebase-admin';
+import nodemailer from 'nodemailer';
 
 dotenv.config();
 
@@ -748,6 +749,130 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     } catch (error: any) {
       console.error('Upload Error:', error);
       res.status(500).json({ error: 'Failed to process document', details: error.message || String(error) });
+    }
+  });
+
+  app.post('/api/contact', async (req, res) => {
+    try {
+      const { firstName, lastName, email, phoneNumber, subject, message } = req.body;
+
+      if (!firstName || !lastName || !email || !phoneNumber || !subject || !message) {
+        return res.status(400).json({ error: 'All fields are required' });
+      }
+
+      // 1. Store the inquiry in Firebase Firestore if enabled
+      let storedInFirestore = false;
+      if (isFirebaseEnabled && firestoreDb) {
+        try {
+          await firestoreDb.collection('contact_inquiries').add({
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            subject,
+            message,
+            createdAt: admin.firestore.FieldValue.serverTimestamp()
+          });
+          storedInFirestore = true;
+          console.log('Successfully saved contact inquiry to Firestore.');
+        } catch (firestoreError) {
+          console.error('Failed to save contact inquiry to Firestore:', firestoreError);
+        }
+      } else {
+        console.log('Firestore is not active. Bypassed Firestore write for contact inquiry.');
+      }
+
+      // 2. Setup the nodemailer transporter lazily (safe initialization without crashing on lack of credentials)
+      const host = process.env.SMTP_HOST;
+      const portVal = process.env.SMTP_PORT;
+      const user = process.env.SMTP_USER;
+      const pass = process.env.SMTP_PASS;
+
+      const emailContent = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+          <div style="background-color: #0c1c38; padding: 25px; text-align: center; color: #fff;">
+            <h2 style="margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">New Consultation Inquiry</h2>
+            <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 14px;">RAC Forge Private Limited</p>
+          </div>
+          <div style="padding: 30px; background-color: #ffffff;">
+            <p style="font-size: 16px; margin-top: 0; color: #475569;">A new regulatory submission consultation message came in. Please review the details below:</p>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 25px;">
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; width: 35%; color: #0c1c38;">First Name:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;">${firstName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Last Name:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;">${lastName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Email Address:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;"><a href="mailto:${email}" style="color: #00a896; text-decoration: none; font-weight: 500;">${email}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Phone Number:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;"><a href="tel:${phoneNumber}" style="color: #00a896; text-decoration: none; font-weight: 500;">${phoneNumber}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Subject:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: 500; color: #0c1c38;">${subject}</td>
+              </tr>
+            </table>
+
+            <div style="margin-top: 30px;">
+              <h4 style="margin-bottom: 10px; color: #0c1c38; font-size: 16px;">Inquiry Message:</h4>
+              <div style="background-color: #f8fafc; border-left: 4px solid #00a896; padding: 20px; border-radius: 8px; white-space: pre-wrap; color: #334155; font-style: italic; line-height: 1.7; box-sizing: border-box;">${message}</div>
+            </div>
+          </div>
+          <div style="background-color: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
+            This email was automatically generated and sent from the RAC Forge compliance portal.
+          </div>
+        </div>
+      `;
+
+      if (host && portVal && user && pass) {
+        const port = parseInt(portVal, 10);
+        const transporter = nodemailer.createTransport({
+          host,
+          port,
+          secure: port === 465,
+          auth: {
+            user,
+            pass,
+          },
+        });
+
+        const mailOptions = {
+          from: `"RAC Forge Contact Form" <${user}>`,
+          to: 'info@racforge.com',
+          replyTo: email,
+          subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
+          html: emailContent,
+          text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log(`Email successfully sent to info@racforge.com for user ${firstName} ${lastName}.`);
+        res.json({ success: true, storedInFirestore, emailSent: true });
+      } else {
+        // Log details if SMTP environment variables are not configured yet, so they are not lost and can be verified easily in tests/preview logs.
+        console.warn('--- EMAIL TRANSACTION SIMULATION (SMTP configuration missing) ---');
+        console.warn('To/Recipient: info@racforge.com');
+        console.warn(`Subject: [New Inquiry] ${subject} - ${firstName} ${lastName}`);
+        console.warn(`Content:\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\nMessage: ${message}`);
+        console.warn('--------------------------------------------------------------');
+        
+        res.json({ 
+          success: true, 
+          storedInFirestore, 
+          emailSent: false,
+          warning: 'Form details received. Since SMTP environment variables are not yet configured on this dev/sandbox server, the email was logged to the server console and saved to Firestore database. Specify SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS in Settings to enable real-world email transmissions.'
+        });
+      }
+    } catch (error: any) {
+      console.error('Contact API processing error:', error);
+      res.status(500).json({ error: 'Failed to process inquiry submission', details: error.message || String(error) });
     }
   });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
   ArrowRight, 
@@ -62,6 +62,61 @@ const BLOG_POSTS = [
 ];
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Server responded with an error');
+      }
+
+      setIsSubmitted(true);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        subject: '',
+        message: ''
+      });
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      setSubmitError(err.message || 'Form submission failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
   return (
     <div className="flex flex-col w-full">
       <SEO 
@@ -576,40 +631,114 @@ export default function Home() {
               viewport={{ once: true }}
               className="bg-gray-50 p-10 md:p-12 rounded-[3rem] border border-gray-100 shadow-xl"
             >
-              <form action="mailto:info@racforge.com" method="post" encType="text/plain" className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-deep">First Name *</label>
-                    <input required type="text" name="firstName" className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all" />
+              {isSubmitted ? (
+                <div className="text-center py-10 space-y-6">
+                  <div className="w-20 h-20 bg-brand-teal/10 rounded-full flex items-center justify-center text-brand-teal mx-auto">
+                    <CheckCircle2 size={48} />
+                  </div>
+                  <h3 className="text-2xl font-black text-brand-deep">Inquiry Submitted!</h3>
+                  <p className="text-gray-600 max-w-sm mx-auto">
+                    Thank you. Our regulatory strategy team will review your inquiry and get back to you shortly.
+                  </p>
+                  <button 
+                    onClick={() => setIsSubmitted(false)}
+                    className="text-brand-teal font-bold uppercase text-sm tracking-wider hover:underline"
+                  >
+                    Send another inquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-brand-deep">First Name *</label>
+                      <input 
+                        required 
+                        type="text" 
+                        name="firstName" 
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all bg-white" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-brand-deep">Last Name *</label>
+                      <input 
+                        required 
+                        type="text" 
+                        name="lastName" 
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all bg-white" 
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-brand-deep">Email Address *</label>
+                      <input 
+                        required 
+                        type="email" 
+                        name="email" 
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all bg-white" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-brand-deep">Phone Number *</label>
+                      <input 
+                        required 
+                        type="tel" 
+                        name="phoneNumber" 
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                        className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all bg-white" 
+                      />
+                    </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-deep">Last Name *</label>
-                    <input required type="text" name="lastName" className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all" />
+                    <label className="text-sm font-bold text-brand-deep">Regulatory Market Interest *</label>
+                    <select 
+                      required 
+                      name="subject" 
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all bg-white"
+                    >
+                      <option value="">Select a market</option>
+                      <option value="CDSCO India">CDSCO India</option>
+                      <option value="USFDA">USFDA</option>
+                      <option value="EU MDR">EU MDR</option>
+                      <option value="Anvisa Brazil">Anvisa Brazil</option>
+                      <option value="Multiple Markets">Multiple Markets</option>
+                    </select>
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-brand-deep">Email Address *</label>
-                  <input required type="email" name="email" className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-brand-deep">Regulatory Market Interest *</label>
-                  <select required name="market" className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all bg-white">
-                    <option value="">Select a market</option>
-                    <option value="CDSCO India">CDSCO India</option>
-                    <option value="USFDA">USFDA</option>
-                    <option value="EU MDR">EU MDR</option>
-                    <option value="Anvisa Brazil">Anvisa Brazil</option>
-                    <option value="Multiple Markets">Multiple Markets</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-brand-deep">Message *</label>
-                  <textarea required name="message" rows={4} className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all resize-none"></textarea>
-                </div>
-                <button type="submit" className="w-full bg-brand-deep text-white py-5 rounded-2xl font-bold text-lg hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20 transform hover:scale-[1.02] active:scale-[0.98]">
-                  Send Inquiry
-                </button>
-              </form>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-brand-deep">Message *</label>
+                    <textarea 
+                      required 
+                      name="message" 
+                      rows={4} 
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all resize-none bg-white"
+                    ></textarea>
+                  </div>
+
+                  {submitError && (
+                    <p className="text-red-500 text-sm font-bold">{submitError}</p>
+                  )}
+
+                  <button 
+                    disabled={isSubmitting}
+                    type="submit" 
+                    className="w-full bg-brand-deep text-white py-5 rounded-2xl font-bold text-lg hover:bg-brand-teal transition-all shadow-lg shadow-brand-deep/20 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-75"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                  </button>
+                </form>
+              )}
             </motion.div>
           </div>
         </div>
