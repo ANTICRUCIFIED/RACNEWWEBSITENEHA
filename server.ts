@@ -751,6 +751,64 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     }
   });
 
+  // Explicitly serve sitemap.xml, sitemap.rss, and robots.txt with correct Content-Type headers
+  app.get('/sitemap.xml', (req, res) => {
+    const pathsToTry = [
+      path.join(process.cwd(), 'dist', 'sitemap.xml'),
+      path.join(process.cwd(), 'public', 'sitemap.xml')
+    ];
+    let served = false;
+    for (const p of pathsToTry) {
+      if (fs.existsSync(p)) {
+        res.setHeader('Content-Type', 'application/xml');
+        res.sendFile(p);
+        served = true;
+        break;
+      }
+    }
+    if (!served) {
+      res.status(404).send('Sitemap XML file not found. Recompile the build to generate.');
+    }
+  });
+
+  app.get('/sitemap.rss', (req, res) => {
+    const pathsToTry = [
+      path.join(process.cwd(), 'dist', 'sitemap.rss'),
+      path.join(process.cwd(), 'public', 'sitemap.rss')
+    ];
+    let served = false;
+    for (const p of pathsToTry) {
+      if (fs.existsSync(p)) {
+        res.setHeader('Content-Type', 'application/rss+xml');
+        res.sendFile(p);
+        served = true;
+        break;
+      }
+    }
+    if (!served) {
+      res.status(404).send('Sitemap RSS file not found. Recompile the build to generate.');
+    }
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    const pathsToTry = [
+      path.join(process.cwd(), 'dist', 'robots.txt'),
+      path.join(process.cwd(), 'public', 'robots.txt')
+    ];
+    let served = false;
+    for (const p of pathsToTry) {
+      if (fs.existsSync(p)) {
+        res.setHeader('Content-Type', 'text/plain');
+        res.sendFile(p);
+        served = true;
+        break;
+      }
+    }
+    if (!served) {
+      res.status(404).send('Robots.txt file not found.');
+    }
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
@@ -760,14 +818,6 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    
-    // Explicitly serve sitemap and robots.txt
-    app.get('/sitemap.xml', (req, res) => {
-      res.sendFile(path.join(distPath, 'sitemap.xml'));
-    });
-    app.get('/robots.txt', (req, res) => {
-      res.sendFile(path.join(distPath, 'robots.txt'));
-    });
 
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
