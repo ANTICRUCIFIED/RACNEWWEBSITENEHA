@@ -32,8 +32,26 @@ export default function Contact() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Server responded with an error');
+        let errorMessage = 'Server responded with an error';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+          if (errorData.details) {
+            errorMessage += ` (${errorData.details})`;
+          }
+        } catch (jsonErr) {
+          try {
+            const textData = await response.text();
+            if (textData && textData.length < 200) {
+              errorMessage = textData;
+            } else {
+              errorMessage = `Server Error (${response.status}: ${response.statusText})`;
+            }
+          } catch (textErr) {
+            errorMessage = `Server Error (${response.status})`;
+          }
+        }
+        throw new Error(errorMessage);
       }
 
       setIsSubmitted(true);

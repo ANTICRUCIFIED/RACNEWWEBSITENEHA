@@ -760,8 +760,9 @@ Draft responses thoughtfully based only on the query contexts provided and your 
         return res.status(400).json({ error: 'All fields are required' });
       }
 
-      // 1. Store the inquiry in Firebase Firestore if enabled
+      // 1. Store the inquiry in Firebase Firestore if enabled, or local fallback file
       let storedInFirestore = false;
+      let storedLocally = false;
       if (isFirebaseEnabled && firestoreDb) {
         try {
           await firestoreDb.collection('contact_inquiries').add({
@@ -779,14 +780,43 @@ Draft responses thoughtfully based only on the query contexts provided and your 
           console.error('Failed to save contact inquiry to Firestore:', firestoreError);
         }
       } else {
-        console.log('Firestore is not active. Bypassed Firestore write for contact inquiry.');
+        try {
+          const inquiriesDir = path.join(process.cwd(), 'src', 'data');
+          if (!fs.existsSync(inquiriesDir)) {
+            fs.mkdirSync(inquiriesDir, { recursive: true });
+          }
+          const inquiriesFile = path.join(inquiriesDir, 'contactInquiries.json');
+          let inquiries = [];
+          if (fs.existsSync(inquiriesFile)) {
+            try {
+              inquiries = JSON.parse(fs.readFileSync(inquiriesFile, 'utf8'));
+            } catch (pErr) {
+              inquiries = [];
+            }
+          }
+          inquiries.push({
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            subject,
+            message,
+            createdAt: new Date().toISOString()
+          });
+          fs.writeFileSync(inquiriesFile, JSON.stringify(inquiries, null, 2), 'utf8');
+          storedLocally = true;
+          console.log('Firebase is not active. Contact inquiry saved to local JSON fallback.');
+        } catch (localSaveError) {
+          console.error('Failed to save contact inquiry to local fallback file:', localSaveError);
+        }
       }
 
       // 2. Setup the nodemailer transporter lazily (safe initialization without crashing on lack of credentials)
-      const host = process.env.SMTP_HOST;
-      const portVal = process.env.SMTP_PORT;
-      const user = process.env.SMTP_USER;
-      const pass = process.env.SMTP_PASS;
+      const isConfigured = (val: any) => val && typeof val === 'string' && val !== 'undefined' && val !== 'null' && val.trim() !== '';
+      const host = isConfigured(process.env.SMTP_HOST) ? process.env.SMTP_HOST : undefined;
+      const portVal = isConfigured(process.env.SMTP_PORT) ? process.env.SMTP_PORT : undefined;
+      const user = isConfigured(process.env.SMTP_USER) ? process.env.SMTP_USER : undefined;
+      const pass = isConfigured(process.env.SMTP_PASS) ? process.env.SMTP_PASS : undefined;
 
       const emailContent = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
@@ -831,45 +861,60 @@ Draft responses thoughtfully based only on the query contexts provided and your 
         </div>
       `;
 
+      let emailSent = false;
+      let emailError = null;
+
       if (host && portVal && user && pass) {
-        const port = parseInt(portVal, 10);
-        const transporter = nodemailer.createTransport({
-          host,
-          port,
-          secure: port === 465,
-          auth: {
-            user,
-            pass,
-          },
-        });
+        try {
+          const port = parseInt(portVal, 10);
+          const transporter = nodemailer.createTransport({
+            host,
+            port,
+            secure: port === 465,
+            auth: {
+              user,
+              pass,
+            },
+            connectionTimeout: 5000,
+            greetingTimeout: 5000,
+            socketTimeout: 5000,
+          });
 
-        const mailOptions = {
-          from: `"RAC Forge Contact Form" <${user}>`,
-          to: 'info@racforge.com',
-          replyTo: email,
-          subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
-          html: emailContent,
-          text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
-        };
+          const mailOptions = {
+            from: `"RAC Forge Contact Form" <${user}>`,
+            to: 'info@racforge.com',
+            replyTo: email,
+            subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
+            html: emailContent,
+            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
+          };
 
-        await transporter.sendMail(mailOptions);
-        console.log(`Email successfully sent to info@racforge.com for user ${firstName} ${lastName}.`);
-        res.json({ success: true, storedInFirestore, emailSent: true });
+          await transporter.sendMail(mailOptions);
+          emailSent = true;
+          console.log(`Email successfully sent to info@racforge.com for user ${firstName} ${lastName}.`);
+        } catch (mailErr: any) {
+          console.error('Nodemailer failed to send email:', mailErr);
+          emailError = mailErr.message || String(mailErr);
+        }
       } else {
         // Log details if SMTP environment variables are not configured yet, so they are not lost and can be verified easily in tests/preview logs.
-        console.warn('--- EMAIL TRANSACTION SIMULATION (SMTP configuration missing) ---');
+        console.warn('--- EMAIL TRANSACTION SIMULATION (SMTP configuration missing or incomplete) ---');
         console.warn('To/Recipient: info@racforge.com');
         console.warn(`Subject: [New Inquiry] ${subject} - ${firstName} ${lastName}`);
         console.warn(`Content:\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\nMessage: ${message}`);
         console.warn('--------------------------------------------------------------');
-        
-        res.json({ 
-          success: true, 
-          storedInFirestore, 
-          emailSent: false,
-          warning: 'Form details received. Since SMTP environment variables are not yet configured on this dev/sandbox server, the email was logged to the server console and saved to Firestore database. Specify SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS in Settings to enable real-world email transmissions.'
-        });
       }
+
+      res.json({ 
+        success: true, 
+        storedInFirestore, 
+        storedLocally,
+        emailSent,
+        emailError,
+        message: emailSent 
+          ? 'Inquiry received and notification email sent successfully.' 
+          : 'Inquiry received and captured successfully.'
+      });
     } catch (error: any) {
       console.error('Contact API processing error:', error);
       res.status(500).json({ error: 'Failed to process inquiry submission', details: error.message || String(error) });
