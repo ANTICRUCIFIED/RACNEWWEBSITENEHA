@@ -1,0 +1,11 @@
+[
+  {
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane.doe@example.com",
+    "phoneNumber": "9876543210",
+    "subject": "Local CDSCO test inquiry",
+    "message": "Testing the contact submission directly on localhost",
+    "createdAt": "2026-06-03T07:10:59.152Z"
+  }
+]

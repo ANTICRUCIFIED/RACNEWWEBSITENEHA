@@ -917,6 +917,24 @@ Draft responses thoughtfully based only on the query contexts provided and your 
       });
     } catch (error: any) {
       console.error('Contact API processing error:', error);
+      try {
+        const debugDir = path.join(process.cwd(), 'src', 'data');
+        if (!fs.existsSync(debugDir)) {
+          fs.mkdirSync(debugDir, { recursive: true });
+        }
+        fs.writeFileSync(
+          path.join(debugDir, 'debug_contact_error.json'),
+          JSON.stringify({
+            message: error.message || String(error),
+            stack: error.stack,
+            body: req.body,
+            timestamp: new Date().toISOString()
+          }, null, 2),
+          'utf8'
+        );
+      } catch (logErr) {
+        console.error('Failed to write debug error log:', logErr);
+      }
       res.status(500).json({ error: 'Failed to process inquiry submission', details: error.message || String(error) });
     }
   });
