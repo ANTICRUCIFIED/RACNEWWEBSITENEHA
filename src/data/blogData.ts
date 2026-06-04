@@ -275,59 +275,6 @@ Well-prepared technical documentation not only ensures compliance with EU MDR bu
     `
   },
   {
-    id: 'navigating-usfda-510k',
-    title: 'Navigating USFDA’s 510(k) Submission Process',
-    excerpt: 'The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp',
-    date: '22 Oct 2025',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['510K USFDA', 'Clinical Evaluation Report (CER)', 'Medical Device Documentation', 'Medical Devices', 'Regulatory Compliance', 'Risk Analysis', 'USFDA'],
-    content: `
-The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.
-
-## What is a 510(k)?
-A 510(k) is a submission to show that a device is substantially equivalent to a legally marketed predicate device. This pathway requires proving similar intended use and technological characteristics without raising new safety or effectiveness issues.
-
-## The Substantial Equivalence Standard
-To establish substantial equivalence, manufacturers must show:
-- Same intended use as the predicate
-- Same technological characteristics, or
-- Different technological characteristics that do not raise new safety questions
-- Proof of same safety and effectiveness
-
-## Key Submission Components
-A complete 510(k) USFDA submission includes:
-- Device description and specifications
-- Substantial equivalence comparison
-- Performance testing data
-- Biological Evaluation information
-- Software validation (if applicable)
-- Sterilization validation
-- Labeling and instructions for use (User Manual)
-
-## The eSTAR Program
-Since October 2023, all 510(k) submissions must use the electronic Submission Template And Resource (eSTAR). This interactive PDF:
-- Standardizes submission format
-- Ensures completeness
-- Enables automated verification
-- Streamlines USFDA review process
-
-## Common Pitfalls to Avoid
-- Insufficient predicate device comparison
-- Incomplete performance testing data
-- Poorly documented software validation
-- Inadequate Risk Analysis
-- Non-compliant labeling
-
-## Timeline and Review Process
-The USFDA’s statutory review timeline is 90 days, although this may extend with additional information requests. Understanding this timeline helps manufacturers plan their market entry strategy.
-
-## Conclusion
-A well-prepared 510(k) submission, backed by thorough documentation and a strategic choice of predicate devices, significantly increases the chances of USFDA clearance and successful market entry.
-    `
-  },
-  {
     id: 'fda-510k-indian-medtech',
     title: 'Why Designing for the U.S. FDA 510(k) Is the Cheapest Way to Win the Indian MedTech Market',
     excerpt: 'Break down the myth that FDA compliance is an expensive luxury for local MSMEs. Explain how a "harmonized dossier" lowers the Total Cost of Ownership (TCO) by eliminating CDSCO rejections and query loops.',
@@ -565,37 +512,6 @@ If a hospital board, regulatory committee, or procurement agency rejects your hi
 - **Provide MRA Certifications:** Attach the official ILAC/APAC membership certificates showing both NABL and the foreign laboratory’s accreditation body as co-signatories of mutual recognition.
 - **Leverage National Standards:** Cite Central CDSCO notifications that recognize testing performed in laboratories accredited by ILAC-signatory bodies.
 - **Collaborate Upfront:** Never accept an improper rejection due to simple bureaucratic confusion. Presenting a solid legal and scientific case bypasses unnecessary local re-testing fees and delays.
-`
-  },
-  {
-    id: 'regional-medtech-msme-documentation-gap',
-    title: 'From the Hinterlands to New Delhi: Bridging the "Documentation Gap" for Regional MedTech MSMEs',
-    excerpt: 'Celebrate the expansion of the "Make in India" spirit into emerging industrial clusters outside traditional tier-1 tech hubs. Focus on giving local engineering talent the "regulatory language" required to match global multinational standards.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '20 May 2026',
-    category: 'Ecosystem',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['MSMEs', 'Make in India', 'Documentation Gap', 'Regional Clusters', 'CDSCO'],
-    content: `
-The "Make in India" initiative has successfully ignited a dynamic medical manufacturing movement across the country. Outstanding engineering and manufacturing talent is springing up far outside traditional tier-1 commercial hubs like Bengaluru, Chennai, or Mumbai. Exceptional medical hardware is now designed and built in emerging regional clusters from the hinterlands of Himachal Pradesh and Gujarat to central and eastern industrial corridors.
-
-However, as these regional MSMEs attempt to transition from regional prototypes to state and central approvals in New Delhi, they encounter a critical bottleneck: the "Documentation Gap."
-
-## Understanding the "Documentation Gap"
-
-Designing a highly reliable physical medical device is a major accomplishment. However, building the extensive, scientific trail of documentation required to prove its safety is a completely different discipline. Many regional engineering teams lack the specific regulatory terminology to articulate their design controls:
-- **The Design History File (DHF):** Missing chronological development reviews and formal risk parameters.
-- **Device Master Record (DMR):** Lacking verified material characterization data.
-- **Usability Records:** Developing devices without structured human factor reviews.
-
-This documentation gap is not a failure of engineering talent—it is simply a difference in vocabulary.
-
-## Bridging the Gap
-
-To help regional innovators successfully match and beat international multinational standards:
-- **On-Site Training:** Local manufacturing clusters must establish specialized training programs to teach engineers how to document their work under ISO 13485 guidelines.
-- **Providing Checklists & Templates:** Equiping R&D teams with clean, standardized, pre-vetted compliance structures eliminates the fear of blank pages.
-- **Strategic Advisory Collaborations:** Partnering on-site with expert consultants (like RAC Forge) allows local teams to focus purely on high-quality manufacturing while external experts build and defend the scientific dossiers.
 `
   },
   {
