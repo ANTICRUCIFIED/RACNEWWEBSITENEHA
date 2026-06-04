@@ -328,56 +328,6 @@ A well-prepared 510(k) submission, backed by thorough documentation and a strate
     `
   },
   {
-    id: 'understanding-cdsco-rules',
-    title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    excerpt: 'The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '21 Oct 2025',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO', 'Import License', 'Indian MDR', 'ISO 13485', 'Loan License', 'Manufacturing License', 'MD-15', 'MD-3', 'MD-5', 'MD-7', 'MD-9', 'Medical Devices', 'Medical Devices Rules 2017', 'Regulatory Compliance', 'Test License'],
-    content: `
-The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.
-
-## The Structure of MDR 2017
-The Indian MDR 2017 is organized into 12 chapters, 8 schedules, and contains 97 rules with over 40 forms. This organized approach ensures a systematic regulation of medical devices from classification to post-market monitoring.
-
-## Key Chapters Overview
-- **Chapter I:** Preliminary definitions and commencement
-- **Chapter II:** Device classification and essential principles
-- **Chapter III:** Regulatory authorities and bodies
-- **Chapter IV:** Manufacturing License requirements
-- **Chapter V:** Import License regulations and procedures
-- **Chapter VI:** Labeling requirements
-- **Chapter VII:** Clinical investigation protocols
-
-## Device Classification System
-CDSCO divides medical devices into four risk-based categories:
-- **Class A medical Device:** Low risk (e.g., surgical dressings)
-- **Class B medical Device:** Low-moderate risk (e.g., hypodermic needles)
-- **Class C medical Device:** Moderate-high risk (e.g., bone cements)
-- **Class D Medical Device:** High risk (e.g., heart valves)
-
-## Essential Documentation Requirements
-Successful CDSCO submissions require thorough documentation including:
-- Device Master File (DMF)
-- Plant Master File (PMF)
-- Quality Management System certificates (e.g., ISO 13485)
-- Clinical evidence
-- Stability and performance data
-
-## Common Challenges and Solutions
-Manufacturers often deal with challenges such as:
-- Understanding specific form requirements
-- Compiling thorough technical documentation
-- Navigating the approval timeline
-- Maintaining compliance after approval
-
-## Conclusion
-The Indian MDR framework, though comprehensive, offers a clear path for medical device approval in India. With the right understanding and expert guidance, manufacturers can effectively navigate this regulatory landscape.
-    `
-  },
-  {
     id: 'fda-510k-indian-medtech',
     title: 'Why Designing for the U.S. FDA 510(k) Is the Cheapest Way to Win the Indian MedTech Market',
     excerpt: 'Break down the myth that FDA compliance is an expensive luxury for local MSMEs. Explain how a "harmonized dossier" lowers the Total Cost of Ownership (TCO) by eliminating CDSCO rejections and query loops.',
@@ -518,48 +468,6 @@ Run regular, independent internal audits to verify that all design, manufacturin
 
 ### Step 3: Implement Live QMS Tools
 Use modern QMS tools and procedures to preserve a continuous, time-stamped record of all activities. Ensuring that your organization is always "audit-ready" completely removes the stress of regulatory scrutiny and guarantees a smooth license approval path.
-`
-  },
-  {
-    id: 'demystifying-iec-62304-software-traceability',
-    title: 'Demystifying IEC 62304: Why 70% of SaMD Regulatory Queries Target Software Traceability',
-    excerpt: 'Address the primary digital gatekeeper for software-based devices. Explain how developers can build an unbroken chain of data from raw code to clinical risk assessments.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
-    date: '12 Mar 2026',
-    category: 'Software',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['IEC 62304', 'SaMD', 'Software Traceability', 'Risk Management', 'MedTech'],
-    content: `
-Software as a Medical Device (SaMD) is transforming healthcare at a breakneck pace. Yet, when SaMD applications are submitted to the USFDA, CDSCO, or EU Notified Bodies, they hit a common roadblock. Industry statistics show that roughly 70% of all technical queries and hold-orders for digital health devices are related to software testing and traceability under IEC 62304.
-
-Let's demystify why this standard is such a persistent bottleneck, and how software development teams can build an unassailable path to compliance.
-
-## The Core Concept of Software Traceability
-
-To standard software engineers, "traceability" means checking git commit logs and pull requests. To a medical device auditor, however, traceability means a pristine, uninterrupted scientific chain:
-- **Software User Requirement (SUR)** connects to
-- **Software System Requirement (SSR)** which connects to
-- **Software Architecture/Component (SW Unit)** which maps to
-- **Software Risk Assessment (SRA)** which is verified by
-- **Software Unit Test Protocol & Verification Record**
-
-If any link in this chain is broken—for example, if a specific software risk item lacks an associated unit test to prove its mitigation—the entire technical file fails audit criteria.
-
-## Practical Steps to Build a Compliant Software File
-
-### 1. Automate Your Traceability Matrix
-Do not try to maintain a massive traceability matrix in a manual Excel spreadsheet. Use modern software tools (or Git integrated setups) that automatically map software requirement keys to code modules and unit test outputs.
-
-### 2. Formally Segment Your Software Safety Class
-Identify your software safety class early under IEC 62304:
-- **Class A:** No injury possible
-- **Class B:** Non-serious injury possible
-- **Class C:** Death or serious injury possible
-
-Implementing solid architectural separation can isolate high-risk Class B/C components from the rest of the application, dramatically reducing the burden of testing for your entire codebase.
-
-### 3. Handle Software of Unknown Provenance (SOUP)
-If your SaMD imports open-source libraries or third-party APIs, you must explicitly document, risk-analyze, and test these SOUP dependencies. Unmanaged third-party dependencies are one of the most common causes of regulatory rejections.
 `
   },
   {
