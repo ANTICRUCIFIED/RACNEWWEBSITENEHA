@@ -1,9 +1,7 @@
-import sharp from 'sharp';
 import os from 'os';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
@@ -1047,9 +1045,11 @@ Please write what specific area you would like detailed guidance on!
     if (fs.existsSync(fbConfigPath)) {
       const configData = JSON.parse(fs.readFileSync(fbConfigPath, 'utf8'));
       if (configData && configData.projectId && configData.projectId !== 'remixed-project-id') {
-        admin.initializeApp({
-          projectId: configData.projectId,
-        });
+        if (admin.apps.length === 0) {
+          admin.initializeApp({
+            projectId: configData.projectId,
+          });
+        }
         firestoreDb = admin.firestore();
         if (configData.firestoreDatabaseId) {
           firestoreDb.settings({ databaseId: configData.firestoreDatabaseId });

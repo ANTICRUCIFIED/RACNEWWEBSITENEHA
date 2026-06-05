@@ -4,6 +4,19 @@ import { CheckCircle2, MapPin, Mail, Phone, Facebook, Twitter, Linkedin, Instagr
 import SEO from '../components/SEO';
 import { COMPANY_INFO } from '../constants';
 
+let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://racnewwebsiteneha.vercel.app';
+if (API_BASE_URL && !API_BASE_URL.startsWith('http')) {
+  API_BASE_URL = `https://${API_BASE_URL}`;
+}
+if (typeof window !== 'undefined') {
+  const currentHost = window.location.host;
+  if (!import.meta.env.VITE_API_BASE_URL) {
+    if (currentHost.includes('localhost') || currentHost.includes('127.0.0.1') || currentHost.includes('run.app') || currentHost.includes('vercel.app')) {
+      API_BASE_URL = '';
+    }
+  }
+}
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -23,7 +36,7 @@ export default function Contact() {
     setError(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
