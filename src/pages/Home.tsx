@@ -61,17 +61,12 @@ const BLOG_POSTS = [
   }
 ];
 
-let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://racnewwebsiteneha.vercel.app';
+let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 if (API_BASE_URL && !API_BASE_URL.startsWith('http')) {
   API_BASE_URL = `https://${API_BASE_URL}`;
 }
-if (typeof window !== 'undefined') {
-  const currentHost = window.location.host;
-  if (!import.meta.env.VITE_API_BASE_URL) {
-    if (currentHost.includes('localhost') || currentHost.includes('127.0.0.1') || currentHost.includes('run.app') || currentHost.includes('vercel.app')) {
-      API_BASE_URL = '';
-    }
-  }
+if (API_BASE_URL && API_BASE_URL.endsWith('/')) {
+  API_BASE_URL = API_BASE_URL.slice(0, -1);
 }
 
 export default function Home() {

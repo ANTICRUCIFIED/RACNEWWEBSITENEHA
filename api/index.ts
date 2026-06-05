@@ -1439,7 +1439,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
 
           const mailOptions = {
             from: `"RAC Forge Contact Form" <${user}>`,
-            to: 'info@racforge.com',
+            to: 'support@racforge.com',
             replyTo: email,
             subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
             html: emailContent,
@@ -1448,7 +1448,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
 
           await transporter.sendMail(mailOptions);
           emailSent = true;
-          console.log(`Email successfully sent to info@racforge.com for user ${firstName} ${lastName}.`);
+          console.log(`Email successfully sent to support@racforge.com for user ${firstName} ${lastName}.`);
         } catch (mailErr: any) {
           console.error('Nodemailer failed to send email:', mailErr);
           emailError = mailErr.message || String(mailErr);
@@ -1456,7 +1456,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
       } else {
         // Log details if SMTP environment variables are not configured yet, so they are not lost and can be verified easily in tests/preview logs.
         console.warn('--- EMAIL TRANSACTION SIMULATION (SMTP configuration missing or incomplete) ---');
-        console.warn('To/Recipient: info@racforge.com');
+        console.warn('To/Recipient: support@racforge.com');
         console.warn(`Subject: [New Inquiry] ${subject} - ${firstName} ${lastName}`);
         console.warn(`Content:\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\nMessage: ${message}`);
         console.warn('--------------------------------------------------------------');
