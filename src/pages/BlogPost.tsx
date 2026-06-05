@@ -85,7 +85,7 @@ export default function BlogPost() {
       setPost(staticPost);
       setIsLoading(false);
     } else {
-      fetch(`https://racnewwebsiteneha.vercel.app/api/posts/${id}`)
+      fetch(`/api/posts/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('Article target not found');
           return res.json();

@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Chatbot from './components/Chatbot';
 
@@ -73,21 +73,21 @@ export default function App() {
             <Route path="/blogs/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/information/:slug" element={<InfoDetail />} />
-            <Route path="/velo-ai" element={<VeloPage />} />
+            <Route path="/velo-ai" element={<Navigate to="/raahi-ai" replace />} />
+            <Route path="/raaahi-ai" element={<Navigate to="/raahi-ai" replace />} />
             <Route path="/raahi-ai" element={<VeloPage />} />
-            <Route path="/raaahi-ai" element={<VeloPage />} />
 
             {/* Service Sub-routes */}
-            {/* Old Aliases */}
-            <Route path="/services/cdsco-manufacturing-license" element={<CDSCOManufacturing />} />
-            <Route path="/services/cdsco-import-license" element={<CDSCOImport />} />
-            <Route path="/services/cdsco-loan-license" element={<CDSCOLoan />} />
-            <Route path="/services/cdsco-test-license" element={<CDSCOTest />} />
-            <Route path="/services/usfda-510k-submission" element={<USFDA510k />} />
+            {/* Old Aliases Redirected to Canonical Paths to Avoid Duplicate Pages */}
+            <Route path="/services/cdsco-manufacturing-license" element={<Navigate to="/services/cdsco-manufacturing-license-md5-md9" replace />} />
+            <Route path="/services/cdsco-import-license" element={<Navigate to="/services/cdsco-import-license-md14" replace />} />
+            <Route path="/services/cdsco-loan-license" element={<Navigate to="/services/cdsco-loan-license-md6-md10" replace />} />
+            <Route path="/services/cdsco-test-license" element={<Navigate to="/services/cdsco-test-license-md13" replace />} />
+            <Route path="/services/usfda-510k-submission" element={<Navigate to="/services/usfda-510k-de-novo" replace />} />
             <Route path="/services/usfda-pma-application" element={<USFDAPMA />} />
             <Route path="/services/usfda-de-novo-classification" element={<USFDADeNovo />} />
-            <Route path="/services/eu-mdr-compliance" element={<EUMDRCompliance />} />
-            <Route path="/services/anvisa-brazil-approval" element={<AnvisaBrazil />} />
+            <Route path="/services/eu-mdr-compliance" element={<Navigate to="/services/eu-mdr-ce-marking" replace />} />
+            <Route path="/services/anvisa-brazil-approval" element={<Navigate to="/services/anvisa-brazil-registration" replace />} />
             <Route path="/services/rd-and-samd" element={<RDandSaMD />} />
 
             {/* Precise Target Direct Paths */}

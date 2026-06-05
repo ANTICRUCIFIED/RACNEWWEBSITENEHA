@@ -22,6 +22,14 @@ async function startServer() {
   app.use(cors());
   app.use(express.json());
 
+  // SSL / HTTPS redirect middleware to satisfy SEO checklist
+  app.use((req, res, next) => {
+    if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] === 'http') {
+      return res.redirect(301, `https://${req.get('host')}${req.originalUrl}`);
+    }
+    next();
+  });
+
   const getGoogleGenAI = (customKey?: string) => {
     const apiKey = customKey || process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -330,183 +338,10 @@ Please write what specific area you would like detailed guidance on!
     console.warn('Firebase Admin SDK initialization bypassed or failed (normal in offline dev mode):', fbAdminError);
   }
 
-  // Dynamic Blog Posts local disk storage engine
-  const DYNAMIC_POSTS_FILE = path.join(process.cwd(), 'src', 'data', 'storedBlogPosts.json');
-
-  const ensureStoredPostsFolder = () => {
-    const dir = path.dirname(DYNAMIC_POSTS_FILE);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-  };
-
-  const getStoredPosts = (): any[] => {
-    try {
-      ensureStoredPostsFolder();
-      if (fs.existsSync(DYNAMIC_POSTS_FILE)) {
-        const data = fs.readFileSync(DYNAMIC_POSTS_FILE, 'utf8');
-        return JSON.parse(data);
-      }
-    } catch (error) {
-      console.error('Error reading dynamic blog posts file:', error);
-    }
-    return [];
-  };
-
-  const saveDynamicPost = (post: any): boolean => {
-    try {
-      ensureStoredPostsFolder();
-      const posts = getStoredPosts();
-      posts.unshift(post); // Add new post to start of the list
-      fs.writeFileSync(DYNAMIC_POSTS_FILE, JSON.stringify(posts, null, 2), 'utf8');
-      return true;
-    } catch (error) {
-      console.error('Error saving dynamic blog post to file:', error);
-      return false;
-    }
-  };
-
-  const saveToFirestore = async (post: any): Promise<boolean> => {
-    if (!isFirebaseEnabled || !firestoreDb) {
-      console.log('Firestore is not active or bypassed. Blocked Firestore write.');
-      return false;
-    }
-    try {
-      const docRef = firestoreDb.collection('blog_posts').doc(post.id);
-      await docRef.set({
-        ...post,
-        createdAt: admin.firestore.FieldValue.serverTimestamp()
-      });
-      console.log(`Blog post ${post.id} successfully written to Firestore.`);
-      return true;
-    } catch (err) {
-      console.error('Failed to save of blog post to Firestore:', err);
-      return false;
-    }
-  };
-
-  const handleSaveBlogPost = async (post: any) => {
-    const savedLocal = saveDynamicPost(post);
-    const savedFirestore = await saveToFirestore(post);
-    return { savedLocal, savedFirestore };
-  };
-
-  // Pre-flight OPTIONS route to support cross-origin AWS Lambda requests
-  app.options('/api/posts', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.sendStatus(200);
-  });
-
-  // Secure POST API Endpoint for external AWS Lambda Blog bot imports
-  app.post('/api/posts', async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-    try {
-      // 1. Authenticate Request header via BOT_SECRET_TOKEN with robust fallback matching
-      const authHeader = req.headers.authorization;
-      const botSecretToken = process.env.BOT_SECRET_TOKEN || 'RacForgeBotSecret2026!';
-
-      const providedToken = authHeader || '';
-      const tokenWithoutBearer = providedToken.startsWith('Bearer ') ? providedToken.substring(7) : providedToken;
-      const configuredTokenWithoutBearer = botSecretToken.startsWith('Bearer ') ? botSecretToken.substring(7) : botSecretToken;
-
-      let authorized = false;
-      if (providedToken === botSecretToken) {
-        authorized = true;
-      } else if (providedToken === `Bearer ${botSecretToken}`) {
-        authorized = true;
-      } else if (tokenWithoutBearer === configuredTokenWithoutBearer) {
-        authorized = true;
-      } else if (providedToken === 'Bearer RacForgeBotSecret2026!' || tokenWithoutBearer === 'RacForgeBotSecret2026!') {
-        authorized = true;
-      }
-
-      if (!botSecretToken && botSecretToken !== 'RacForgeBotSecret2026!') {
-        console.warn('WARNING: BOT_SECRET_TOKEN is not defined inside server environment variables.');
-      }
-
-      // Check validation alignment
-      if (!authorized) {
-        return res.status(401).json({
-          error: 'Unauthorized',
-          message: 'Invalid or missing Authorization token headers.'
-        });
-      }
-
-      // 2. Validate payload keys
-      const { title, content, author, date, status } = req.body;
-      if (!title || !content) {
-        return res.status(400).json({
-          error: 'Bad Request',
-          message: 'Missing required payload keys: title and content are mandatory.'
-        });
-      }
-
-      // 3. Dynamic formatting mapping
-      const slug = title
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '') || `post-${Date.now()}`;
-
-      const publicationDate = date || new Date().toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
-      });
-
-      // Generate visual excerpts and configurations
-      const excerpt = content.substring(0, 180).trim().replace(/[\r\n#*`]+/g, ' ') + '...';
-
-      const newPost = {
-        id: slug,
-        title,
-        content,
-        author: author || 'AWS Lambda Bot',
-        date: publicationDate,
-        status: status || 'published',
-        excerpt,
-        image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-default.webp',
-        tags: ['Compliance', 'Automation', 'Integration', 'Regulatory'],
-        category: 'Regulatory',
-        createdAt: new Date().toISOString()
-      };
-
-      // 4. Double state save
-      const saveReceipt = await handleSaveBlogPost(newPost);
-
-      // 5. Send clear JSON reply confirmation
-      return res.status(201).json({
-        success: true,
-        message: 'Blog post processed and stored successfully into the database layout.',
-        postId: slug,
-        post: newPost,
-        persistence: {
-          savedLocal: saveReceipt.savedLocal,
-          savedFirestore: saveReceipt.savedFirestore
-        }
-      });
-    } catch (apiError: any) {
-      console.error('API /api/posts processing error: ', apiError);
-      return res.status(500).json({
-        success: false,
-        error: 'Internal Server Error',
-        details: apiError.message || String(apiError)
-      });
-    }
-  });
-
-  // GET API Endpoint to fetch merged set of static + dynamic posts
+  // GET API Endpoint to fetch blog posts from the static BLOG_POSTS array
   app.get('/api/posts', (req, res) => {
     try {
-      const dynamicPosts = getStoredPosts();
-      const allMergedPosts = [...dynamicPosts, ...BLOG_POSTS];
-      return res.json(allMergedPosts);
+      return res.json(BLOG_POSTS);
     } catch (fetchErr: any) {
       console.error('GET /api/posts list retrieval failure: ', fetchErr);
       return res.status(500).json({
@@ -516,15 +351,11 @@ Please write what specific area you would like detailed guidance on!
     }
   });
 
-  // GET API to fetch details of a specific dynamic or static post
+  // GET API to fetch details of a specific blog post
   app.get('/api/posts/:id', (req, res) => {
     try {
       const { id } = req.params;
-      const dynamicPosts = getStoredPosts();
-      let foundPost = dynamicPosts.find((p: any) => p.id === id);
-      if (!foundPost) {
-        foundPost = BLOG_POSTS.find((p: any) => p.id === id);
-      }
+      const foundPost = BLOG_POSTS.find((p: any) => p.id === id);
       
       if (foundPost) {
         return res.json(foundPost);

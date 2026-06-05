@@ -210,22 +210,13 @@ const coreRoutes = parsedRoutes.core.length > 0 ? parsedRoutes.core : [
   '/expertise',
   '/blogs/resources',
   '/contact',
-  '/velo-ai',
-  '/raahi-ai',
-  '/raaahi-ai'
+  '/raahi-ai'
 ];
 
 const serviceRoutes = parsedRoutes.services.length > 0 ? parsedRoutes.services : [
-  '/services/cdsco-manufacturing-license',
-  '/services/cdsco-import-license',
-  '/services/cdsco-loan-license',
-  '/services/cdsco-test-license',
   '/services/cdsco-clinical-investigation',
-  '/services/usfda-510k-submission',
   '/services/usfda-pma-application',
   '/services/usfda-de-novo-classification',
-  '/services/eu-mdr-compliance',
-  '/services/anvisa-brazil-approval',
   '/services/rd-and-samd',
   '/services/samd-architecture-development',
   '/services/embedded-medical-firmware',

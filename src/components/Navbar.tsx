@@ -79,7 +79,7 @@ const NAV_LINKS = [
       }
     ]
   },
-  { name: 'RAAAHI (राही)', path: '/raaahi-ai' },
+  { name: 'RAAAHI (राही)', path: '/raahi-ai' },
   { name: 'Expertise', path: '/expertise' },
   { name: 'Blogs', path: '/blogs/resources' }
 ];

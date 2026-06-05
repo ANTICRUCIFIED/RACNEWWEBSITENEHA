@@ -5,43 +5,1050 @@
   <link>https://www.racforge.com/</link>
   <description>Your Global Medical Device Regulatory Partner. Strategic guidance and thorough documentation services for successful market entry.</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 30 Apr 2026 11:50:00 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 05 Jun 2026 20:14:50 GMT</lastBuildDate>
   <atom:link href="https://www.racforge.com/sitemap.rss" rel="self" type="application/rss+xml" />
-
   <item>
-    <title>Sterilization Validation for Medical Devices</title>
+    <title>RAC Forge - Global Medical Device Regulatory Partner</title>
+    <link>https://www.racforge.com</link>
+    <description>Your Global Medical Device Regulatory Partner. Turnkey CDSCO, USFDA, and EU MDR compliance for medical device and SaMD manufacturers.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com</guid>
+  </item>
+  <item>
+    <title>About Us | RAC Forge Private Limited</title>
+    <link>https://www.racforge.com/about</link>
+    <description>Learn about the team, regulatory experts, and leadership behind RAC Forge's turnkey compliance engineering.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/about</guid>
+  </item>
+  <item>
+    <title>Medical Device Regulatory Services - USFDA, CDSCO, EU MDR</title>
+    <link>https://www.racforge.com/services</link>
+    <description>Comprehensive regulatory consulting: CDSCO manufacturing/import licenses, USFDA 510(k), EU MDR Technical Documentation, and Anvisa approvals.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services</guid>
+  </item>
+  <item>
+    <title>Regulatory Architecture &amp; Design Controls Expertise | RAC Forge</title>
+    <link>https://www.racforge.com/expertise</link>
+    <description>Discover our deep engineering and regulatory capabilities in medical electrical equipment, software validation, and biocompatibility protocols.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/expertise</guid>
+  </item>
+  <item>
+    <title>Resource Directories &amp; Knowledge Base | RAC Forge</title>
+    <link>https://www.racforge.com/blogs/resources</link>
+    <description>Explore our publications, whitepapers, and guides on sterilization validation, biocompatibility strategies, and CDSCO rules.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/blogs/resources</guid>
+  </item>
+  <item>
+    <title>Contact Our Regulatory Experts | RAC Forge</title>
+    <link>https://www.racforge.com/contact</link>
+    <description>Speak with a compliance engineer about your medical device or SaMD project. Locations in Chandigarh, Ahmedabad, Bengaluru, Delhi NCR, and more.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/contact</guid>
+  </item>
+  <item>
+    <title>RAAAHI (राही) - MedTech Regulatory Copilot &amp; Search</title>
+    <link>https://www.racforge.com/raahi-ai</link>
+    <description>Our innovative semantic search and schema builder powered by generative AI. Map complex global medical device regulations in seconds.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/raahi-ai</guid>
+  </item>
+  <item>
+    <title>USFDA Premarket Approval (PMA) Applications | RAC Forge</title>
+    <link>https://www.racforge.com/services/usfda-pma-application</link>
+    <description>Bespoke clinical pathways, statistical analysis, and master files compilation for Class III medical devices to gain Premarket FDA Approval.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/usfda-pma-application</guid>
+  </item>
+  <item>
+    <title>USFDA De Novo Classification Requirements | RAC Forge</title>
+    <link>https://www.racforge.com/services/usfda-de-novo-classification</link>
+    <description>Establish classification paths for novel medical apps or devices lacking a recognized market predicate.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/usfda-de-novo-classification</guid>
+  </item>
+  <item>
+    <title>Medical Devices R&amp;D and Software as a Medical Device (SaMD) | RAC Forge</title>
+    <link>https://www.racforge.com/services/rd-and-samd</link>
+    <description>Pristine product conceptualization and technical architecture for physical instruments and software-driven innovations.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/rd-and-samd</guid>
+  </item>
+  <item>
+    <title>Software as a Medical Device (SaMD) Architecture | RAC Forge</title>
+    <link>https://www.racforge.com/services/samd-architecture-development</link>
+    <description>Architecting robust, FDA-grade digital health products. Direct compliance mapping for IEC 62304 and agile regulatory software life cycle support.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/samd-architecture-development</guid>
+  </item>
+  <item>
+    <title>Embedded Medical Video &amp; Device Firmware | RAC Forge</title>
+    <link>https://www.racforge.com/services/embedded-medical-firmware</link>
+    <description>Hardware-level firmware design conforming to IEC 62304. Secure boot configuration, safety-critical routines, and code testing trace structures.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/embedded-medical-firmware</guid>
+  </item>
+  <item>
+    <title>Usability Engineering (IEC 62366-1) &amp; UX | RAC Forge</title>
+    <link>https://www.racforge.com/services/usability-engineering-iec-62366</link>
+    <description>Formative and summative usability test protocols, user interface error mitigation, and human factors dossiers built for seamless USFDA reviews.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/usability-engineering-iec-62366</guid>
+  </item>
+  <item>
+    <title>Electrical Medical Device Prototyping | RAC Forge</title>
+    <link>https://www.racforge.com/services/electrical-medical-device-prototyping</link>
+    <description>Regulatory-compliant electrical hardware prototyping, multi-layer PCB layout designs, and pre-validation testing against EMC limits.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/electrical-medical-device-prototyping</guid>
+  </item>
+  <item>
+    <title>Hardware Verification &amp; Validation (V&amp;V) | RAC Forge</title>
+    <link>https://www.racforge.com/services/hardware-vv-protocols</link>
+    <description>Custom automated V&amp;V scripts, environment stressing protocols, stress lifecycle audits, and structured device design history files.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/hardware-vv-protocols</guid>
+  </item>
+  <item>
+    <title>Medical Device Facility &amp; Cleanroom Design | RAC Forge</title>
+    <link>https://www.racforge.com/services/facility-cleanroom-design</link>
+    <description>Civil layout designs, HVAC airflow systems integration, pressure differential mapping, and particle verification qualifying for CDSCO Class C &amp; D.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/facility-cleanroom-design</guid>
+  </item>
+  <item>
+    <title>CDSCO Manufacturing License (MD-5 &amp; MD-9) | RAC Forge</title>
+    <link>https://www.racforge.com/services/cdsco-manufacturing-license-md5-md9</link>
+    <description>Turnkey CDSCO Class A, B, C, &amp; D manufacturing licensing support. Step-by-step documentation, site master files compilation, and on-site joint check preparation.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/cdsco-manufacturing-license-md5-md9</guid>
+  </item>
+  <item>
+    <title>CDSCO Import License (MD-14 &amp; MD-15) | RAC Forge</title>
+    <link>https://www.racforge.com/services/cdsco-import-license-md14</link>
+    <description>Secure your Indian CDSCO MD-14 import registration quickly. Full legal coordination, foreign manufacturing site registrations, and dossier evaluations.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/cdsco-import-license-md14</guid>
+  </item>
+  <item>
+    <title>CDSCO Loan License (MD-6 &amp; MD-10) Compliance | RAC Forge</title>
+    <link>https://www.racforge.com/services/cdsco-loan-license-md6-md10</link>
+    <description>Set up compliant contract manufacturing and loan licensing pipelines. Full assistance with MD-6/10 licensing pathways, audits, and SLA clearances.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/cdsco-loan-license-md6-md10</guid>
+  </item>
+  <item>
+    <title>CDSCO Test License (MD-13) for Clinical/R&amp;D | RAC Forge</title>
+    <link>https://www.racforge.com/services/cdsco-test-license-md13</link>
+    <description>Secure CDSCO Form MD-13 test license for clinical investigation, testing, and evaluation of regulatory prototypes and imported medical devices.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/cdsco-test-license-md13</guid>
+  </item>
+  <item>
+    <title>Clinical Investigation &amp; SEC Presentations | RAC Forge</title>
+    <link>https://www.racforge.com/services/cdsco-clinical-investigation</link>
+    <description>End-to-end clinical trial management, protocol designs, GCP compliance, and representation before CDSCO Subject Expert Committees (SEC).</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/cdsco-clinical-investigation</guid>
+  </item>
+  <item>
+    <title>USFDA 510(k) Pre-Market Notification &amp; De Novo | RAC Forge</title>
+    <link>https://www.racforge.com/services/usfda-510k-de-novo</link>
+    <description>Expert premarket notification submissions, regulatory predicate mapping, and De Novo classifications to gain rapid USFDA market clearance.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/usfda-510k-de-novo</guid>
+  </item>
+  <item>
+    <title>EU MDR 2017/745 Compliance &amp; CE Marking | RAC Forge</title>
+    <link>https://www.racforge.com/services/eu-mdr-ce-marking</link>
+    <description>Complete European Union Medical Device Regulation compliance. Technical documentation compilation, GSPR checklists, and Clinical Evaluation Reports (CER).</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/eu-mdr-ce-marking</guid>
+  </item>
+  <item>
+    <title>UKCA Mark Certification &amp; MHRA Compliance | RAC Forge</title>
+    <link>https://www.racforge.com/services/ukca-mark-certification</link>
+    <description>Secure regulatory clearance in the United Kingdom. Transition seamlessly from CE to UKCA, register with MHRA, and navigate UK healthcare pathways.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/ukca-mark-certification</guid>
+  </item>
+  <item>
+    <title>European Authorized Representative (EC Rep) Support | RAC Forge</title>
+    <link>https://www.racforge.com/services/eu-authorized-representative</link>
+    <description>Acquire fully compliant EU-based Authorized Representative representation. Manage SRN registration under EUDAMED and incident notification support.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/eu-authorized-representative</guid>
+  </item>
+  <item>
+    <title>ANVISA Brazil Medical Device Registration | RAC Forge</title>
+    <link>https://www.racforge.com/services/anvisa-brazil-registration</link>
+    <description>Navigate ANVISA medical device registration requirements in Brazil. Comprehensive BGMP audits, technical dossiers, and local registration support.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/anvisa-brazil-registration</guid>
+  </item>
+  <item>
+    <title>ISO 13485 &amp; ISO 9001 QMS Certification | RAC Forge</title>
+    <link>https://www.racforge.com/services/iso-13485-certification-audit</link>
+    <description>Corporate QMS design and audit preparation. Direct implementation, Standard Operating Procedures (SOPs) development, and certification audits assistance.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/iso-13485-certification-audit</guid>
+  </item>
+  <item>
+    <title>MDSAP Joint Quality Audits &amp; Certification | RAC Forge</title>
+    <link>https://www.racforge.com/services/mdsap-joint-audits</link>
+    <description>Multi-Market Joint Audit compliance. Prepare your Quality Management System to pass one unified MDSAP audit covering US, Canada, Brazil, Japan, and Australia.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/mdsap-joint-audits</guid>
+  </item>
+  <item>
+    <title>Biocompatibility Testing (ISO 10993) &amp; BER | RAC Forge</title>
+    <link>https://www.racforge.com/services/biocompatibility-testing-iso-10993</link>
+    <description>Expert biocompatibility program planning, chemical characterization studies (ISO 10993-18), toxicological risk assessment, and Biological Evaluation Reports (BER).</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/biocompatibility-testing-iso-10993</guid>
+  </item>
+  <item>
+    <title>Preclinical Safety Evaluation &amp; Testing | RAC Forge</title>
+    <link>https://www.racforge.com/services/preclinical-safety-evaluation</link>
+    <description>Preclinical trial protocols, efficacy validation, animal studies coordination, and laboratory testing support satisfying CDSCO and international bodies.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/preclinical-safety-evaluation</guid>
+  </item>
+  <item>
+    <title>Toxicological Risk Assessment (ISO 10993-17) | RAC Forge</title>
+    <link>https://www.racforge.com/services/toxicological-risk-assessment</link>
+    <description>Pristine toxicological risk evaluations, leachables characterization, safety margin calculations, and certified toxicologist signoffs for global compliance.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/toxicological-risk-assessment</guid>
+  </item>
+  <item>
+    <title>Extractables &amp; Leachables (E&amp;L) Testing | RAC Forge</title>
+    <link>https://www.racforge.com/services/extractables-leachables</link>
+    <description>Custom E&amp;L methodology designs, GC-MS/LC-MS material characterization studies, and risk-based biocompatibility profiles for liquid pathways.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/extractables-leachables</guid>
+  </item>
+  <item>
+    <title>Good Clinical Practice (GCP) Audit Readiness | RAC Forge</title>
+    <link>https://www.racforge.com/services/gcp-audit</link>
+    <description>Comprehensive GCP pre-audits, investigator site preparation, trial document reviews, and monitoring to pass strict clinical inspection guidelines.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/gcp-audit</guid>
+  </item>
+  <item>
+    <title>IEC 60601-1 Medical Electrical Safety | RAC Forge</title>
+    <link>https://www.racforge.com/services/iec-60601-electrical-safety</link>
+    <description>Expert analysis and compliance planning for medical electrical equipment. Navigate electromagnetic compatibility (EMC) testing and safety reviews.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/iec-60601-electrical-safety</guid>
+  </item>
+  <item>
+    <title>ISO 14971 Risk Management for Devices | RAC Forge</title>
+    <link>https://www.racforge.com/services/iso-14971-risk-management</link>
+    <description>Bespoke lifecycle risk management files. Hazard identification, risk estimation, control validation, and post-market safety synchronization.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/iso-14971-risk-management</guid>
+  </item>
+  <item>
+    <title>Sterile Barrier System Validation (ISO 11607) | RAC Forge</title>
+    <link>https://www.racforge.com/services/sterile-barrier-validation</link>
+    <description>Packaging seal integrity testing, accelerated aging validation, distribution simulation protocols, and sterilization validation (EtO, Gamma).</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/sterile-barrier-validation</guid>
+  </item>
+  <item>
+    <title>Post-Market Surveillance (PMS) &amp; PMCF | RAC Forge</title>
+    <link>https://www.racforge.com/services/post-market-surveillance-pms</link>
+    <description>Formulate comprehensive Post-Market Clinical Follow-up protocols, Periodic Safety Update Reports (PSUR), and direct regulatory alert reporting.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/post-market-surveillance-pms</guid>
+  </item>
+  <item>
+    <title>Regulatory Site Audit &amp; Inspection Readiness | RAC Forge</title>
+    <link>https://www.racforge.com/services/regulatory-audit-readiness</link>
+    <description>Mock inspections, Gap Analysis, on-site personnel training, and rapid corrective action plans to guarantee success in joint CDSCO and Notified Body audits.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/regulatory-audit-readiness</guid>
+  </item>
+  <item>
+    <title>Indian Authorized Representative (IAR) Services | RAC Forge</title>
+    <link>https://www.racforge.com/services/indian-authorized-representative</link>
+    <description>Legally appointed Indian Authorized Representative representation. Full liaison support, device vigilance compliance, and direct CDSCO coordination.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/services/indian-authorized-representative</guid>
+  </item>
+  <item>
+    <title>Sterilization Validation for Medical Devices | RAC Forge Journal</title>
     <link>https://www.racforge.com/blogs/sterilization-validation</link>
-    <description>Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance.</description>
-    <pubDate>Fri, 25 Oct 2025 00:00:00 +0000</pubDate>
+    <description>Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance (CDSCO, USFDA, EU MDR) and patient safety.</description>
+    <pubDate>Sat, 25 Oct 2025 00:00:00 GMT</pubDate>
     <guid>https://www.racforge.com/blogs/sterilization-validation</guid>
   </item>
   <item>
-    <title>Biocompatibility Testing Strategies for Medical Devices</title>
+    <title>Biocompatibility Testing Strategies for Medical Devices | RAC Forge Journal</title>
     <link>https://www.racforge.com/blogs/biocompatibility-testing</link>
-    <description>Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval.</description>
-    <pubDate>Thu, 24 Oct 2025 00:00:00 +0000</pubDate>
+    <description>Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval. Knowing ISO 10993 standards and using effective testing strategies is crucial for successful submissions.</description>
+    <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
     <guid>https://www.racforge.com/blogs/biocompatibility-testing</guid>
   </item>
   <item>
-    <title>Mastering EU MDR Technical Documentation</title>
+    <title>Mastering EU MDR Technical Documentation | RAC Forge Journal</title>
     <link>https://www.racforge.com/blogs/mastering-eu-mdr</link>
-    <description>The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation.</description>
-    <pubDate>Wed, 23 Oct 2025 00:00:00 +0000</pubDate>
+    <description>The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation. Knowing these rules is important for getting CE Marking and accessing markets in Europe.</description>
+    <pubDate>Thu, 23 Oct 2025 00:00:00 GMT</pubDate>
     <guid>https://www.racforge.com/blogs/mastering-eu-mdr</guid>
   </item>
   <item>
-    <title>Navigating USFDA’s 510(k) Submission Process</title>
+    <title>Navigating USFDA’s 510(k) Submission Process | RAC Forge Journal</title>
     <link>https://www.racforge.com/blogs/navigating-usfda-510k</link>
-    <description>The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance.</description>
-    <pubDate>Tue, 22 Oct 2025 00:00:00 +0000</pubDate>
+    <description>The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.</description>
+    <pubDate>Wed, 22 Oct 2025 00:00:00 GMT</pubDate>
     <guid>https://www.racforge.com/blogs/navigating-usfda-510k</guid>
   </item>
   <item>
-    <title>Understanding CDSCO’s Medical Devices Rules, 2017</title>
+    <title>Understanding CDSCO’s Medical Devices Rules, 2017 | RAC Forge Journal</title>
     <link>https://www.racforge.com/blogs/understanding-cdsco-rules</link>
-    <description>The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices.</description>
-    <pubDate>Mon, 21 Oct 2025 00:00:00 +0000</pubDate>
+    <description>The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.</description>
+    <pubDate>Tue, 21 Oct 2025 00:00:00 GMT</pubDate>
     <guid>https://www.racforge.com/blogs/understanding-cdsco-rules</guid>
+  </item>
+  <item>
+    <title>Why Designing for the U.S. FDA 510(k) Is the Cheapest Way to Win the Indian MedTech Market | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/fda-510k-indian-medtech</link>
+    <description>Break down the myth that FDA compliance is an expensive luxury for local MSMEs. Explain how a "harmonized dossier" lowers the Total Cost of Ownership (TCO) by eliminating CDSCO rejections and query loops.</description>
+    <pubDate>Thu, 15 Jan 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/fda-510k-indian-medtech</guid>
+  </item>
+  <item>
+    <title>The Multiplier Effect: How to Build One Master Technical File for Global Market Access | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/master-technical-file-global-access</link>
+    <description>A practical guide for R&amp;D teams to bake global standards directly into initial design controls, allowing them to deploy the same technical file across India, Europe, and GHWP markets.</description>
+    <pubDate>Wed, 28 Jan 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/master-technical-file-global-access</guid>
+  </item>
+  <item>
+    <title>The Death of the Regulatory Afterthought: How the CDSCO Swapped Checklists for Forensic Science | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/cdsco-forensic-audit-landscape</link>
+    <description>Highlight the shift from 2020 administrative checks to 2026 technical scrutiny. Provide actionable insights into what auditors are actually looking for in Biological (BER) and Clinical (CER) Evaluation Reports.</description>
+    <pubDate>Tue, 10 Feb 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/cdsco-forensic-audit-landscape</guid>
+  </item>
+  <item>
+    <title>Are You  | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/audit-ready-dossiers-fourth-schedule</link>
+    <description>Contrast the high-risk habit of scrambling to fix files after a regulatory query lands with the proactive framework of building audit-ready files tied to the Fourth Schedule.</description>
+    <pubDate>Wed, 25 Feb 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/audit-ready-dossiers-fourth-schedule</guid>
+  </item>
+  <item>
+    <title>Demystifying IEC 62304: Why 70% of SaMD Regulatory Queries Target Software Traceability | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/demystifying-iec-62304-software-traceability</link>
+    <description>Address the primary digital gatekeeper for software-based devices. Explain how developers can build an unbroken chain of data from raw code to clinical risk assessments.</description>
+    <pubDate>Thu, 12 Mar 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/demystifying-iec-62304-software-traceability</guid>
+  </item>
+  <item>
+    <title>Cracking the  | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/cdsco-ai-ml-medtech-requirements</link>
+    <description>Focus on the latest guidelines concerning algorithm transparency, data privacy, and cybersecurity in modern connected healthcare.</description>
+    <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/cdsco-ai-ml-medtech-requirements</guid>
+  </item>
+  <item>
+    <title>The Suffix Trap: Why Changing to a Private Limited Entity Shouldn’t Kill Your Medical Device License | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/subsequent-importer-entity-change-license</link>
+    <description>Unpack the "Importer Paradox". Argue the scientific and operational case for using the Subsequent Importer Scheme (SIS) as a safety anchor during routine corporate restructurings.</description>
+    <pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/subsequent-importer-entity-change-license</guid>
+  </item>
+  <item>
+    <title>Beyond NABL: Understanding GLOBAC and International Parity in Medical Device Testing | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/beyond-nabl-globac-testing-parity</link>
+    <description>Educate laboratories, procurement boards, and manufacturers on the international framework of mutual recognition (ILAC/APAC/GLOBAC). Detail how to challenge institutional inertia and bypass testing bottlenecks.</description>
+    <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/beyond-nabl-globac-testing-parity</guid>
+  </item>
+  <item>
+    <title>From the Hinterlands to New Delhi: Bridging the  | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/regional-medtech-msme-documentation-gap</link>
+    <description>Celebrate the expansion of the "Make in India" spirit into emerging industrial clusters outside traditional tier-1 tech hubs. Focus on giving local engineering talent the "regulatory language" required to match global multinational standards.</description>
+    <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/regional-medtech-msme-documentation-gap</guid>
+  </item>
+  <item>
+    <title>Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/publishing-academic-evidence-cureus-medtech</link>
+    <description>An analysis of our publication in the Cureus Journal of Medical Science examining the "importer paradox" and proposing a shift from the legal wrapper to the safety anchor for medical devices.</description>
+    <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/publishing-academic-evidence-cureus-medtech</guid>
+  </item>
+  <item>
+    <title>Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/saas-medtech-podcast-elendi-labs</link>
+    <description>Tune in to our comprehensive masterclass session and featured podcast with Elendi Labs (Elednilabs), detailing exact registration sequences, FIFO timelines, and compliance structures.</description>
+    <pubDate>Sat, 15 Nov 2025 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/saas-medtech-podcast-elendi-labs</guid>
+  </item>
+  <item>
+    <title>CDSCO Sub-Zonal Regulatory Consulting in Chandigarh &amp; Mohali | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/chandigarh-mohali</link>
+    <description>For corporate head offices and elite logistics hubs in Chandigarh and Mohali, navigating the distribution networks of Northern India and coordinating with the local CDSCO Sub-Zonal office is essential. Securing valid wholesale distribution authorizations and maintaining compliant quality chains is your foundation for national market expansion.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/chandigarh-mohali</guid>
+  </item>
+  <item>
+    <title>Heavy Medical Device Manufacturing in Nalagarh Mega Park | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/baddi-solan-nalagarh</link>
+    <description>For the intensive manufacturing facilities of Solan and Baddi, specifically within the newly established 265-acre central and state-backed Nalagarh Medical Devices Park in Himachal Pradesh, robust QMS is critical. Our engineers design, audit, and validate cleanrooms to pass strict Class C and Class D inspections.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/baddi-solan-nalagarh</guid>
+  </item>
+  <item>
+    <title>Startups &amp; Medical Device Importers in Delhi NCR, Gurugram &amp; Faridabad | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/delhi-ncr</link>
+    <description>For the dynamic startups of Gurugram, Faridabad, Noida, and South Delhi, securing market validation quickly is critical. Major industrial networks in Haryana provide essential mechanical fabrication, electrical PCB layouts, and hardware engineering support.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/delhi-ncr</guid>
+  </item>
+  <item>
+    <title>Othopedic, Surgical &amp; In-Vitro Diagnostics Regulatory in Ludhiana &amp; Jalandhar | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/ludhiana-jalandhar</link>
+    <description>For the historic precision manufacturing corridors of Punjab, specializing in orthopedic implants, surgical kits, and a growing segment of dedicated IVD (In-Vitro Diagnostics) manufacturing units, meeting CDSCO standards is your passport to growth.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/ludhiana-jalandhar</guid>
+  </item>
+  <item>
+    <title>Medical Consumables Regulatory &amp; Customs Port Entry in Haridwar &amp; Dehradun | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/haridwar-dehradun</link>
+    <description>For medical consumable manufacturers in Uttarakhand, specializing in syringes, IV tubes, and health monitors, aligning bulk production lines with sterile safety regulations and managing specific customs port-of-entry hubs is crucial to scaling profitability.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/haridwar-dehradun</guid>
+  </item>
+  <item>
+    <title>Mega-Scale Medical Device Licensing &amp; CDSCO Zonal | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/ahmedabad-sanand</link>
+    <description>For the leading medical hubs of Gujarat, operating massive Class C and Class D industrial units, passing joint CDSCO Western Zonal and SLA audits is key to continuous global trade.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/ahmedabad-sanand</guid>
+  </item>
+  <item>
+    <title>Foreign Medical Importers &amp; Nhava Sheva Customs Port Clearance | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/mumbai-thane</link>
+    <description>For global medical device corporations importing systems into India, establishing full commercial autonomy while managing Nhava Sheva Maritime Port cargo customs clearances is the key to local market mastery.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/mumbai-thane</guid>
+  </item>
+  <item>
+    <title>Active Electronic Medical Devices in Pune Cluster | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/pune</link>
+    <description>For the engineering centers of Pune, creating advanced active clinical hardware, achieving compliance with international electromagnetic safety standards (IEC 60601-1) and embedded firmware validation is crucial to your global launch.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/pune</guid>
+  </item>
+  <item>
+    <title>Implants &amp; Western IVD Device Regulatory of Rajkot &amp; Vadodara | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/rajkot-vadodara</link>
+    <description>For implant, dental, and in-vitro diagnostics (IVD) manufacturers across Gujarat, achieving strict biological safety standards (ISO 10993) and mastering sterile packaging holds the key to national market trust.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/rajkot-vadodara</guid>
+  </item>
+  <item>
+    <title>Andhra Pradesh MedTech Zone (AMTZ) Flagship Consulting | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/visakhapatnam-amtz</link>
+    <description>For medical device innovators inside the four federally authorized parks, including the flagship Andhra Pradesh MedTech Zone (AMTZ), utilizing shared testing facilities while maintaining independent regulatory compliance is key to rapid market scale.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/visakhapatnam-amtz</guid>
+  </item>
+  <item>
+    <title>SaMD &amp; Dedicated IVD Segment Regulatory in Bengaluru | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/bengaluru</link>
+    <description>For MedTech innovators in Bengaluru</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/bengaluru</guid>
+  </item>
+  <item>
+    <title>IVD Regulatory &amp; CDSCO Southern Zonal in Hyderabad &amp; Genome Valley | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/hyderabad-genome-valley</link>
+    <description>For diagnostic companies in Hyderabad</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/hyderabad-genome-valley</guid>
+  </item>
+  <item>
+    <title>Imaging &amp; Radiotherapy Regulations &amp; Maritime Port Clearance in Chennai | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/chennai-kanchipuram</link>
+    <description>For manufacturing hubs in Chennai and Kanchipuram producing heavy imaging systems, managing radiation safety, high-power engineering, and Chennai Maritime Port customs clearance is key.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/chennai-kanchipuram</guid>
+  </item>
+  <item>
+    <title>Kerala Biomaterials &amp; Specialized Implant Regulatory Support | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/thiruvananthapuram-kochi</link>
+    <description>For medical innovators in Kerala advancing biomaterials, vascular stents, and specialized implants, confirming safe material interactions and passing high-risk CDSCO audits lies at the heart of commercial success.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/thiruvananthapuram-kochi</guid>
+  </item>
+  <item>
+    <title>Central India Medical Device Park &amp; MP Corridor Support | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/ujjain-indore</link>
+    <description>For companies building facilities inside Central India</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/ujjain-indore</guid>
+  </item>
+  <item>
+    <title>East India Trade &amp; Eastern/North-Eastern Logistics Pathways | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/kolkata</link>
+    <description>For distributors and trade operations in West Bengal, Bihar, Assam, or Odisha, managing import-export logistics, custom regulatory clearances, and regional distribution networks is key.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/kolkata</guid>
+  </item>
+  <item>
+    <title>Medical Plastics &amp; North-West Port Clusters | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/locations/jaipur</link>
+    <description>For manufacturers in Rajasthan specializing in clinical plastics, medical tubing, and injection-molded casings, establishing validated cleanrooms and managing northwest trade flows is key.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/locations/jaipur</guid>
+  </item>
+  <item>
+    <title>Gujarat Registry &amp; SLA Dual-Inspection Compliance | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/gujarat-regulatory-compliance</link>
+    <description>Navigate Gujarat State Registry requirements and joint central-state SLA dual-inspections with confidence. We provide complete regulatory support to help major manufacturing facilities maintain absolute compliance.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/gujarat-regulatory-compliance</guid>
+  </item>
+  <item>
+    <title>Maharashtra Medical Device Registration &amp; IVD Guidelines | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/maharashtra-medtech-licensing</link>
+    <description>For medical operations in Mumbai, Pune, Thane, and Nagpur, we design reliable strategies to navigate state audits, secure wholesale distribution networks, and manage state-level IVD licensing frameworks.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/maharashtra-medtech-licensing</guid>
+  </item>
+  <item>
+    <title>Karnataka SaMD &amp; CDSCO Guidelines | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/karnataka-samd-guidelines</link>
+    <description>Align your software, AI diagnostic tools, and digital platforms with CDSCO guidelines. We help Bengaluru’s tech ecosystem meet strict software validation and cybersecurity standards.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/karnataka-samd-guidelines</guid>
+  </item>
+  <item>
+    <title>Tamil Nadu Medical Device Registration &amp; AMTZ Pathways | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/tamil-nadu-device-registration</link>
+    <description>Navigate Tamil Nadu State FDA, maritime board regulations, and regional AMTZ partnerships. We help manufacturers in Chennai and Coimbatore secure approvals for heavy clinical systems.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/tamil-nadu-device-registration</guid>
+  </item>
+  <item>
+    <title>Telangana Lab Regulations &amp; Medical Device Park support | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/telangana-biomedical-frameworks</link>
+    <description>Secure state and central approvals for in-vitro diagnostics and active biotech devices inside the upcoming Hyderabad Medical Device Park and Genome Valley segments.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/telangana-biomedical-frameworks</guid>
+  </item>
+  <item>
+    <title>UP Strategic Regulatory &amp; YEIDA MedTech Sector 28 Support | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/uttar-pradesh-manufacturing-consultant</link>
+    <description>Establish your production facility in Uttar Pradesh</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/uttar-pradesh-manufacturing-consultant</guid>
+  </item>
+  <item>
+    <title>Himachal Nalagarh Mega Park Regulatory Pathway | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/himachal-punjab-regional-pathways</link>
+    <description>Navigate regional compliance requirements across Himachal and Punjab, utilizing the massive 265-acre central and state-backed Nalagarh Medical Devices Park to scale sterile consumables and disposable production lines.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/himachal-punjab-regional-pathways</guid>
+  </item>
+  <item>
+    <title>Uttarakhand &amp; East Region SLA Regulatory Compliance | RAC Forge Pvt Ltd</title>
+    <link>https://www.racforge.com/india/uttarakhand-regulatory-compliance</link>
+    <description>For medical operations in Dehradun, Haridwar, and Roorkee, we design reliable strategies to navigate regional state licensing authority (SLA) audits, secure manufacturing licenses, and manage cleanroom validations.</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/india/uttarakhand-regulatory-compliance</guid>
+  </item>
+  <item>
+    <title>Form MD-16 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-16</link>
+    <description>Form MD-16 is the official application required for obtaining permission to import medical devices into India for clinical investigation, testing, evaluation, demonstration, or tra...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-16</guid>
+  </item>
+  <item>
+    <title>Form MD-17 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-17</link>
+    <description>Form MD-17 is the official license issued for the import of medical devices into India for clinical investigation, testing, evaluation, demonstration, or training purposes under th...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-17</guid>
+  </item>
+  <item>
+    <title>Form MD-3 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-3</link>
+    <description>Form MD-3 is the official application used to obtain a manufacturing license for Class A and Class B medical devices in India under the Medical Devices Rules, 2017. Regulated by th...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-3</guid>
+  </item>
+  <item>
+    <title>Form MD-5 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-5</link>
+    <description>Form MD-5 is the official manufacturing license issued for Class A and Class B medical devices in India under the Medical Devices Rules, 2017. Granted by the State Licensing Author...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-5</guid>
+  </item>
+  <item>
+    <title>Form MD-7 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-7</link>
+    <description>Form MD-7 is the official application required to obtain a manufacturing license for Class C and Class D medical devices in India under the Medical Devices Rules, 2017. Regulated b...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-7</guid>
+  </item>
+  <item>
+    <title>Form MD-9 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-9</link>
+    <description>Form MD-9 is the official manufacturing license issued for Class C and Class D medical devices in India under the Medical Devices Rules, 2017. Granted by the Central Licensing Auth...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-9</guid>
+  </item>
+  <item>
+    <title>Form MD-14 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-14</link>
+    <description>Form MD-14 is the official application required to obtain an import license for medical devices in India under the Medical Devices Rules, 2017. Regulated by the Central Drugs Stand...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-14</guid>
+  </item>
+  <item>
+    <title>Form MD-15 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-15</link>
+    <description>Form MD-15 is the official import license issued for medical devices in India under the Medical Devices Rules, 2017. Granted by the Central Licensing Authority under the CDSCO, For...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-15</guid>
+  </item>
+  <item>
+    <title>Form MD-4 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-4</link>
+    <description>Form MD-4 applies to the application for a loan license to manufacture for sale or for distribution of Class A or Class B medical devices in India. It is utilized when a company wi...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-4</guid>
+  </item>
+  <item>
+    <title>Form MD-6 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-6</link>
+    <description>Form MD-6 is the loan license granted for manufacturing for sale or for distribution of Class A or Class B medical devices in India. Issued by the State Licensing Authority, this l...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-6</guid>
+  </item>
+  <item>
+    <title>Form MD-8 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-8</link>
+    <description>Form MD-8 is the application form required for obtaining a loan license to manufacture for sale or distribution Class C or Class D medical devices in India. Given the higher risk p...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-8</guid>
+  </item>
+  <item>
+    <title>Form MD-10 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-10</link>
+    <description>Form MD-10 is the loan license issued by the Central Licensing Authority to manufacture Class C or Class D medical devices using the manufacturing premises of another licensed manu...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-10</guid>
+  </item>
+  <item>
+    <title>Form MD-22 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-22</link>
+    <description>Form MD-22 is the specific application submitted to the Central Licensing Authority for permission to conduct a clinical investigation of an investigational medical device in India...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-22</guid>
+  </item>
+  <item>
+    <title>Form MD-23 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-23</link>
+    <description>Form MD-23 is the formal permission granted by the Central Licensing Authority to conduct a clinical investigation for an investigational medical device. Upon receiving this approv...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-23</guid>
+  </item>
+  <item>
+    <title>Form MD-24 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-24</link>
+    <description>Form MD-24 is the application used to request permission to conduct a clinical performance evaluation for new in vitro diagnostic (IVD) medical devices in India. Regulated by CDSCO...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-24</guid>
+  </item>
+  <item>
+    <title>Form MD-25 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-25</link>
+    <description>Form MD-25 is the official permission granted by the Central Licensing Authority for conducting a clinical performance evaluation of an investigational IVD medical device. It serve...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-25</guid>
+  </item>
+  <item>
+    <title>Form MD-26 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-26</link>
+    <description>Form MD-26 provides the application structure for obtaining permission to import or manufacture a new in vitro diagnostic (IVD) medical device for which no prior data exists or whi...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-26</guid>
+  </item>
+  <item>
+    <title>Form MD-27 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/md-27</link>
+    <description>Form MD-27 is the permission granted by CDSCO allowing the import or manufacture of an investigational medical device, subject strictly to the conditions outlined by the Central Li...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/md-27</guid>
+  </item>
+  <item>
+    <title>Class A Medical Device - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/class-a</link>
+    <description>Class A Medical Devices are categorized as low-risk devices under the Medical Devices Rules, 2017 in India. Regulated by the Central Drugs Standard Control Organization (CDSCO), th...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/class-a</guid>
+  </item>
+  <item>
+    <title>Class B Medical Device - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/class-b</link>
+    <description>Class B Medical Devices are categorized as low to moderate risk devices under the Medical Devices Rules, 2017 in India. Regulated by the Central Drugs Standard Control Organization...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/class-b</guid>
+  </item>
+  <item>
+    <title>Class C Medical Device - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/class-c</link>
+    <description>Class C Medical Devices are categorized as moderate to high-risk devices under the Medical Devices Rules, 2017 in India. Regulated by the Central Drugs Standard Control Organizatio...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/class-c</guid>
+  </item>
+  <item>
+    <title>Class D Medical Device - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/class-d</link>
+    <description>Class D Medical Devices are categorized as high-risk devices under the Medical Devices Rules, 2017 in India. Regulated by the Central Drugs Standard Control Organization (CDSCO), t...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/class-d</guid>
+  </item>
+  <item>
+    <title>EU MDR (Medical Device Regulation) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/eu-mdr</link>
+    <description>EU MDR (Medical Device Regulation 2017/745) is the comprehensive regulatory framework governing medical devices in the European Union. It replaces the earlier Medical Device Direct...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/eu-mdr</guid>
+  </item>
+  <item>
+    <title>USFDA (U.S. Food and Drug Administration) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/usfda</link>
+    <description>USFDA (U.S. Food and Drug Administration) is the primary regulatory authority in the United States responsible for ensuring the safety, effectiveness, and security of drugs, medica...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/usfda</guid>
+  </item>
+  <item>
+    <title>FDA (Food and Drug Administration) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/fda</link>
+    <description>The FDA refers commonly to the US Food and Drug Administration (often abbreviated as USFDA), the U.S. federal agency responsible for regulating food safety, tobacco products, dieta...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/fda</guid>
+  </item>
+  <item>
+    <title>CDSCO (Central Drugs Standard Control Organization)  - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/cdsco</link>
+    <description>The Central Drugs Standard Control Organization (CDSCO) is the official drug regulatory authority in India responsible for the approval and regulation of drugs, medical devices, an...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/cdsco</guid>
+  </item>
+  <item>
+    <title>Anvisa (Agência Nacional de Vigilância Sanitária) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/anvisa</link>
+    <description>ANVISA (Agência Nacional de Vigilância Sanitária) is Brazil’s national health regulatory authority responsible for ensuring the safety, quality, and effectiveness of drugs, medical...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/anvisa</guid>
+  </item>
+  <item>
+    <title>SaMD (Software as a Medical Device) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/samd</link>
+    <description>SaMD (Software as a Medical Device) refers to software that is intended to perform medical functions without being part of a physical medical device. It can run on computers, mobil...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/samd</guid>
+  </item>
+  <item>
+    <title>ISO 13485 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/iso-13485</link>
+    <description>ISO 13485 is an internationally recognized quality management system (QMS) standard specifically designed for the medical device industry. It outlines the requirements for manufact...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/iso-13485</guid>
+  </item>
+  <item>
+    <title>ISO 14971 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/iso-14971</link>
+    <description>ISO 14971 is an internationally recognized standard for risk management in the medical device industry. It provides a structured framework for identifying, evaluating, controlling,...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/iso-14971</guid>
+  </item>
+  <item>
+    <title>IEC 62304 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/iec-62304</link>
+    <description>IEC 62304 is an international standard that defines the software life cycle requirements for medical device software and Software as a Medical Device (SaMD). It provides a structur...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/iec-62304</guid>
+  </item>
+  <item>
+    <title>IEC 62366-1 - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/iec-62366-1</link>
+    <description>IEC 62366-1 is an international standard that focuses on the application of usability engineering to medical devices. It provides a structured framework for identifying, analyzing,...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/iec-62366-1</guid>
+  </item>
+  <item>
+    <title>GSPR (General Safety and Performance Requirements) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/gspr</link>
+    <description>GSPR (General Safety and Performance Requirements) refers to the essential set of requirements defined under the EU Medical Device Regulation (EU MDR 2017/745) that all medical dev...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/gspr</guid>
+  </item>
+  <item>
+    <title>CER (Clinical Evaluation Report) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/cer</link>
+    <description>CER (Clinical Evaluation Report) is a critical document required under the EU Medical Device Regulation (EU MDR 2017/745) that demonstrates the safety, performance, and clinical be...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/cer</guid>
+  </item>
+  <item>
+    <title>PMS (Post-Market Surveillance) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/pms</link>
+    <description>PMS (Post-Market Surveillance) refers to the systematic process of monitoring the safety, performance, and effectiveness of medical devices after they have been released into the m...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/pms</guid>
+  </item>
+  <item>
+    <title>PMCF (Post-Market Clinical Follow-up) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/pmcf</link>
+    <description>PMCF (Post-Market Clinical Follow-up) is a continuous process of collecting and evaluating clinical data on a medical device after it has been placed on the market. It is a key req...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/pmcf</guid>
+  </item>
+  <item>
+    <title>PSUR (Periodic Safety Update Report) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/psur</link>
+    <description>PSUR (Periodic Safety Update Report) is a regulatory document required under the EU Medical Device Regulation (EU MDR 2017/745) for monitoring the ongoing safety and performance of...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/psur</guid>
+  </item>
+  <item>
+    <title>EUDAMED - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/eudamed</link>
+    <description>The European Database on Medical Devices (EUDAMED) is an IT system established under the EU MDR to map the lifecycle of medical devices and enhance transparency and coordination am...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/eudamed</guid>
+  </item>
+  <item>
+    <title>UDI (Unique Device Identification) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/udi</link>
+    <description>The Unique Device Identification (UDI) is a global system intended to provide a single, globally harmonized identification framework for medical devices. A UDI allows for the unamb...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/udi</guid>
+  </item>
+  <item>
+    <title>PRRC (Person Responsible for Regulatory Compliance) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/prrc</link>
+    <description>Under EU MDR (Article 15), manufacturers and authorized representatives are legally required to have at least one Person Responsible for Regulatory Compliance (PRRC) available with...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/prrc</guid>
+  </item>
+  <item>
+    <title>BGMP (Brazilian Good Manufacturing Practices) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/bgmp</link>
+    <description>Brazilian Good Manufacturing Practices (BGMP) are rigorous quality management system regulations established by ANVISA. Compliance with BGMP is mandatory for manufacturers seeking ...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/bgmp</guid>
+  </item>
+  <item>
+    <title>INMETRO - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/inmetro</link>
+    <description>INMETRO is Brazil’s national accreditation body. Various medical devices—especially electrical medical equipment and certain sterile products—require INMETRO certification before A...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/inmetro</guid>
+  </item>
+  <item>
+    <title>ANATEL - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/anatel</link>
+    <description>ANATEL is Brazil’s telecommunications agency. For medical devices that utilize wireless communication (Bluetooth, Wi-Fi, cellular, RFID), an independent ANATEL certification is req...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/anatel</guid>
+  </item>
+  <item>
+    <title>AIA (Anvisa Authorized Institution) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/aia</link>
+    <description>An AIA is an independent testing or auditing facility accredited directly by Brazil’s ANVISA to conduct necessary safety and quality inspections on medical products. Working alongs...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/aia</guid>
+  </item>
+  <item>
+    <title>IAA (Indian Authorized Agent) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/iaa</link>
+    <description>For foreign medical device manufacturers seeking market access in India, the appointment of an Indian Authorized Agent (IAA) is an official legal requirement under the MDR 2017. Th...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/iaa</guid>
+  </item>
+  <item>
+    <title>PoA (Power of Attorney) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/poa</link>
+    <description>A regulatory Power of Attorney (PoA) is a legally binding document through which a foreign manufacturer appoints an Authorized Representative or Agent (such as an IAA or European A...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/poa</guid>
+  </item>
+  <item>
+    <title>FSC (Free Sale Certificate) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/fsc</link>
+    <description>A Free Sale Certificate (FSC) is a document issued by an origin country’s national regulatory authority indicating that a specific medical device is freely legally marketed in that...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/fsc</guid>
+  </item>
+  <item>
+    <title>DMF (Device Master File) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/dmf</link>
+    <description>The Device Master File (DMF) is an extensive technical dossier containing exhaustive details concerning the design, formulation, intended use, sterilization, components, validation...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/dmf</guid>
+  </item>
+  <item>
+    <title>PMF (Plant Master File) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/pmf</link>
+    <description>The Plant Master File (PMF) is a regulatory document submitted to authorities like the CDSCO that provides detailed information regarding a medical device manufacturing facility. I...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/pmf</guid>
+  </item>
+  <item>
+    <title>SMF (Site Master File) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/smf</link>
+    <description>Similar to the PMF, the Site Master File (SMF) represents a manufacturer’s overarching quality management structure at a specific geographic site. It is critical for regulatory aud...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/smf</guid>
+  </item>
+  <item>
+    <title>QMS (Quality Management System) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/qms</link>
+    <description>A Quality Management System (QMS) outlines the systematic processes and responsibilities an organization uses to achieve quality policies and meet regulatory requirements. In the m...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/qms</guid>
+  </item>
+  <item>
+    <title>CIP (Clinical Investigation Plan) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/cip</link>
+    <description>A Clinical Investigation Plan (CIP) describes the rationale, objectives, design, methodology, monitoring, statistical considerations, and overall organization of a clinical trial f...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/cip</guid>
+  </item>
+  <item>
+    <title>IB (Investigator’s Brochure) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/ib</link>
+    <description>The Investigator’s Brochure (IB) compiles robust clinical and non-clinical data relating to an investigational medical device. Its purpose is to guide clinical investigators and en...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/ib</guid>
+  </item>
+  <item>
+    <title>CRF (Case Report Form) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/crf</link>
+    <description>A Case Report Form (CRF) is a specialized document utilized in clinical studies to consistently capture protocol-required information on every subject involved in the trial. Struct...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/crf</guid>
+  </item>
+  <item>
+    <title>ICD (Informed Consent Document) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/icd</link>
+    <description>The Informed Consent Document (ICD) is an ethically vital form ensuring a human subject fully understands the risks, benefits, and protocols associated with participating in a clin...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/icd</guid>
+  </item>
+  <item>
+    <title>GCP (Good Clinical Practice) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/gcp</link>
+    <description>Good Clinical Practice (GCP) is an international ethical and scientific quality standard for designing, conducting, recording, and reporting trials that involve the participation o...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/gcp</guid>
+  </item>
+  <item>
+    <title>eSTAR - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/estar</link>
+    <description>eSTAR (electronic Submission Template And Resource) is an interactive submission template developed by the FDA. As of late 2023, submitting 510(k) and De Novo documentation through...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/estar</guid>
+  </item>
+  <item>
+    <title>PMA (Premarket Approval) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/pma</link>
+    <description>PMA (Premarket Approval) is the most stringent regulatory pathway used by the U.S. Food and Drug Administration (FDA) for approving high-risk (Class III) medical devices. It involv...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/pma</guid>
+  </item>
+  <item>
+    <title>IDE (Investigational Device Exemption) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/ide</link>
+    <description>An Investigational Device Exemption (IDE) permits an unapproved medical device to be legally used in a clinical study within the United States in order to collect safety and effect...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/ide</guid>
+  </item>
+  <item>
+    <title>PAI (Pre-Approval Inspection) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/pai</link>
+    <description>A Pre-Approval Inspection (PAI) is a targeted audit conducted by regulatory agencies, such as the USFDA, essentially assessing a manufacturer’s readiness to produce a safe and stan...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/pai</guid>
+  </item>
+  <item>
+    <title>Q-Sub (Pre-Submission) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/q-sub</link>
+    <description>A Q-Submission (Q-Sub) allows medical device manufacturers to request official feedback from the FDA regarding planned regulatory strategies, clinical study protocols, or highly co...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/q-sub</guid>
+  </item>
+  <item>
+    <title>RTA (Refuse to Accept) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/rta</link>
+    <description>A Refuse to Accept (RTA) decision occurs early in the USFDA review pipeline when an administratively incomplete generic submission is detected. Correct use of templates like eSTAR ...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/rta</guid>
+  </item>
+  <item>
+    <title>AI (Additional Information) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/ai</link>
+    <description>During the substantive review of a regulatory submission (like a CDSCO MD-3 or FDA 510k), an official request for Additional Information (AI) signals that reviewers require greater...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/ai</guid>
+  </item>
+  <item>
+    <title>CBOM (Cybersecurity Bill of Materials) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/cbom</link>
+    <description>A Cybersecurity Bill of Materials (CBOM) is an exhaustive inventory containing standard documentation of software dependencies, libraries, architectures, and associated vulnerabili...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/cbom</guid>
+  </item>
+  <item>
+    <title>AI/ML (Artificial Intelligence &amp; Machine Learning) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/ai-ml</link>
+    <description>Artificial Intelligence and Machine Learning (AI/ML) applied in medical devices introduces unprecedented software agility. Regulators like the USFDA continue to publish specialized...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/ai-ml</guid>
+  </item>
+  <item>
+    <title>MDR (Medical Devices Rules) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/mdr</link>
+    <description>The Medical Devices Rules (MDR) 2017 are the primary regulatory framework established by the Ministry of Health and Family Welfare in India under the Drugs and Cosmetics Act, 1940....</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/mdr</guid>
+  </item>
+  <item>
+    <title>SLA (State Licensing Authority) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/sla</link>
+    <description>The State Licensing Authority (SLA) in India is responsible under the Medical Devices Rules (MDR) 2017 for granting manufacturing and loan licenses specifically for lower-risk medi...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/sla</guid>
+  </item>
+  <item>
+    <title>CLA (Central Licensing Authority) - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/cla</link>
+    <description>The Central Licensing Authority (CLA), operating within the Central Drugs Standard Control Organization (CDSCO), holds primary jurisdiction over the licensing of moderate-high risk...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/cla</guid>
+  </item>
+  <item>
+    <title>SUGAM - Critical Document Guide | RAC Forge</title>
+    <link>https://www.racforge.com/information/sugam</link>
+    <description>SUGAM is an advanced online portal launched by the CDSCO to digitize and streamline the medical device and pharmaceutical regulatory system in India. It serves as a single window f...</description>
+    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
+    <guid>https://www.racforge.com/information/sugam</guid>
   </item>
 </channel>
 </rss>
