@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Home, ChevronRight, Compass } from 'lucide-react';
+import { cn } from '../lib/utils';
 import { BLOG_POSTS } from '../data/blogData';
 import { INFO_DATA } from '../data/infoData';
 
@@ -67,6 +68,12 @@ const ROUTE_MAP: Record<string, string> = {
 
 export default function Breadcrumbs() {
   const { pathname } = useLocation();
+
+  // Determine if we need light-themed breadcrumbs based on route paths (like Info Detail pages)
+  const isLightTheme = useMemo(() => {
+    const p = pathname.toLowerCase();
+    return p.startsWith('/information');
+  }, [pathname]);
 
   // Parse path segments and compile full list of crumbs
   const crumbs = useMemo(() => {
@@ -141,27 +148,22 @@ export default function Breadcrumbs() {
   if (crumbs.length === 0) return null;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: -4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="absolute top-24 sm:top-28 lg:top-32 left-0 right-0 z-30 select-none pointer-events-auto"
-    >
+    <div className="bg-gray-50/90 border-t border-gray-100 py-1.5 select-none text-[11px] sm:text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav 
           title="Secondary Navigation Hierarchy"
-          className="inline-flex items-center space-x-1 sm:space-x-2.5 px-4.5 py-2.5 rounded-2xl bg-slate-950/45 backdrop-blur-md md:backdrop-blur-lg border border-white/10 shadow-lg"
+          className="flex items-center space-x-1.5 sm:space-x-2 text-gray-500 font-medium"
         >
           {crumbs.map((crumb, idx) => {
             const isHome = idx === 0;
 
             if (crumb.isLast) {
               return (
-                <div key={crumb.path} className="flex items-center space-x-1 sm:space-x-2.5 min-w-0">
-                  {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-white/35 shrink-0" />}
+                <div key={crumb.path} className="flex items-center space-x-1.5 sm:space-x-2 min-w-0">
+                  {idx > 0 && <span className="text-gray-300 font-normal">/</span>}
                   <span 
                     title={`Current Page: ${crumb.name}`}
-                    className="text-[11px] sm:text-xs font-black text-brand-teal truncate max-w-[150px] sm:max-w-[280px] md:max-w-[380px]"
+                    className="font-bold text-brand-deep truncate max-w-[155px] sm:max-w-[320px] md:max-w-[480px]"
                   >
                     {crumb.name}
                   </span>
@@ -170,27 +172,20 @@ export default function Breadcrumbs() {
             }
 
             return (
-              <div key={crumb.path} className="flex items-center space-x-1 sm:space-x-2.5 shrink-0">
-                {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-white/35 shrink-0" />}
+              <div key={crumb.path} className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+                {idx > 0 && <span className="text-gray-300 font-normal">/</span>}
                 <Link
                   to={crumb.path}
-                  className="inline-flex items-center space-x-1.5 text-[11px] sm:text-xs font-bold text-white/70 hover:text-white hover:underline transition-all active:scale-95"
+                  className="font-bold text-gray-500 hover:text-brand-teal hover:underline transition-all active:scale-95"
                   title={`Navigate back to ${crumb.name}`}
                 >
-                  {isHome ? (
-                    <>
-                      <Home className="w-3.5 h-3.5 shrink-0" />
-                      <span className="hidden sm:inline">Home</span>
-                    </>
-                  ) : (
-                    <span>{crumb.name}</span>
-                  )}
+                  {isHome ? 'Home' : crumb.name}
                 </Link>
               </div>
             );
           })}
         </nav>
       </div>
-    </motion.div>
+    </div>
   );
 }

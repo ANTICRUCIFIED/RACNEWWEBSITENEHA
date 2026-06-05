@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ChevronDown, Globe, Shield, Flag, Code2, ArrowRight, Microscope, Search } from 'lucide-react';
 import { cn } from '../lib/utils';
 import GlobalSearch from './GlobalSearch';
+import Breadcrumbs from './Breadcrumbs';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -226,6 +227,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      <Breadcrumbs />
 
       {/* Mobile Menu */}
       <AnimatePresence>
