@@ -3,13 +3,31 @@ import { Image as ImageIcon, Wand2, Download, Loader2, AlertCircle } from 'lucid
 import { motion } from 'motion/react';
 import { cn } from '../lib/utils';
 
-let API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
-if (API_BASE_URL && !API_BASE_URL.startsWith('http')) {
-  API_BASE_URL = `https://${API_BASE_URL}`;
-}
-if (API_BASE_URL && API_BASE_URL.endsWith('/')) {
-  API_BASE_URL = API_BASE_URL.slice(0, -1);
-}
+const getApiBaseUrl = () => {
+  // If running in development preview or in AI Studio workspace sandbox, direct requests to local server
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (
+      hostname.includes('run.app') || 
+      hostname.includes('localhost') || 
+      hostname.includes('127.0.0.1') || 
+      hostname.includes('gitpod') || 
+      hostname.includes('github')
+    ) {
+      return '';
+    }
+  }
+
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
+    if (!envUrl.startsWith('http')) {
+      return `https://${envUrl}`;
+    }
+    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
+  }
+  return '';
+};
+const API_BASE_URL = getApiBaseUrl();
 
 export default function ImageGenerator() {
   const [prompt, setPrompt] = useState('');
