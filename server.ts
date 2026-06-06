@@ -736,18 +736,27 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             }
           });
 
-          const mailOptions = {
+          const mailOptionsAdmin = {
             from: `"RAC Forge Contact Form" <${user}>`,
-            to: `support@racforge.com, ${email}`,
+            to: `support@racforge.com`,
             replyTo: email,
             subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
             html: emailContent,
             text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
           };
 
-          await transporter.sendMail(mailOptions);
+          const mailOptionsUser = {
+            from: `"RAC Forge" <${user}>`,
+            to: `${email}`,
+            subject: `Thanks for contacting RAC Forge - We received your inquiry`,
+            html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><p>Dear ${firstName},</p><p>Thank you for reaching out to RAC Forge. We have successfully received your inquiry regarding <b>${subject}</b>.</p><p>Our team will review your message and get back to you shortly.</p><p>Best regards,<br>The RAC Forge Team</p></div>`,
+            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team`,
+          };
+
+          await transporter.sendMail(mailOptionsAdmin);
+          await transporter.sendMail(mailOptionsUser);
           emailSent = true;
-          console.log(`Email successfully sent to support@racforge.com for user ${firstName} ${lastName}.`);
+          console.log(`Email successfully sent to support@racforge.com and ${email} for user ${firstName} ${lastName}.`);
         } catch (mailErr: any) {
           console.log(`Notice: SMTP transmission paused or blocked in sandbox (Inquiry saved correctly to database). Reason: ${mailErr.message || String(mailErr)}`);
           emailError = mailErr.message || String(mailErr);
