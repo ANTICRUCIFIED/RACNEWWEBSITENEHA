@@ -13,7 +13,8 @@ const getApiBaseUrl = () => {
       hostname.includes('localhost') || 
       hostname.includes('127.0.0.1') || 
       hostname.includes('gitpod') || 
-      hostname.includes('github')
+      hostname.includes('github.dev') ||
+      hostname.includes('github.preview.app')
     ) {
       return '';
     }
