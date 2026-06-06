@@ -49,18 +49,18 @@ export default async function handler(req: any, res: any) {
     let result;
     try {
       result = await ai.models.generateContent({
-        model: 'gemini-3-pro-image-preview',
+        model: 'gemini-3.1-flash-image',
         ...modelConfig,
       });
     } catch (primaryError: any) {
-      console.warn('Primary image model failed, utilizing backup in serverless...', primaryError);
+      console.warn('Primary image model gemini-3.1-flash-image failed, utilizing backup in serverless...', primaryError);
       try {
         result = await ai.models.generateContent({
           model: 'gemini-2.5-flash-image',
           ...modelConfig,
         });
       } catch (secondaryError: any) {
-        throw new Error(`Image API Error: ${primaryError.message || primaryError}`);
+        throw new Error(`Image API Error: ${secondaryError.message || String(secondaryError)}`);
       }
     }
 
