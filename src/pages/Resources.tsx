@@ -5,6 +5,29 @@ import { Link, useSearchParams } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { BLOG_POSTS } from '../data/blogData';
 
+function getApiBaseUrl(): string {
+  if (typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const apiUrl = urlParams.get('api');
+    if (apiUrl) {
+      if (!apiUrl.startsWith('http')) {
+        return `https://${apiUrl}`;
+      }
+      return apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+    }
+  }
+
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
+    if (!envUrl.startsWith('http')) {
+      return `https://${envUrl}`;
+    }
+    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
+  }
+  return '';
+}
+const API_BASE_URL = getApiBaseUrl();
+
 export default function Resources() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTag = searchParams.get('tag');
@@ -12,7 +35,7 @@ export default function Resources() {
   const [posts, setPosts] = useState(BLOG_POSTS);
 
   useEffect(() => {
-    fetch('/api/posts')
+    fetch(`${API_BASE_URL}/api/posts`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to retrieve blog posts indexes');
         return res.json();

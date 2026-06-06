@@ -65,6 +65,29 @@ interface ReplyData {
   isStaff?: boolean;
 }
 
+function getApiBaseUrl(): string {
+  if (typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const apiUrl = urlParams.get('api');
+    if (apiUrl) {
+      if (!apiUrl.startsWith('http')) {
+        return `https://${apiUrl}`;
+      }
+      return apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+    }
+  }
+
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
+    if (!envUrl.startsWith('http')) {
+      return `https://${envUrl}`;
+    }
+    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
+  }
+  return '';
+}
+const API_BASE_URL = getApiBaseUrl();
+
 export default function BlogPost() {
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<any>(null);
@@ -85,7 +108,7 @@ export default function BlogPost() {
       setPost(staticPost);
       setIsLoading(false);
     } else {
-      fetch(`/api/posts/${id}`)
+      fetch(`${API_BASE_URL}/api/posts/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('Article target not found');
           return res.json();
