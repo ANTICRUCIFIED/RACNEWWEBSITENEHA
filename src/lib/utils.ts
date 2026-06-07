@@ -36,9 +36,13 @@ export function getApiBaseUrl(): string {
       hostname.includes('127.0.0.1') || 
       hostname.includes('gitpod') || 
       hostname.includes('github.dev') ||
-      hostname.includes('github.preview.app') ||
-      hostname.includes('vercel.app')
+      hostname.includes('github.preview.app')
     ) {
+      return '';
+    }
+    
+    // If visiting the Production API's root domain itself, route relativamente
+    if (hostname === 'racforge.vercel.app') {
       return '';
     }
   }
