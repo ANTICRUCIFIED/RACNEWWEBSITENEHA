@@ -1113,12 +1113,83 @@ Please write what specific area you would like detailed guidance on!
   });
 
   const getDynamicModels = async (apiKey: string): Promise<string[]> => {
-    return [
+    const fallbackModels = [
+      'gemini-3.5-flash',
+      'gemini-3.1-pro-preview',
+      'gemini-3.1-flash-lite',
       'gemini-2.5-flash',
-      'gemini-2.5-pro',
-      'gemini-2.0-flash',
-      'gemini-2.0-flash-lite-001'
+      'gemini-2.5-pro'
     ];
+    
+    const finalKey = apiKey || process.env.GEMINI_API_KEY;
+    if (!finalKey) {
+      return fallbackModels;
+    }
+
+    try {
+      const ai = getGoogleGenAI(finalKey);
+      const response = await ai.models.list();
+      
+      if (response && response.page && response.page.length > 0) {
+        let models = response.page
+          .filter((model: any) => {
+            if (!model.name) return false;
+            
+            const cleanName = model.name.replace(/^models\//, '');
+            
+            // Exclude models listed as deprecated / forbidden in SKILL.md
+            const forbidden = [
+              'gemini-1.5-flash',
+              'gemini-1.5-pro',
+              'gemini-pro',
+              'gemini-2.0-flash',
+              'gemini-2.0-pro',
+              'gemini-2.0-flash-thinking'
+            ];
+            if (forbidden.includes(cleanName)) return false;
+            
+            // Filter to only generateContent capable models
+            const hasGenerateContent = model.supportedActions?.includes('generateContent');
+            return hasGenerateContent;
+          })
+          .map((model: any) => model.name.replace(/^models\//, ''));
+
+        // If filtering left us with an empty list, try any non-forbidden model with a name
+        if (models.length === 0) {
+          models = response.page
+            .filter((model: any) => {
+              if (!model.name) return false;
+              const cleanName = model.name.replace(/^models\//, '');
+              const forbidden = [
+                'gemini-1.5-flash',
+                'gemini-1.5-pro',
+                'gemini-pro',
+                'gemini-2.0-flash',
+                'gemini-2.0-pro',
+                'gemini-2.0-flash-thinking'
+              ];
+              return !forbidden.includes(cleanName);
+            })
+            .map((model: any) => model.name.replace(/^models\//, ''));
+        }
+          
+        if (models.length > 0) {
+          // Put standard/modern models at the front if they exist
+          const preferredOrder = ['gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-2.5-flash', 'gemini-2.5-pro'];
+          models.sort((a, b) => {
+            const idxA = preferredOrder.indexOf(a);
+            const idxB = preferredOrder.indexOf(b);
+            const scoreA = idxA === -1 ? 999 : idxA;
+            const scoreB = idxB === -1 ? 999 : idxB;
+            return scoreA - scoreB;
+          });
+          return models;
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to dynamically query Gemini models from API, using fallback list:', err);
+    }
+    return fallbackModels;
   };
 
   app.post('/api/chat', async (req, res) => {
