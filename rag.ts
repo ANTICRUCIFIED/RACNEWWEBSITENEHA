@@ -3,6 +3,8 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';
 
+import documentsCache from './public/documents_cache.json';
+
 export interface DocumentChunk {
   id: string;
   filename: string;
@@ -10,7 +12,7 @@ export interface DocumentChunk {
   text: string;
 }
 
-export const documentStore: DocumentChunk[] = [];
+export const documentStore: DocumentChunk[] = [...documentsCache];
 
 function writeStaticCache() {
   const data = JSON.stringify(documentStore, null, 2);
@@ -69,13 +71,14 @@ export async function appendLearnedKnowledge(query: string, response: string) {
  * Gemini API quota for chat responses and guaranteeing zero-interruption service.
  */
 export async function preloadStaticDocuments(aiClient?: GoogleGenAI) {
-  if (documentStore.length > 0) return documentStore.length; // Already preloaded
-  
   const docsDir = path.join(process.cwd(), 'documents');
   if (!fs.existsSync(docsDir)) {
-    console.log('No static documents directory found at /documents');
-    return 0;
+    console.log('No static documents directory found at /documents. Using preloaded static cache.');
+    return documentStore.length;
   }
+
+  // Clear preloaded cache to avoid duplicates in local dev environment
+  documentStore.length = 0;
 
   const files = fs.readdirSync(docsDir);
   console.log('VELO RAG: Found documents in /documents:', files);

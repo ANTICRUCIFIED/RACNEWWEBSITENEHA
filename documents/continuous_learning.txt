@@ -5,3 +5,45 @@
 [Learned Interaction - 2026-06-01T22:09:14.066Z]
 User Query: foo query
 RAAAHI Expert Answer: bar response
+
+
+---
+
+[Learned Interaction - 2026-06-07T14:10:35.136Z]
+User Query: hi
+RAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.
+
+How may I assist you today with your medical device regulatory and compliance needs?
+
+
+---
+
+[Learned Interaction - 2026-06-07T14:51:17.385Z]
+User Query: hi
+RAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.
+
+How may I assist you today with your medical device regulatory and compliance needs?
+
+Disclaimer: For confirmation, please contact our team.
+
+
+---
+
+[Learned Interaction - 2026-06-07T15:04:38.096Z]
+User Query: hi
+RAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.
+
+How may I assist you today with your medical device regulatory and compliance needs?
+
+Disclaimer: For confirmation, please contact our team.
+
+
+---
+
+[Learned Interaction - 2026-06-07T15:04:53.645Z]
+User Query: hi
+RAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.
+
+How may I assist you today with your medical device regulatory and compliance needs?
+
+Disclaimer: For confirmation, please contact our team.

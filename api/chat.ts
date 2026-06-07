@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
-import { retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from '../rag';
+import { retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from '../rag.js';
 
 const getGoogleGenAI = (customKey?: string) => {
   const apiKey = customKey || process.env.GEMINI_API_KEY;

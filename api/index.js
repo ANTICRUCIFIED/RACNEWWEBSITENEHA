@@ -1,39 +1,273 @@
-import os from 'os';
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
-import { GoogleGenAI } from '@google/genai';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import nodemailer from 'nodemailer';
-import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from '../rag.js';
-export interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  date: string;
-  category: string;
-  author: string;
-  tags: string[];
+// api/index.ts
+import express from "express";
+import path2 from "path";
+import { GoogleGenAI } from "@google/genai";
+import dotenv from "dotenv";
+import fs2 from "fs";
+import nodemailer from "nodemailer";
+
+// rag.ts
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+var documentStore = [];
+function writeStaticCache() {
+  const data = JSON.stringify(documentStore, null, 2);
+  try {
+    const publicDir = path.join(process.cwd(), "public");
+    if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+    fs.writeFileSync(path.join(publicDir, "documents_cache.json"), data);
+  } catch (e) {
+    console.warn("Could not update static documents cache in public", e);
+  }
+  try {
+    const distDir = path.join(process.cwd(), "dist");
+    if (fs.existsSync(distDir)) {
+      fs.writeFileSync(path.join(distDir, "documents_cache.json"), data);
+    }
+  } catch (e) {
+    console.warn("Could not update static documents cache in dist", e);
+  }
+}
+async function appendLearnedKnowledge(query, response) {
+  try {
+    const docsDir = path.join(process.cwd(), "documents");
+    if (!fs.existsSync(docsDir)) {
+      fs.mkdirSync(docsDir, { recursive: true });
+    }
+    const learningFile = path.join(docsDir, "continuous_learning.txt");
+    const learnedText = `[Learned Interaction - ${(/* @__PURE__ */ new Date()).toISOString()}]
+User Query: ${query}
+RAAAHI Expert Answer: ${response}
+`;
+    fs.appendFileSync(learningFile, `
+
+---
+
+${learnedText}`);
+    const newChunk = {
+      id: `learned-${Date.now()}-${documentStore.length}`,
+      filename: "continuous_learning.txt",
+      chunkIndex: documentStore.length,
+      text: learnedText.trim()
+    };
+    documentStore.push(newChunk);
+    writeStaticCache();
+  } catch (err) {
+    console.error("Failed to append learned knowledge:", err);
+  }
+}
+async function preloadStaticDocuments(aiClient) {
+  if (documentStore.length > 0) return documentStore.length;
+  const docsDir = path.join(process.cwd(), "documents");
+  if (!fs.existsSync(docsDir)) {
+    console.log("No static documents directory found at /documents");
+    return 0;
+  }
+  const files = fs.readdirSync(docsDir);
+  console.log("VELO RAG: Found documents in /documents:", files);
+  let totalChunks = 0;
+  for (const filename of files) {
+    if (filename.startsWith(".") || filename.startsWith("..")) continue;
+    const filePath = path.join(docsDir, filename);
+    const stat = fs.statSync(filePath);
+    if (stat.isDirectory()) continue;
+    console.log(`VELO RAG: Local indexing static document: ${filename}`);
+    try {
+      const buffer = fs.readFileSync(filePath);
+      let text = "";
+      if (filename.toLowerCase().endsWith(".pdf")) {
+        console.warn("PDF parsing is disabled. Skipping PDF file.");
+        continue;
+      } else {
+        text = buffer.toString("utf8");
+      }
+      if (!text || text.trim().length === 0) {
+        console.warn(`VELO RAG: Warning: Document "${filename}" extracted text was completely empty.`);
+        continue;
+      }
+      const chunkSize = 1200;
+      const chunks = [];
+      const paragraphs = text.split(/\n\s*\n/);
+      let currentChunk = "";
+      for (const p of paragraphs) {
+        if ((currentChunk + p).length > chunkSize) {
+          if (currentChunk.trim()) {
+            chunks.push(currentChunk.trim());
+          }
+          currentChunk = p;
+        } else {
+          currentChunk += (currentChunk ? "\n\n" : "") + p;
+        }
+      }
+      if (currentChunk.trim()) {
+        chunks.push(currentChunk.trim());
+      }
+      if (chunks.length === 0) {
+        for (let i = 0; i < text.length; i += chunkSize) {
+          chunks.push(text.slice(i, i + chunkSize));
+        }
+      }
+      for (let i = 0; i < chunks.length; i++) {
+        documentStore.push({
+          id: `${filename.replace(/\.[^/.]+$/, "")}-chunk-${i}`,
+          filename,
+          chunkIndex: i,
+          text: chunks[i]
+        });
+      }
+      totalChunks += chunks.length;
+      console.log(`VELO RAG: Completed local indexing for ${filename}. Created ${chunks.length} chunks.`);
+    } catch (e) {
+      console.error(`VELO RAG: Failed to index document "${filename}":`, e);
+    }
+  }
+  writeStaticCache();
+  return totalChunks;
+}
+var upload = multer({ storage: multer.memoryStorage() });
+async function processDocument(file, aiClient) {
+  let text = "";
+  if (file.mimetype === "application/pdf") {
+    text = "";
+  } else {
+    text = file.buffer.toString("utf8");
+  }
+  const chunkSize = 1200;
+  const chunks = [];
+  const paragraphs = text.split(/\n\s*\n/);
+  let currentChunk = "";
+  for (const p of paragraphs) {
+    if ((currentChunk + p).length > chunkSize) {
+      if (currentChunk.trim()) chunks.push(currentChunk.trim());
+      currentChunk = p;
+    } else {
+      currentChunk += (currentChunk ? "\n\n" : "") + p;
+    }
+  }
+  if (currentChunk.trim()) chunks.push(currentChunk.trim());
+  if (chunks.length === 0) {
+    for (let i = 0; i < text.length; i += chunkSize) {
+      chunks.push(text.slice(i, i + chunkSize));
+    }
+  }
+  const addedChunks = [];
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = {
+      id: `uploaded-${Date.now()}-${i}`,
+      filename: file.originalname,
+      chunkIndex: i,
+      text: chunks[i]
+    };
+    documentStore.push(chunk);
+    addedChunks.push(chunk);
+  }
+  writeStaticCache();
+  return addedChunks.length;
+}
+async function retrieveRelevantContext(query, aiClient, topK = 4) {
+  if (documentStore.length === 0) return "";
+  try {
+    const queryLower = query.toLowerCase();
+    const stopwords = /* @__PURE__ */ new Set([
+      "the",
+      "is",
+      "a",
+      "of",
+      "and",
+      "in",
+      "to",
+      "for",
+      "with",
+      "on",
+      "at",
+      "what",
+      "how",
+      "tell",
+      "me",
+      "it",
+      "this",
+      "that",
+      "from",
+      "by",
+      "an",
+      "are",
+      "was",
+      "were",
+      "be",
+      "or",
+      "as",
+      "can",
+      "you",
+      "about",
+      "is",
+      "there"
+    ]);
+    const queryWords = queryLower.replace(/[^\w\s-]/g, " ").split(/\s+/).filter((word) => word.length > 2 && !stopwords.has(word));
+    if (queryWords.length === 0) {
+      const fallbackWords = queryLower.split(/\s+/).filter((word) => word.length > 0);
+      if (fallbackWords.length === 0) return "";
+      queryWords.push(...fallbackWords);
+    }
+    const scored = documentStore.map((doc) => {
+      let score = 0;
+      const docLower = doc.text.toLowerCase();
+      for (const word of queryWords) {
+        if (docLower.includes(word)) {
+          score += 2;
+          const exactReg = new RegExp(`\\b${word}\\b`, "i");
+          if (exactReg.test(docLower)) {
+            score += 5;
+          }
+        }
+      }
+      if (queryWords.length > 1) {
+        for (let i = 0; i < queryWords.length - 1; i++) {
+          const phrase = `${queryWords[i]} ${queryWords[i + 1]}`;
+          if (docLower.includes(phrase)) {
+            score += 10;
+          }
+        }
+      }
+      const specializedCodes = ["md-14", "md-15", "md-3", "md-7", "md-5", "md-9", "class a", "class b", "class c", "class d", "fee", "sugam", "wholesale", "import"];
+      for (const code of specializedCodes) {
+        if (queryLower.includes(code) && docLower.includes(code)) {
+          score += 12;
+        }
+      }
+      return { ...doc, score };
+    });
+    const matched = scored.filter((item) => item.score >= 5);
+    matched.sort((a, b) => b.score - a.score);
+    const topChunks = matched.slice(0, topK);
+    if (topChunks.length === 0 || topChunks[0].score < 5) {
+      return "";
+    }
+    return topChunks.map((c) => `[Excerpt from document file: ${c.filename}]
+${c.text}`).join("\n\n---\n\n");
+  } catch (e) {
+    console.error("Local retrieval algorithm error:", e);
+    return "";
+  }
 }
 
-export const BLOG_POSTS: BlogPost[] = [
+// api/index.ts
+import admin from "firebase-admin";
+var BLOG_POSTS = [
   {
-    id: 'sterilization-validation',
-    title: 'Sterilization Validation for Medical Devices',
-    excerpt: 'Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance (CDSCO, USFDA, EU MDR) and patient safety.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp',
-    date: '25 Oct 2025',
-    category: 'Technical',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['Sterilization validation', 'Medical device sterilization', 'ISO 13485', 'Risk Management', 'IQ OQ PQ', 'Biological Evaluation', 'Essential Requirement', 'Medical Devices'],
+    id: "sterilization-validation",
+    title: "Sterilization Validation for Medical Devices",
+    excerpt: "Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance (CDSCO, USFDA, EU MDR) and patient safety.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp",
+    date: "25 Oct 2025",
+    category: "Technical",
+    author: "RAC Forge Private Limited Team",
+    tags: ["Sterilization validation", "Medical device sterilization", "ISO 13485", "Risk Management", "IQ OQ PQ", "Biological Evaluation", "Essential Requirement", "Medical Devices"],
     content: `
 Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance (CDSCO, USFDA, EU MDR) and patient safety.
 
 ## Sterility Assurance Level (SAL)
-The basis of sterilization validation is achieving a Sterility Assurance Level of 10⁻⁶. This means there is a one-in-a-million chance of a viable microorganism surviving sterilization.
+The basis of sterilization validation is achieving a Sterility Assurance Level of 10\u207B\u2076. This means there is a one-in-a-million chance of a viable microorganism surviving sterilization.
 
 ## Common Sterilization Methods
 
@@ -104,14 +338,14 @@ Post-validation requirements:
     `
   },
   {
-    id: 'biocompatibility-testing',
-    title: 'Biocompatibility Testing Strategies for Medical Devices',
-    excerpt: 'Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval. Knowing ISO 10993 standards and using effective testing strategies is crucial for successful submissions.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
-    date: '24 Oct 2025',
-    category: 'Testing',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['Biocompatibility Testing', 'Biological Evaluation', 'Essential Requirement', 'ISO 13485', 'Medical Device Compliance', 'Medical Device Safety', 'Risk Management'],
+    id: "biocompatibility-testing",
+    title: "Biocompatibility Testing Strategies for Medical Devices",
+    excerpt: "Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval. Knowing ISO 10993 standards and using effective testing strategies is crucial for successful submissions.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp",
+    date: "24 Oct 2025",
+    category: "Testing",
+    author: "RAC Forge Private Limited Team",
+    tags: ["Biocompatibility Testing", "Biological Evaluation", "Essential Requirement", "ISO 13485", "Medical Device Compliance", "Medical Device Safety", "Risk Management"],
     content: `
 Biocompatibility assessment, or Biological Evaluation, is a key Essential Requirement for medical device regulatory approval. Knowing ISO 10993 standards and using effective testing strategies is crucial for successful submissions.
 
@@ -129,7 +363,7 @@ The ISO 10993 series offers a systematic approach for Biological Evaluation of m
 - **Implant devices** (tissue, bone, blood)
 
 ### By Duration of Contact:
-- **Limited** (≤24 hours)
+- **Limited** (\u226424 hours)
 - **Prolonged** (>24 hours to 30 days)
 - **Permanent** (>30 days)
 
@@ -185,16 +419,16 @@ A well-planned biocompatibility strategy, backed by thorough documentation as pa
     `
   },
   {
-    id: 'mastering-eu-mdr',
-    title: 'Mastering EU MDR Technical Documentation',
-    excerpt: 'The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation. Knowing these rules is important for getting CE Marking and accessing markets in Europe.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-eu-mdr.webp',
-    date: '23 Oct 2025',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CE Marking', 'Clinical Evaluation Report', 'EU MDR', 'GSPR', 'Medical Device Documentation', 'Regulatory Compliance', 'Risk Management', 'User Manual'],
+    id: "mastering-eu-mdr",
+    title: "Mastering EU MDR Technical Documentation",
+    excerpt: "The European Union\u2019s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation. Knowing these rules is important for getting CE Marking and accessing markets in Europe.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-eu-mdr.webp",
+    date: "23 Oct 2025",
+    category: "Regulatory",
+    author: "RAC Forge Private Limited Team",
+    tags: ["CE Marking", "Clinical Evaluation Report", "EU MDR", "GSPR", "Medical Device Documentation", "Regulatory Compliance", "Risk Management", "User Manual"],
     content: `
-The European Union’s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation. Knowing these rules is important for getting CE Marking and accessing markets in Europe.
+The European Union\u2019s EU MDR (Medical Device Regulation 2017/745) sets strict rules for technical documentation. Knowing these rules is important for getting CE Marking and accessing markets in Europe.
 
 ## The Technical Documentation Structure
 EU MDR Technical Documentation must be organized according to Annex II and III, covering:
@@ -251,14 +485,14 @@ Well-prepared technical documentation not only ensures compliance with EU MDR bu
     `
   },
   {
-    id: 'navigating-usfda-510k',
-    title: 'Navigating USFDA’s 510(k) Submission Process',
-    excerpt: 'The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp',
-    date: '22 Oct 2025',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['510K USFDA', 'Clinical Evaluation Report (CER)', 'Medical Device Documentation', 'Medical Devices', 'Regulatory Compliance', 'Risk Analysis', 'USFDA'],
+    id: "navigating-usfda-510k",
+    title: "Navigating USFDA\u2019s 510(k) Submission Process",
+    excerpt: "The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp",
+    date: "22 Oct 2025",
+    category: "Regulatory",
+    author: "RAC Forge Private Limited Team",
+    tags: ["510K USFDA", "Clinical Evaluation Report (CER)", "Medical Device Documentation", "Medical Devices", "Regulatory Compliance", "Risk Analysis", "USFDA"],
     content: `
 The 510(k) USFDA premarket notification is the most common pathway for Class II medical devices seeking USFDA clearance. Knowing this process is vital for successful market entry in the United States.
 
@@ -297,23 +531,23 @@ Since October 2023, all 510(k) submissions must use the electronic Submission Te
 - Non-compliant labeling
 
 ## Timeline and Review Process
-The USFDA’s statutory review timeline is 90 days, although this may extend with additional information requests. Understanding this timeline helps manufacturers plan their market entry strategy.
+The USFDA\u2019s statutory review timeline is 90 days, although this may extend with additional information requests. Understanding this timeline helps manufacturers plan their market entry strategy.
 
 ## Conclusion
 A well-prepared 510(k) submission, backed by thorough documentation and a strategic choice of predicate devices, significantly increases the chances of USFDA clearance and successful market entry.
     `
   },
   {
-    id: 'understanding-cdsco-rules',
-    title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    excerpt: 'The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '21 Oct 2025',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO', 'Import License', 'Indian MDR', 'ISO 13485', 'Loan License', 'Manufacturing License', 'MD-15', 'MD-3', 'MD-5', 'MD-7', 'MD-9', 'Medical Devices', 'Medical Devices Rules 2017', 'Regulatory Compliance', 'Test License'],
+    id: "understanding-cdsco-rules",
+    title: "Understanding CDSCO\u2019s Medical Devices Rules, 2017",
+    excerpt: "The Indian MDR (Medical Devices Rules, 2017) set by India\u2019s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp",
+    date: "21 Oct 2025",
+    category: "Regulatory",
+    author: "RAC Forge Private Limited Team",
+    tags: ["CDSCO", "Import License", "Indian MDR", "ISO 13485", "Loan License", "Manufacturing License", "MD-15", "MD-3", "MD-5", "MD-7", "MD-9", "Medical Devices", "Medical Devices Rules 2017", "Regulatory Compliance", "Test License"],
     content: `
-The Indian MDR (Medical Devices Rules, 2017) set by India’s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.
+The Indian MDR (Medical Devices Rules, 2017) set by India\u2019s Central Drugs Standard Control Organization (CDSCO) create a complete regulatory framework for medical devices. Knowing this framework is essential for manufacturers seeking market access in India.
 
 ## The Structure of MDR 2017
 The Indian MDR 2017 is organized into 12 chapters, 8 schedules, and contains 97 rules with over 40 forms. This organized approach ensures a systematic regulation of medical devices from classification to post-market monitoring.
@@ -354,14 +588,14 @@ The Indian MDR framework, though comprehensive, offers a clear path for medical 
     `
   },
   {
-    id: 'fda-510k-indian-medtech',
-    title: 'Why Designing for the U.S. FDA 510(k) Is the Cheapest Way to Win the Indian MedTech Market',
+    id: "fda-510k-indian-medtech",
+    title: "Why Designing for the U.S. FDA 510(k) Is the Cheapest Way to Win the Indian MedTech Market",
     excerpt: 'Break down the myth that FDA compliance is an expensive luxury for local MSMEs. Explain how a "harmonized dossier" lowers the Total Cost of Ownership (TCO) by eliminating CDSCO rejections and query loops.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp',
-    date: '15 Jan 2026',
-    category: 'Strategy',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['USFDA 510k', 'CDSCO', 'Indian MedTech', 'Total Cost of Ownership', 'Harmonized Dossier', 'MSMEs'],
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp",
+    date: "15 Jan 2026",
+    category: "Strategy",
+    author: "RAC Forge Private Limited Team",
+    tags: ["USFDA 510k", "CDSCO", "Indian MedTech", "Total Cost of Ownership", "Harmonized Dossier", "MSMEs"],
     content: `
 Deep inside the Indian medical device ecosystem, an expensive misconception has quietly taken root: that preparing for U.S. FDA 510(k) clearance is an extravagant luxury reserved only for well-funded multinationals or venture-backed enterprises. Local Micro, Small, and Medium Enterprises (MSMEs) consistently view CDSCO licensing as the lower-cost, primary milestone, intending to tackle international regulators only when their bank accounts have grown.
 
@@ -378,7 +612,7 @@ The traditional approach involves rushing a basic prototype through basic CDSCO 
 
 A harmonized dossier is a single, robust scientific repository designed to satisfy both international and domestic requirements under a single unified engineering process. By elevating your testing protocols to match FDA guidelines from the start, you obtain a golden dossier. 
 
-When the CDSCO reviews an application supported by a pre-validated, FDA-grade dossier, the submission sails through with zero or minimal technical queries. You bypass the devastating loop of re-testing, re-drafting, and re-submitting—reducing your ultimate time-to-market.
+When the CDSCO reviews an application supported by a pre-validated, FDA-grade dossier, the submission sails through with zero or minimal technical queries. You bypass the devastating loop of re-testing, re-drafting, and re-submitting\u2014reducing your ultimate time-to-market.
 
 ## Building for the Future
 
@@ -386,14 +620,14 @@ For an MSME, every month of delayed commercialization represents lost revenue an
 `
   },
   {
-    id: 'master-technical-file-global-access',
-    title: 'The Multiplier Effect: How to Build One Master Technical File for Global Market Access',
-    excerpt: 'A practical guide for R&D teams to bake global standards directly into initial design controls, allowing them to deploy the same technical file across India, Europe, and GHWP markets.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-eu-mdr.webp',
-    date: '28 Jan 2026',
-    category: 'R&D',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['Master Technical File', 'Design Controls', 'Global Market Access', 'EU MDR', 'CDSCO', 'GHWP'],
+    id: "master-technical-file-global-access",
+    title: "The Multiplier Effect: How to Build One Master Technical File for Global Market Access",
+    excerpt: "A practical guide for R&D teams to bake global standards directly into initial design controls, allowing them to deploy the same technical file across India, Europe, and GHWP markets.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-eu-mdr.webp",
+    date: "28 Jan 2026",
+    category: "R&D",
+    author: "RAC Forge Private Limited Team",
+    tags: ["Master Technical File", "Design Controls", "Global Market Access", "EU MDR", "CDSCO", "GHWP"],
     content: `
 For any medical device engineering team, the ultimate efficiency is the "compile once, deploy everywhere" principle. Yet, in regulatory affairs, companies routinely build entirely disconnected files: one for the Indian CDSCO, another for the European Union (EU MDR), and yet another for Global Harmonization Working Party (GHWP) markets. 
 
@@ -423,20 +657,20 @@ Structure your technical file to match the International Medical Device Regulato
 
 ## Achieving Multi-Market Velocity
 
-By structuring your R&D around a single Master Technical File, any engineering change (e.g., swapping a component) is seamlessly updated in one database and automatically cascades across all regulatory submissions. Stop treating regulatory approvals as isolated paperwork tasks—treat them as a unified extension of your core product architecture.
+By structuring your R&D around a single Master Technical File, any engineering change (e.g., swapping a component) is seamlessly updated in one database and automatically cascades across all regulatory submissions. Stop treating regulatory approvals as isolated paperwork tasks\u2014treat them as a unified extension of your core product architecture.
 `
   },
   {
-    id: 'cdsco-forensic-audit-landscape',
-    title: 'The Death of the Regulatory Afterthought: How the CDSCO Swapped Checklists for Forensic Science',
-    excerpt: 'Highlight the shift from 2020 administrative checks to 2026 technical scrutiny. Provide actionable insights into what auditors are actually looking for in Biological (BER) and Clinical (CER) Evaluation Reports.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '10 Feb 2026',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO Audits', 'Clinical Evaluation Report', 'Biological Evaluation Report', 'MDR 2017', 'Forensic Scrutiny'],
+    id: "cdsco-forensic-audit-landscape",
+    title: "The Death of the Regulatory Afterthought: How the CDSCO Swapped Checklists for Forensic Science",
+    excerpt: "Highlight the shift from 2020 administrative checks to 2026 technical scrutiny. Provide actionable insights into what auditors are actually looking for in Biological (BER) and Clinical (CER) Evaluation Reports.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp",
+    date: "10 Feb 2026",
+    category: "Regulatory",
+    author: "RAC Forge Private Limited Team",
+    tags: ["CDSCO Audits", "Clinical Evaluation Report", "Biological Evaluation Report", "MDR 2017", "Forensic Scrutiny"],
     content: `
-In the early days of India's Medical Devices Rules (MDR) 2017, securing CDSCO approval was primarily an administrative exercise. An organization would submit a checklist, provide test certificates, run local testing if requested, and wait for confirmation. It was the era of the "regulatory afterthought"—where paperwork was compiled long after the engineering was completed.
+In the early days of India's Medical Devices Rules (MDR) 2017, securing CDSCO approval was primarily an administrative exercise. An organization would submit a checklist, provide test certificates, run local testing if requested, and wait for confirmation. It was the era of the "regulatory afterthought"\u2014where paperwork was compiled long after the engineering was completed.
 
 In 2026, those days are officially dead. The CDSCO has systematically upgraded its infrastructure, trained its officers, and integrated global best practices. Today, CDSCO audits read much more like forensic investigations.
 
@@ -462,14 +696,14 @@ To navigate this highly technical, forensic oversight:
 `
   },
   {
-    id: 'audit-ready-dossiers-fourth-schedule',
+    id: "audit-ready-dossiers-fourth-schedule",
     title: 'Are You "Audit-Ready"? Moving from Reconstructive Compliance to Pre-Validated Dossiers',
-    excerpt: 'Contrast the high-risk habit of scrambling to fix files after a regulatory query lands with the proactive framework of building audit-ready files tied to the Fourth Schedule.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp',
-    date: '25 Feb 2026',
-    category: 'Compliance',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['Fourth Schedule', 'Audit Readiness', 'Sugam', 'CDSCO compliance', 'Pre-Validated Dossiers'],
+    excerpt: "Contrast the high-risk habit of scrambling to fix files after a regulatory query lands with the proactive framework of building audit-ready files tied to the Fourth Schedule.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp",
+    date: "25 Feb 2026",
+    category: "Compliance",
+    author: "RAC Forge Private Limited Team",
+    tags: ["Fourth Schedule", "Audit Readiness", "Sugam", "CDSCO compliance", "Pre-Validated Dossiers"],
     content: `
 Too many medical device manufacturers operate in a state of "reconstructive compliance." They build a product, compile the bare minimum files to submit an application, and then panic-scramble to manufacture documents, test reports, and tracking matrices when a formal CDSCO query or state audit alert lands.
 
@@ -487,7 +721,7 @@ Scrambling to create missing data or rebuild history during an audit is highly r
 An "audit-ready" organization builds compliance as a continuous, live status, rather than a frantic event. 
 
 ### Step 1: Align with the Fourth Schedule
-Study the Fourth Schedule requirements thoroughly. Ensure that every single component—from raw material testing records to software release notes—is compiled and organized long before submission.
+Study the Fourth Schedule requirements thoroughly. Ensure that every single component\u2014from raw material testing records to software release notes\u2014is compiled and organized long before submission.
 
 ### Step 2: Continuous Internal Mock Audits
 Run regular, independent internal audits to verify that all design, manufacturing, and sterilized logs are complete. Treat every test batch as if it will be examined by a central CDSCO joint-inspection team.
@@ -497,14 +731,14 @@ Use modern QMS tools and procedures to preserve a continuous, time-stamped recor
 `
   },
   {
-    id: 'demystifying-iec-62304-software-traceability',
-    title: 'Demystifying IEC 62304: Why 70% of SaMD Regulatory Queries Target Software Traceability',
-    excerpt: 'Address the primary digital gatekeeper for software-based devices. Explain how developers can build an unbroken chain of data from raw code to clinical risk assessments.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
-    date: '12 Mar 2026',
-    category: 'Software',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['IEC 62304', 'SaMD', 'Software Traceability', 'Risk Management', 'MedTech'],
+    id: "demystifying-iec-62304-software-traceability",
+    title: "Demystifying IEC 62304: Why 70% of SaMD Regulatory Queries Target Software Traceability",
+    excerpt: "Address the primary digital gatekeeper for software-based devices. Explain how developers can build an unbroken chain of data from raw code to clinical risk assessments.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp",
+    date: "12 Mar 2026",
+    category: "Software",
+    author: "RAC Forge Private Limited Team",
+    tags: ["IEC 62304", "SaMD", "Software Traceability", "Risk Management", "MedTech"],
     content: `
 Software as a Medical Device (SaMD) is transforming healthcare at a breakneck pace. Yet, when SaMD applications are submitted to the USFDA, CDSCO, or EU Notified Bodies, they hit a common roadblock. Industry statistics show that roughly 70% of all technical queries and hold-orders for digital health devices are related to software testing and traceability under IEC 62304.
 
@@ -519,7 +753,7 @@ To standard software engineers, "traceability" means checking git commit logs an
 - **Software Risk Assessment (SRA)** which is verified by
 - **Software Unit Test Protocol & Verification Record**
 
-If any link in this chain is broken—for example, if a specific software risk item lacks an associated unit test to prove its mitigation—the entire technical file fails audit criteria.
+If any link in this chain is broken\u2014for example, if a specific software risk item lacks an associated unit test to prove its mitigation\u2014the entire technical file fails audit criteria.
 
 ## Practical Steps to Build a Compliant Software File
 
@@ -539,18 +773,18 @@ If your SaMD imports open-source libraries or third-party APIs, you must explici
 `
   },
   {
-    id: 'cdsco-ai-ml-medtech-requirements',
-    title: 'Cracking the "Black Box": Meeting the CDSCO’s Strict Requirements for AI and Machine Learning in MedTech',
-    excerpt: 'Focus on the latest guidelines concerning algorithm transparency, data privacy, and cybersecurity in modern connected healthcare.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
-    date: '30 Mar 2026',
-    category: 'AI',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO', 'AI ML', 'Algorithm Transparency', 'Data Privacy', 'Cybersecurity', 'SaMD'],
+    id: "cdsco-ai-ml-medtech-requirements",
+    title: 'Cracking the "Black Box": Meeting the CDSCO\u2019s Strict Requirements for AI and Machine Learning in MedTech',
+    excerpt: "Focus on the latest guidelines concerning algorithm transparency, data privacy, and cybersecurity in modern connected healthcare.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp",
+    date: "30 Mar 2026",
+    category: "AI",
+    author: "RAC Forge Private Limited Team",
+    tags: ["CDSCO", "AI ML", "Algorithm Transparency", "Data Privacy", "Cybersecurity", "SaMD"],
     content: `
 Artificial Intelligence (AI) and Machine Learning (ML) are introducing revolutionary diagnostic and prognostic tools to the modern clinical workbench. However, because AI/ML models operate as "black boxes" whose internal decision pathways can be difficult to audit manually, they face tight scrutinization from the CDSCO and global regulators.
 
-If you are developing an AI-driven medical device, compliance requires much more than a high-accuracy neural network. Here is how to meet the CDSCO’s strict guidelines for AI in MedTech.
+If you are developing an AI-driven medical device, compliance requires much more than a high-accuracy neural network. Here is how to meet the CDSCO\u2019s strict guidelines for AI in MedTech.
 
 ## Demanding Algorithm Transparency (Explainable AI)
 
@@ -560,7 +794,7 @@ A common pitfall is submitting a model characterized purely by its ultimate sens
 
 ## Data Privacy and Governance
 
-Connected medical devices handling sensitive patient information must comply with India’s Digital Personal Data Protection (DPDP) Act and global healthcare standards:
+Connected medical devices handling sensitive patient information must comply with India\u2019s Digital Personal Data Protection (DPDP) Act and global healthcare standards:
 - **Anonymization Protocols:** Raw clinical data used for model retraining must be comprehensively anonymized.
 - **Explicit Consent:** Secure, audit-ready patient consent logs must manage clinical data lifecycles.
 
@@ -572,14 +806,14 @@ Any connected AI solution is an entry point for potential network threats. Your 
 `
   },
   {
-    id: 'subsequent-importer-entity-change-license',
-    title: 'The Suffix Trap: Why Changing to a Private Limited Entity Shouldn’t Kill Your Medical Device License',
+    id: "subsequent-importer-entity-change-license",
+    title: "The Suffix Trap: Why Changing to a Private Limited Entity Shouldn\u2019t Kill Your Medical Device License",
     excerpt: 'Unpack the "Importer Paradox". Argue the scientific and operational case for using the Subsequent Importer Scheme (SIS) as a safety anchor during routine corporate restructurings.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '15 Apr 2026',
-    category: 'Operations',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['Subsequent Importer Scheme', 'Import License', 'Entity Restructuring', 'CDSCO', 'MD-15'],
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp",
+    date: "15 Apr 2026",
+    category: "Operations",
+    author: "RAC Forge Private Limited Team",
+    tags: ["Subsequent Importer Scheme", "Import License", "Entity Restructuring", "CDSCO", "MD-15"],
     content: `
 It is a routine corporate scenario: an entrepreneur launches a medical import business under a sole proprietorship, partnership, or LLP. As operations succeed and outside investment looms, they resolve to transition the business to a private limited entity (e.g., changing "RAC Forge Trades" to "RAC Forge Private Limited").
 
@@ -605,14 +839,14 @@ Never announce a corporate name change to customs authorities before preparing y
 `
   },
   {
-    id: 'beyond-nabl-globac-testing-parity',
-    title: 'Beyond NABL: Understanding GLOBAC and International Parity in Medical Device Testing',
-    excerpt: 'Educate laboratories, procurement boards, and manufacturers on the international framework of mutual recognition (ILAC/APAC/GLOBAC). Detail how to challenge institutional inertia and bypass testing bottlenecks.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp',
-    date: '05 May 2026',
-    category: 'Testing',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['NABL testing', 'GLOBAC', 'Mutual Recognition', 'ILAC', 'CDSCO testing'],
+    id: "beyond-nabl-globac-testing-parity",
+    title: "Beyond NABL: Understanding GLOBAC and International Parity in Medical Device Testing",
+    excerpt: "Educate laboratories, procurement boards, and manufacturers on the international framework of mutual recognition (ILAC/APAC/GLOBAC). Detail how to challenge institutional inertia and bypass testing bottlenecks.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp",
+    date: "05 May 2026",
+    category: "Testing",
+    author: "RAC Forge Private Limited Team",
+    tags: ["NABL testing", "GLOBAC", "Mutual Recognition", "ILAC", "CDSCO testing"],
     content: `
 When preparing a CDSCO submission or participating in government procurement tenders in India, companies are met with a dogmatic demand: "All medical device testing reports must be from local NABL-accredited laboratories."
 
@@ -630,20 +864,20 @@ Legally, under these mutual agreements, a test report issued by an APAC/ILAC-sig
 ## How to Challenge Local Testing Inertia
 
 If a hospital board, regulatory committee, or procurement agency rejects your high-quality international testing because "it's not from NABL":
-- **Provide MRA Certifications:** Attach the official ILAC/APAC membership certificates showing both NABL and the foreign laboratory’s accreditation body as co-signatories of mutual recognition.
+- **Provide MRA Certifications:** Attach the official ILAC/APAC membership certificates showing both NABL and the foreign laboratory\u2019s accreditation body as co-signatories of mutual recognition.
 - **Leverage National Standards:** Cite Central CDSCO notifications that recognize testing performed in laboratories accredited by ILAC-signatory bodies.
 - **Collaborate Upfront:** Never accept an improper rejection due to simple bureaucratic confusion. Presenting a solid legal and scientific case bypasses unnecessary local re-testing fees and delays.
 `
   },
   {
-    id: 'regional-medtech-msme-documentation-gap',
+    id: "regional-medtech-msme-documentation-gap",
     title: 'From the Hinterlands to New Delhi: Bridging the "Documentation Gap" for Regional MedTech MSMEs',
     excerpt: 'Celebrate the expansion of the "Make in India" spirit into emerging industrial clusters outside traditional tier-1 tech hubs. Focus on giving local engineering talent the "regulatory language" required to match global multinational standards.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '20 May 2026',
-    category: 'Ecosystem',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['MSMEs', 'Make in India', 'Documentation Gap', 'Regional Clusters', 'CDSCO'],
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp",
+    date: "20 May 2026",
+    category: "Ecosystem",
+    author: "RAC Forge Private Limited Team",
+    tags: ["MSMEs", "Make in India", "Documentation Gap", "Regional Clusters", "CDSCO"],
     content: `
 The "Make in India" initiative has successfully ignited a dynamic medical manufacturing movement across the country. Outstanding engineering and manufacturing talent is springing up far outside traditional tier-1 commercial hubs like Bengaluru, Chennai, or Mumbai. Exceptional medical hardware is now designed and built in emerging regional clusters from the hinterlands of Himachal Pradesh and Gujarat to central and eastern industrial corridors.
 
@@ -656,7 +890,7 @@ Designing a highly reliable physical medical device is a major accomplishment. H
 - **Device Master Record (DMR):** Lacking verified material characterization data.
 - **Usability Records:** Developing devices without structured human factor reviews.
 
-This documentation gap is not a failure of engineering talent—it is simply a difference in vocabulary.
+This documentation gap is not a failure of engineering talent\u2014it is simply a difference in vocabulary.
 
 ## Bridging the Gap
 
@@ -667,18 +901,18 @@ To help regional innovators successfully match and beat international multinatio
 `
   },
   {
-    id: 'publishing-academic-evidence-cureus-medtech',
-    title: 'Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes',
+    id: "publishing-academic-evidence-cureus-medtech",
+    title: "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes",
     excerpt: 'An analysis of our publication in the Cureus Journal of Medical Science examining the "importer paradox" and proposing a shift from the legal wrapper to the safety anchor for medical devices.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp',
-    date: '10 Dec 2025',
-    category: 'Clinical',
-    author: 'Atul Sharma Sankhyayan',
-    tags: ['Cureus Journal', 'Subsequent Importer Scheme', 'SIS', 'Importer Paradox', 'CDSCO', 'Medical Device Safety'],
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp",
+    date: "10 Dec 2025",
+    category: "Clinical",
+    author: "Atul Sharma Sankhyayan",
+    tags: ["Cureus Journal", "Subsequent Importer Scheme", "SIS", "Importer Paradox", "CDSCO", "Medical Device Safety"],
     content: `
 An essential article co-authored by our founder, Atul Sharma Sankhyayan, and published in the **Cureus Journal of Medical Science**, addresses a crucial friction point in modern medical device regulation: [Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes](https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/).
 
-As the Indian medical device ecosystem reaches a state of rigorous maturity, a significant bottleneck has emerged between corporate governance and regulatory oversight. Currently, when an established importer with an unblemished compliance history undergoes a routine constitutional restructuring (such as transitioning from a partnership or sole proprietorship to a private limited company), the regulator often treats them as a completely brand-new entrant—mandating a fresh license application. This requirement effectively ignores the entity’s long history of post-market surveillance (PMS) and safety compliance.
+As the Indian medical device ecosystem reaches a state of rigorous maturity, a significant bottleneck has emerged between corporate governance and regulatory oversight. Currently, when an established importer with an unblemished compliance history undergoes a routine constitutional restructuring (such as transitioning from a partnership or sole proprietorship to a private limited company), the regulator often treats them as a completely brand-new entrant\u2014mandating a fresh license application. This requirement effectively ignores the entity\u2019s long history of post-market surveillance (PMS) and safety compliance.
 
 We refer to this systemic bottleneck as the **"Importer Paradox."**
 
@@ -686,7 +920,7 @@ We refer to this systemic bottleneck as the **"Importer Paradox."**
 
 Our Cureus paper proposes a fundamental shift in regulatory philosophy: prioritizing the **"Safety Anchor"** of the medical device over the **"Legal Wrapper"** of the corporate entity. 
 
-- **The Safety Anchor:** The device's technical dossier, biological evaluation, clinical safety records, and foreign manufacturing site details—none of which change during an internal business restructuring.
+- **The Safety Anchor:** The device's technical dossier, biological evaluation, clinical safety records, and foreign manufacturing site details\u2014none of which change during an internal business restructuring.
 - **The Legal Wrapper:** The administrative corporate entity name, registered office address, or entity suffix (e.g., changing from a LLP to Private Limited) which does not impact the biological, mechanical, or clinical safety of the device.
 
 By treating corporate restructuring as a minor administrative update rather than a trigger for heavy technical re-review, regulators can prevent supply-chain disruptions without compromising patient safety.
@@ -702,14 +936,14 @@ Leveraging the academic rigor of peer-reviewed publishing allows us to spark ins
 `
   },
   {
-    id: 'saas-medtech-podcast-elendi-labs',
-    title: 'Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge',
-    excerpt: 'Tune in to our comprehensive masterclass session and featured podcast with Elendi Labs (Elednilabs), detailing exact registration sequences, FIFO timelines, and compliance structures.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
-    date: '15 Nov 2025',
-    category: 'Podcast',
-    author: 'Atul Sharma Sankhyayan',
-    tags: ['Elendi Labs', 'Podcast', 'CDSCO compliance', 'Sugam Portal', 'FIFO queue', 'Importer Paradox'],
+    id: "saas-medtech-podcast-elendi-labs",
+    title: "Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge",
+    excerpt: "Tune in to our comprehensive masterclass session and featured podcast with Elendi Labs (Elednilabs), detailing exact registration sequences, FIFO timelines, and compliance structures.",
+    image: "https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp",
+    date: "15 Nov 2025",
+    category: "Podcast",
+    author: "Atul Sharma Sankhyayan",
+    tags: ["Elendi Labs", "Podcast", "CDSCO compliance", "Sugam Portal", "FIFO queue", "Importer Paradox"],
     content: `
 We recently joined forces with **Elendi Labs (Elednilabs)** for an expansive expert analysis outlining the operational realities of registering medical devices in India: [Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited](https://elendilabs.com/en/articles/ind-navigating-medical-device-registration-in-india-an-in-depth-guide-to-CDSCO-compliance-with-RAC-Forge-Private-Limited-4ZEviANhOthe09s6NL8SrH).
 
@@ -734,65 +968,49 @@ Discover the detailed registration structures, government fee levels, and techni
 `
   }
 ];
-
-import admin from 'firebase-admin';
-
 dotenv.config();
-
-const app = express();
-const PORT = 3000;
-
-  // Use explicit manual CORS headers with precise support for credentials and instant preflight resolution
-  app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    if (origin) {
-      res.setHeader('Access-Control-Allow-Origin', origin);
-    } else {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-    }
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, X-CSRF-Token, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version');
-    
-    // Instantly resolve preflight OPTIONS queries to prevent browser-side "Failed to fetch" blockades
-    if (req.method === 'OPTIONS') {
-      return res.status(200).end();
-    }
-    next();
-  });
-  app.use(express.json());
-
-  // SSL / HTTPS redirect middleware to satisfy SEO checklist (only redirects GET/HEAD requests to prevent breaking POST API fetches, and excludes all /api/ pathways)
-  app.use((req, res, next) => {
-    if (process.env.NODE_ENV === 'production' && (req.method === 'GET' || req.method === 'HEAD') && !req.path.startsWith('/api/') && req.headers['x-forwarded-proto'] === 'http') {
-      return res.redirect(301, `https://${req.get('host')}${req.originalUrl}`);
-    }
-    next();
-  });
-
-  const getGoogleGenAI = (customKey?: string) => {
-    const apiKey = customKey || process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      throw new Error('GEMINI_API_KEY environment variable is not defined and no custom key provided.');
-    }
-    return new GoogleGenAI({
-      apiKey: apiKey,
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build',
-        }
+var app = express();
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  }
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, X-CSRF-Token, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
+app.use(express.json());
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production" && (req.method === "GET" || req.method === "HEAD") && !req.path.startsWith("/api/") && req.headers["x-forwarded-proto"] === "http") {
+    return res.redirect(301, `https://${req.get("host")}${req.originalUrl}`);
+  }
+  next();
+});
+var getGoogleGenAI = (customKey) => {
+  const apiKey = customKey || process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY environment variable is not defined and no custom key provided.");
+  }
+  return new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      headers: {
+        "User-Agent": "aistudio-build"
       }
-    });
-  };
-
-  // Helper for generating high-quality local fallback responses when the Gemini API is rate-limited or quota is exceeded
-  const getLocalFallbackResponse = (query: string): string => {
-    const q = query.toLowerCase();
-    const intro = '';
-
-    // CDSCO
-    if (q.includes('indian mdr') || q.includes('cdsco') || q.includes('sugam') || q.includes('licens') || q.includes('md-14') || q.includes('md-15') || q.includes('md-3') || q.includes('md-7') || q.includes('md-5') || q.includes('md-9') || q.includes('wholesale') || q.includes('md-42') || q.includes('import') || q.includes('manufact') || q.includes('loan') || q.includes('iaa') || q.includes('authorized agent') || q.includes('fee')) {
-      return intro + `### CDSCO SUGAM Portal & Indian MDR 2017 Pathways
+    }
+  });
+};
+var getLocalFallbackResponse = (query) => {
+  const q = query.toLowerCase();
+  const intro = "";
+  if (q.includes("indian mdr") || q.includes("cdsco") || q.includes("sugam") || q.includes("licens") || q.includes("md-14") || q.includes("md-15") || q.includes("md-3") || q.includes("md-7") || q.includes("md-5") || q.includes("md-9") || q.includes("wholesale") || q.includes("md-42") || q.includes("import") || q.includes("manufact") || q.includes("loan") || q.includes("iaa") || q.includes("authorized agent") || q.includes("fee")) {
+    return intro + `### CDSCO SUGAM Portal & Indian MDR 2017 Pathways
 
 RAC Forge Private Limited is your premium, hands-on partner for CDSCO registrations. Under the **Indian Medical Device Rules (MDR) 2017**, import and manufacturing activities require strategic compilation on the SUGAM portal.
 
@@ -817,11 +1035,9 @@ We also assist in legal representative duties as your **Indian Authorized Agent 
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // USFDA
-    if (q.includes('usfda') || q.includes('fda') || q.includes('510') || q.includes('510k') || q.includes('listing') || q.includes('predicate') || q.includes('denovo') || q.includes('de novo')) {
-      return intro + `### USFDA (U.S. Food and Drug Administration) Submissions
+  }
+  if (q.includes("usfda") || q.includes("fda") || q.includes("510") || q.includes("510k") || q.includes("listing") || q.includes("predicate") || q.includes("denovo") || q.includes("de novo")) {
+    return intro + `### USFDA (U.S. Food and Drug Administration) Submissions
 
 For medical device marketing authorization in the US, RAC Forge Pvt. Ltd. provides complete hardware, code, and dossier-level compliance services.
 
@@ -836,11 +1052,9 @@ Unlike document brokers, we physically analyze schematics and testing standards 
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // EU MDR
-    if (q.includes('eu') || (q.includes('mdr') && !q.includes('indian')) || q.includes('ce') || q.includes('ce mark') || q.includes('2017/745') || q.includes('ec rep') || q.includes('representative')) {
-      return intro + `### European Union Medical Device Regulation (EU MDR 2017/745)
+  }
+  if (q.includes("eu") || q.includes("mdr") && !q.includes("indian") || q.includes("ce") || q.includes("ce mark") || q.includes("2017/745") || q.includes("ec rep") || q.includes("representative")) {
+    return intro + `### European Union Medical Device Regulation (EU MDR 2017/745)
 
 Compliance under the strict European EU MDR guidelines is an engineering and documentation challenge. RAC Forge Pvt. Ltd. guides your hardware and software systems to satisfy MDR criteria.
 
@@ -855,11 +1069,9 @@ We bridge technical implementation gaps so you successfully pass Notified Body a
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // QMS & ISO
-    if (q.includes('iso') || q.includes('13485') || q.includes('9001') || q.includes('15189') || q.includes('qms') || q.includes('quality') || q.includes('audit')) {
-      return intro + `### Quality Management Systems (QMS) & Auditing
+  }
+  if (q.includes("iso") || q.includes("13485") || q.includes("9001") || q.includes("15189") || q.includes("qms") || q.includes("quality") || q.includes("audit")) {
+    return intro + `### Quality Management Systems (QMS) & Auditing
 
 RAC Forge Pvt. Ltd. implements comprehensive operational and documentation architectures for global standard certifications.
 
@@ -873,11 +1085,9 @@ Our team drafts, trains, and monitors actual QMS procedures to ensure absolute p
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // Cleanroom & HVAC
-    if (q.includes('cleanroom') || q.includes('clean room') || q.includes('hvac') || q.includes('ot') || q.includes('modular') || q.includes('design') || q.includes('facility') || q.includes('blueprint') || q.includes('pipeline') || q.includes('laminar')) {
-      return intro + `### Turnkey Engineering: Cleanrooms, HVAC, and Modular OTs
+  }
+  if (q.includes("cleanroom") || q.includes("clean room") || q.includes("hvac") || q.includes("ot") || q.includes("modular") || q.includes("design") || q.includes("facility") || q.includes("blueprint") || q.includes("pipeline") || q.includes("laminar")) {
+    return intro + `### Turnkey Engineering: Cleanrooms, HVAC, and Modular OTs
 
 Unlike purely administrative firms, RAC Forge Pvt. Ltd. boasts a hands-on mechanical and civil engineering division. We construct the medical spaces where safety is verified.
 
@@ -889,11 +1099,9 @@ Unlike purely administrative firms, RAC Forge Pvt. Ltd. boasts a hands-on mechan
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // R&D, SaMD, IEC 60601, ISO 10993
-    if (q.includes('r&d') || q.includes('research') || q.includes('prototype') || q.includes('samd') || q.includes('iec') || q.includes('62304') || q.includes('60601') || q.includes('hardware') || q.includes('software') || q.includes('testing') || q.includes('biocompatibility') || q.includes('10993') || q.includes('clinical trial') || q.includes('trial')) {
-      return intro + `### Advanced Regulatory R&D & Validation Engineering
+  }
+  if (q.includes("r&d") || q.includes("research") || q.includes("prototype") || q.includes("samd") || q.includes("iec") || q.includes("62304") || q.includes("60601") || q.includes("hardware") || q.includes("software") || q.includes("testing") || q.includes("biocompatibility") || q.includes("10993") || q.includes("clinical trial") || q.includes("trial")) {
+    return intro + `### Advanced Regulatory R&D & Validation Engineering
 
 We assist developers in validating active electrical medical hardware and Software as a Medical Device (SaMD) to survive rigorous physical laboratory tests.
 
@@ -907,11 +1115,9 @@ We make sure your software code and electronics meet the real, raw physical stan
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // Atul Sharma Sankhyayan & Cureus Journal
-    if (q.includes('atul') || q.includes('sharma') || q.includes('sankhyayan') || q.includes('founder') || q.includes('ceo') || q.includes('owner') || q.includes('experience') || q.includes('cureus') || q.includes('article') || q.includes('publication') || q.includes('science') || q.includes('journal') || q.includes('sis') || q.includes('subsequent') || q.includes('podcast') || q.includes('elendi')) {
-      return intro + `### CEO and Research: Atul Sharma Sankhyayan
+  }
+  if (q.includes("atul") || q.includes("sharma") || q.includes("sankhyayan") || q.includes("founder") || q.includes("ceo") || q.includes("owner") || q.includes("experience") || q.includes("cureus") || q.includes("article") || q.includes("publication") || q.includes("science") || q.includes("journal") || q.includes("sis") || q.includes("subsequent") || q.includes("podcast") || q.includes("elendi")) {
+    return intro + `### CEO and Research: Atul Sharma Sankhyayan
 
 RAC Forge Pvt. Ltd. is led by **Atul Sharma Sankhyayan**, a pioneer with more than a decade of hands-on R&D hardware design and Software as a Medical Device (SaMD) experience.
 
@@ -923,11 +1129,9 @@ Atul maintains active oversight over all medical device engineering, cleanroom c
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // Contact
-    if (q.includes('contact') || q.includes('address') || q.includes('location') || q.includes('phone') || q.includes('email') || q.includes('office') || q.includes('himachal') || q.includes('map') || q.includes('where')) {
-      return intro + `### RAC Forge Pvt. Ltd. HQ Contact Information
+  }
+  if (q.includes("contact") || q.includes("address") || q.includes("location") || q.includes("phone") || q.includes("email") || q.includes("office") || q.includes("himachal") || q.includes("map") || q.includes("where")) {
+    return intro + `### RAC Forge Pvt. Ltd. HQ Contact Information
 
 Our core consulting and turnkey mechanical facility is headquartered in Himachal Pradesh:
 
@@ -941,15 +1145,13 @@ Please connect with us to schedule an engineering audit, cleanroom blueprint con
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    // Official Links & Regulatory Portals
-    if (q.includes('link') || q.includes('website') || q.includes('url') || q.includes('official') || q.includes('resource') || q.includes('portal') || q.includes('external') || q.includes('reference') || q.includes('page') || q.includes('address') || q.includes('pdf') || q.includes('download') || q.includes('guidance') || q.includes('standard') || q.includes('rule') || q.includes('document')) {
-      return intro + `### 📚 Authoritative PDF Guidelines & Regulatory Standards Download Directory
+  }
+  if (q.includes("link") || q.includes("website") || q.includes("url") || q.includes("official") || q.includes("resource") || q.includes("portal") || q.includes("external") || q.includes("reference") || q.includes("page") || q.includes("address") || q.includes("pdf") || q.includes("download") || q.includes("guidance") || q.includes("standard") || q.includes("rule") || q.includes("document")) {
+    return intro + `### \u{1F4DA} Authoritative PDF Guidelines & Regulatory Standards Download Directory
 
 Below is the directory of official regulatory PDF guidelines, gazettes, standards documents, and portals provided by various international public health authorities.
 
-#### 🇮🇳 1. CDSCO (India) Core Rules & Guidance PDFs:
+#### \u{1F1EE}\u{1F1F3} 1. CDSCO (India) Core Rules & Guidance PDFs:
 *   **Indian Medical Devices Rules, 2017 (Official Gazette Notification PDF)**:
     [Download Rules PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/g_s_r_78_E.pdf)
 *   **CDSCO Medical Device Classification Master List (PDF)**:
@@ -962,7 +1164,7 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
     *   Portal: [https://cdscomdonline.gov.in](https://cdscomdonline.gov.in)
 *   **CDSCO National Website**: [https://cdsco.gov.in](https://cdsco.gov.in)
 
-#### 🇺🇸 2. USFDA (United States) Guidance PDFs:
+#### \u{1F1FA}\u{1F1F8} 2. USFDA (United States) Guidance PDFs:
 *   **USFDA 510(k) Premarket Notification Submission Guidance (PDF)**:
     [Download 510(k) Guidance Manual](https://www.fda.gov/media/85293/download)
 *   **Quality System Regulation (21 CFR Part 820) Guidance Booklet (PDF)**:
@@ -973,7 +1175,7 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
     [Download FDA Security Guidance](https://www.fda.gov/media/119773/download)
 *   **USFDA CDRH Home Portal**: [https://www.fda.gov/medical-devices](https://www.fda.gov/medical-devices)
 
-#### 🇪🇺 3. European Union Commission (EU MDR & IVDR) PDFs:
+#### \u{1F1EA}\u{1F1FA} 3. European Union Commission (EU MDR & IVDR) PDFs:
 *   **EU Medical Devices Regulation (EU MDR 2017/745 English Full Text PDF)**:
     [Download Complete EU MDR 2017/745 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0745)
 *   **EU In Vitro Diagnostic Regulation (EU IVDR 2017/746 English Full Text PDF)**:
@@ -983,7 +1185,7 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
 *   **EUDAMED Database Portal**:
     *   Website: [https://ec.europa.eu/tools/eudamed](https://ec.europa.eu/tools/eudamed)
 
-#### 🌐 4. International Standards & ASTM Guides:
+#### \u{1F310} 4. International Standards & ASTM Guides:
 *   **ISO 13485:2016 Medical Devices Quality Management System Standard Brochure (PDF)**:
     [Download ISO 13485 QMS Overview](https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100377.pdf)
 *   **ASTM Medical Devices & Materials Regulatory Catalog Guidance Overview (PDF)**:
@@ -992,7 +1194,7 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
 
 ---
 
-#### 🌟 Atul Sharma Sankhyayan & RAC Forge Specific Resources:
+#### \u{1F31F} Atul Sharma Sankhyayan & RAC Forge Specific Resources:
 *   **Scholarly Research Publication (May 2026)**: [Read on Cureus](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes)
 *   **The Elendi Files Podcast Showcase**: [Listen on ElendiLabs](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan)
 *   **RAC Forge Pvt. Ltd. Main Portal**: [https://www.racforge.com](https://www.racforge.com)
@@ -1000,26 +1202,22 @@ Below is the directory of official regulatory PDF guidelines, gazettes, standard
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-    }
-
-    if (q === 'hi' || q === 'hello' || q === 'hey' || q === 'greetings') {
-      return intro + `Hello! I am RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence, representing RAC Forge Pvt. Ltd. How can I assist you with medical device regulation or facility engineering today?
+  }
+  if (q === "hi" || q === "hello" || q === "hey" || q === "greetings") {
+    return intro + `Hello! I am RAAAHI (\u0930\u093E\u0939\u0940) \u2014 Regulatory Affairs And Approval Harmonized Intelligence, representing RAC Forge Pvt. Ltd. How can I assist you with medical device regulation or facility engineering today?
 
 Disclaimer: For confirmation, please contact our team.`;
-    }
-
-    if (q.includes('thank')) {
-      return intro + `You're welcome! Let me know if you need any further assistance with CDSCO, EU MDR, USFDA, or facility engineering.
+  }
+  if (q.includes("thank")) {
+    return intro + `You're welcome! Let me know if you need any further assistance with CDSCO, EU MDR, USFDA, or facility engineering.
       
 Disclaimer: For confirmation, please contact our team.`;
-    }
+  }
+  return intro + `I am currently operating in a limited offline capacity. 
 
-    // General Fallback
-    return intro + `I am currently operating in a limited offline capacity. 
+### RAAAHI (\u0930\u093E\u0939\u0940) \u2014 Regulatory Affairs And Approval Harmonized Intelligence
 
-### RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence
-
-I am **RAAAHI (राही)** — **Regulatory Affairs And Approval Harmonized Intelligence**, representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
+I am **RAAAHI (\u0930\u093E\u0939\u0940)** \u2014 **Regulatory Affairs And Approval Harmonized Intelligence**, representing RAC Forge Pvt. Ltd. I am here to assist you with active medical product regulation or facility engineering. 
 
 If you are asking about a specific regulatory topic (e.g., CDSCO, SUGAM, EU MDR, USFDA 510k, ISO 13485), please specify your query. For other non-regulatory topics, I may not be able to provide detailed assistance right now.
 
@@ -1035,138 +1233,125 @@ Please write what specific area you would like detailed guidance on!
 
 ---
 **Disclaimer**: For confirmation, please contact our team.`;
-  };
-
-  // Redirect trailing slashes for clean canonical URLs, excluding APIs & file assets
-  app.use((req, res, next) => {
-    if (req.method === 'GET' && req.path !== '/' && req.path.endsWith('/') && !req.path.startsWith('/api/')) {
-      const query = req.url.slice(req.path.length);
-      const safePath = req.path.slice(0, -1);
-      return res.redirect(301, safePath + query);
-    }
-    next();
-  });
-
-  // API routes
-  app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
-  });
-
-  // firebase-admin configuration & initialization for backend/server level operations
-  let isFirebaseEnabled = false;
-  let firestoreDb: any = null;
-
-  try {
-    const fbConfigPath = path.join(process.cwd(), 'firebase-applet-config.json');
-    if (fs.existsSync(fbConfigPath)) {
-      const configData = JSON.parse(fs.readFileSync(fbConfigPath, 'utf8'));
-      if (configData && configData.projectId && configData.projectId !== 'remixed-project-id') {
-        if (admin.apps.length === 0) {
-          admin.initializeApp({
-            projectId: configData.projectId,
-          });
-        }
-        firestoreDb = admin.firestore();
-        if (configData.firestoreDatabaseId) {
-          firestoreDb.settings({ databaseId: configData.firestoreDatabaseId });
-        }
-        isFirebaseEnabled = true;
-        console.log('Firebase Admin SDK initialized successfully for server-side blog saving.');
-      } else {
-        console.log('Firebase Applet Config contains mock project ID. Running with local storage fallback.');
-      }
-    }
-  } catch (fbAdminError) {
-    console.warn('Firebase Admin SDK initialization bypassed or failed (normal in offline dev mode):', fbAdminError);
+};
+app.use((req, res, next) => {
+  if (req.method === "GET" && req.path !== "/" && req.path.endsWith("/") && !req.path.startsWith("/api/")) {
+    const query = req.url.slice(req.path.length);
+    const safePath = req.path.slice(0, -1);
+    return res.redirect(301, safePath + query);
   }
-
-  // GET API Endpoint to fetch blog posts from the static BLOG_POSTS array
-  app.get('/api/posts', (req, res) => {
-    try {
-      return res.json(BLOG_POSTS);
-    } catch (fetchErr: any) {
-      console.error('GET /api/posts list retrieval failure: ', fetchErr);
-      return res.status(500).json({
-        error: 'Failed to retrieve blog posts indexes',
-        details: fetchErr.message || String(fetchErr)
-      });
-    }
-  });
-
-  // GET API to fetch details of a specific blog post
-  app.get('/api/posts/:id', (req, res) => {
-    try {
-      const { id } = req.params;
-      const foundPost = BLOG_POSTS.find((p: any) => p.id === id);
-      
-      if (foundPost) {
-        return res.json(foundPost);
+  next();
+});
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: (/* @__PURE__ */ new Date()).toISOString() });
+});
+var isFirebaseEnabled = false;
+var firestoreDb = null;
+try {
+  const fbConfigPath = path2.join(process.cwd(), "firebase-applet-config.json");
+  if (fs2.existsSync(fbConfigPath)) {
+    const configData = JSON.parse(fs2.readFileSync(fbConfigPath, "utf8"));
+    if (configData && configData.projectId && configData.projectId !== "remixed-project-id") {
+      if (admin.apps.length === 0) {
+        admin.initializeApp({
+          projectId: configData.projectId
+        });
       }
-      return res.status(404).json({ error: 'Selected blog post could not be found' });
-    } catch (getErr: any) {
-      console.error('GET /api/posts/:id item lookup failure: ', getErr);
-      return res.status(500).json({
-        error: 'Error conducting post lookup',
-        details: getErr.message || String(getErr)
-      });
+      firestoreDb = admin.firestore();
+      if (configData.firestoreDatabaseId) {
+        firestoreDb.settings({ databaseId: configData.firestoreDatabaseId });
+      }
+      isFirebaseEnabled = true;
+      console.log("Firebase Admin SDK initialized successfully for server-side blog saving.");
+    } else {
+      console.log("Firebase Applet Config contains mock project ID. Running with local storage fallback.");
     }
-  });
-
-  const getDynamicModels = async (apiKey: string): Promise<string[]> => {
-    return [
-      'gemini-2.5-flash',
-      'gemini-2.5-pro',
-      'gemini-2.0-flash',
-      'gemini-2.0-flash-lite-001'
-    ];
-  };
-
-  app.post('/api/chat', async (req, res) => {
-    let context = '';
+  }
+} catch (fbAdminError) {
+  console.warn("Firebase Admin SDK initialization bypassed or failed (normal in offline dev mode):", fbAdminError);
+}
+app.get("/api/posts", (req, res) => {
+  try {
+    return res.json(BLOG_POSTS);
+  } catch (fetchErr) {
+    console.error("GET /api/posts list retrieval failure: ", fetchErr);
+    return res.status(500).json({
+      error: "Failed to retrieve blog posts indexes",
+      details: fetchErr.message || String(fetchErr)
+    });
+  }
+});
+app.get("/api/posts/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+    const foundPost = BLOG_POSTS.find((p) => p.id === id);
+    if (foundPost) {
+      return res.json(foundPost);
+    }
+    return res.status(404).json({ error: "Selected blog post could not be found" });
+  } catch (getErr) {
+    console.error("GET /api/posts/:id item lookup failure: ", getErr);
+    return res.status(500).json({
+      error: "Error conducting post lookup",
+      details: getErr.message || String(getErr)
+    });
+  }
+});
+var getDynamicModels = async (apiKey) => {
+  return [
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite-001"
+  ];
+};
+app.post("/api/chat", async (req, res) => {
+  let context = "";
+  try {
+    const { messages = [], userMessage, apiKey } = req.body;
     try {
-      const { messages = [], userMessage, apiKey } = req.body;
-      try {
-        if (documentStore.length === 0) {
-          console.log('Document store is empty, initializing preloading for static files...');
-          let aiClient;
-          try { aiClient = getGoogleGenAI(apiKey); } catch (e) {}
-          const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Preload timeout')), 3000));
-          timeoutPromise.catch(() => {});
-          await Promise.race([
-            preloadStaticDocuments(aiClient),
-            timeoutPromise
-          ]).catch(e => console.warn('Preload static documents aborted or timed out:', e));
+      if (documentStore.length === 0) {
+        console.log("Document store is empty, initializing preloading for static files...");
+        let aiClient;
+        try {
+          aiClient = getGoogleGenAI(apiKey);
+        } catch (e) {
         }
-        let aiForRetrieve;
-        try { aiForRetrieve = getGoogleGenAI(apiKey); } catch (e) {}
-        context = await retrieveRelevantContext(userMessage, aiForRetrieve);
-      } catch (contextError) {
-        console.warn('Could not retrieve context directly:', contextError);
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Preload timeout")), 3e3));
+        timeoutPromise.catch(() => {
+        });
+        await Promise.race([
+          preloadStaticDocuments(aiClient),
+          timeoutPromise
+        ]).catch((e) => console.warn("Preload static documents aborted or timed out:", e));
       }
-
-      const augmentedMessage = context ? `Use the following context from our company knowledge base to answer the user's question naturally and conversationally. Do not blindly copy-paste the context. Synthesize it to directly and precisely answer the question.
+      let aiForRetrieve;
+      try {
+        aiForRetrieve = getGoogleGenAI(apiKey);
+      } catch (e) {
+      }
+      context = await retrieveRelevantContext(userMessage, aiForRetrieve);
+    } catch (contextError) {
+      console.warn("Could not retrieve context directly:", contextError);
+    }
+    const augmentedMessage = context ? `Use the following context from our company knowledge base to answer the user's question naturally and conversationally. Do not blindly copy-paste the context. Synthesize it to directly and precisely answer the question.
 
 Knowledge Base Context:
 ${context}
 
 User Message: ${userMessage}` : userMessage;
-      
-      // Filter out any leading model messages to guarantee the history starts with a user turn
-      let startIndex = 0;
-      while (startIndex < messages.length && messages[startIndex].role === 'model') {
-        startIndex++;
-      }
-
-      const contents = messages.slice(startIndex).map((m: any) => ({
-        role: m.role,
-        parts: [{ text: m.text }]
-      }));
-
-      contents.push({ role: 'user', parts: [{ text: augmentedMessage }] });
-
-      const modelConfig = {
-        config: {
-          systemInstruction: `You are RAAAHI (राही) — Regulatory Affairs And Approval Harmonized Intelligence, an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You converse naturally, intelligently, and professionally like a human expert.
+    let startIndex = 0;
+    while (startIndex < messages.length && messages[startIndex].role === "model") {
+      startIndex++;
+    }
+    const contents = messages.slice(startIndex).map((m) => ({
+      role: m.role,
+      parts: [{ text: m.text }]
+    }));
+    contents.push({ role: "user", parts: [{ text: augmentedMessage }] });
+    const modelConfig = {
+      config: {
+        systemInstruction: `You are RAAAHI (\u0930\u093E\u0939\u0940) \u2014 Regulatory Affairs And Approval Harmonized Intelligence, an advanced AI conversational agent representing RAC Forge Pvt. Ltd. as a highly expert Medical Device Regulatory Consultant. You converse naturally, intelligently, and professionally like a human expert.
 Be precise and direct in answering the user's specific query. Do not provide unrequested information or generic data dumps. Provide exactly what is requested in an empathetic and helpful tone. Provide accurate, trustworthy advice on medical device compliance, facility engineering (cleanrooms, HVAC, modular OTs), Quality Management Systems (ISO 13485), and global approval pipelines (CDSCO, USFDA, EU MDR, ANVISA).
 
 You possess key authority information regarding:
@@ -1199,208 +1384,198 @@ You possess key authority information regarding:
 Key regulatory fact matrix:
 - Import Licence Form MD-14 Official CDSCO Government Fees: Class A ($1000 USD site fee + $50 USD per device); Class B ($2000 USD site fee + $1000 USD per device); Class C ($3000 USD site fee + $1500 USD per device); Class D ($3000 USD site fee + $1500 USD per device). Ensure absolute factual accuracy when discussing numbers.
 
-Draft responses thoughtfully based only on the query contexts provided and your system knowledge. Do not hallucinate. Provide direct download links if the user asks for standards, rules, or PDFs. Always append this exact disclaimer at the end of every message: "Disclaimer: For confirmation, please contact our team."`,
-        },
-        contents: contents,
-      };
-
-      const modelsToTry = await getDynamicModels(apiKey);
-
-      let result = null;
-      let lastError = null;
-
-      try {
-        const ai = getGoogleGenAI(apiKey);
-        for (const modelInstance of modelsToTry) {
-          try {
-            console.log(`VELO: Attempting generation with model: ${modelInstance}`);
-            const response = await ai.models.generateContent({
-              model: modelInstance,
-              ...modelConfig,
-            });
-            if (response && response.text) {
-              result = response;
-              console.log(`VELO: Successfully generated content using model: ${modelInstance}`);
-              break;
-            }
-          } catch (modelError: any) {
-            console.warn(`VELO: Model ${modelInstance} failed or quota limit hit:`, modelError.message || modelError);
-            lastError = modelError;
-          }
-        }
-      } catch (initError: any) {
-        console.warn('VELO: GoogleGenAI SDK client initialization failed:', initError.message || initError);
-        lastError = initError;
-      }
-
-      if (result && result.text) {
-        // Continuous learning: Save successful online interactions
-        await appendLearnedKnowledge(userMessage, result.text);
-        res.json({ text: result.text });
-      } else {
-        // High quality offline fallback rather than throwing a breaking 500 error
-        console.warn('VELO: All model options failed or rate-limited. Activating local intelligence response.');
-        let fallbackResponse = getLocalFallbackResponse(userMessage);
-
-        if (context) {
-          fallbackResponse = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:\n\n${context}\n\n---\n\n${fallbackResponse}`;
-        }
-        res.json({ text: fallbackResponse, isFallback: true });
-      }
-    } catch (err: any) {
-      console.error('Core Chat API Error occurred:', err);
-      // Absolute failsafe
-      try {
-        let fallbackText = getLocalFallbackResponse(req.body?.userMessage || '');
-        if (context) {
-          fallbackText = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:\n\n${context}\n\n---\n\n${fallbackText}`;
-        }
-        res.json({ text: fallbackText, isFallback: true });
-      } catch (innerErr) {
-        res.status(500).json({ error: 'Failed to generate response', details: String(err) });
-      }
-    }
-  });
-
-  app.post('/api/generate-image', async (req, res) => {
+Draft responses thoughtfully based only on the query contexts provided and your system knowledge. Do not hallucinate. Provide direct download links if the user asks for standards, rules, or PDFs. Always append this exact disclaimer at the end of every message: "Disclaimer: For confirmation, please contact our team."`
+      },
+      contents
+    };
+    const modelsToTry = await getDynamicModels(apiKey);
+    let result = null;
+    let lastError = null;
     try {
-      const { prompt, size, apiKey } = req.body;
       const ai = getGoogleGenAI(apiKey);
+      for (const modelInstance of modelsToTry) {
+        try {
+          console.log(`VELO: Attempting generation with model: ${modelInstance}`);
+          const response = await ai.models.generateContent({
+            model: modelInstance,
+            ...modelConfig
+          });
+          if (response && response.text) {
+            result = response;
+            console.log(`VELO: Successfully generated content using model: ${modelInstance}`);
+            break;
+          }
+        } catch (modelError) {
+          console.warn(`VELO: Model ${modelInstance} failed or quota limit hit:`, modelError.message || modelError);
+          lastError = modelError;
+        }
+      }
+    } catch (initError) {
+      console.warn("VELO: GoogleGenAI SDK client initialization failed:", initError.message || initError);
+      lastError = initError;
+    }
+    if (result && result.text) {
+      await appendLearnedKnowledge(userMessage, result.text);
+      res.json({ text: result.text });
+    } else {
+      console.warn("VELO: All model options failed or rate-limited. Activating local intelligence response.");
+      let fallbackResponse = getLocalFallbackResponse(userMessage);
+      if (context) {
+        fallbackResponse = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:
 
-      const modelConfig = {
-        contents: {
-          parts: [
-            {
-              text: `Generate a professional, high-quality technical illustration or diagram for a medical device regulatory context. Subject: ${prompt}`,
-            },
-          ],
-        },
-        config: {
-          imageConfig: {
-            aspectRatio: '16:9',
-            imageSize: size || '1K',
-          },
-        },
-      };
+${context}
 
-      let result;
+---
+
+${fallbackResponse}`;
+      }
+      res.json({ text: fallbackResponse, isFallback: true });
+    }
+  } catch (err) {
+    console.error("Core Chat API Error occurred:", err);
+    try {
+      let fallbackText = getLocalFallbackResponse(req.body?.userMessage || "");
+      if (context) {
+        fallbackText = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:
+
+${context}
+
+---
+
+${fallbackText}`;
+      }
+      res.json({ text: fallbackText, isFallback: true });
+    } catch (innerErr) {
+      res.status(500).json({ error: "Failed to generate response", details: String(err) });
+    }
+  }
+});
+app.post("/api/generate-image", async (req, res) => {
+  try {
+    const { prompt, size, apiKey } = req.body;
+    const ai = getGoogleGenAI(apiKey);
+    const modelConfig = {
+      contents: {
+        parts: [
+          {
+            text: `Generate a professional, high-quality technical illustration or diagram for a medical device regulatory context. Subject: ${prompt}`
+          }
+        ]
+      },
+      config: {
+        imageConfig: {
+          aspectRatio: "16:9",
+          imageSize: size || "1K"
+        }
+      }
+    };
+    let result;
+    try {
+      result = await ai.models.generateContent({
+        model: "imagen-4.0-generate-001",
+        ...modelConfig
+      });
+    } catch (primaryError) {
+      console.warn("Primary image model imagen-4.0-generate-001 failed, attempting fallback to imagen-4.0-fast-generate-001...", primaryError);
       try {
         result = await ai.models.generateContent({
-          model: 'imagen-4.0-generate-001',
-          ...modelConfig,
+          model: "imagen-4.0-fast-generate-001",
+          ...modelConfig
         });
-      } catch (primaryError: any) {
-        console.warn('Primary image model imagen-4.0-generate-001 failed, attempting fallback to imagen-4.0-fast-generate-001...', primaryError);
-        try {
-          result = await ai.models.generateContent({
-            model: 'imagen-4.0-fast-generate-001',
-            ...modelConfig,
-          });
-        } catch (secondaryError: any) {
-          console.error('Image model fallback failed:', secondaryError);
-          throw new Error(`Image API Error: ${primaryError.message || primaryError}`);
+      } catch (secondaryError) {
+        console.error("Image model fallback failed:", secondaryError);
+        throw new Error(`Image API Error: ${primaryError.message || primaryError}`);
+      }
+    }
+    const imagePart = result.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
+    if (imagePart?.inlineData?.data) {
+      res.json({ base64: imagePart.inlineData.data });
+    } else {
+      res.status(400).json({ error: "No image was generated. Please try a different prompt." });
+    }
+  } catch (error) {
+    console.error("Image API Error:", error);
+    res.status(500).json({ error: "Failed to generate image", details: error.message || String(error) });
+  }
+});
+app.post("/api/upload", upload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+    const apiKey = req.body?.apiKey;
+    const ai = getGoogleGenAI(apiKey);
+    const chunksAdded = await processDocument(req.file, ai);
+    res.json({ success: true, chunksAdded });
+  } catch (error) {
+    console.error("Upload Error:", error);
+    res.status(500).json({ error: "Failed to process document", details: error.message || String(error) });
+  }
+});
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { firstName, lastName, email, phoneNumber, subject, message } = req.body;
+    if (!firstName || !lastName || !email || !phoneNumber || !subject || !message) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+    let storedInFirestore = false;
+    let storedLocally = false;
+    if (isFirebaseEnabled && firestoreDb) {
+      try {
+        await firestoreDb.collection("contact_inquiries").add({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          subject,
+          message,
+          createdAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+        storedInFirestore = true;
+        console.log("Successfully saved contact inquiry to Firestore.");
+      } catch (firestoreError) {
+        console.error("Failed to save contact inquiry to Firestore:", firestoreError);
+      }
+    } else {
+      try {
+        const inquiriesDir = path2.join(process.cwd(), "src", "data");
+        if (!fs2.existsSync(inquiriesDir)) {
+          fs2.mkdirSync(inquiriesDir, { recursive: true });
         }
-      }
-
-      const imagePart = result.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData);
-      
-      if (imagePart?.inlineData?.data) {
-        res.json({ base64: imagePart.inlineData.data });
-      } else {
-        res.status(400).json({ error: 'No image was generated. Please try a different prompt.' });
-      }
-    } catch (error: any) {
-      console.error('Image API Error:', error);
-      res.status(500).json({ error: 'Failed to generate image', details: error.message || String(error) });
-    }
-  });
-
-  app.post('/api/upload', upload.single('file'), async (req, res) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
-    }
-      const apiKey = req.body?.apiKey;
-      const ai = getGoogleGenAI(apiKey);
-      const chunksAdded = await processDocument(req.file, ai);
-      res.json({ success: true, chunksAdded });
-    } catch (error: any) {
-      console.error('Upload Error:', error);
-      res.status(500).json({ error: 'Failed to process document', details: error.message || String(error) });
-    }
-  });
-
-  app.post('/api/contact', async (req, res) => {
-    try {
-      const { firstName, lastName, email, phoneNumber, subject, message } = req.body;
-
-      if (!firstName || !lastName || !email || !phoneNumber || !subject || !message) {
-        return res.status(400).json({ error: 'All fields are required' });
-      }
-
-      // 1. Store the inquiry in Firebase Firestore if enabled, or local fallback file
-      let storedInFirestore = false;
-      let storedLocally = false;
-      if (isFirebaseEnabled && firestoreDb) {
-        try {
-          await firestoreDb.collection('contact_inquiries').add({
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            subject,
-            message,
-            createdAt: admin.firestore.FieldValue.serverTimestamp()
-          });
-          storedInFirestore = true;
-          console.log('Successfully saved contact inquiry to Firestore.');
-        } catch (firestoreError) {
-          console.error('Failed to save contact inquiry to Firestore:', firestoreError);
-        }
-      } else {
-        try {
-          const inquiriesDir = path.join(process.cwd(), 'src', 'data');
-          if (!fs.existsSync(inquiriesDir)) {
-            fs.mkdirSync(inquiriesDir, { recursive: true });
+        const inquiriesFile = path2.join(inquiriesDir, "contactInquiries.json");
+        let inquiries = [];
+        if (fs2.existsSync(inquiriesFile)) {
+          try {
+            inquiries = JSON.parse(fs2.readFileSync(inquiriesFile, "utf8"));
+          } catch (pErr) {
+            inquiries = [];
           }
-          const inquiriesFile = path.join(inquiriesDir, 'contactInquiries.json');
-          let inquiries = [];
-          if (fs.existsSync(inquiriesFile)) {
-            try {
-              inquiries = JSON.parse(fs.readFileSync(inquiriesFile, 'utf8'));
-            } catch (pErr) {
-              inquiries = [];
-            }
-          }
-          inquiries.push({
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            subject,
-            message,
-            createdAt: new Date().toISOString()
-          });
-          fs.writeFileSync(inquiriesFile, JSON.stringify(inquiries, null, 2), 'utf8');
-          storedLocally = true;
-          console.log('Firebase is not active. Contact inquiry saved to local JSON fallback.');
-        } catch (localSaveError) {
-          console.error('Failed to save contact inquiry to local fallback file:', localSaveError);
         }
+        inquiries.push({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          subject,
+          message,
+          createdAt: (/* @__PURE__ */ new Date()).toISOString()
+        });
+        fs2.writeFileSync(inquiriesFile, JSON.stringify(inquiries, null, 2), "utf8");
+        storedLocally = true;
+        console.log("Firebase is not active. Contact inquiry saved to local JSON fallback.");
+      } catch (localSaveError) {
+        console.error("Failed to save contact inquiry to local fallback file:", localSaveError);
       }
-
-      // 2. Setup the nodemailer transporter lazily (safe initialization without crashing on lack of credentials)
-      const isConfigured = (val: any) => val && typeof val === 'string' && val !== 'undefined' && val !== 'null' && val.trim() !== '';
-      let host = isConfigured(process.env.SMTP_HOST) ? process.env.SMTP_HOST.trim() : undefined;
-      if (host) {
-        // Safe processing: automatically strip protocol prefixes like ://, smtp://, smtps://, or https:// if provided in configuration
-        host = host.replace(/^(?:[a-zA-Z]+:)?\/\//, '');
-      }
-      const portVal = isConfigured(process.env.SMTP_PORT) ? process.env.SMTP_PORT.trim() : undefined;
-      const user = isConfigured(process.env.SMTP_USER) ? process.env.SMTP_USER.trim() : undefined;
-      const pass = isConfigured(process.env.SMTP_PASS) ? process.env.SMTP_PASS.trim() : undefined;
-
-      const emailContent = `
+    }
+    const isConfigured = (val) => val && typeof val === "string" && val !== "undefined" && val !== "null" && val.trim() !== "";
+    let host = isConfigured(process.env.SMTP_HOST) ? process.env.SMTP_HOST.trim() : void 0;
+    if (host) {
+      host = host.replace(/^(?:[a-zA-Z]+:)?\/\//, "");
+    }
+    const portVal = isConfigured(process.env.SMTP_PORT) ? process.env.SMTP_PORT.trim() : void 0;
+    const user = isConfigured(process.env.SMTP_USER) ? process.env.SMTP_USER.trim() : void 0;
+    const pass = isConfigured(process.env.SMTP_PASS) ? process.env.SMTP_PASS.trim() : void 0;
+    const emailContent = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
           <div style="background-color: #0c1c38; padding: 25px; text-align: center; color: #fff;">
             <h2 style="margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">New Consultation Inquiry</h2>
@@ -1442,99 +1617,110 @@ Draft responses thoughtfully based only on the query contexts provided and your 
           </div>
         </div>
       `;
-
-      let emailSent = false;
-      let emailError = null;
-
-      if (host && portVal && user && pass) {
-        try {
-          const port = parseInt(portVal, 10);
-          const transporter = nodemailer.createTransport({
-            host,
-            port,
-            secure: port === 465,
-            auth: {
-              user,
-              pass,
-            },
-            connectionTimeout: 3000,
-            greetingTimeout: 3000,
-            socketTimeout: 3000,
-            tls: {
-              rejectUnauthorized: false,
-              minVersion: 'TLSv1.2'
-            }
-          });
-
-          const mailOptionsAdmin = {
-            from: `"RAC Forge Contact Form" <${user}>`,
-            to: `support@racforge.com`,
-            replyTo: email,
-            subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
-            html: emailContent,
-            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
-          };
-
-          const mailOptionsUser = {
-            from: `"RAC Forge" <${user}>`,
-            to: `${email}`,
-            subject: `Thanks for contacting RAC Forge - We received your inquiry`,
-            html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><p>Dear ${firstName},</p><p>Thank you for reaching out to RAC Forge. We have successfully received your inquiry regarding <b>${subject}</b>.</p><p>Our team will review your message and get back to you shortly.</p><p>Best regards,<br>The RAC Forge Team</p></div>`,
-            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team`,
-          };
-
-          await transporter.sendMail(mailOptionsAdmin);
-          await transporter.sendMail(mailOptionsUser);
-          emailSent = true;
-          console.log(`Email successfully sent to support@racforge.com and ${email} for user ${firstName} ${lastName}.`);
-        } catch (mailErr: any) {
-          console.log(`Notice: SMTP transmission paused or blocked in sandbox (Inquiry saved correctly to database). Reason: ${mailErr.message || String(mailErr)}`);
-          emailError = mailErr.message || String(mailErr);
-        }
-      } else {
-        // Log details if SMTP environment variables are not configured yet, so they are not lost and can be verified easily in tests/preview logs.
-        console.warn('--- EMAIL TRANSACTION SIMULATION (SMTP configuration missing or incomplete) ---');
-        console.warn('To/Recipient: support@racforge.com');
-        console.warn(`Subject: [New Inquiry] ${subject} - ${firstName} ${lastName}`);
-        console.warn(`Content:\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\nMessage: ${message}`);
-        console.warn('--------------------------------------------------------------');
-      }
-
-      res.json({ 
-        success: true, 
-        storedInFirestore, 
-        storedLocally,
-        emailSent,
-        emailError,
-        message: emailSent 
-          ? 'Inquiry received and notification email sent successfully.' 
-          : 'Inquiry received and captured successfully.'
-      });
-    } catch (error: any) {
-      console.error('Contact API processing error:', error);
+    let emailSent = false;
+    let emailError = null;
+    if (host && portVal && user && pass) {
       try {
-        const debugDir = path.join(process.cwd(), 'src', 'data');
-        if (!fs.existsSync(debugDir)) {
-          fs.mkdirSync(debugDir, { recursive: true });
-        }
-        fs.writeFileSync(
-          path.join(debugDir, 'debug_contact_error.json'),
-          JSON.stringify({
-            message: error.message || String(error),
-            stack: error.stack,
-            body: req.body,
-            timestamp: new Date().toISOString()
-          }, null, 2),
-          'utf8'
-        );
-      } catch (logErr) {
-        console.error('Failed to write debug error log:', logErr);
+        const port = parseInt(portVal, 10);
+        const transporter = nodemailer.createTransport({
+          host,
+          port,
+          secure: port === 465,
+          auth: {
+            user,
+            pass
+          },
+          connectionTimeout: 3e3,
+          greetingTimeout: 3e3,
+          socketTimeout: 3e3,
+          tls: {
+            rejectUnauthorized: false,
+            minVersion: "TLSv1.2"
+          }
+        });
+        const mailOptionsAdmin = {
+          from: `"RAC Forge Contact Form" <${user}>`,
+          to: `support@racforge.com`,
+          replyTo: email,
+          subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
+          html: emailContent,
+          text: `New Inquiry details:
+
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phoneNumber}
+Subject: ${subject}
+
+Message:
+${message}`
+        };
+        const mailOptionsUser = {
+          from: `"RAC Forge" <${user}>`,
+          to: `${email}`,
+          subject: `Thanks for contacting RAC Forge - We received your inquiry`,
+          html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><p>Dear ${firstName},</p><p>Thank you for reaching out to RAC Forge. We have successfully received your inquiry regarding <b>${subject}</b>.</p><p>Our team will review your message and get back to you shortly.</p><p>Best regards,<br>The RAC Forge Team</p></div>`,
+          text: `Dear ${firstName},
+
+Thank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".
+
+Our team will review your message and get back to you shortly.
+
+Best regards,
+The RAC Forge Team`
+        };
+        await transporter.sendMail(mailOptionsAdmin);
+        await transporter.sendMail(mailOptionsUser);
+        emailSent = true;
+        console.log(`Email successfully sent to support@racforge.com and ${email} for user ${firstName} ${lastName}.`);
+      } catch (mailErr) {
+        console.log(`Notice: SMTP transmission paused or blocked in sandbox (Inquiry saved correctly to database). Reason: ${mailErr.message || String(mailErr)}`);
+        emailError = mailErr.message || String(mailErr);
       }
-      res.status(500).json({ error: 'Failed to process inquiry submission', details: error.message || String(error) });
+    } else {
+      console.warn("--- EMAIL TRANSACTION SIMULATION (SMTP configuration missing or incomplete) ---");
+      console.warn("To/Recipient: support@racforge.com");
+      console.warn(`Subject: [New Inquiry] ${subject} - ${firstName} ${lastName}`);
+      console.warn(`Content:
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phoneNumber}
+Subject: ${subject}
+Message: ${message}`);
+      console.warn("--------------------------------------------------------------");
     }
-  });
-
-
-
-  // Export for Vercel
-  export default app;
+    res.json({
+      success: true,
+      storedInFirestore,
+      storedLocally,
+      emailSent,
+      emailError,
+      message: emailSent ? "Inquiry received and notification email sent successfully." : "Inquiry received and captured successfully."
+    });
+  } catch (error) {
+    console.error("Contact API processing error:", error);
+    try {
+      const debugDir = path2.join(process.cwd(), "src", "data");
+      if (!fs2.existsSync(debugDir)) {
+        fs2.mkdirSync(debugDir, { recursive: true });
+      }
+      fs2.writeFileSync(
+        path2.join(debugDir, "debug_contact_error.json"),
+        JSON.stringify({
+          message: error.message || String(error),
+          stack: error.stack,
+          body: req.body,
+          timestamp: (/* @__PURE__ */ new Date()).toISOString()
+        }, null, 2),
+        "utf8"
+      );
+    } catch (logErr) {
+      console.error("Failed to write debug error log:", logErr);
+    }
+    res.status(500).json({ error: "Failed to process inquiry submission", details: error.message || String(error) });
+  }
+});
+var index_default = app;
+export {
+  BLOG_POSTS,
+  index_default as default
+};

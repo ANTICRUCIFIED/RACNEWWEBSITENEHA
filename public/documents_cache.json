@@ -1,8 +1,92 @@
 [
   {
-    "id": "learned-1780351754066-0",
+    "id": "MDR_2017_Schedules-chunk-0",
+    "filename": "MDR_2017_Schedules.txt",
+    "chunkIndex": 0,
+    "text": "### Schedules of the Medical Devices Rules (MDR) 2017 (India)\n\nThe Medical Devices Rules, 2017, issued by CDSCO, categorize regulatory requirements into several Schedules. Here is a summary of the most critical schedules:"
+  },
+  {
+    "id": "MDR_2017_Schedules-chunk-1",
+    "filename": "MDR_2017_Schedules.txt",
+    "chunkIndex": 1,
+    "text": "*   **First Schedule**: Classification of medical devices and in vitro diagnostic (IVD) medical devices. It outlines the parameters and rules for classifying devices into Class A (low risk), Class B (low-moderate risk), Class C (moderate-high risk), and Class D (high risk).\n*   **Second Schedule**: Fee structure. Specifies the official government fees required to be paid for various applications, such as import licenses (e.g., $1000 for Class A manufacturing site, $50 per distinct device), manufacturing licenses, test licenses, and clinical investigations.\n*   **Third Schedule**: Documents required for registration and licensing. It lists the exact dossier requirements, technical file contents, and plant master file details needed for obtaining import or manufacturing licenses.\n*   **Fourth Schedule**: Requirements for the Quality Management System (QMS). It mandates compliance with standards analogous to ISO 13485 for the manufacturing of medical devices and IVDs in India.\n*   **Fifth Schedule**: Requirements for conducting clinical investigations. It dictates the protocols, ethics committee approvals, and reporting formatting required for trials of investigational medical devices in human subjects.\n*   **Sixth Schedule**: Post-Market Surveillance (PMS) and exemptions.\n*   **Seventh Schedule**: Requirements for clinical performance evaluation of new in vitro diagnostic (IVD) medical devices.\n*   **Eighth Schedule**: Exemption of specific medical devices from the provisions of the rules."
+  },
+  {
+    "id": "MDR_2017_Schedules-chunk-2",
+    "filename": "MDR_2017_Schedules.txt",
+    "chunkIndex": 2,
+    "text": "These schedules form the backbone of regulatory compliance for both domestic manufacturing and importing medical devices into the Indian market."
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-0",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 0,
+    "text": "# RAC Forge Private Limited - Comprehensive Regulatory & Corporate Intelligence\n\nThis is the primary authority knowledge base of RAC Forge Private Limited relating to its corporate background, services, leadership under CEO Atul Sharma Sankhyayan, research, and regulatory links.\n\n---"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-1",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 1,
+    "text": "## 1. Corporate Identity & Contact Details\n*   **Company Name**: RAC Forge Private Limited\n*   **DUNS Number**: 771970978\n*   **Corporate Description**: A premier, full-service turnkey medical engineering builder, regulatory advisor, and R&D verification laboratory. Unlike standard pure administrative consulting firms or document agents, RAC Forge Private Limited has a fully functioning mechanical, electrical, and facility design division that participates physically in system debugging and cleanroom construction.\n*   **Headquarters Address**: Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India. Postal Code: 176064.\n*   **Geographical coordinates & Google Search Map Anchor**: [https://share.google/GNUkTQHynWoYKpWY3](https://share.google/GNUkTQHynWoYKpWY3)\n*   **Official Phone Line**: +91 62396 99077\n*   **Official E-mail Channel**: info@racforge.com\n*   **Main Website Portal**: [https://www.racforge.com](https://www.racforge.com)\n\n---"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-2",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 2,
+    "text": "## 2. Leadership & Research\n### Founder & CEO: Atul Sharma Sankhyayan\n**Atul Sharma Sankhyayan** is the Founder and CEO of RAC Forge Private Limited. He brings more than a decade of hands-on R&D hardware design, Software as a Medical Device (SaMD) structural engineering, and regulatory audit execution expertise. \n\nAtul’s unique approach centers on robust hardware-software validation—debugging isolation barriers, grounding lines, current leakage hazards, and signal pathways—so that high-tech medical products successfully survive physical test laboratory examinations rather than just administrative checks."
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-3",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 3,
+    "text": "### Scholarly Publication on Subsequent Importer Scheme (SIS)\nAtul Sharma Sankhyayan published a seminal research paper in the renowned **Cureus Journal of Medical Science (May 2026)**:\n*   **Title**: *\"Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes\"*\n*   **Publisher**: Cureus Journal of Medical Science\n*   **Publication Date**: May 2026\n*   **Key Concept**: This research paper explores and advises on the optimizations inside the CDSCO's SUGAM registration portal. It analyzes the friction, risks, and administrative gaps that occur during transition phases when an importer undergoes constitutional structural changes. The paper proposes the **Subsequent Importer Scheme (SIS)** to safeguard continuous supply chain traceability, guarantee product safety, and streamline SUGAM portal transitions for medical devices without compromising statutory standards.\n*   **Reference Link**: [https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes](https://www.cureus.com/articles/234907-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes)"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-4",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 4,
+    "text": "### Media and Podcast Highlights\nAtul was invited to present on the acclaimed international podcast **\"The Elendi Files\"** by ElendiLabs:\n*   **Podcast Episode**: *\"Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited\"*\n*   **Featured Platform**: ElendiLabs Podcasts\n*   **Key Discussions**: The podcast walks through how RAC Forge Pvt. Ltd. operates as a true technical partner. It describes their rigorous methodologies for physical safety testing of biomedical devices, auditing cleanrooms, and establishing complete software lifecycle pathways (IEC 62304) for SaMD.\n*   **Reference Link**: [https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan](https://elendilabs.com/podcast/navigating-medical-device-registration-india-atul-sharma-sankhyayan)\n\n---\n\n## 3. Official Links Directory of Regulatory Bodies & Guidelines (Downloadable PDFs)\nBelow is the directory of official regulatory PDF guidelines, gazettes, standards documents, and portals:"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-5",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 5,
+    "text": "### 🇮🇳 CDSCO (India) Core Rules & Guidance PDFs:\n*   **Indian Medical Devices Rules, 2017 (Official Gazette Notification PDF)**:\n    [Download Rules PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/g_s_r_78_E.pdf)\n*   **CDSCO Medical Device Classification Master List (PDF)**:\n    [Download Master Classifications List](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/device_classification.pdf)\n*   **Common Submission Format (CSF) for Import Licence (Form MD-14 Guidance PDF)**:\n    [Download CSF Guidance Document](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/Guidance_Document_CSF_Import_Licence.pdf)\n*   **CDSCO Official FAQ Directory on Medical Devices (PDF)**:\n    [Download FAQ Guide PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/FAQs_medical_devices_03_02_2020.pdf)\n*   **CDSCO SUGAM Online Portal**: [https://cdscomdonline.gov.in](https://cdscomdonline.gov.in)\n*   **CDSCO National Website**: [https://cdsco.gov.in](https://cdsco.gov.in)"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-6",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 6,
+    "text": "### 🇺🇸 USFDA (United States) Guidance PDFs:\n*   **USFDA 510(k) Premarket Notification Submission Guidance (PDF)**:\n    [Download 510(k) Guidance Manual](https://www.fda.gov/media/85293/download)\n*   **Quality System Regulation (21 CFR Part 820) Guidance Booklet (PDF)**:\n    [Download 21 CFR Part 820 Guidance](https://www.fda.gov/media/119793/download)\n*   **FDA Software as a Medical Device (SaMD) Lifecycle Guidance (PDF)**:\n    [Download SaMD FDA Document](https://www.fda.gov/media/107543/download)\n*   **FDA Cybersecurity in Medical Devices Pre/Postmarket Guidance (PDF)**:\n    [Download FDA Security Guidance](https://www.fda.gov/media/119773/download)\n*   **USFDA CDRH Home Portal**: [https://www.fda.gov/medical-devices](https://www.fda.gov/medical-devices)"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-7",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 7,
+    "text": "### 🇪🇺 European Union Commission (EU MDR & IVDR) PDFs:\n*   **EU Medical Devices Regulation (EU MDR 2017/745 English Full Text PDF)**:\n    [Download Complete EU MDR 2017/745 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0745)\n*   **EU In Vitro Diagnostic Regulation (EU IVDR 2017/746 English Full Text PDF)**:\n    [Download Complete EU IVDR 2017/746 Text](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R0746)\n*   **MDCG (Medical Device Coordination Group) Systematic Guidance Portal**: [https://health.ec.europa.eu/latest-guidance-documents_en](https://health.ec.europa.eu/latest-guidance-documents_en)\n*   **EUDAMED Database Portal**: [https://ec.europa.eu/tools/eudamed](https://ec.europa.eu/tools/eudamed)"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-8",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 8,
+    "text": "### 🌐 International Standards & ASTM Guides:\n*   **ISO 13485:2016 Medical Devices Quality Management System Standard Brochure (PDF)**:\n    [Download ISO 13485 QMS Overview](https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100377.pdf)\n*   **ASTM Medical Devices & Materials Regulatory Catalog Guidance Overview (PDF)**:\n    [Download ASTM Standards Brochure](https://www.astm.org/media/pdf/medicaldevices.pdf)\n*   **ISO Official Standards Catalogue & Store**: [https://www.iso.org](https://www.iso.org)\n\n---"
+  },
+  {
+    "id": "RAC_Forge_Knowledge-chunk-9",
+    "filename": "RAC_Forge_Knowledge.txt",
+    "chunkIndex": 9,
+    "text": "## 4. Key Engineering & Turnkey Compliance Services\nRAC Forge Private Limited delivers complete physical fabrication and high-science consulting:\n1.  **ISO Class 7 & Class 8 Cleanrooms**: Complete HVAC structural design, laminar flow filters, wall panels, and particle verification audits.\n2.  **Integrated Modular Operating Theatres**: Centralized medical gas pipelines, gas rails, and sterile airflow vectors.\n3.  **Active Electrical Hardware Debugging**: IEC 60601-1 testing, isolation barrier troubleshooting, and EMC/EMI remediation.\n4.  **Software as a Medical Device (SaMD)**: Software development lifecycle plans and cybersecurity mapping complying with IEC 62304 standards.\n5.  **Quality Management Systems**: Setup of SOP structures, CAPA management tracking, and site audits to attain ISO 13485:2016."
+  },
+  {
+    "id": "continuous_learning-chunk-0",
     "filename": "continuous_learning.txt",
     "chunkIndex": 0,
-    "text": "[Learned Interaction - 2026-06-01T22:09:14.066Z]\nUser Query: foo query\nRAAAHI Expert Answer: bar response"
+    "text": "---\n\n[Learned Interaction - 2026-06-01T22:09:14.066Z]\nUser Query: foo query\nRAAAHI Expert Answer: bar response\n\n---\n\n[Learned Interaction - 2026-06-07T14:10:35.136Z]\nUser Query: hi\nRAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.\n\nHow may I assist you today with your medical device regulatory and compliance needs?\n\n---\n\n[Learned Interaction - 2026-06-07T14:51:17.385Z]\nUser Query: hi\nRAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.\n\nHow may I assist you today with your medical device regulatory and compliance needs?\n\nDisclaimer: For confirmation, please contact our team.\n\n---\n\n[Learned Interaction - 2026-06-07T15:04:38.096Z]\nUser Query: hi\nRAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.\n\nHow may I assist you today with your medical device regulatory and compliance needs?\n\nDisclaimer: For confirmation, please contact our team."
+  },
+  {
+    "id": "learned-1780844693646-14",
+    "filename": "continuous_learning.txt",
+    "chunkIndex": 14,
+    "text": "[Learned Interaction - 2026-06-07T15:04:53.645Z]\nUser Query: hi\nRAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd.\n\nHow may I assist you today with your medical device regulatory and compliance needs?\n\nDisclaimer: For confirmation, please contact our team."
   }
 ]

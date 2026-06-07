@@ -13,17 +13,6 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    id: 'navigating-cdsco-compliance-a-strategic-guide-for-medical-device-manufacturers',
-    title: 'Navigating CDSCO Compliance: A Strategic Guide for Medical Device Manufacturers',
-    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-regulatory-compliance-framework.webp',
-    date: '07 Jun 2026',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
-    content: `In the complex landscape of the Indian medical device market, the Central Drugs Standard Control Organization (CDSCO) remains the primary gatekeeper for regulatory compliance. Manufacturers often struggle to interpret the nuances of the Medical Device Rules (MDR) 2017, which governs everything from clinical investigation to the final market authorization. Achieving seamless compliance requires a proactive approach toward documentation, class-based risk classification, and alignment with the latest gazette notifications. At RAC Forge, we emphasize that regulatory excellence is not merely a bureaucratic hurdle but a fundamental pillar of product quality and patient safety that dictates your speed-to-market.\n\n### Core Regulatory Pillars for CDSCO Approval\nSuccessfully navigating the CDSCO framework demands a meticulous focus on technical documentation, including the Essential Principles of Safety and Performance (EPSP). Whether you are filing for a wholesale license or seeking manufacturing registration, the burden of proof rests on your ability to demonstrate consistent adherence to the standards set by the Drugs Controller General of India (DCGI). Our advisory expertise suggests that most delays in the approval process stem from incomplete conformity assessment reports or misalignment between device labeling and registered specifications. Organizations must conduct periodic internal audits to ensure their quality management systems reflect the rigorous requirements of current legislation.\n\n### Strategic Implementation and Long-term Compliance\nBeyond initial registration, maintaining a state of continuous compliance is essential for mitigating litigation risks and ensuring uninterrupted supply chain operations. Regulatory landscapes evolve rapidly; staying updated on amendments—such as specific warnings for pediatric use or schedule-specific drug notifications—is non-negotiable for manufacturers operating within the Indian territory. By integrating regulatory intelligence into your R&D and supply chain strategies early, you transform compliance from a reactive cost center into a competitive advantage. Partnering with seasoned regulatory consultants ensures that your documentation remains robust, transparent, and always audit-ready, providing the stability necessary to scale operations effectively.`
-  },
-  {
     id: 'sterilization-validation',
     title: 'Sterilization Validation for Medical Devices',
     excerpt: 'Sterilization validation is essential for sterile medical devices. Understanding sterilization methods and validation requirements is crucial for ensuring regulatory compliance (CDSCO, USFDA, EU MDR) and patient safety.',
