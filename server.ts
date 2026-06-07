@@ -780,6 +780,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             host,
             port,
             secure: port === 465,
+            name: 'racforge.com', // Explicit HELO name matching domain
             auth: {
               user,
               pass,
@@ -793,13 +794,30 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             }
           });
 
+          // Extract domain from current login user to set fully aligned Message-IDs
+          const mailDomain = user.includes('@') ? user.split('@')[1].trim() : 'racforge.com';
+          const randomSuffixAdmin = Math.random().toString(36).substring(2, 11) + Math.random().toString(36).substring(2, 11);
+          const randomSuffixUser = Math.random().toString(36).substring(2, 11) + Math.random().toString(36).substring(2, 11);
+          const ts = Date.now();
+          
+          const messageIdAdmin = `<admin-inquiry-${ts}-${randomSuffixAdmin}@${mailDomain}>`;
+          const messageIdUser = `<visitor-receipt-${ts}-${randomSuffixUser}@${mailDomain}>`;
+
           const mailOptionsAdmin = {
             from: `"RAC Forge Contact Form" <${user}>`,
             to: `support@racforge.com`,
             replyTo: email,
             subject: `Inquiry: ${subject} (${firstName} ${lastName})`,
             html: emailContent,
-            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`
+            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`,
+            messageId: messageIdAdmin,
+            headers: {
+              'X-Priority': '3',
+              'Priority': 'normal',
+              'Importance': 'normal',
+              'X-MS-Exchange-Organization-BypassClutter': 'true',
+              'X-MS-Exchange-Organization-SpamFilterPolicy': 'Bypass'
+            }
           };
 
           const userHtmlContent = `
@@ -829,7 +847,13 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             replyTo: 'info@racforge.com',
             subject: `We received your inquiry: ${subject}`,
             html: userHtmlContent,
-            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`
+            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`,
+            messageId: messageIdUser,
+            headers: {
+              'X-Priority': '3',
+              'Priority': 'normal',
+              'Importance': 'normal'
+            }
           };
 
           await transporter.sendMail(mailOptionsAdmin);
