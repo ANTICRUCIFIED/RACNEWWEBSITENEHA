@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { GoogleGenAI } from '@google/genai';
+import admin from 'firebase-admin';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import nodemailer from 'nodemailer';
@@ -735,8 +736,6 @@ Discover the detailed registration structures, government fee levels, and techni
   }
 ];
 
-import admin from 'firebase-admin';
-
 dotenv.config();
 
 const app = express();
@@ -1055,7 +1054,7 @@ Please write what specific area you would like detailed guidance on!
   });
 
   // API routes
-  app.get('/api/health', (req, res) => {
+  app.get(['/api/health', '/health'], (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
@@ -1088,7 +1087,7 @@ Please write what specific area you would like detailed guidance on!
   }
 
   // GET API Endpoint to fetch blog posts from the static BLOG_POSTS array
-  app.get('/api/posts', (req, res) => {
+  app.get(['/api/posts', '/posts'], (req, res) => {
     try {
       return res.json(BLOG_POSTS);
     } catch (fetchErr: any) {
@@ -1101,7 +1100,7 @@ Please write what specific area you would like detailed guidance on!
   });
 
   // GET API to fetch details of a specific blog post
-  app.get('/api/posts/:id', (req, res) => {
+  app.get(['/api/posts/:id', '/posts/:id'], (req, res) => {
     try {
       const { id } = req.params;
       const foundPost = BLOG_POSTS.find((p: any) => p.id === id);
@@ -1199,7 +1198,7 @@ Please write what specific area you would like detailed guidance on!
     return fallbackModels;
   };
 
-  app.post('/api/chat', async (req, res) => {
+  app.post(['/api/chat', '/chat'], async (req, res) => {
     let context = '';
     try {
       const { messages = [], userMessage, apiKey } = req.body;
@@ -1340,7 +1339,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     }
   });
 
-  app.post('/api/generate-image', async (req, res) => {
+  app.post(['/api/generate-image', '/generate-image'], async (req, res) => {
     try {
       const { prompt, size, apiKey } = req.body;
       const ai = getGoogleGenAI(apiKey);
@@ -1393,7 +1392,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     }
   });
 
-  app.post('/api/upload', upload.single('file'), async (req, res) => {
+  app.post(['/api/upload', '/upload'], upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
@@ -1408,7 +1407,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     }
   });
 
-  app.post('/api/contact', async (req, res) => {
+  app.post(['/api/contact', '/contact'], async (req, res) => {
     try {
       const { firstName, lastName, email, phoneNumber, subject, message } = req.body;
 
