@@ -163,13 +163,17 @@ export default async function handler(req: any, res: any) {
   const { messages = [], userMessage, apiKey } = req.body || {};
 
   try {
-    // 1. RAG Retrieve: Preload static documents if required
+    // 1. RAG Retrieve: Preload static documents with safety timeout
     try {
       if (documentStore.length === 0) {
         console.log('Document store is empty, initializing preloading for static files...');
         let aiClient;
         try { aiClient = getGoogleGenAI(apiKey); } catch (e) {}
-        await preloadStaticDocuments(aiClient);
+        
+        await Promise.race([
+          preloadStaticDocuments(aiClient),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Preload timeout')), 3000))
+        ]).catch(e => console.warn('Preload static documents aborted or timed out:', e));
       }
       let aiForRetrieve;
       try { aiForRetrieve = getGoogleGenAI(apiKey); } catch (e) {}
@@ -239,9 +243,10 @@ Draft responses thoughtfully based only on the query contexts provided and your 
     };
 
     const modelsToTry = [
-      'gemini-3.5-flash',
-      'gemini-3.1-flash-lite',
-      'gemini-3.1-pro-preview'
+      'gemini-2.5-flash',
+      'gemini-2.5-pro',
+      'gemini-2.0-flash',
+      'gemini-2.0-flash-lite-001'
     ];
 
     let result = null;

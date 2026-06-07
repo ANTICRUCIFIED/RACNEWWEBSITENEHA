@@ -49,7 +49,7 @@ export default async function handler(req: any, res: any) {
     let result;
     try {
       result = await ai.models.generateContent({
-        model: 'gemini-3.1-flash-image',
+        model: 'gemini-1.5-flash',
         ...modelConfig,
       });
     } catch (primaryError: any) {
