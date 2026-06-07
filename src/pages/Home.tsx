@@ -27,6 +27,7 @@ import 'swiper/css/pagination';
 
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
+import { getApiBaseUrl } from '../lib/utils';
 
 const BLOG_POSTS = [
   {
@@ -61,31 +62,6 @@ const BLOG_POSTS = [
   }
 ];
 
-const getApiBaseUrl = () => {
-  // If running in development preview or in AI Studio workspace sandbox, direct requests to local server
-  if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname;
-    if (
-      hostname.includes('run.app') || 
-      hostname.includes('localhost') || 
-      hostname.includes('127.0.0.1') || 
-      hostname.includes('gitpod') || 
-      hostname.includes('github.dev') ||
-      hostname.includes('github.preview.app')
-    ) {
-      return '';
-    }
-  }
-
-  const envUrl = import.meta.env.VITE_API_BASE_URL;
-  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
-    if (!envUrl.startsWith('http')) {
-      return `https://${envUrl}`;
-    }
-    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
-  }
-  return '';
-};
 const API_BASE_URL = getApiBaseUrl();
 
 export default function Home() {

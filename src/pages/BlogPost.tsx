@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
 import { BLOG_POSTS } from '../data/blogData';
 import { db, auth } from '../lib/firebase';
+import { getApiBaseUrl } from '../lib/utils';
 import { 
   collection, 
   addDoc, 
@@ -65,27 +66,6 @@ interface ReplyData {
   isStaff?: boolean;
 }
 
-function getApiBaseUrl(): string {
-  if (typeof window !== 'undefined') {
-    const urlParams = new URLSearchParams(window.location.search);
-    const apiUrl = urlParams.get('api');
-    if (apiUrl) {
-      if (!apiUrl.startsWith('http')) {
-        return `https://${apiUrl}`;
-      }
-      return apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
-    }
-  }
-
-  const envUrl = import.meta.env.VITE_API_BASE_URL;
-  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
-    if (!envUrl.startsWith('http')) {
-      return `https://${envUrl}`;
-    }
-    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
-  }
-  return '';
-}
 const API_BASE_URL = getApiBaseUrl();
 
 export default function BlogPost() {
