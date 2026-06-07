@@ -747,12 +747,19 @@ const PORT = 3000;
     const origin = req.headers.origin;
     if (origin) {
       res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
     } else {
       res.setHeader('Access-Control-Allow-Origin', '*');
     }
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, X-CSRF-Token, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version');
+    
+    // Support any and all dynamic headers requested by the client / browser extensions during preflight
+    const requestedHeaders = req.headers['access-control-request-headers'];
+    if (requestedHeaders) {
+      res.setHeader('Access-Control-Allow-Headers', requestedHeaders);
+    } else {
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, X-CSRF-Token, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version');
+    }
     
     // Instantly resolve preflight OPTIONS queries to prevent browser-side "Failed to fetch" blockades
     if (req.method === 'OPTIONS') {
