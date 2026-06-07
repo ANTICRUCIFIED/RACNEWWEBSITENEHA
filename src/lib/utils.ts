@@ -18,7 +18,7 @@ export function getApiBaseUrl(): string {
     }
   }
 
-  // 2. Fall back to explicit VITE_API_BASE_URL environment variable if set by user
+  // 2. Fall back to explicit VITE_API_BASE_URL environment variable if set by user during build
   const envUrl = import.meta.env.VITE_API_BASE_URL;
   if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
     if (!envUrl.startsWith('http')) {
@@ -27,7 +27,7 @@ export function getApiBaseUrl(): string {
     return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
   }
 
-  // 2. Fallback to current host if running in development preview or sandbox environment
+  // 3. If running in a local development preview or sandbox environment, route calls relatively
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
     if (
@@ -42,5 +42,7 @@ export function getApiBaseUrl(): string {
     }
   }
 
-  return '';
+  // 4. Fallback default for any static hosting deployment (like GitHub Pages on racforge.com or *.github.io)
+  // This directs API routing dynamically to the Vercel-managed full-stack server
+  return 'https://racforge.vercel.app';
 }
