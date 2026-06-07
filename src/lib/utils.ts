@@ -42,12 +42,12 @@ export function getApiBaseUrl(): string {
     }
     
     // If visiting the Production API's root domain itself, route relativamente
-    if (hostname === 'racforge.vercel.app') {
+    if (hostname === 'racnewwebsiteneha.vercel.app') {
       return '';
     }
   }
 
   // 4. Fallback default for any static hosting deployment (like GitHub Pages on racforge.com or *.github.io)
   // This directs API routing dynamically to the Vercel-managed full-stack server
-  return 'https://racforge.vercel.app';
+  return 'https://racnewwebsiteneha.vercel.app';
 }
