@@ -791,21 +791,51 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             }
           });
 
+          // Extract domain from the SMTP authenticated user to set a fully aligned Message-ID
+          const mailDomain = user.includes('@') ? user.split('@')[1].trim() : 'racforge.com';
+          const randomSuffixAdmin = Math.random().toString(36).substring(2, 10);
+          const randomSuffixUser = Math.random().toString(36).substring(2, 10);
+          const ts = Date.now();
+          
+          const messageIdAdmin = `<rac-inquiry-admin-${ts}-${randomSuffixAdmin}@${mailDomain}>`;
+          const messageIdUser = `<rac-inquiry-reply-${ts}-${randomSuffixUser}@${mailDomain}>`;
+
           const mailOptionsAdmin = {
             from: `"RAC Forge Contact Form" <${user}>`,
             to: `support@racforge.com`,
+            envelope: {
+              from: user,
+              to: 'support@racforge.com'
+            },
             replyTo: email,
             subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
             html: emailContent,
             text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
+            messageId: messageIdAdmin,
+            headers: {
+              'X-Auto-Response-Loop': 'true',
+              'Auto-Submitted': 'auto-generated',
+              'X-Mailer': 'Nodemailer/RAC-Forge-Portal'
+            }
           };
 
           const mailOptionsUser = {
             from: `"RAC Forge" <${user}>`,
             to: `${email}`,
+            envelope: {
+              from: user,
+              to: email
+            },
+            replyTo: 'info@racforge.com',
             subject: `Thanks for contacting RAC Forge - We received your inquiry`,
             html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><p>Dear ${firstName},</p><p>Thank you for reaching out to RAC Forge. We have successfully received your inquiry regarding <b>${subject}</b>.</p><p>Our team will review your message and get back to you shortly.</p><p>Best regards,<br>The RAC Forge Team</p></div>`,
             text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team`,
+            messageId: messageIdUser,
+            headers: {
+              'X-Auto-Response-Loop': 'true',
+              'Auto-Submitted': 'auto-generated',
+              'X-Mailer': 'Nodemailer/RAC-Forge-reply'
+            }
           };
 
           await transporter.sendMail(mailOptionsAdmin);
