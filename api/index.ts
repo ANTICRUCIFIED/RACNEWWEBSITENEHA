@@ -1540,8 +1540,10 @@ Draft responses thoughtfully based only on the query contexts provided and your 
               <div style="background-color: #f8fafc; border-left: 4px solid #00a896; padding: 20px; border-radius: 8px; white-space: pre-wrap; color: #334155; font-style: italic; line-height: 1.7; box-sizing: border-box;">${message}</div>
             </div>
           </div>
-          <div style="background-color: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
-            This email was automatically generated and sent from the RAC Forge compliance portal.
+          <div style="background-color: #f1f5f9; padding: 25px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; line-height: 1.5;">
+            <p style="margin: 0 0 5px 0; font-weight: bold;">RAC Forge Private Limited</p>
+            <p style="margin: 0 0 5px 0;">Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064</p>
+            <p style="margin: 0; opacity: 0.8;">Confidential Transactional Message | Built & Maintained by RAC Forge Team</p>
           </div>
         </div>
       `;
@@ -1560,60 +1562,52 @@ Draft responses thoughtfully based only on the query contexts provided and your 
               user,
               pass,
             },
-            connectionTimeout: 3000,
-            greetingTimeout: 3000,
-            socketTimeout: 3000,
+            connectionTimeout: 5000,
+            greetingTimeout: 5000,
+            socketTimeout: 5000,
             tls: {
               rejectUnauthorized: false,
               minVersion: 'TLSv1.2'
             }
           });
 
-          // Extract domain from the SMTP authenticated user to set a fully aligned Message-ID
-          const mailDomain = user.includes('@') ? user.split('@')[1].trim() : 'racforge.com';
-          const randomSuffixAdmin = Math.random().toString(36).substring(2, 10);
-          const randomSuffixUser = Math.random().toString(36).substring(2, 10);
-          const ts = Date.now();
-          
-          const messageIdAdmin = `<rac-inquiry-admin-${ts}-${randomSuffixAdmin}@${mailDomain}>`;
-          const messageIdUser = `<rac-inquiry-reply-${ts}-${randomSuffixUser}@${mailDomain}>`;
-
           const mailOptionsAdmin = {
             from: `"RAC Forge Contact Form" <${user}>`,
             to: `support@racforge.com`,
-            envelope: {
-              from: user,
-              to: 'support@racforge.com'
-            },
             replyTo: email,
-            subject: `[New Inquiry] ${subject} - ${firstName} ${lastName}`,
+            subject: `Inquiry: ${subject} (${firstName} ${lastName})`,
             html: emailContent,
-            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}`,
-            messageId: messageIdAdmin,
-            headers: {
-              'X-Auto-Response-Loop': 'true',
-              'Auto-Submitted': 'auto-generated',
-              'X-Mailer': 'Nodemailer/RAC-Forge-Portal'
-            }
+            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`
           };
 
+          const userHtmlContent = `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+              <div style="background-color: #0c1c38; padding: 25px; text-align: center; color: #fff;">
+                <h2 style="margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">Inquiry Confirmed</h2>
+                <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 14px;">RAC Forge Private Limited</p>
+              </div>
+              <div style="padding: 30px; background-color: #ffffff;">
+                <p style="font-size: 16px; margin-top: 0; color: #0c1c38; font-weight: bold;">Dear ${firstName},</p>
+                <p style="color: #475569; font-size: 15px;">Thank you for contacting RAC Forge. We have successfully received your consultation inquiry regarding <b>${subject}</b>.</p>
+                <p style="color: #475569; font-size: 15px;">Our regulatory compliance and technical engineering team is reviewing your requirements and will reach back to you shortly.</p>
+                <p style="color: #475569; font-size: 15px; margin-bottom: 0;">If you have any urgent attachments or updates, please reply directly to this mail or contact us at <a href="mailto:info@racforge.com" style="color: #00a896; text-decoration: none;">info@racforge.com</a>.</p>
+                <p style="margin-top: 25px; color: #475569; font-size: 15px;">Best regards,<br><span style="font-weight: bold; color: #0c1c38;">The RAC Forge Team</span></p>
+              </div>
+              <div style="background-color: #f1f5f9; padding: 25px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; line-height: 1.5;">
+                <p style="margin: 0 0 5px 0; font-weight: bold;">RAC Forge Private Limited</p>
+                <p style="margin: 0 0 5px 0;">Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064</p>
+                <p style="margin: 0; opacity: 0.8;">You received this automated transactional message because you submitted a request at racforge.com.</p>
+              </div>
+            </div>
+          `;
+
           const mailOptionsUser = {
-            from: `"RAC Forge" <${user}>`,
+            from: `"RAC Forge Private Limited" <${user}>`,
             to: `${email}`,
-            envelope: {
-              from: user,
-              to: email
-            },
             replyTo: 'info@racforge.com',
-            subject: `Thanks for contacting RAC Forge - We received your inquiry`,
-            html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;"><p>Dear ${firstName},</p><p>Thank you for reaching out to RAC Forge. We have successfully received your inquiry regarding <b>${subject}</b>.</p><p>Our team will review your message and get back to you shortly.</p><p>Best regards,<br>The RAC Forge Team</p></div>`,
-            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team`,
-            messageId: messageIdUser,
-            headers: {
-              'X-Auto-Response-Loop': 'true',
-              'Auto-Submitted': 'auto-generated',
-              'X-Mailer': 'Nodemailer/RAC-Forge-reply'
-            }
+            subject: `We received your inquiry: ${subject}`,
+            html: userHtmlContent,
+            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`
           };
 
           await transporter.sendMail(mailOptionsAdmin);
