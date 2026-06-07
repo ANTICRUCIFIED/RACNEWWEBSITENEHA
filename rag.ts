@@ -3,13 +3,23 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';
 
-import documentsCache from './public/documents_cache.json';
-
 export interface DocumentChunk {
   id: string;
   filename: string;
   chunkIndex: number;
   text: string;
+}
+
+// Safely load pre-extracted static document cache using fs at runtime 
+// to prevent ESM module resolution or import assertion crashes on Vercel.
+let documentsCache: DocumentChunk[] = [];
+try {
+  const cachePath = path.join(process.cwd(), 'public', 'documents_cache.json');
+  if (fs.existsSync(cachePath)) {
+    documentsCache = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+  }
+} catch (e) {
+  console.warn('Could not read documents_cache.json directly from disk:', e);
 }
 
 export const documentStore: DocumentChunk[] = [...documentsCache];
