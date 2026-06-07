@@ -1130,7 +1130,12 @@ Please write what specific area you would like detailed guidance on!
           console.log('Document store is empty, initializing preloading for static files...');
           let aiClient;
           try { aiClient = getGoogleGenAI(apiKey); } catch (e) {}
-          await preloadStaticDocuments(aiClient);
+          const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Preload timeout')), 3000));
+          timeoutPromise.catch(() => {});
+          await Promise.race([
+            preloadStaticDocuments(aiClient),
+            timeoutPromise
+          ]).catch(e => console.warn('Preload static documents aborted or timed out:', e));
         }
         let aiForRetrieve;
         try { aiForRetrieve = getGoogleGenAI(apiKey); } catch (e) {}

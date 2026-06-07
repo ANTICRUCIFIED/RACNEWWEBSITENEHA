@@ -170,9 +170,11 @@ export default async function handler(req: any, res: any) {
         let aiClient;
         try { aiClient = getGoogleGenAI(apiKey); } catch (e) {}
         
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Preload timeout')), 3000));
+        timeoutPromise.catch(() => {});
         await Promise.race([
           preloadStaticDocuments(aiClient),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Preload timeout')), 3000))
+          timeoutPromise
         ]).catch(e => console.warn('Preload static documents aborted or timed out:', e));
       }
       let aiForRetrieve;
