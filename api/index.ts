@@ -7,7 +7,7 @@ import admin from 'firebase-admin';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import nodemailer from 'nodemailer';
-import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './rag.js';
+import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './rag';
 import { BLOG_POSTS } from '../src/data/blogData';
 import type { BlogPost } from '../src/data/blogData';
 

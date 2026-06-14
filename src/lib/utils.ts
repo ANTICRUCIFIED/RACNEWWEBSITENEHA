@@ -18,18 +18,9 @@ export function getApiBaseUrl(): string {
     }
   }
 
-  // 2. Fall back to explicit VITE_API_BASE_URL environment variable if set by user during build
-  const envUrl = import.meta.env.VITE_API_BASE_URL;
-  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
-    if (!envUrl.startsWith('http')) {
-      return `https://${envUrl}`;
-    }
-    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
-  }
-
-  // 3. If running in a local development preview or sandbox environment, route calls relatively
+  // 2. If running in a local development preview, AI Studio, or sandbox environment, route calls relatively (takes priority over build variables to prevent hijacking)
   if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname;
+    const hostname = window.location.hostname.toLowerCase();
     if (
       hostname.includes('run.app') || 
       hostname.includes('localhost') || 
@@ -38,15 +29,21 @@ export function getApiBaseUrl(): string {
       hostname.includes('github.dev') ||
       hostname.includes('github.preview.app') ||
       hostname.includes('googleusercontent') ||
-      hostname.includes('aistudio.google')
+      hostname.includes('aistudio.google') ||
+      hostname.includes('vercel.dev') ||
+      hostname.includes('racnewwebsiteneha')
     ) {
       return '';
     }
-    
-    // If visiting the Production API's root domain itself, route relativamente
-    if (hostname === 'racnewwebsiteneha.vercel.app') {
-      return '';
+  }
+
+  // 3. Fall back to explicit VITE_API_BASE_URL environment variable if set by user during build
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl !== 'undefined' && envUrl !== 'null' && envUrl.trim() !== '') {
+    if (!envUrl.startsWith('http')) {
+      return `https://${envUrl}`;
     }
+    return envUrl.endsWith('/') ? envUrl.slice(0, -1) : envUrl;
   }
 
   // 4. Fallback default for any static hosting deployment (like GitHub Pages on racforge.com or *.github.io)
