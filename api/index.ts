@@ -8,14 +8,15 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import nodemailer from 'nodemailer';
 import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './rag.js';
-import { BLOG_POSTS } from '../src/data/blogData';
-import type { BlogPost } from '../src/data/blogData';
+import { BLOG_POSTS } from '../src/data/blogData.js';
+import type { BlogPost } from '../src/data/blogData.js';
 
 dotenv.config();
 
 const app = express();
 
 app.use(cors({ origin: true, credentials: true }));
+app.options('*', cors());
 app.use(express.json());
 
   // SSL / HTTPS redirect middleware to satisfy SEO checklist (only redirects GET/HEAD requests to prevent breaking POST API fetches, and excludes all /api/ pathways)
