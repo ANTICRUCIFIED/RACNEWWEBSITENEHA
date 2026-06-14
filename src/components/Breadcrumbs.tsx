@@ -13,7 +13,7 @@ const ROUTE_MAP: Record<string, string> = {
   'services': 'Services',
   'expertise': 'Expertise',
   'contact': 'Contact Us',
-  'blogs': 'Insights',
+  'blogs': 'Blogs & Insights',
   'resources': 'Resources',
   'information': 'CDSCO Resources',
   'locations': 'Regional Access',
@@ -132,7 +132,7 @@ export default function Breadcrumbs() {
       }
       if (segment === 'resources' && segments[index - 1] === 'blogs') {
         linkPath = '/blogs/resources';
-        humanName = 'Insights & Resources';
+        humanName = 'Blogs & Insights';
       }
 
       result.push({

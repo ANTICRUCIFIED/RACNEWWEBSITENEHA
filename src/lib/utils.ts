@@ -36,7 +36,9 @@ export function getApiBaseUrl(): string {
       hostname.includes('127.0.0.1') || 
       hostname.includes('gitpod') || 
       hostname.includes('github.dev') ||
-      hostname.includes('github.preview.app')
+      hostname.includes('github.preview.app') ||
+      hostname.includes('googleusercontent') ||
+      hostname.includes('aistudio.google')
     ) {
       return '';
     }

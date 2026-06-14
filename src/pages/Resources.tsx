@@ -22,7 +22,28 @@ export default function Resources() {
       })
       .then(data => {
         if (Array.isArray(data)) {
-          setPosts(data);
+          const merged = [...data];
+          BLOG_POSTS.forEach(staticPost => {
+            if (!merged.some(p => p.id === staticPost.id)) {
+              merged.push(staticPost);
+            }
+          });
+          const parseDate = (dateStr: string) => {
+            const parts = dateStr.split(' ');
+            if (parts.length === 3) {
+              const months: { [key: string]: number } = {
+                Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+                Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+              };
+              const day = parseInt(parts[0], 10);
+              const month = months[parts[1]] || 0;
+              const year = parseInt(parts[2], 10);
+              return new Date(year, month, day).getTime();
+            }
+            return 0;
+          };
+          merged.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+          setPosts(merged);
         }
       })
       .catch(err => {

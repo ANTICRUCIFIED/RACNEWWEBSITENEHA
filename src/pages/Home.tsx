@@ -29,38 +29,21 @@ import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
 import { getApiBaseUrl } from '../lib/utils';
 
-const BLOG_POSTS = [
-  {
-    id: 'sterilization-validation',
-    title: 'Sterilization Validation for Medical Devices',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-sterilization.webp',
-    date: '12 Oct'
-  },
-  {
-    id: 'biocompatibility-testing',
-    title: 'Biocompatibility Testing Strategies for Medical Devices',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-biocompatibility.webp',
-    date: '11 Oct'
-  },
-  {
-    id: 'mastering-eu-mdr',
-    title: 'Mastering EU MDR Technical Documentation',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-eu-mdr.webp',
-    date: '10 Oct'
-  },
-  {
-    id: 'navigating-usfda-510k',
-    title: 'Navigating USFDA’s 510(k) Submission Process',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-usfda-510k.webp',
-    date: '10 Oct'
-  },
-  {
-    id: 'understanding-cdsco-rules',
-    title: 'Understanding CDSCO’s Medical Devices Rules, 2017',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-cdsco-rules.webp',
-    date: '10 Oct'
-  }
-];
+import { BLOG_POSTS as ALL_BLOG_POSTS } from '../data/blogData';
+
+// Format short date for slider display (e.g. "09 Jun 2026" -> "09 Jun")
+const formatDisplayDate = (dateStr: string) => {
+  const parts = dateStr.split(' ');
+  return parts.length >= 2 ? `${parts[0]} ${parts[1]}` : dateStr;
+};
+
+// Map global BLOG_POSTS to short structure and pick the 5 most recent
+const BLOG_POSTS = ALL_BLOG_POSTS.slice(0, 5).map(post => ({
+  id: post.id,
+  title: post.title,
+  image: post.image,
+  date: formatDisplayDate(post.date)
+}));
 
 const API_BASE_URL = getApiBaseUrl();
 
