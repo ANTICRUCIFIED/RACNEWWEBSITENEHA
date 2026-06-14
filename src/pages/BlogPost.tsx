@@ -5,7 +5,7 @@ import { ArrowLeft, Calendar, User, Tag as TagIcon, Share2, Facebook, Twitter, L
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
 import { BLOG_POSTS } from '../data/blogData';
-import { db, auth } from '../lib/firebase';
+import { db, auth, isFirebaseConfigured } from '../lib/firebase';
 import { getApiBaseUrl } from '../lib/utils';
 import { 
   collection, 
@@ -105,6 +105,22 @@ export default function BlogPost() {
         });
     }
 
+    if (!isFirebaseConfigured) {
+      // Offline-first/Localstorage fallback for unconfigured environments
+      try {
+        const localComments = localStorage.getItem(`local_comments_${id}`);
+        if (localComments) {
+          setComments(JSON.parse(localComments));
+        } else {
+          setComments([]);
+        }
+      } catch (err) {
+        console.warn('Failed to read local comments stored in browser:', err);
+        setComments([]);
+      }
+      return;
+    }
+
     const q = query(
       collection(db, 'blog_comments'),
       where('postId', '==', id),
@@ -165,6 +181,25 @@ export default function BlogPost() {
     e.preventDefault();
     if (!commentText.trim() || !id) return;
 
+    if (!isFirebaseConfigured) {
+      const newComment: CommentData = {
+        id: `local_comment_${Date.now()}`,
+        author: 'Guest Professional',
+        role: 'Market Participant',
+        text: commentText,
+        createdAt: new Date().toISOString(),
+        replies: []
+      };
+      
+      setComments(prev => {
+        const updated = [newComment, ...prev];
+        localStorage.setItem(`local_comments_${id}`, JSON.stringify(updated));
+        return updated;
+      });
+      setCommentText('');
+      return;
+    }
+
     try {
       await addDoc(collection(db, 'blog_comments'), {
         postId: id,
@@ -183,6 +218,33 @@ export default function BlogPost() {
   const handleReplySubmit = async (commentId: string) => {
     const text = replyText[commentId];
     if (!text?.trim()) return;
+
+    if (!isFirebaseConfigured) {
+      const newReply: ReplyData = {
+        id: `local_reply_${Date.now()}`,
+        author: 'Guest Professional',
+        text,
+        createdAt: new Date().toISOString(),
+        isStaff: false
+      };
+
+      setComments(prev => {
+        const updated = prev.map(c => {
+          if (c.id === commentId) {
+            return {
+              ...c,
+              replies: [...(c.replies || []), newReply]
+            };
+          }
+          return c;
+        });
+        localStorage.setItem(`local_comments_${id}`, JSON.stringify(updated));
+        return updated;
+      });
+      setReplyText(prev => ({ ...prev, [commentId]: '' }));
+      setActiveReplyId(null);
+      return;
+    }
 
     try {
       await addDoc(collection(db, `blog_comments/${commentId}/replies`), {
