@@ -304,17 +304,57 @@ console.log(`Audited unique routes count: ${uniqueRoutes.length}`);
 // 1. GENERATE THE PHYSICAL DIRECTORIES ON VITE BUILD (needed for proper static/GitHub deployment crawling)
 if (fs.existsSync(indexHtmlPath)) {
   console.log(`Generating ${uniqueRoutes.length} physical directories for SEO indexing...`);
+  const rawHtml = fs.readFileSync(indexHtmlPath, 'utf8');
+
+  // Also inject canonical link into the root dist/index.html
+  let customizedRootHtml = rawHtml;
+  customizedRootHtml = customizedRootHtml.replace(/<link rel="canonical" href="[^"]+" \/>\n?\s*/gi, '');
+  customizedRootHtml = customizedRootHtml.replace(
+    '</head>',
+    `  <link rel="canonical" href="https://www.racforge.com" />\n  </head>`
+  );
+  fs.writeFileSync(indexHtmlPath, customizedRootHtml);
+  console.log("Injected canonical tag into root index.html");
+
   uniqueRoutes.forEach(route => {
     if (route === '/') return;
     const targetDir = path.join(distPath, route);
     try {
       fs.mkdirSync(targetDir, { recursive: true });
-      fs.copyFileSync(indexHtmlPath, path.join(targetDir, 'index.html'));
+      
+      const meta = getRouteMetadata(route);
+      const cleanRoute = route === '/' ? '' : route;
+      const canonicalUrl = `https://www.racforge.com${cleanRoute}`;
+      
+      let customizedHtml = rawHtml;
+      
+      // Replace Title
+      customizedHtml = customizedHtml.replace(
+        /<title>[\s\S]*?<\/title>/i,
+        `<title>${meta.title}</title>`
+      );
+      
+      // Replace Description tag if it exists
+      customizedHtml = customizedHtml.replace(
+        /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
+        `<meta name="description" content="${meta.description.replace(/"/g, '&quot;')}" />`
+      );
+      
+      // Ensure there's no pre-existing canonical link
+      customizedHtml = customizedHtml.replace(/<link rel="canonical" href="[^"]+" \/>\n?\s*/gi, '');
+      
+      // Inject Canonical Link right before </head>
+      customizedHtml = customizedHtml.replace(
+        '</head>',
+        `  <link rel="canonical" href="${canonicalUrl}" />\n  </head>`
+      );
+      
+      fs.writeFileSync(path.join(targetDir, 'index.html'), customizedHtml);
     } catch (err) {
       console.error(`Error generating route path ${route}:`, err);
     }
   });
-  console.log("Successfully generated physical routing directories!");
+  console.log("Successfully generated physical routing directories with pre-rendered canonical tags, titles, and descriptions!");
 }
 
 // 2. GENERATE SITEMAP.XML (SEO Standard)
