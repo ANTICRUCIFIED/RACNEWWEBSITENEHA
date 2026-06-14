@@ -30,6 +30,7 @@ export function getApiBaseUrl(): string {
       hostname.includes('github.preview.app') ||
       hostname.includes('googleusercontent') ||
       hostname.includes('aistudio.google') ||
+      hostname.includes('vercel.app') ||
       hostname.includes('vercel.dev') ||
       hostname.includes('racnewwebsiteneha')
     ) {
