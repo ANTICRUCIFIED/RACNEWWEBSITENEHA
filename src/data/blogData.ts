@@ -13,6 +13,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'mastering-gspr-compliance-a-critical-path-for-eu-mdr-market-access',
+    title: 'Mastering GSPR Compliance: A Critical Path for EU MDR Market Access',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-gspr-compliance-documentation.webp',
+    date: '16 Jun 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `In the complex landscape of the European Medical Device Regulation (EU MDR), the General Safety and Performance Requirements (GSPR) represent the bedrock of regulatory compliance. Manufacturers often conflate these requirements with legacy standards, yet GSPR demands a more rigorous, risk-based demonstration of clinical safety and performance throughout the entire device lifecycle. At RAC Forge Private Limited, we emphasize that GSPR is not merely a checklist exercise; it is an active technical file component that requires constant alignment between your clinical evaluation report (CER), risk management processes, and post-market surveillance data. Failing to map your technical documentation precisely to these requirements often leads to significant delays during Notified Body audits.\n\nTo effectively navigate GSPR, manufacturers must establish a seamless traceability matrix that links every design feature to its corresponding safety requirement. This involves a comprehensive review of your device’s inherent safety, design integrity, and the mitigation of hazards through labeling and user instructions. As you transition or update your certification, ensure that your technical documentation clearly justifies the methodology used to meet each applicable Annex I requirement. If a specific requirement is deemed non-applicable, provide a robust, scientifically backed rationale. Ambiguity here is the primary cause of requests for additional information (AI) from regulators, which can stall your time-to-market significantly.\n\nUltimately, achieving and maintaining compliance with GSPR requires a proactive, iterative strategy. By integrating GSPR oversight early into the R&D cycle—rather than viewing it as a terminal compliance step—you minimize the risk of costly design changes late in the development process. Our team at RAC Forge Private Limited specializes in auditing existing technical files to identify non-conformities before they reach an auditor's desk. Whether you are addressing Annex I compliance for a Class IIa device or complex Class III systems, focusing on the rigorous application of GSPR is your most effective tool for ensuring consistent regulatory performance and patient safety in the European market.`
+  },
+  {
     id: 'navigating-bgmp-compliance-essential-strategies-for-medical-device-manufacturers',
     title: 'Navigating BGMP Compliance: Essential Strategies for Medical Device Manufacturers',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
