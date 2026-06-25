@@ -24,6 +24,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'decoding-gspr-a-guide-to-general-safety-and-performance-requirements-for-eu-mdr-compliance',
+    title: 'Decoding GSPR: A Guide to General Safety and Performance Requirements for EU MDR Compliance',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-gspr-compliance-overview.webp',
+    date: '25 Jun 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `In the complex landscape of the European Medical Device Regulation (EU MDR 2017/745), the term GSPR—or General Safety and Performance Requirements—represents the cornerstone of technical documentation and clinical safety. Manufacturers often misunderstand GSPR as a simple administrative checklist; in reality, it serves as the foundational proof that your medical device is both safe and effective throughout its entire lifecycle. Achieving compliance requires a robust mapping of every design, production, and clinical data point to the specific requirements set forth in Annex I of the MDR. For MedTech innovators, failing to bridge the gap between abstract design specifications and these stringent safety requirements often leads to significant delays in Notified Body assessments and subsequent market access.\n\n### Strategic Implementation of GSPR\nTo effectively navigate GSPR, manufacturers must adopt a systematic approach to risk management and clinical evaluation. We advise starting with a 'Gap Analysis' that cross-references your current device documentation against the relevant essential requirements. It is critical to note that GSPR is not a 'one-size-fits-all' framework; the depth of evidence required is directly proportional to the risk classification of your device. Whether you are dealing with software-as-a-medical-device (SaMD) or high-risk invasive implants, your technical file must clearly articulate how each applicable requirement is met, documented, and—most importantly—validated through objective evidence. At RAC Forge, we emphasize that clear, evidence-based traceability matrices are your best defense during an audit, turning potential regulatory hurdles into a streamlined pathway to CE marking.\n\n### Maintaining Ongoing Compliance\nMaintaining alignment with GSPR is an iterative process, not a one-time project. Post-market surveillance (PMS) and clinical follow-up (PMCF) data must be continuously fed back into your technical documentation to ensure that the initial declarations of safety remain valid as the device matures in the market. Many manufacturers falter when they view GSPR through a static lens; however, the regulation mandates a dynamic relationship between your device's clinical performance and the evolving safety standards. By integrating your GSPR compliance strategy into your Quality Management System (QMS) early, you minimize the risk of non-conformities and ensure that your technical documentation reflects a state-of-the-art commitment to patient safety.`
+  },
+  {
     id: 'navigating-bgmp-compliance-essential-strategies-for-medical-device-manufacturers',
     title: 'Navigating BGMP Compliance: Essential Strategies for Medical Device Manufacturers',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
