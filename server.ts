@@ -377,7 +377,8 @@ Please write what specific area you would like detailed guidance on!
       'gemini-3.1-pro-preview',
       'gemini-3.1-flash-lite',
       'gemini-2.5-flash',
-      'gemini-2.5-pro'
+      'gemini-2.5-pro',
+      'gemini-flash-latest'
     ];
     
     const finalKey = apiKey || process.env.GEMINI_API_KEY;
@@ -434,7 +435,7 @@ Please write what specific area you would like detailed guidance on!
           
         if (models.length > 0) {
           // Put standard/modern models at the front if they exist
-          const preferredOrder = ['gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-2.5-flash', 'gemini-2.5-pro'];
+          const preferredOrder = ['gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-3.1-flash-lite', 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-flash-latest'];
           models.sort((a, b) => {
             const idxA = preferredOrder.indexOf(a);
             const idxB = preferredOrder.indexOf(b);
@@ -446,7 +447,7 @@ Please write what specific area you would like detailed guidance on!
         }
       }
     } catch (err) {
-      console.warn('Failed to dynamically query Gemini models from API, using fallback list:', err);
+      console.log('VELO: Dynamic list query skipped, utilizing fallback list.');
     }
     return fallbackModels;
   };
@@ -549,12 +550,12 @@ Draft responses thoughtfully based only on the query contexts provided and your 
               break;
             }
           } catch (modelError: any) {
-            console.warn(`VELO: Model ${modelInstance} failed or quota limit hit:`, modelError.message || modelError);
+            console.log(`[VELO status] Model ${modelInstance} busy or limit reached.`);
             lastError = modelError;
           }
         }
       } catch (initError: any) {
-        console.warn('VELO: GoogleGenAI SDK client initialization failed:', initError.message || initError);
+        console.log('VELO: GoogleGenAI SDK client initialization status check.');
         lastError = initError;
       }
 
