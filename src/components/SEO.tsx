@@ -9,9 +9,20 @@ interface SEOProps {
   type?: 'website' | 'article';
   datePublished?: string;
   authorName?: string;
+  scholarlyArticle?: {
+    journal: string;
+    doi: string;
+    pmid: string;
+    pmcid: string;
+    volume?: string;
+    issue?: string;
+    pages?: string;
+    citationText?: string;
+    articleUrl?: string;
+  };
 }
 
-export default function SEO({ title, description, keywords, canonical, type = 'website', datePublished, authorName }: SEOProps) {
+export default function SEO({ title, description, keywords, canonical, type = 'website', datePublished, authorName, scholarlyArticle }: SEOProps) {
   const fullTitle = `${title} | RAC Forge Private Limited`;
   const siteUrl = "https://www.racforge.com"; 
   const defaultKeywords = "RAC Forge Private Limited, CDSCO medical device registration consultant India, SUGAM portal registration support, medical device compliance consulting India, medical device manufacturing license consultant, Form MD-5 MD-9 MD-14 registration, Class A B C D medical device consultant, ISO 13485 QMS certification India, medical device clinical trial coordinator India, Indian Authorized Representative, IAR consultant, medical device regulatory consulting firms, CDSCO Class B approval timelines, CDSCO Loan License MD-6 MD-10 consultant, medical device technical file preparation CDSCO, USFDA, fda 510(k) clearance consultant, EU MDR consultant India, CE marking medical devices India, medical device compliance consultant, regulatory affairs agency India";
@@ -50,7 +61,29 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       "https://www.linkedin.com/company/rac-forge/",
       "https://www.instagram.com/racforge/",
       "https://www.youtube.com/@RACForge"
-    ]
+    ],
+    "founder": {
+      "@type": "Person",
+      "name": "Atul Sharma Sankhyayan",
+      "jobTitle": "Founder & CEO",
+      "url": "https://in.linkedin.com/in/atul-sharma-sankhyayan-36065ab1",
+      "sameAs": [
+        "https://orcid.org/0009-0004-5291-0126",
+        "https://in.linkedin.com/in/atul-sharma-sankhyayan-36065ab1",
+        "https://www.researchgate.net/profile/Atul-Sankhyayan",
+        "https://pubmed.ncbi.nlm.nih.gov/42326223/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13281721/",
+        "https://doi.org/10.7759/cureus.109281"
+      ],
+      "knowsAbout": [
+        "Medical Device Regulations",
+        "CDSCO Compliance",
+        "ISO 13485 QMS",
+        "USFDA 510(k)",
+        "Biocompatibility safety",
+        "Software as a Medical Device (SaMD)"
+      ]
+    }
   };
 
   const websiteSchema = {
@@ -69,11 +102,22 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
   // Base schema is always Organization & WebSite
   const schemaList: any[] = [organizationSchema, websiteSchema];
 
-  // If this is an article page, output a rich TechArticle schema targeting expert EEAT indexes
-  if (type === 'article') {
-    const articleSchema = {
+  // If this is an article page or if a scholarlyArticle is provided, output a rich TechArticle or ScholarlyArticle schema targeting expert EEAT indexes
+  if (type === 'article' || scholarlyArticle) {
+    const authorSameAs = [
+      "https://www.linkedin.com/company/rac-forge/"
+    ];
+
+    if (scholarlyArticle) {
+      if (scholarlyArticle.pmid) authorSameAs.push(`https://pubmed.ncbi.nlm.nih.gov/${scholarlyArticle.pmid}/`);
+      if (scholarlyArticle.pmcid) authorSameAs.push(`https://www.ncbi.nlm.nih.gov/pmc/articles/${scholarlyArticle.pmcid}/`);
+      if (scholarlyArticle.doi) authorSameAs.push(`https://doi.org/${scholarlyArticle.doi}`);
+      if (scholarlyArticle.articleUrl) authorSameAs.push(scholarlyArticle.articleUrl);
+    }
+
+    const articleSchema: any = {
       "@context": "https://schema.org",
-      "@type": "TechArticle",
+      "@type": scholarlyArticle ? "ScholarlyArticle" : "TechArticle",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": `${siteUrl}${canonical || ""}`
@@ -87,6 +131,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
         "name": authorName || "Atul Sharma Sankhyayan",
         "jobTitle": "Director & Principal Consultant",
         "url": "https://www.linkedin.com/company/rac-forge/",
+        "sameAs": authorSameAs,
         "knowsAbout": ["Medical Devices Rules 2017", "CDSCO compliance", "Biocompatibility safety", "Software as a Medical Device (SaMD)", "Quality Management Systems (ISO 13485)"]
       },
       "publisher": {
@@ -94,6 +139,37 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       },
       "inLanguage": "en-US"
     };
+
+    if (scholarlyArticle) {
+      articleSchema.sameAs = authorSameAs;
+      articleSchema.citation = scholarlyArticle.citationText;
+      articleSchema.isPartOf = {
+        "@type": "Periodical",
+        "name": scholarlyArticle.journal
+      };
+      if (scholarlyArticle.volume) articleSchema.volumeNumber = scholarlyArticle.volume;
+      if (scholarlyArticle.issue) articleSchema.issueNumber = scholarlyArticle.issue;
+      if (scholarlyArticle.pages) articleSchema.pageStart = scholarlyArticle.pages;
+      
+      articleSchema.identifier = [
+        {
+          "@type": "PropertyValue",
+          "name": "doi",
+          "value": scholarlyArticle.doi
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "PMID",
+          "value": scholarlyArticle.pmid
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "PMCID",
+          "value": scholarlyArticle.pmcid
+        }
+      ];
+    }
+
     schemaList.push(articleSchema);
   }
 

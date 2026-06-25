@@ -36,6 +36,17 @@ export default function About() {
         description="RAC Forge Private Limited is a premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR & ANVISA compliance."
         keywords="about RAC Forge Private Limited, medical device regulatory team, regulatory affairs consultants India, AiMeD members, IMDRRG members, Atul Sharma Sankhyayan, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant"
         canonical="/about"
+        scholarlyArticle={{
+          journal: 'Cureus',
+          doi: '10.7759/cureus.109281',
+          pmid: '42326223',
+          pmcid: 'PMC13281721',
+          volume: '18',
+          issue: '5',
+          pages: 'e109281',
+          citationText: 'Sankhyayan AS. Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes. Cureus. 2026 May 20;18(5):e109281. doi: 10.7759/cureus.109281. PMID: 42326223; PMCID: PMC13281721.',
+          articleUrl: 'https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/'
+        }}
       />
 
       {/* Hero Banner */}
@@ -338,10 +349,14 @@ export default function About() {
                       <p className="text-slate-650 text-sm leading-relaxed mb-4">
                         A contributor to medical regulatory literature, Atul actively engages in academic discourse regarding policy and product safety.
                       </p>
-                      <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+                      <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
                         <p className="text-slate-800 text-sm leading-relaxed">
                           Latest Publication (May 2026): Authored "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes" published in the <span className="text-emerald-700 italic">Cureus Journal of Medical Science</span> (Part of Springer Nature).
                         </p>
+                        <div className="pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono space-y-0.5">
+                          <p><span className="font-semibold text-slate-700">PMID:</span> 42326223 | <span className="font-semibold text-slate-700">PMCID:</span> PMC13281721</p>
+                          <p><span className="font-semibold text-slate-700">DOI:</span> 10.7759/cureus.109281</p>
+                        </div>
                       </div>
                     </div>
                     <div className="mt-4 pt-4 border-t border-slate-200/60">

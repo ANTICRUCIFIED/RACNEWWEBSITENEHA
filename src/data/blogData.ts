@@ -9,31 +9,20 @@ export interface BlogPost {
   category: string;
   author: string;
   tags: string[];
+  scholarlyArticle?: {
+    journal: string;
+    doi: string;
+    pmid: string;
+    pmcid: string;
+    volume?: string;
+    issue?: string;
+    pages?: string;
+    citationText?: string;
+    articleUrl?: string;
+  };
 }
 
 export const BLOG_POSTS: BlogPost[] = [
-  {
-    id: 'navigating-bgmp-compliance-essential-requirements-for-medical-device-manufacturers',
-    title: 'Navigating BGMP Compliance: Essential Requirements for Medical Device Manufacturers',
-    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-bgmp-compliance-regulatory.webp',
-    date: '23 Jun 2026',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
-    content: `For manufacturers entering the Brazilian market, understanding the Boas Práticas de Fabricação de Produtos para a Saúde (BGMP)—or Good Manufacturing Practices for Health Products—is non-negotiable. Administered by ANVISA, these standards are not merely suggestions; they form the bedrock of your market authorization. At RAC Forge, we frequently observe manufacturers stumbling over the integration of localized quality management systems with existing ISO 13485 frameworks. While ISO 13485 provides a robust international baseline, BGMP requirements mandate specific, evidence-based documentation that proves your facility’s processes consistently meet the safety and efficacy benchmarks expected by Brazilian regulators. Failure to align your manufacturing protocols with these specific directives can lead to extended review timelines or, in critical cases, outright registration rejection.\n\nAchieving compliance hinges on a rigorous, proactive approach to documentation and site inspection readiness. The ANVISA certification process requires a meticulous audit trail—covering everything from design controls and risk management to post-market surveillance. It is essential to conduct a comprehensive gap analysis early in the process, ensuring your internal standard operating procedures (SOPs) are harmonized with RDC 665/2022 (the current regulatory framework for medical device GMP in Brazil). By moving beyond a 'check-the-box' mentality and embedding these practices into your daily operational culture, you mitigate the risk of non-conformity. Effective BGMP management is essentially a testament to your commitment to patient safety, which is the ultimate metric by which any health authority evaluates your submission.\n\nBeyond the paper trail, physical inspection readiness is the final hurdle that often separates successful market entry from costly delays. Whether preparing for an on-site audit or a documentary-based review, your team must demonstrate absolute command over the manufacturing environment, including environmental controls, calibration records, and the traceability of raw materials. Leveraging expert insights into ANVISA’s specific expectations—particularly regarding the nuances of the Brazilian regulatory landscape—can drastically optimize your path to certification. At RAC Forge, we emphasize that compliance is not a static milestone; it is an ongoing, dynamic process of continuous improvement. By prioritizing transparency and technical precision in your BGMP documentation, you secure more than just an import license—you earn the foundational trust required to sustain long-term operations in one of the world’s most dynamic medical technology markets.`
-  },
-  {
-    id: 'mastering-gspr-compliance-a-critical-path-for-eu-mdr-market-access',
-    title: 'Mastering GSPR Compliance: A Critical Path for EU MDR Market Access',
-    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
-    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-gspr-compliance-documentation.webp',
-    date: '16 Jun 2026',
-    category: 'Regulatory',
-    author: 'RAC Forge Private Limited Team',
-    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
-    content: `In the complex landscape of the European Medical Device Regulation (EU MDR), the General Safety and Performance Requirements (GSPR) represent the bedrock of regulatory compliance. Manufacturers often conflate these requirements with legacy standards, yet GSPR demands a more rigorous, risk-based demonstration of clinical safety and performance throughout the entire device lifecycle. At RAC Forge Private Limited, we emphasize that GSPR is not merely a checklist exercise; it is an active technical file component that requires constant alignment between your clinical evaluation report (CER), risk management processes, and post-market surveillance data. Failing to map your technical documentation precisely to these requirements often leads to significant delays during Notified Body audits.\n\nTo effectively navigate GSPR, manufacturers must establish a seamless traceability matrix that links every design feature to its corresponding safety requirement. This involves a comprehensive review of your device’s inherent safety, design integrity, and the mitigation of hazards through labeling and user instructions. As you transition or update your certification, ensure that your technical documentation clearly justifies the methodology used to meet each applicable Annex I requirement. If a specific requirement is deemed non-applicable, provide a robust, scientifically backed rationale. Ambiguity here is the primary cause of requests for additional information (AI) from regulators, which can stall your time-to-market significantly.\n\nUltimately, achieving and maintaining compliance with GSPR requires a proactive, iterative strategy. By integrating GSPR oversight early into the R&D cycle—rather than viewing it as a terminal compliance step—you minimize the risk of costly design changes late in the development process. Our team at RAC Forge Private Limited specializes in auditing existing technical files to identify non-conformities before they reach an auditor's desk. Whether you are addressing Annex I compliance for a Class IIa device or complex Class III systems, focusing on the rigorous application of GSPR is your most effective tool for ensuring consistent regulatory performance and patient safety in the European market.`
-  },
   {
     id: 'navigating-bgmp-compliance-essential-strategies-for-medical-device-manufacturers',
     title: 'Navigating BGMP Compliance: Essential Strategies for Medical Device Manufacturers',
@@ -704,6 +693,17 @@ To help regional innovators successfully match and beat international multinatio
     category: 'Clinical',
     author: 'Atul Sharma Sankhyayan',
     tags: ['Cureus Journal', 'Subsequent Importer Scheme', 'SIS', 'Importer Paradox', 'CDSCO', 'Medical Device Safety'],
+    scholarlyArticle: {
+      journal: 'Cureus',
+      doi: '10.7759/cureus.109281',
+      pmid: '42326223',
+      pmcid: 'PMC13281721',
+      volume: '18',
+      issue: '5',
+      pages: 'e109281',
+      citationText: 'Sankhyayan AS. Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes. Cureus. 2026 May 20;18(5):e109281. doi: 10.7759/cureus.109281. PMID: 42326223; PMCID: PMC13281721.',
+      articleUrl: 'https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/'
+    },
     content: `
 An essential article co-authored by our founder, Atul Sharma Sankhyayan, and published in the **Cureus Journal of Medical Science**, addresses a crucial friction point in modern medical device regulation: [Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes](https://www.cureus.com/articles/489452-administrative-restructuring-versus-product-safety-the-case-for-subsequent-importer-scheme-sis-in-importer-constitutional-changes#!/).
 

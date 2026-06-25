@@ -281,6 +281,7 @@ export default function BlogPost() {
         type="article"
         datePublished={post.date ? new Date(post.date).toISOString().split('T')[0] : undefined}
         authorName={post.author}
+        scholarlyArticle={post.scholarlyArticle}
       />
 
       {/* Post Header */}
