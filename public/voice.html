@@ -256,8 +256,12 @@
         document.getElementById("transcriptText").innerText = '"' + transcript + '"';
         document.getElementById("callStatus").innerText = "Processing...";
         
+        // PING YOUR GOOGLE BACKEND VIA HTTPS CORS FETCH
         fetch(BACKEND_API_URL, {
           method: "POST",
+          headers: {
+            "Content-Type": "text/plain" // Bypasses the browser preflight OPTIONS block
+          },
           body: JSON.stringify({
             action: "callGemini",
             history: [{ "role": "user", "parts": [{ "text": transcript }] }]
@@ -271,7 +275,7 @@
         .catch(err => {
           speakText("Connection glitch: " + err.message);
         });
-      };
+
 
       recognition.onend = function() {
         if (isCalling && !synth.speaking) {
@@ -340,9 +344,12 @@
       clearTimeout(warningTimeout);
     }
 
-    function triggerWhatsAppLogs() {
+   function triggerWhatsAppLogs() {
       fetch(BACKEND_API_URL, {
         method: "POST",
+        headers: {
+          "Content-Type": "text/plain" // Bypasses the browser preflight OPTIONS block
+        },
         body: JSON.stringify({
           action: "sendAgentMessage",
           phone: userPhone,
