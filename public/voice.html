@@ -20,19 +20,19 @@
     <!-- Branding Header -->
     <div class="text-center">
       <span class="text-3xl">🩺</span>
-      <h1 class="text-xl font-bold text-teal-400 font-mono tracking-wider mt-1">RAAAHI VOICE</h1>
+      <h1 class="text-2xl font-bold text-teal-400 mt-3 font-mono tracking-wider">RAAAHI VOICE</h1>
       <p class="text-[9px] text-slate-500 uppercase tracking-widest">RAC Forge Private Limited</p>
     </div>
 
     <!-- Phone Number & Name Display Screen -->
     <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-3">
       <div class="space-y-1">
-        <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-2.5 bg-slate-800 border border-slate-700 rounded-lg text-xs text-center text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 uppercase font-semibold">
+        <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 uppercase font-semibold">
       </div>
       
       <!-- Dialer Phone Screen -->
       <div class="space-y-1">
-        <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-lg font-bold tracking-widest text-teal-400 placeholder-slate-600 focus:outline-none font-mono">
+        <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-xl font-bold tracking-widest text-teal-400 placeholder-slate-600 focus:outline-none font-mono">
       </div>
 
       <!-- The Digital Dial Pad Grid -->
@@ -54,7 +54,7 @@
         <button onclick="dialNum('#')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">#</button>
       </div>
 
-      <!-- Dialer Control Actions (Green Call / Backspace) -->
+      <!-- Dialer Control Actions -->
       <div class="flex justify-center items-center gap-6 pt-2 border-t border-slate-800">
         <button onclick="backspace()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-750 text-xs font-bold flex items-center justify-center text-slate-400 transition active:scale-95">⌫</button>
         
@@ -303,23 +303,18 @@
       
       recognition.onresult = function(event) {
         clearTimeouts();
-        stopListening(); // Stop immediately during API request
+        stopListening(); 
         isProcessing = true;
         
         const transcript = event.results[0][0].transcript;
         document.getElementById("transcriptText").innerText = '"' + transcript + '"';
         document.getElementById("callStatus").innerText = "Processing...";
         
-        fetch(BACKEND_API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain" // Crucial: bypasses browser preflight OPTIONS block
-          },
-          body: JSON.stringify({
-            action: "callGemini",
-            history: [{ "role": "user", "parts": [{ "text": transcript }] }]
-          })
-        })
+        var url = BACKEND_API_URL + "?action=callGemini" + 
+                  "&phone=" + encodeURIComponent(userPhone) + 
+                  "&text=" + encodeURIComponent(transcript);
+        
+        fetch(url)
         .then(response => response.json())
         .then(data => {
           isProcessing = false;
@@ -334,7 +329,6 @@
 
       recognition.onend = function() {
         isListening = false;
-        // Only restart if speaking is completed and we aren't currently waiting on the API
         if (isCalling && !isProcessing && !synth.speaking) {
           startListening();
         }
@@ -415,17 +409,11 @@
     }
 
     function triggerWhatsAppLogs() {
-      fetch(BACKEND_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain"
-        },
-        body: JSON.stringify({
-          action: "sendAgentMessage",
-          phone: userPhone,
-          text: `🩺 *RAC Forge Consultation Links* \n\nHello *${userName}*! As requested during our voice session, here are the links to schedule your meeting with our team: \n\n🌟 *Free 15-Minute Call* (Basic guidance): ${CAL_FREE_LINK} \n\n💎 *Paid 30-Minute Call* (Deep-dive, ₹1,000): ${CAL_PAID_LINK} \n\nWe look forward to speaking with you! 😊`
-        })
-      });
+      var url = BACKEND_API_URL + "?action=sendAgentMessage" + 
+                "&phone=" + encodeURIComponent(userPhone) + 
+                "&text=" + encodeURIComponent(`🩺 *RAC Forge Consultation Links* \n\nHello *${userName}*! As requested during our voice session, here are the links to schedule your meeting with our team: \n\n🌟 *Free 15-Minute Call* (Basic guidance): ${CAL_FREE_LINK} \n\n💎 *Paid 30-Minute Call* (Deep-dive, ₹1,000): ${CAL_PAID_LINK} \n\nWe look forward to speaking with you! 😊`);
+                
+      fetch(url);
     }
 
     function endCall() {
