@@ -1,21 +1,380 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=https://anticrucified.github.io/raaahi-voice/">
-  <title>Redirecting...</title>
+  <title>RAAAHI Voice Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7); }
+      50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 30px 15px rgba(13, 148, 136, 0.4); }
+    }
+    .voice-pulse { animation: pulse-glow 2s infinite ease-in-out; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-400 flex h-screen items-center justify-center text-center font-sans">
-  
-  <div class="space-y-2">
-    <span class="text-3xl">🩺</span>
-    <p class="text-sm">Connecting you to RAAAHI Voice...</p>
-    <p class="text-xs text-slate-600">If you are not redirected automatically, <a href="https://anticrucified.github.io/raaahi-voice/" class="underline text-teal-400 font-bold">click here</a>.</p>
+<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between p-4 md:p-6 overflow-hidden select-none">
+
+  <!-- ================= SCREEN 1: ONBOARDING GATEKEEPER ================= -->
+  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full max-w-sm mx-auto space-y-6 px-2">
+    <div class="text-center">
+      <span class="text-5xl">🩺</span>
+      <h1 class="text-2xl font-bold text-teal-400 mt-3 font-mono tracking-wider">RAAAHI VOICE</h1>
+      <p class="text-xs text-slate-400 mt-1 uppercase tracking-widest">Bilingual AI Voice Portal</p>
+    </div>
+
+    <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-2xl space-y-4">
+      <div class="space-y-1">
+        <label class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Your Name</label>
+        <input id="userName" type="text" placeholder="Enter your full name" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500">
+      </div>
+
+      <div class="space-y-1">
+        <label class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">WhatsApp Number</label>
+        <input id="userPhone" type="tel" placeholder="e.g., 916239699077" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500">
+      </div>
+
+      <button onclick="startOnboardingCall()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-500 rounded-lg font-bold text-sm tracking-wider shadow-lg transition duration-200">
+        📞 START VOICE CALL
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN 2: ACTIVE DIALER SCREEN ================= -->
+  <div id="callScreen" class="hidden flex-1 flex flex-col justify-between h-full w-full max-w-sm mx-auto px-2">
+    <!-- Header -->
+    <div class="text-center mt-2">
+      <h1 id="callerNameDisp" class="text-xl md:text-2xl font-bold text-teal-400 tracking-wide font-mono">
+        RAAAHI VOICE
+      </h1>
+      <p id="callStatus" class="text-[10px] md:text-xs text-slate-400 mt-1 uppercase tracking-widest">DIALING...</p>
+      <p id="callTimer" class="hidden text-xs md:text-sm text-slate-500 mt-1 font-mono">00:00</p>
+    </div>
+
+    <!-- Center Pulse Visualizer -->
+    <div class="flex-1 flex flex-col items-center justify-center">
+      <div id="micBtn" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg">
+        <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
+      </div>
+      <p id="transcriptText" class="text-xs md:text-sm italic text-slate-400 max-w-xs text-center mt-6 md:mt-8 min-h-[40px] px-4"></p>
+    </div>
+
+    <!-- Bottom Panel: Hangup & Bookings -->
+    <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl mb-2 space-y-3">
+      <div class="grid grid-cols-2 gap-2">
+        <a href="https://cal.com/rac-forge-ulicvs/15min" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
+        <a href="https://cal.com/rac-forge-ulicvs/30min" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
+      </div>
+
+      <button onclick="endCall()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-bold text-[11px] tracking-wider transition">
+        🚨 HANG UP CALL
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= SCREEN 3: SMART BROWSER WARNING OVERLAY ================= -->
+  <div id="warningScreen" class="hidden flex-1 flex flex-col justify-center items-center max-w-sm mx-auto space-y-6 text-center px-2">
+    <div class="text-center">
+      <span class="text-5xl">⚠️</span>
+      <h1 class="text-2xl font-bold text-teal-400 mt-3 font-mono">PORTAL BLOCK</h1>
+      <p class="text-xs text-slate-400 mt-1 uppercase tracking-widest">Action Required</p>
+    </div>
+
+    <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-2xl space-y-6">
+      <div id="warningText" class="text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+        <!-- Dynamically Filled -->
+      </div>
+      
+      <button onclick="copyCurrentLink()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-500 rounded-lg font-bold text-xs tracking-wider shadow-lg transition">
+        📋 COPY LINK TO CLIPBOARD
+      </button>
+    </div>
   </div>
 
   <script>
-    // Industry-standard secure redirect (prevents browser history loopback)
-    window.location.replace("https://anticrucified.github.io/raaahi-voice/");
+    // ====== RE-ROUTE TO TALK TO YOUR GOOGLE BACKEND OVER API ======
+    const BACKEND_API_URL = "https://script.google.com/macros/s/AKfycbzxDwf_gCPgNZTp5-R1I3zcZgudaBNqVVvO_BmF9WFFMPgOwUlvSpCjKUkdFHqE_CGP/exec"; 
+    // ==============================================================
+
+    let isCalling = false;
+    let recognition;
+    let audioCtx;
+    let ringInterval;
+    let callTimerInterval;
+    let startTime;
+    let silenceTimeout;
+    let warningTimeout;
+    let activeUtterance; // CRITICAL: Saved globally to prevent browser garbage collection
+    
+    let userName = "";
+    let userPhone = "";
+
+    const synth = window.speechSynthesis;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    function checkBrowserCompatibility() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      
+      const isWhatsApp = ua.indexOf("WhatsApp") > -1;
+      const isCrios = ua.indexOf("CriOS") > -1; 
+      const isFxiOS = ua.indexOf("FxiOS") > -1; 
+      
+      let incompatible = false;
+      let instructionMessage = "";
+      
+      if (isWhatsApp) {
+        incompatible = true;
+        instructionMessage = "🔒 *In-App Browser Detected*\n\nWhatsApp's built-in browser blocks device microphone access for your security.\n\nPlease click the button below to copy the link, then open your phone's standard browser and paste it to connect:\n\n👉 *Google Chrome* (if on Android)\n👉 *Safari* (if on iPhone)";
+      } else if (isIOS && (isCrios || isFxiOS)) {
+        incompatible = true;
+        instructionMessage = "🔒 *Safari Required*\n\nApple does not support speech recognition inside third-party browsers like Chrome or Firefox on iOS.\n\nPlease copy this link, open **Safari** directly on your iPhone, and paste it to connect!";
+      } else if (!SpeechRecognition) {
+        incompatible = true;
+        instructionMessage = "🔒 *Browser Not Supported*\n\nYour current browser does not support real-time speech recognition.\n\nPlease open this link directly in **Google Chrome** or **Safari** to connect with RAAAHI.";
+      }
+      
+      if (incompatible) {
+        document.getElementById("onboardingScreen").classList.add("hidden");
+        document.getElementById("warningScreen").classList.remove("hidden");
+        document.getElementById("warningText").innerText = instructionMessage;
+      }
+    }
+
+    function copyCurrentLink() {
+      const dummyInput = document.createElement('textarea');
+      dummyInput.value = "https://www.racforge.com/voice"; // Masks to your premium custom link!
+      document.body.appendChild(dummyInput);
+      dummyInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummyInput);
+      alert("Custom link copied successfully! Now open your native browser (Chrome or Safari) and paste it.");
+    }
+
+    function startOnboardingCall() {
+      userName = document.getElementById("userName").value.trim();
+      userPhone = document.getElementById("userPhone").value.trim();
+
+      if (!userName || !userPhone) {
+        alert("Please enter both your Name and WhatsApp Phone Number to start the voice call.");
+        return;
+      }
+
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(function(stream) {
+            stream.getTracks().forEach(track => track.stop());
+
+            document.getElementById("onboardingScreen").classList.add("hidden");
+            document.getElementById("callScreen").classList.remove("hidden");
+            document.getElementById("callScreen").classList.add("flex");
+            document.getElementById("callerNameDisp").innerText = "RAC FORGE ADVISOR";
+
+            startCall();
+          })
+          .catch(function(err) {
+            alert("Microphone permission was denied. ⚠️ Please click 'Allow' in your address bar so RAAAHI can hear you!");
+          });
+      } else {
+        alert("Unable to access microphone devices on this browser. Please use Google Chrome or Safari.");
+      }
+    }
+
+    function playRingbackTone() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      
+      function playTone() {
+        if (!isCalling || document.getElementById("callStatus").innerText !== "DIALING...") return;
+        
+        let osc1 = audioCtx.createOscillator();
+        let osc2 = audioCtx.createOscillator();
+        let gainNode = audioCtx.createGain();
+        
+        osc1.frequency.value = 400; 
+        osc2.frequency.value = 450;
+        
+        gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        
+        osc1.connect(gainNode);
+        osc2.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc1.start();
+        osc2.start();
+        
+        setTimeout(() => {
+          osc1.stop();
+          osc2.stop();
+        }, 1500); 
+      }
+      
+      playTone();
+      ringInterval = setInterval(playTone, 4000); 
+    }
+
+    function startCall() {
+      isCalling = true;
+      synth.cancel();
+      playRingbackTone();
+
+      setTimeout(() => {
+        if (!isCalling) return;
+        clearInterval(ringInterval);
+        
+        document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
+        document.getElementById("callTimer").classList.remove("hidden");
+        document.getElementById("micBtn").classList.add("voice-pulse", "bg-teal-600", "border-teal-400");
+        document.getElementById("micIcon").innerText = "🟢";
+        
+        startTimer();
+
+        const greeting = `Greetings ${userName}! I am RAAAHI, your dedicated regulatory intelligence advisor at RAC Forge Private Limited. It is a pleasure to meet you and assist you in navigating the complex landscape of medical device compliance. We specialize in CDSCO registrations, MDR 2017 compliance, and international market authorizations. To provide you with the most precise guidance, could you please clarify what specific medical device or IVD product you are currently developing?`;
+        
+        speakText(greeting);
+      }, 4000);
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      callTimerInterval = setInterval(() => {
+        const diff = Date.now() - startTime;
+        const mins = Math.floor(diff / 60000).toString().padStart(2, '0');
+        const secs = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+        document.getElementById("callTimer").innerText = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function initSpeechRecognition() {
+      if (!SpeechRecognition) return;
+      
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-IN'; 
+      
+      recognition.onresult = function(event) {
+        clearTimeouts();
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("transcriptText").innerText = '"' + transcript + '"';
+        document.getElementById("callStatus").innerText = "Processing...";
+        
+        fetch(BACKEND_API_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "callGemini",
+            history: [{ "role": "user", "parts": [{ "text": transcript }] }]
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
+          speakText(data.reply);
+        })
+        .catch(err => {
+          speakText("Connection glitch: " + err.message);
+        });
+      };
+
+      recognition.onend = function() {
+        if (isCalling && !synth.speaking) {
+          startListening();
+        }
+      };
+
+      recognition.onerror = function() {
+        if (isCalling) startListening();
+      };
+    }
+
+    function startListening() {
+      if (!isCalling) return;
+      document.getElementById("callStatus").innerText = "Listening...";
+      try {
+        recognition.start();
+        resetInactivityTimers(); 
+      } catch (e) {}
+    }
+
+    function speakText(text) {
+      synth.cancel();
+      clearTimeouts();
+      
+      const cleanText = text.replace(/\*/g, ""); 
+      
+      // Global variable reassignment prevents Google Chrome Garbage Collection lockup!
+      activeUtterance = new SpeechSynthesisUtterance(cleanText);
+      
+      const voices = synth.getVoices();
+      const indianVoice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en_IN'));
+      if (indianVoice) activeUtterance.voice = indianVoice;
+      
+      activeUtterance.onend = function() {
+        if (isCalling) {
+          startListening();
+        }
+      };
+      
+      synth.speak(activeUtterance);
+    }
+
+    function resetInactivityTimers() {
+      clearTimeouts();
+      
+      silenceTimeout = setTimeout(() => {
+        if (!isCalling) return;
+        recognition.stop();
+        speakText("Are you still there? I haven't heard anything from you. Please ask any questions you have, or let me know if you would like me to send our expert booking links to your WhatsApp.");
+        
+        warningTimeout = setTimeout(() => {
+          if (!isCalling) return;
+          speakText("Since I still haven't heard anything, I have successfully sent our expert booking links directly to your WhatsApp. Have a wonderful day, goodbye!");
+          
+          setTimeout(() => {
+            triggerWhatsAppLogs();
+            endCall();
+          }, 6000); 
+        }, 15000);
+      }, 15000);
+    }
+
+    function clearTimeouts() {
+      clearTimeout(silenceTimeout);
+      clearTimeout(warningTimeout);
+    }
+
+    function triggerWhatsAppLogs() {
+      fetch(BACKEND_API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "sendAgentMessage",
+          phone: userPhone,
+          text: `🩺 *RAC Forge Consultation Links* \n\nHello *${userName}*! As requested during our voice session, here are the links to schedule your meeting with our team: \n\n🌟 *Free 15-Minute Call* (Basic guidance): ${CAL_FREE_LINK} \n\n💎 *Paid 30-Minute Call* (Deep-dive, ₹1,000): ${CAL_PAID_LINK} \n\nWe look forward to speaking with you! 😊`
+        })
+      });
+    }
+
+    function endCall() {
+      isCalling = false;
+      clearTimeouts();
+      clearInterval(ringInterval);
+      clearInterval(callTimerInterval);
+      
+      document.getElementById("micBtn").classList.remove("voice-pulse", "bg-teal-600", "border-teal-400");
+      document.getElementById("micIcon").innerText = "📞";
+      document.getElementById("callStatus").innerText = "TAP MIC TO START CALL";
+      document.getElementById("callTimer").classList.add("hidden");
+      document.getElementById("transcriptText").innerText = "";
+      
+      synth.cancel();
+      if (recognition) recognition.stop();
+      if (audioCtx) audioCtx.close();
+
+      document.getElementById("callScreen").classList.add("hidden");
+      document.getElementById("onboardingScreen").classList.remove("hidden");
+    }
+
+    window.onload = function() {
+      checkBrowserCompatibility(); 
+      initSpeechRecognition();
+    };
   </script>
 </body>
 </html>
