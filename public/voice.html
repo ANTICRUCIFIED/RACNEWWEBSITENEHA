@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- ENFORCES NATIVE 100% MOBILE SCALE (Fixes the tiny GUI issue) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RAAAHI Voice Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,57 +14,58 @@
     .voice-pulse { animation: pulse-glow 2s infinite ease-in-out; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between p-4 md:p-6 overflow-hidden select-none">
+<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between p-5 md:p-6 overflow-hidden select-none">
 
-  <!-- ================= SCREEN 1: THE MOBILE PHONE DIAL PAD ================= -->
+  <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD ================= -->
   <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full max-w-sm mx-auto space-y-4 px-2">
     <!-- Branding Header -->
     <div class="text-center">
-      <span class="text-3xl">🩺</span>
-      <h1 class="text-2xl font-bold text-teal-400 mt-3 font-mono tracking-wider">RAAAHI VOICE</h1>
-      <p class="text-[9px] text-slate-500 uppercase tracking-widest">RAC Forge Private Limited</p>
+      <span class="text-4xl">🩺</span>
+      <h1 class="text-2xl font-bold text-teal-400 mt-2 font-mono tracking-wider">RAAAHI VOICE</h1>
+      <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">RAC Forge Private Limited</p>
     </div>
 
     <!-- Phone Number & Name Display Screen -->
-    <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-3">
+    <div class="w-full bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl space-y-4">
       <div class="space-y-1">
-        <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 uppercase font-semibold">
+        <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 uppercase font-semibold">
       </div>
       
       <!-- Dialer Phone Screen -->
       <div class="space-y-1">
-        <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-xl font-bold tracking-widest text-teal-400 placeholder-slate-600 focus:outline-none font-mono">
+        <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-2xl font-bold tracking-widest text-teal-400 placeholder-slate-750 focus:outline-none font-mono">
       </div>
 
-      <!-- The Digital Dial Pad Grid -->
-      <div class="grid grid-cols-3 gap-3 max-w-[240px] mx-auto pt-2">
-        <button onclick="dialNum('1')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">1</button>
-        <button onclick="dialNum('2')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">2</button>
-        <button onclick="dialNum('3')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">3</button>
+      <!-- The Digital Dial Pad Grid (Redesigned with Oval-Rectangle Pill Keys) -->
+      <div class="grid grid-cols-3 gap-y-3 gap-x-4 max-w-[280px] mx-auto pt-2">
+        <button onclick="dialNum('1')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">1</button>
+        <button onclick="dialNum('2')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">2</button>
+        <button onclick="dialNum('3')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">3</button>
         
-        <button onclick="dialNum('4')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">4</button>
-        <button onclick="dialNum('5')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">5</button>
-        <button onclick="dialNum('6')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">6</button>
+        <button onclick="dialNum('4')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">4</button>
+        <button onclick="dialNum('5')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">5</button>
+        <button onclick="dialNum('6')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">6</button>
         
-        <button onclick="dialNum('7')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">7</button>
-        <button onclick="dialNum('8')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">8</button>
-        <button onclick="dialNum('9')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">9</button>
+        <button onclick="dialNum('7')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">7</button>
+        <button onclick="dialNum('8')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">8</button>
+        <button onclick="dialNum('9')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">9</button>
         
-        <button onclick="dialNum('*')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">*</button>
-        <button onclick="dialNum('0')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">0</button>
-        <button onclick="dialNum('#')" class="w-12 h-14 rounded-full bg-slate-800 hover:bg-slate-750 text-base font-bold flex items-center justify-center transition active:scale-95">#</button>
+        <button onclick="dialNum('*')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">*</button>
+        <button onclick="dialNum('0')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">0</button>
+        <button onclick="dialNum('#')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">#</button>
       </div>
 
-      <!-- Dialer Control Actions -->
-      <div class="flex justify-center items-center gap-6 pt-2 border-t border-slate-800">
-        <button onclick="backspace()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-750 text-xs font-bold flex items-center justify-center text-slate-400 transition active:scale-95">⌫</button>
+      <!-- Dialer Control Actions (Wide Pill Call Button) -->
+      <div class="flex justify-center items-center gap-6 pt-3 border-t border-slate-800">
+        <button onclick="backspace()" class="w-12 h-11 rounded-xl bg-slate-800 hover:bg-slate-750 text-base flex items-center justify-center text-slate-400 transition active:scale-95">⌫</button>
         
-        <!-- Large Green Call Button -->
-        <button onclick="startOnboardingCall()" class="w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-lg transition active:scale-90 text-2xl">
-          📞
+        <!-- Wide Green Call Pill Button -->
+        <button onclick="startOnboardingCall()" class="w-32 h-11 bg-emerald-600 hover:bg-emerald-500 rounded-full flex items-center justify-center gap-2 font-semibold text-sm tracking-wide text-white transition active:scale-95 shadow-lg">
+          <span>📞</span>
+          <span>Call</span>
         </button>
         
-        <button onclick="clearDialer()" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-slate-750 text-xs font-bold flex items-center justify-center text-rose-500 transition active:scale-95">C</button>
+        <button onclick="clearDialer()" class="w-12 h-11 rounded-xl bg-slate-800 hover:bg-slate-750 text-sm font-bold flex items-center justify-center text-rose-500 transition active:scale-95">C</button>
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@
       <p id="callTimer" class="hidden text-xs md:text-sm text-slate-500 mt-1 font-mono">00:00</p>
     </div>
 
-    <!-- Pulsing active call visualizer (Acts as BARGE-IN button on click) -->
+    <!-- Pulsing active call visualizer (Acts as manual barge-in) -->
     <div class="flex-1 flex flex-col items-center justify-center">
       <div id="micBtn" onclick="toggleCall()" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg cursor-pointer">
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
@@ -124,7 +124,7 @@
 
   <script>
     // ====== RE-ROUTE TO TALK TO YOUR GOOGLE BACKEND OVER API ======
-    const BACKEND_API_URL = "https://script.google.com/macros/s/AKfycbzbDwf_gCPgNZTp5-R1l3zcZgudaBNqVVvO_BmF9WFFMPgOwUlvSpCjKUkdFHqE_CGP/exec"; 
+    const BACKEND_API_URL = "https://script.google.com/macros/s/AKfycbzbDwf_gCPgNZTp5-R1I3zcZgudaBNqVVvO_BmF9WFFMPgOwUlvSpCjKUkdFHqE_CGP/exec"; 
     // ==============================================================
 
     let isCalling = false;
@@ -145,6 +145,7 @@
     const synth = window.speechSynthesis;
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+    // Dialer Functions
     function dialNum(val) {
       const display = document.getElementById("userPhone");
       display.value += val;
@@ -268,21 +269,28 @@
       synth.cancel();
       playRingbackTone();
 
+      // EXACT 5 SECOND DIALING CADENCE
       setTimeout(() => {
         if (!isCalling) return;
         clearInterval(ringInterval);
         
-        document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
-        document.getElementById("callTimer").classList.remove("hidden");
-        document.getElementById("micBtn").classList.add("voice-pulse", "bg-teal-600", "border-teal-400");
-        document.getElementById("micIcon").innerText = "🟢";
+        document.getElementById("callStatus").innerText = "CONNECTING...";
         
-        startTimer();
+        // 1 SECOND GAP OF SILENCE BEFORE CONNECTING GREETING
+        setTimeout(() => {
+          if (!isCalling) return;
+          document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
+          document.getElementById("callTimer").classList.remove("hidden");
+          document.getElementById("micBtn").classList.add("voice-pulse", "bg-teal-600", "border-teal-400");
+          document.getElementById("micIcon").innerText = "🟢";
+          
+          startTimer();
 
-        const greeting = `Greetings ${userName}! I am RAAAHI, your dedicated regulatory intelligence advisor at RAC Forge Private Limited. It is a pleasure to meet you and assist you in navigating the complex landscape of medical device compliance. We specialize in CDSCO registrations, MDR 2017 compliance, and international market authorizations. To provide you with the most precise guidance, could you please clarify what specific medical device or IVD product you are currently developing?`;
-        
-        speakText(greeting);
-      }, 4000);
+          const greeting = `Greetings ${userName}! I am RAAAHI, your dedicated regulatory intelligence advisor at RAC Forge Private Limited. How can I assist you with your medical device or IVD compliance journey today? "नमस्कार! मैं राही हूँ, आरएसी फोर्ज प्राइवेट लिमिटेड में आपकी समर्पित रेगुलेटरी इंटेलिजेंस एडवाइजर। आज मैं आपके मेडिकल डिवाइस या आईवीडी compliance की यात्रा में आपकी क्या सहायता कर सकती हूँ?"`;
+          
+          speakText(greeting);
+        }, 1000);
+      }, 5000);
     }
 
     function startTimer() {
@@ -304,6 +312,13 @@
       
       recognition.onresult = function(event) {
         clearTimeouts();
+        
+        // FULL-DUPLEX BARGE-IN: If RAAAHI is currently speaking, user speech instantly silences her!
+        if (synth.speaking || isProcessing) {
+          synth.cancel(); 
+          isProcessing = false;
+        }
+        
         stopListening(); 
         isProcessing = true;
         
@@ -328,23 +343,24 @@
         });
       };
 
+      // CONTINUOUS LISTENING (Mic stays active even during speech synthesis)
       recognition.onend = function() {
         isListening = false;
-        if (isCalling && !isProcessing && !synth.speaking) {
+        if (isCalling && !isProcessing) {
           startListening();
         }
       };
 
       recognition.onerror = function() {
         isListening = false;
-        if (isCalling && !isProcessing && !synth.speaking) {
+        if (isCalling && !isProcessing) {
           startListening();
         }
       };
     }
 
     function startListening() {
-      if (!isCalling || isListening || isProcessing || synth.speaking) return;
+      if (!isCalling || isListening || isProcessing) return;
       document.getElementById("callStatus").innerText = "Listening...";
       try {
         isListening = true;
@@ -363,24 +379,22 @@
       } catch(e) {}
     }
 
-    // CONVERSATIONAL BARGE-IN (Allows user to tap mic to interrupt and speak!)
     function toggleCall() {
       if (!isCalling) return;
       
-      // If RAAAHI is currently speaking or processing, tapping the mic cuts her off and opens mic!
+      // Manual click fallback for barge-in
       if (synth.speaking || isProcessing) {
-        synth.cancel();       // Instantly stops RAAAHI's voice
+        synth.cancel();       
         isProcessing = false; 
-        startListening();     // Instantly starts listening to user
+        startListening();     
       }
     }
 
     function speakText(text) {
       synth.cancel();
       clearTimeouts();
-      stopListening();
       
-      // Advanced regex to strip all emojis before speaking (Prevents text-to-speech glitching)
+      // Unicode Regex strips all emojis completely from voice output
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
       const cleanText = text.replace(emojiRegex, "").replace(/\*/g, ""); 
       
@@ -389,7 +403,8 @@
       activeUtterance = new SpeechSynthesisUtterance(cleanText);
       
       const voices = synth.getVoices();
-      const indianVoice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en_IN'));
+      // Select professional native Indian accent (English-India or Hindi-India)
+      const indianVoice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en_IN') || v.lang.includes('hi-IN') || v.lang.includes('hi_IN'));
       if (indianVoice) activeUtterance.voice = indianVoice;
       
       activeUtterance.onend = function() {
@@ -399,6 +414,11 @@
       };
       
       synth.speak(activeUtterance);
+      
+      // Start listening simultaneously so user can speak whenever they want (Full Duplex)
+      if (isCalling && !isListening) {
+        startListening();
+      }
     }
 
     function resetInactivityTimers() {
@@ -406,7 +426,6 @@
       
       silenceTimeout = setTimeout(() => {
         if (!isCalling) return;
-        stopListening();
         speakText("Are you still there? I haven't heard anything from you. Please ask any questions you have, or let me know if you would like me to send our expert booking links to your WhatsApp.");
         
         warningTimeout = setTimeout(() => {
