@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RAAAHI Voice Assistant | RAC Forge Private Limited</title>
-  <link rel="canonical" href="https://www.racforge.com/voice.html">
+  <title>RAAAHI Voice Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Inter', sans-serif; }
@@ -15,22 +14,10 @@
     .voice-pulse { animation: pulse-glow 2s infinite ease-in-out; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between overflow-hidden select-none relative">
-
-  <!-- Top Exit Navigation Bar (Always visible or matches current screen color scheme) -->
-  <header class="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-transparent">
-    <div class="flex items-center gap-2">
-      <span class="text-xl">🩺</span>
-      <span class="font-bold text-xs tracking-wider text-teal-600 font-mono" id="headerBrandText">RAAAHI VOICE</span>
-    </div>
-    <a href="/" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm border border-slate-200 bg-white text-slate-700 hover:bg-slate-50" id="exitHomeBtn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Exit to Home
-    </a>
-  </header>
+<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between overflow-hidden select-none">
 
   <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD (WHITE THEME & SCALED) ================= -->
-  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 pt-20 space-y-6">
+  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-6">
     <div class="text-center">
       <span class="text-5xl">🩺</span>
       <h1 class="text-2xl font-bold text-teal-600 mt-2 font-mono tracking-wider">RAAAHI VOICE</h1>
@@ -64,7 +51,7 @@
         <button onclick="dialNum('9')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">9</button>
         
         <button onclick="dialNum('*')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">*</button>
-        <button id="btnZero" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200 font-mono">0</button>
+        <button id="btnZero" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">0</button>
         <button onclick="dialNum('#')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">#</button>
       </div>
 
@@ -78,7 +65,7 @@
           <span>Call</span>
         </button>
         
-        <button onclick="clearDialer()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-bold flex items-center justify-center text-rose-500 transition active:scale-95 border border-slate-200 font-mono">C</button>
+        <button onclick="clearDialer()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-bold flex items-center justify-center text-rose-500 transition active:scale-95 border border-slate-200">C</button>
       </div>
     </div>
   </div>
@@ -99,7 +86,14 @@
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
       </div>
       
-
+      <!-- INTERACTIVE VOICE MENU (ASK FOR LANGUAGE FIRST) -->
+      <div id="ivrLanguageMenu" class="hidden w-full max-w-xs bg-slate-900 border border-slate-800 rounded-xl p-4 mt-6 text-center space-y-3 shadow-inner">
+        <p class="text-xs font-bold text-teal-400 tracking-wide">Press 1 or 2 to Confirm Language</p>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="confirmIvrLanguage('English')" class="p-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1">🇬🇧 English</button>
+          <button onclick="confirmIvrLanguage('Hinglish')" class="p-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1">🇮🇳 Hinglish</button>
+        </div>
+      </div>
 
       <!-- RED BARGE-IN / INTERRUPT BUTTON (Only displays when RAAAHI is speaking) -->
       <button id="interruptBtn" onclick="triggerBargeIn()" class="hidden w-full max-w-[200px] mt-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold rounded-full transition shadow-md animate-bounce">
@@ -112,8 +106,8 @@
     <!-- Active Call Footer Actions -->
     <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl mb-2 space-y-3">
       <div class="grid grid-cols-2 gap-2">
-        <a href="https://cal.id/rac-forge/15-minutes-free-call" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
-        <a href="https://cal.id/rac-forge/30-minutes-paid-call" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
+        <a href="https://cal.com/rac-forge-ulicvs/15min" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
+        <a href="https://cal.com/rac-forge-ulicvs/30min" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
       </div>
 
       <button onclick="endCall()" class="w-full py-3 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-bold text-[11px] tracking-wider transition active:scale-95">
@@ -145,9 +139,6 @@
     // ====== RE-ROUTE TO TALK TO YOUR GOOGLE BACKEND OVER API ======
     const BACKEND_API_URL = "https://script.google.com/macros/s/AKfycbzbDwf_gCPgNZTp5-R1l3zcZgudaBNqVVvO_BmF9WFFMPgOwUlvSpCjKUkdFHqE_CGP/exec"; 
     // ==============================================================
-
-    const CAL_FREE_LINK = "https://cal.id/rac-forge/15-minutes-free-call";
-    const CAL_PAID_LINK = "https://cal.id/rac-forge/30-minutes-paid-call";
 
     let isCalling = false;
     let isListening = false;  
@@ -233,23 +224,12 @@
         document.getElementById("onboardingScreen").classList.add("hidden");
         document.getElementById("warningScreen").classList.remove("hidden");
         document.getElementById("warningText").innerText = instructionMessage;
-
-        const headerBrandText = document.getElementById("headerBrandText");
-        const exitHomeBtn = document.getElementById("exitHomeBtn");
-        if (headerBrandText) {
-          headerBrandText.classList.remove("text-teal-600");
-          headerBrandText.classList.add("text-teal-400");
-        }
-        if (exitHomeBtn) {
-          exitHomeBtn.classList.remove("bg-white", "text-slate-700", "border-slate-200");
-          exitHomeBtn.classList.add("bg-slate-900", "text-slate-300", "border-slate-800", "hover:bg-slate-800", "hover:text-white");
-        }
       }
     }
 
     function copyCurrentLink() {
       const dummyInput = document.createElement('textarea');
-      dummyInput.value = window.location.href; 
+      dummyInput.value = "https://www.racforge.com/voice.html"; 
       document.body.appendChild(dummyInput);
       dummyInput.select();
       document.execCommand('copy');
@@ -279,17 +259,6 @@
             document.getElementById("callScreen").classList.remove("hidden");
             document.getElementById("callScreen").classList.add("flex");
             document.getElementById("callerNameDisp").innerText = "RAC FORGE ADVISOR";
-
-            const headerBrandText = document.getElementById("headerBrandText");
-            const exitHomeBtn = document.getElementById("exitHomeBtn");
-            if (headerBrandText) {
-              headerBrandText.classList.remove("text-teal-600");
-              headerBrandText.classList.add("text-teal-400");
-            }
-            if (exitHomeBtn) {
-              exitHomeBtn.classList.remove("bg-white", "text-slate-700", "border-slate-200");
-              exitHomeBtn.classList.add("bg-slate-900", "text-slate-300", "border-slate-800", "hover:bg-slate-800", "hover:text-white");
-            }
 
             startCall();
           })
@@ -345,12 +314,23 @@
         
         document.getElementById("callStatus").innerText = "CONNECTING...";
         
-        // 1 SECOND SILENT GAP BEFORE THE CALL IS ESTABLISHED DIRECTLY
+        // 1 SECOND SILENT GAP BEFORE WELCOME LANGUAGE SCREEN LOADS
         setTimeout(() => {
           if (!isCalling) return;
           
-          // Directly trigger call activation using the default language (Hinglish)
-          confirmIvrLanguage(selectedLang);
+          document.getElementById("callStatus").innerText = "CONFIRM LANGUAGE";
+          document.getElementById("micBtn").classList.add("bg-teal-800", "border-teal-700");
+          document.getElementById("micIcon").innerText = "🎛️";
+          document.getElementById("ivrLanguageMenu").classList.remove("hidden"); // Shows 1 & 2 buttons
+          
+          // IVR Welcome spoken greeting
+          speakTextCloud("Welcome to RAC Forge. For English, please press 1. हिन्दी के लिए, कृपया 2 दबाएं।", "en-IN");
+          
+          // Listen to keypresses on physical keyboards as shortcuts
+          document.onkeydown = function(event) {
+            if (event.key === '1') confirmIvrLanguage('English');
+            if (event.key === '2') confirmIvrLanguage('Hinglish');
+          };
         }, 1000);
       }, 5000);
     }
@@ -362,6 +342,7 @@
       selectedLang = lang;
       
       // Complete IVR Selection
+      document.getElementById("ivrLanguageMenu").classList.add("hidden");
       document.getElementById("micBtn").classList.remove("bg-teal-800", "border-teal-700");
       document.getElementById("micBtn").classList.add("voice-pulse", "bg-teal-600", "border-teal-400");
       document.getElementById("micIcon").innerText = "🟢";
@@ -375,28 +356,16 @@
 
     function playBeepAndStartAI() {
       if (!isCalling) return;
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        let osc = audioCtx.createOscillator();
-        let gainNode = audioCtx.createGain();
-        osc.frequency.value = 800;
-        gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        osc.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        osc.start();
-        setTimeout(() => {
-          try { osc.stop(); } catch(e) {}
-        }, 300);
-      } catch (e) {
-        console.warn("Could not play beep:", e);
-      }
-      
+      let osc = audioCtx.createOscillator();
+      let gainNode = audioCtx.createGain();
+      osc.frequency.value = 800;
+      gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.start();
       setTimeout(() => {
+        osc.stop();
+        
         // Connect the conversational greetings based on selected language
         let greeting = "";
         if (selectedLang === "Hinglish") {
@@ -483,11 +452,11 @@
     }
 
     function stopListening() {
-      if (!recognition) return;
+      if (!isListening) return;
+      isListening = false;
       try {
         recognition.stop();
-      } catch (e) {}
-      isListening = false;
+      } catch(e) {}
     }
 
     // CONVERSATIONAL BARGE-IN (Allows user to interrupt and speak)
@@ -495,9 +464,6 @@
       if (!isCalling) return;
       
       if (isSpeakingCloud || isProcessing) {
-        if (window.speechSynthesis) {
-          try { window.speechSynthesis.cancel(); } catch(e) {}
-        }
         audioPlayer.pause();       // Instantly stops RAAAHI's cloud voice
         isSpeakingCloud = false;
         isProcessing = false; 
@@ -518,67 +484,7 @@
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
       const cleanText = text.replace(emojiRegex, "").replace(/\*/g, "").trim();
       
-      // Use window.speechSynthesis as the primary, highly reliable native engine
-      if (window.speechSynthesis) {
-        try {
-          window.speechSynthesis.cancel();
-          
-          const utterance = new SpeechSynthesisUtterance(cleanText);
-          const voices = window.speechSynthesis.getVoices();
-          let selectedVoice = null;
-          
-          if (langCode === "Hinglish" || selectedLang === "Hinglish") {
-            selectedVoice = voices.find(v => v.lang.includes("hi-IN")) || 
-                             voices.find(v => v.lang.includes("en-IN")) || 
-                             voices.find(v => v.lang.includes("en-GB")) || 
-                             voices.find(v => v.lang.includes("en"));
-            utterance.lang = selectedVoice ? selectedVoice.lang : "hi-IN";
-          } else {
-            selectedVoice = voices.find(v => v.lang.includes("en-IN")) || 
-                             voices.find(v => v.lang.includes("en-GB")) || 
-                             voices.find(v => v.lang.includes("en-US")) || 
-                             voices.find(v => v.lang.includes("en"));
-            utterance.lang = selectedVoice ? selectedVoice.lang : "en-IN";
-          }
-          
-          if (selectedVoice) {
-            utterance.voice = selectedVoice;
-          }
-          
-          utterance.rate = 0.95;
-          utterance.pitch = 1.0;
-          
-          isSpeakingCloud = true;
-          document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
-          document.getElementById("interruptBtn").classList.remove("hidden");
-          
-          utterance.onend = function() {
-            isSpeakingCloud = false;
-            document.getElementById("interruptBtn").classList.add("hidden");
-            if (isCalling) {
-              startListening();
-            }
-          };
-          
-          utterance.onerror = function(event) {
-            console.warn("SpeechSynthesis error, falling back to Google TTS:", event);
-            fallbackToGoogleTTS(cleanText, langCode);
-          };
-          
-          window.speechSynthesis.speak(utterance);
-          return;
-        } catch (err) {
-          console.warn("SpeechSynthesis catch error, falling back to Google TTS:", err);
-        }
-      }
-      
-      fallbackToGoogleTTS(cleanText, langCode);
-    }
-
-    function fallbackToGoogleTTS(cleanText, langCode) {
-      audioPlayer.pause();
-      audioQueue = [];
-      
+      // Split into chunks of max 150 characters to comply with Google Translate TTS parameters
       const sentences = cleanText.match(/[^.!?]+[.!?]*/g) || [cleanText];
       
       sentences.forEach(sentence => {
@@ -594,7 +500,7 @@
       
       isSpeakingCloud = true;
       document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
-      document.getElementById("interruptBtn").classList.remove("hidden");
+      document.getElementById("interruptBtn").classList.remove("hidden"); // Shows custom interrupt button
       
       playNextAudioChunk(langCode === "Hinglish" ? "en-IN" : "en-IN");
     }
@@ -614,14 +520,7 @@
       let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + langCode + "&q=" + encodeURIComponent(chunk);
       
       audioPlayer.src = url;
-      
-      audioPlayer.onerror = function() {
-        console.warn("Audio player chunk load failure, skipping to next chunk...");
-        playNextAudioChunk(langCode);
-      };
-
       audioPlayer.play().catch(e => {
-        console.warn("Audio player play rejection, skipping to next chunk:", e);
         playNextAudioChunk(langCode);
       });
       
@@ -678,18 +577,8 @@
       document.getElementById("callTimer").classList.add("hidden");
       document.getElementById("transcriptText").innerText = "";
       document.getElementById("interruptBtn").classList.add("hidden");
+      document.getElementById("ivrLanguageMenu").classList.add("hidden");
       
-      const headerBrandText = document.getElementById("headerBrandText");
-      const exitHomeBtn = document.getElementById("exitHomeBtn");
-      if (headerBrandText) {
-        headerBrandText.classList.remove("text-teal-400");
-        headerBrandText.classList.add("text-teal-600");
-      }
-      if (exitHomeBtn) {
-        exitHomeBtn.classList.remove("bg-slate-900", "text-slate-300", "border-slate-800", "hover:bg-slate-800", "hover:text-white");
-        exitHomeBtn.classList.add("bg-white", "text-slate-700", "border-slate-200");
-      }
-
       synth.cancel();
       audioPlayer.pause();
       if (recognition) {
