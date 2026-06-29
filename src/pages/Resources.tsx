@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Calendar, User, ArrowRight, Tag as TagIcon, X } from 'lucide-react';
+import { Search, Calendar, User, ArrowRight, Tag as TagIcon, X, RefreshCw } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { BLOG_POSTS } from '../data/blogData';
@@ -13,6 +13,68 @@ export default function Resources() {
   const activeTag = searchParams.get('tag');
   const [searchQuery, setSearchQuery] = useState('');
   const [posts, setPosts] = useState(BLOG_POSTS);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshMessage, setRefreshMessage] = useState('');
+
+  const refreshBlogs = () => {
+    setIsRefreshing(true);
+    setRefreshMessage('Syncing dynamic blogs & restoring setup...');
+    
+    // Trigger programmatical workflow recovery
+    const restoreWorkflowPromise = fetch(`${API_BASE_URL}/api/restore-workflow`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .catch(err => console.warn('Workflow restore bypass:', err));
+
+    // Retrieve and sync blogs
+    const fetchBlogsPromise = fetch(`${API_BASE_URL}/api/posts`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to retrieve blog posts indexes');
+        return res.json();
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          const merged = [...data];
+          BLOG_POSTS.forEach(staticPost => {
+            if (!merged.some(p => p.id === staticPost.id)) {
+              merged.push(staticPost);
+            }
+          });
+          const parseDate = (dateStr: string) => {
+            const parts = dateStr.split(' ');
+            if (parts.length === 3) {
+              const months: { [key: string]: number } = {
+                Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+                Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+              };
+              const day = parseInt(parts[0], 10);
+              const month = months[parts[1]] || 0;
+              const year = parseInt(parts[2], 10);
+              return new Date(year, month, day).getTime();
+            }
+            return 0;
+          };
+          merged.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+          setPosts(merged);
+        }
+      });
+
+    Promise.all([restoreWorkflowPromise, fetchBlogsPromise])
+      .then(() => {
+        setRefreshMessage('Blogs & GitHub setup successfully synchronized!');
+        setTimeout(() => setRefreshMessage(''), 4500);
+      })
+      .catch(err => {
+        console.warn('Sync failed:', err);
+        setRefreshMessage('Synchronized with local backups.');
+        setTimeout(() => setRefreshMessage(''), 4500);
+      })
+      .finally(() => {
+        setIsRefreshing(false);
+      });
+  };
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/posts`)
@@ -221,10 +283,25 @@ export default function Resources() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search articles..." 
-                    className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all"
+                    className="w-full pl-6 pr-16 py-4 rounded-2xl border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 outline-none transition-all"
                   />
-                  <Search className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                  <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center space-x-4">
+                    <button 
+                      onClick={refreshBlogs}
+                      disabled={isRefreshing}
+                      title="Refresh Blogs"
+                      className={`text-gray-400 hover:text-brand-teal transition-all outline-none ${isRefreshing ? 'animate-spin text-brand-teal' : ''}`}
+                    >
+                      <RefreshCw size={20} />
+                    </button>
+                    <Search className="text-gray-400" size={20} />
+                  </div>
                 </div>
+                {refreshMessage && (
+                  <p className="text-xs text-brand-teal mt-3 font-semibold transition-all animate-pulse text-right pr-6">
+                    {refreshMessage}
+                  </p>
+                )}
               </div>
 
               {/* Tags Cloud */}

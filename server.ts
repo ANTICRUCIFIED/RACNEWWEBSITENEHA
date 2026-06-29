@@ -339,10 +339,66 @@ Please write what specific area you would like detailed guidance on!
     console.warn('Firebase Admin SDK initialization bypassed or failed (normal in offline dev mode):', fbAdminError);
   }
 
-  // GET API Endpoint to fetch blog posts from the static BLOG_POSTS array
-  app.get('/api/posts', (req, res) => {
+  // GET API Endpoint to fetch blog posts from the static BLOG_POSTS array and Firestore dynamic blogs
+  app.get('/api/posts', async (req, res) => {
     try {
-      return res.json(BLOG_POSTS);
+      let mergedPosts = [...BLOG_POSTS];
+      
+      if (isFirebaseEnabled && firestoreDb) {
+        try {
+          const dbPosts: any[] = [];
+          
+          const processSnapshot = (snapshot: any) => {
+            snapshot.forEach((doc: any) => {
+              const data = doc.data();
+              const existingPostIdx = dbPosts.findIndex(p => p.id === doc.id);
+              if (existingPostIdx === -1) {
+                dbPosts.push({
+                  id: doc.id,
+                  title: data.title || '',
+                  excerpt: data.excerpt || '',
+                  content: data.content || '',
+                  image: data.image || '',
+                  date: data.date || '',
+                  category: data.category || '',
+                  author: data.author || 'RAC Forge Private Limited Team',
+                  tags: Array.isArray(data.tags) ? data.tags : [],
+                  scholarlyArticle: data.scholarlyArticle || undefined
+                });
+              }
+            });
+          };
+
+          // Try both collection layouts to guarantee no blogs are missed
+          try {
+            const snapshot1 = await firestoreDb.collection('blog_posts').get();
+            processSnapshot(snapshot1);
+          } catch (e) {
+            console.warn('Could not read collection: blog_posts', e);
+          }
+
+          try {
+            const snapshot2 = await firestoreDb.collection('blogs').get();
+            processSnapshot(snapshot2);
+          } catch (e) {
+            console.warn('Could not read collection: blogs', e);
+          }
+          
+          // Merge Firestore posts with static posts (avoiding duplicate IDs)
+          dbPosts.forEach((dbPost: any) => {
+            const existingIndex = mergedPosts.findIndex(p => p.id === dbPost.id);
+            if (existingIndex !== -1) {
+              mergedPosts[existingIndex] = dbPost; // Overwrite static backup with latest db copy
+            } else {
+              mergedPosts.unshift(dbPost); // Put new dynamic posts at the beginning
+            }
+          });
+        } catch (dbErr) {
+          console.warn('Could not load dynamic blogs from Firestore database, using static fallback:', dbErr);
+        }
+      }
+      
+      return res.json(mergedPosts);
     } catch (fetchErr: any) {
       console.error('GET /api/posts list retrieval failure: ', fetchErr);
       return res.status(500).json({
@@ -353,11 +409,39 @@ Please write what specific area you would like detailed guidance on!
   });
 
   // GET API to fetch details of a specific blog post
-  app.get('/api/posts/:id', (req, res) => {
+  app.get('/api/posts/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const foundPost = BLOG_POSTS.find((p: any) => p.id === id);
       
+      // First check Firestore if enabled
+      if (isFirebaseEnabled && firestoreDb) {
+        try {
+          let docSnap = await firestoreDb.collection('blog_posts').doc(id).get();
+          if (!docSnap.exists) {
+            docSnap = await firestoreDb.collection('blogs').doc(id).get();
+          }
+
+          if (docSnap.exists) {
+            const data = docSnap.data();
+            return res.json({
+              id: docSnap.id,
+              title: data.title || '',
+              excerpt: data.excerpt || '',
+              content: data.content || '',
+              image: data.image || '',
+              date: data.date || '',
+              category: data.category || '',
+              author: data.author || 'RAC Forge Private Limited Team',
+              tags: Array.isArray(data.tags) ? data.tags : [],
+              scholarlyArticle: data.scholarlyArticle || undefined
+            });
+          }
+        } catch (dbErr) {
+          console.warn(`Could not load dynamic blog ${id} from Firestore, trying static list:`, dbErr);
+        }
+      }
+
+      const foundPost = BLOG_POSTS.find((p: any) => p.id === id);
       if (foundPost) {
         return res.json(foundPost);
       }
@@ -367,6 +451,141 @@ Please write what specific area you would like detailed guidance on!
       return res.status(500).json({
         error: 'Error conducting post lookup',
         details: getErr.message || String(getErr)
+      });
+    }
+  });
+
+  // POST API Endpoint for AWS Lambda bot to push new blog posts dynamically
+  app.post('/api/posts', async (req, res) => {
+    try {
+      const botSecret = process.env.BOT_SECRET_TOKEN;
+      if (botSecret) {
+        const authHeader = req.headers.authorization || '';
+        const xBotToken = req.headers['x-bot-token'] || '';
+        const bodyToken = req.body.token || '';
+        
+        const isAuthorized = 
+          authHeader === botSecret || 
+          authHeader === `Bearer ${botSecret}` ||
+          xBotToken === botSecret ||
+          bodyToken === botSecret;
+
+        if (!isAuthorized) {
+          return res.status(401).json({ error: 'Unauthorized: Invalid or missing BOT_SECRET_TOKEN' });
+        }
+      }
+
+      const { id, title, content, author, date, status, excerpt, image, tags, category, scholarlyArticle } = req.body;
+      if (!title || !content) {
+        return res.status(400).json({ error: 'Title and content are required fields' });
+      }
+
+      // Generate clean url slug from title if id is not passed
+      const generatedId = id || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const blogData = {
+        title,
+        content,
+        author: author || 'RAC Forge Private Limited Team',
+        date: date || new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }),
+        status: status || 'published',
+        excerpt: excerpt || content.substring(0, 180).replace(/[#*`]/g, '') + '...',
+        image: image || 'https://anticrucified.github.io/MyWebP_Images/images/resources-banner.png',
+        tags: Array.isArray(tags) ? tags : ['Regulatory', 'Compliance'],
+        category: category || 'Regulatory Update',
+        scholarlyArticle: scholarlyArticle || null,
+        createdAt: new Date().toISOString()
+      };
+
+      if (isFirebaseEnabled && firestoreDb) {
+        // Save to BOTH collections to guarantee absolute retrieval and backward compatibility
+        await firestoreDb.collection('blog_posts').doc(generatedId).set(blogData, { merge: true });
+        await firestoreDb.collection('blogs').doc(generatedId).set(blogData, { merge: true });
+        return res.json({ success: true, message: 'Blog post successfully pushed and saved to Firestore', id: generatedId });
+      } else {
+        return res.status(503).json({ error: 'Database service is temporarily offline or unconfigured' });
+      }
+    } catch (postErr: any) {
+      console.error('POST /api/posts failure:', postErr);
+      return res.status(500).json({ error: 'Failed to record blog post', details: postErr.message });
+    }
+  });
+
+  // POST API Endpoint to programmatically write and restore the GitHub Pages deployment workflow
+  app.post('/api/restore-workflow', async (req, res) => {
+    try {
+      const workflowDir = path.join(process.cwd(), '.github', 'workflows');
+      const workflowPath = path.join(workflowDir, 'deploy.yml');
+
+      // Create directories recursively if they don't exist
+      if (!fs.existsSync(workflowDir)) {
+        fs.mkdirSync(workflowDir, { recursive: true });
+      }
+
+      const workflowCode = `# Simple, robust GitHub Actions workflow to build and deploy a React Vite static site to GitHub Pages
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main      # Change this to "master" if your default branch is master
+  workflow_dispatch: # Allows you to manually trigger the deployment from the Actions tab
+
+# Sets permissions of the GITHUB_TOKEN to allow clean deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: \${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install --legacy-peer-deps
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Static Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Build output directory to host
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4`;
+
+      fs.writeFileSync(workflowPath, workflowCode, 'utf8');
+      
+      return res.json({ 
+        success: true, 
+        message: 'GitHub Pages deployment workflow (.github/workflows/deploy.yml) successfully restored & saved!' 
+      });
+    } catch (err: any) {
+      console.error('Failed to restore workflow:', err);
+      return res.status(500).json({ 
+        error: 'Failed to write workflow file', 
+        details: err.message || String(err) 
       });
     }
   });
