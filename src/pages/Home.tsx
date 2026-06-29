@@ -27,6 +27,7 @@ import 'swiper/css/pagination';
 
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
+import ConsultationButtons from '../components/ConsultationButtons';
 import { getApiBaseUrl } from '../lib/utils';
 
 import { BLOG_POSTS as ALL_BLOG_POSTS } from '../data/blogData';
@@ -579,6 +580,20 @@ export default function Home() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+      </section>
+
+      {/* Instant Assistance & Consultations Section */}
+      <section className="py-24 bg-gray-50 border-t border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-brand-teal font-bold tracking-widest uppercase text-sm mb-4 block">Interactive & Quick Support</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-4">
+            Instant Consultation & Voice AI
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-16">
+            Get your questions answered immediately. Chat with RAAHI, book a free overview call, or speak with our live voice assistant.
+          </p>
+          <ConsultationButtons variant="grid" className="max-w-4xl mx-auto" />
         </div>
       </section>
 

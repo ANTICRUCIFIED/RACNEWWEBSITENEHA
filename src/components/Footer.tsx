@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight, Youtube } from 'lucide-react';
 import { COMPANY_INFO } from '../constants';
+import ConsultationButtons from './ConsultationButtons';
 
 export default function Footer() {
   const socialLinks = [
@@ -16,6 +17,15 @@ export default function Footer() {
       <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-teal/5 skew-x-12 translate-x-1/2"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Instant Access Channels Bar */}
+        <div className="bg-slate-50 border border-gray-100 rounded-3xl p-8 mb-16 shadow-sm">
+          <div className="text-center mb-6">
+            <span className="text-brand-teal font-bold tracking-widest uppercase text-xs mb-2 block">Quick Assistance Channels</span>
+            <h3 className="text-xl md:text-2xl font-extrabold text-brand-deep">Schedule, Chat, or Talk Directly With Our Experts</h3>
+          </div>
+          <ConsultationButtons variant="compact" className="justify-center" />
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           {/* Column 1: Brand & About */}
           <div className="space-y-8">

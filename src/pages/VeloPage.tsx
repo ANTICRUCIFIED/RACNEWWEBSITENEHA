@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
+import ConsultationButtons from '../components/ConsultationButtons';
 
 export default function VeloPage() {
   const triggerChatbot = () => {
@@ -371,6 +372,20 @@ export default function VeloPage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* RAAAHI Instant Support Channels Section */}
+      <section className="py-20 bg-slate-50 border-t border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-[#2c8498] font-bold tracking-widest uppercase text-xs mb-4 block">RAAAHI COMPLIANCE CONSULTATION</span>
+          <h2 className="text-3xl md:text-5xl font-black text-[#0a3651] mb-4">
+            Connect with RAAAHI &amp; Senior Consultants
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-16">
+            Get instant support from our regulatory advisors via WhatsApp, schedule dedicated calls, or connect with our interactive RAAAHI Voice Assistant.
+          </p>
+          <ConsultationButtons variant="grid" className="max-w-4xl mx-auto" />
         </div>
       </section>
 

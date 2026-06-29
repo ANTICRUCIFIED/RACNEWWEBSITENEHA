@@ -18,7 +18,7 @@ const ROUTE_MAP: Record<string, string> = {
   'information': 'CDSCO Resources',
   'locations': 'Regional Access',
   'india': 'Regional Solutions',
-  'velo-ai': 'Velo AI',
+  'velo-ai': 'Raahi Compliance AI',
   'raahi-ai': 'Raahi Compliance AI',
   'raaahi-ai': 'Raahi Compliance AI',
   

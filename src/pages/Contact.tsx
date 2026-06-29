@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle2, MapPin, Mail, Phone, Facebook, Twitter, Linkedin, Instagram, Youtube, Send } from 'lucide-react';
+import { CheckCircle2, MapPin, Mail, Phone, Facebook, Twitter, Linkedin, Instagram, Youtube, Send, Calendar, Video, Mic } from 'lucide-react';
 import SEO from '../components/SEO';
+import ConsultationButtons from '../components/ConsultationButtons';
 import { COMPANY_INFO } from '../constants';
 import { getApiBaseUrl } from '../lib/utils';
+
+const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.178 1.455 4.71 1.456 5.485 0 9.94-4.512 9.944-10.061a9.78 9.78 0 00-2.92-7.047 9.873 9.873 0 00-7.026-2.924C5.459 2.58 1.006 7.093 1.002 12.64c-.001 1.62.43 3.202 1.25 4.616l-.993 3.625 3.71-.973zm11.218-6.855c-.301-.15-1.785-.88-2.062-.98-.277-.1-.478-.15-.678.15-.2.3-.775.98-.95 1.18-.175.2-.35.225-.651.075-.3-.15-1.267-.467-2.414-1.492-.893-.797-1.496-1.78-1.672-2.08-.176-.3-.019-.462.13-.61.137-.133.301-.352.451-.527.15-.176.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.678-1.633-.93-2.242-.244-.588-.492-.51-.678-.519-.175-.009-.375-.01-.576-.01-.2 0-.526.075-.801.375-.276.3-1.052 1.03-1.052 2.516s1.078 2.917 1.229 3.117c.15.2 2.122 3.24 5.141 4.545.717.31 1.277.496 1.713.635.721.23 1.378.197 1.9.119.58-.087 1.785-.73 2.037-1.434.252-.703.252-1.306.176-1.431-.076-.125-.276-.2-.577-.35z" />
+  </svg>
+);
 
 const API_BASE_URL = getApiBaseUrl();
 
@@ -130,6 +137,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-8">
+                {/* Headquarters */}
                 <div className="flex items-start space-x-6 group">
                   <div className="w-14 h-14 bg-brand-teal/10 rounded-2xl flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-white transition-all">
                     <MapPin size={28} />
@@ -142,6 +150,7 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* DUNS Number */}
                 <div className="flex items-start space-x-6 group">
                   <div className="w-14 h-14 bg-brand-deep/10 rounded-2xl flex items-center justify-center text-brand-deep shrink-0 group-hover:bg-brand-deep group-hover:text-white transition-all">
                     <MapPin size={28} />
@@ -154,23 +163,107 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* WhatsApp Chat - HIGHLY PRIORITIZED */}
+                <a 
+                  href="https://wa.me/916239699077?text=Hi%20RAAAHI" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-start space-x-6 group cursor-pointer block"
+                >
+                  <div className="w-14 h-14 bg-[#25D366]/10 rounded-2xl flex items-center justify-center text-[#25D366] shrink-0 group-hover:bg-[#25D366] group-hover:text-white transition-all shadow-sm">
+                    <WhatsAppIcon className="w-7 h-7" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl group-hover:text-[#25D366] transition-colors flex items-center gap-2">
+                      WhatsApp Chat 
+                      <span className="text-xs bg-[#25D366]/20 text-[#25D366] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Instant</span>
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed font-semibold">+91 62396 99077</p>
+                    <p className="text-xs text-gray-400">Direct instant chat with our team &amp; RAAAHI advisor</p>
+                  </div>
+                </a>
+
+                {/* Talk to RAAAHI Voice Assistant - HIGHLY PRIORITIZED */}
+                <a 
+                  href="/voice.html" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-start space-x-6 group cursor-pointer block"
+                >
+                  <div className="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-600 shrink-0 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-sm">
+                    <Mic size={28} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl group-hover:text-purple-600 transition-colors flex items-center gap-2">
+                      Talk to RAAAHI (Voice AI)
+                      <span className="text-xs bg-purple-100 text-purple-600 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Interactive</span>
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed font-semibold">Speak with our Regulatory Assistant</p>
+                    <p className="text-xs text-gray-400">Real-time voice consultation built by RAC Forge</p>
+                  </div>
+                </a>
+
+                {/* 15-Min Free Call - HIGHLY PRIORITIZED */}
+                <a 
+                  href="https://cal.id/rac-forge/15-minutes-free-call" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-start space-x-6 group cursor-pointer block"
+                >
+                  <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                    <Calendar size={28} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl group-hover:text-blue-600 transition-colors flex items-center gap-2">
+                      15-Min Free Call
+                      <span className="text-xs bg-blue-100 text-blue-600 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">Free</span>
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed font-semibold">Schedule an Initial Consultation</p>
+                    <p className="text-xs text-gray-400">Discuss compliance pathways with our lead advisor</p>
+                  </div>
+                </a>
+
+                {/* 30-Min Paid Session - HIGHLY PRIORITIZED */}
+                <a 
+                  href="https://cal.id/rac-forge/30-minutes-paid-call" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-start space-x-6 group cursor-pointer block"
+                >
+                  <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-all shadow-sm">
+                    <Video size={28} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl group-hover:text-amber-600 transition-colors flex items-center gap-2">
+                      30-Min Paid Session
+                      <span className="text-xs bg-amber-100 text-amber-600 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">In-Depth</span>
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed font-semibold">Detailed QMS &amp; Clinical Strategy</p>
+                    <p className="text-xs text-gray-400">Comprehensive project review &amp; advisory session</p>
+                  </div>
+                </a>
+
+                {/* Email Us */}
                 <div className="flex items-center space-x-6 group">
                   <div className="w-14 h-14 bg-brand-teal/10 rounded-2xl flex items-center justify-center text-brand-teal shrink-0 group-hover:bg-brand-teal group-hover:text-white transition-all">
                     <Mail size={28} />
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-xl">Email Us</h4>
-                    <p className="text-gray-600 leading-relaxed">{COMPANY_INFO.contact.email}</p>
+                    <p className="text-gray-600 leading-relaxed font-semibold">{COMPANY_INFO.contact.email}</p>
+                    <p className="text-xs text-gray-400">Send us detailed specifications or proposals</p>
                   </div>
                 </div>
 
+                {/* Call Us */}
                 <div className="flex items-center space-x-6 group" title="Support Number">
                   <div className="w-14 h-14 bg-brand-deep/10 rounded-2xl flex items-center justify-center text-brand-deep shrink-0 group-hover:bg-brand-deep group-hover:text-white transition-all">
                     <Phone size={28} />
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-xl">Call Us</h4>
-                    <p className="text-gray-600 leading-relaxed">{COMPANY_INFO.contact.phone}</p>
+                    <p className="text-gray-600 leading-relaxed font-semibold">{COMPANY_INFO.contact.phone}</p>
+                    <p className="text-xs text-gray-400">Direct verbal inquiry with our support desk</p>
                   </div>
                 </div>
               </div>
@@ -331,6 +424,20 @@ export default function Contact() {
               </motion.div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Instant Consultation Channels Section */}
+      <section className="py-24 bg-gray-50 border-t border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-brand-teal font-bold tracking-widest uppercase text-sm mb-4 block">Instant Support Channels</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-brand-deep mb-4">
+            Consultations & Voice Assistants
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-16">
+            Get instant support from our regulatory advisors via WhatsApp, schedule dedicated calls, or connect with our interactive RAAAHI Voice Assistant.
+          </p>
+          <ConsultationButtons variant="grid" className="max-w-4xl mx-auto" />
         </div>
       </section>
 
