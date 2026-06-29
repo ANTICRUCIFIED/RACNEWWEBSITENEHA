@@ -482,6 +482,14 @@
       }
     }
 
+    function stopListening() {
+      if (!recognition) return;
+      try {
+        recognition.stop();
+      } catch (e) {}
+      isListening = false;
+    }
+
     // CONVERSATIONAL BARGE-IN (Allows user to interrupt and speak)
     function triggerBargeIn() {
       if (!isCalling) return;
