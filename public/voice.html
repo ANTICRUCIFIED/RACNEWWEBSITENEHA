@@ -394,16 +394,28 @@
 
     function playBeepAndStartAI() {
       if (!isCalling) return;
-      let osc = audioCtx.createOscillator();
-      let gainNode = audioCtx.createGain();
-      osc.frequency.value = 800;
-      gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      osc.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      osc.start();
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        let osc = audioCtx.createOscillator();
+        let gainNode = audioCtx.createGain();
+        osc.frequency.value = 800;
+        gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        osc.start();
+        setTimeout(() => {
+          try { osc.stop(); } catch(e) {}
+        }, 300);
+      } catch (e) {
+        console.warn("Could not play beep:", e);
+      }
+      
       setTimeout(() => {
-        osc.stop();
-        
         // Connect the conversational greetings based on selected language
         let greeting = "";
         if (selectedLang === "Hinglish") {
@@ -494,6 +506,9 @@
       if (!isCalling) return;
       
       if (isSpeakingCloud || isProcessing) {
+        if (window.speechSynthesis) {
+          try { window.speechSynthesis.cancel(); } catch(e) {}
+        }
         audioPlayer.pause();       // Instantly stops RAAAHI's cloud voice
         isSpeakingCloud = false;
         isProcessing = false; 
@@ -514,7 +529,67 @@
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
       const cleanText = text.replace(emojiRegex, "").replace(/\*/g, "").trim();
       
-      // Split into chunks of max 150 characters to comply with Google Translate TTS parameters
+      // Use window.speechSynthesis as the primary, highly reliable native engine
+      if (window.speechSynthesis) {
+        try {
+          window.speechSynthesis.cancel();
+          
+          const utterance = new SpeechSynthesisUtterance(cleanText);
+          const voices = window.speechSynthesis.getVoices();
+          let selectedVoice = null;
+          
+          if (langCode === "Hinglish" || selectedLang === "Hinglish") {
+            selectedVoice = voices.find(v => v.lang.includes("hi-IN")) || 
+                             voices.find(v => v.lang.includes("en-IN")) || 
+                             voices.find(v => v.lang.includes("en-GB")) || 
+                             voices.find(v => v.lang.includes("en"));
+            utterance.lang = selectedVoice ? selectedVoice.lang : "hi-IN";
+          } else {
+            selectedVoice = voices.find(v => v.lang.includes("en-IN")) || 
+                             voices.find(v => v.lang.includes("en-GB")) || 
+                             voices.find(v => v.lang.includes("en-US")) || 
+                             voices.find(v => v.lang.includes("en"));
+            utterance.lang = selectedVoice ? selectedVoice.lang : "en-IN";
+          }
+          
+          if (selectedVoice) {
+            utterance.voice = selectedVoice;
+          }
+          
+          utterance.rate = 0.95;
+          utterance.pitch = 1.0;
+          
+          isSpeakingCloud = true;
+          document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
+          document.getElementById("interruptBtn").classList.remove("hidden");
+          
+          utterance.onend = function() {
+            isSpeakingCloud = false;
+            document.getElementById("interruptBtn").classList.add("hidden");
+            if (isCalling) {
+              startListening();
+            }
+          };
+          
+          utterance.onerror = function(event) {
+            console.warn("SpeechSynthesis error, falling back to Google TTS:", event);
+            fallbackToGoogleTTS(cleanText, langCode);
+          };
+          
+          window.speechSynthesis.speak(utterance);
+          return;
+        } catch (err) {
+          console.warn("SpeechSynthesis catch error, falling back to Google TTS:", err);
+        }
+      }
+      
+      fallbackToGoogleTTS(cleanText, langCode);
+    }
+
+    function fallbackToGoogleTTS(cleanText, langCode) {
+      audioPlayer.pause();
+      audioQueue = [];
+      
       const sentences = cleanText.match(/[^.!?]+[.!?]*/g) || [cleanText];
       
       sentences.forEach(sentence => {
@@ -530,7 +605,7 @@
       
       isSpeakingCloud = true;
       document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
-      document.getElementById("interruptBtn").classList.remove("hidden"); // Shows custom interrupt button
+      document.getElementById("interruptBtn").classList.remove("hidden");
       
       playNextAudioChunk(langCode === "Hinglish" ? "en-IN" : "en-IN");
     }
@@ -550,7 +625,14 @@
       let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + langCode + "&q=" + encodeURIComponent(chunk);
       
       audioPlayer.src = url;
+      
+      audioPlayer.onerror = function() {
+        console.warn("Audio player chunk load failure, skipping to next chunk...");
+        playNextAudioChunk(langCode);
+      };
+
       audioPlayer.play().catch(e => {
+        console.warn("Audio player play rejection, skipping to next chunk:", e);
         playNextAudioChunk(langCode);
       });
       
