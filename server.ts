@@ -339,10 +339,77 @@ Please write what specific area you would like detailed guidance on!
     console.warn('Firebase Admin SDK initialization bypassed or failed (normal in offline dev mode):', fbAdminError);
   }
 
+  const getLatestStaticPosts = (): any[] => {
+    try {
+      const filePath = path.join(process.cwd(), 'src', 'data', 'blogData.ts');
+      if (!fs.existsSync(filePath)) {
+        return BLOG_POSTS;
+      }
+      const content = fs.readFileSync(filePath, 'utf8');
+      
+      const startIndex = content.indexOf('export const BLOG_POSTS');
+      if (startIndex === -1) {
+        return BLOG_POSTS;
+      }
+      
+      const arrayStartIndex = content.indexOf('[', startIndex);
+      if (arrayStartIndex === -1) {
+        return BLOG_POSTS;
+      }
+      
+      let braceCount = 1;
+      let index = arrayStartIndex + 1;
+      let inString: string | null = null;
+      let isEscaped = false;
+      
+      while (index < content.length && braceCount > 0) {
+        const char = content[index];
+        
+        if (isEscaped) {
+          isEscaped = false;
+          index++;
+          continue;
+        }
+        
+        if (char === '\\') {
+          isEscaped = true;
+          index++;
+          continue;
+        }
+        
+        if (inString) {
+          if (char === inString) {
+            inString = null;
+          }
+        } else {
+          if (char === "'" || char === '"' || char === '`') {
+            inString = char;
+          } else if (char === '[') {
+            braceCount++;
+          } else if (char === ']') {
+            braceCount--;
+          }
+        }
+        index++;
+      }
+      
+      if (braceCount === 0) {
+        const arrayStr = content.substring(arrayStartIndex, index);
+        const evaluated = new Function(`return ${arrayStr};`)();
+        if (Array.isArray(evaluated)) {
+          return evaluated;
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to parse blogData.ts dynamically:', err);
+    }
+    return BLOG_POSTS;
+  };
+
   // GET API Endpoint to fetch blog posts from the static BLOG_POSTS array and Firestore dynamic blogs
   app.get('/api/posts', async (req, res) => {
     try {
-      let mergedPosts = [...BLOG_POSTS];
+      let mergedPosts = [...getLatestStaticPosts()];
       
       if (isFirebaseEnabled && firestoreDb) {
         try {
@@ -441,7 +508,7 @@ Please write what specific area you would like detailed guidance on!
         }
       }
 
-      const foundPost = BLOG_POSTS.find((p: any) => p.id === id);
+      const foundPost = getLatestStaticPosts().find((p: any) => p.id === id);
       if (foundPost) {
         return res.json(foundPost);
       }
@@ -507,86 +574,6 @@ Please write what specific area you would like detailed guidance on!
     } catch (postErr: any) {
       console.error('POST /api/posts failure:', postErr);
       return res.status(500).json({ error: 'Failed to record blog post', details: postErr.message });
-    }
-  });
-
-  // POST API Endpoint to programmatically write and restore the GitHub Pages deployment workflow
-  app.post('/api/restore-workflow', async (req, res) => {
-    try {
-      const workflowDir = path.join(process.cwd(), '.github', 'workflows');
-      const workflowPath = path.join(workflowDir, 'deploy.yml');
-
-      // Create directories recursively if they don't exist
-      if (!fs.existsSync(workflowDir)) {
-        fs.mkdirSync(workflowDir, { recursive: true });
-      }
-
-      const workflowCode = `# Simple, robust GitHub Actions workflow to build and deploy a React Vite static site to GitHub Pages
-name: Build and Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main      # Change this to "master" if your default branch is master
-  workflow_dispatch: # Allows you to manually trigger the deployment from the Actions tab
-
-# Sets permissions of the GITHUB_TOKEN to allow clean deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: \${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci || npm install --legacy-peer-deps
-
-      - name: Build Application
-        run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Static Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist' # Build output directory to host
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4`;
-
-      fs.writeFileSync(workflowPath, workflowCode, 'utf8');
-      
-      return res.json({ 
-        success: true, 
-        message: 'GitHub Pages deployment workflow (.github/workflows/deploy.yml) successfully restored & saved!' 
-      });
-    } catch (err: any) {
-      console.error('Failed to restore workflow:', err);
-      return res.status(500).json({ 
-        error: 'Failed to write workflow file', 
-        details: err.message || String(err) 
-      });
     }
   });
 

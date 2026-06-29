@@ -18,18 +18,10 @@ export default function Resources() {
 
   const refreshBlogs = () => {
     setIsRefreshing(true);
-    setRefreshMessage('Syncing dynamic blogs & restoring setup...');
+    setRefreshMessage('Syncing dynamic blogs...');
     
-    // Trigger programmatical workflow recovery
-    const restoreWorkflowPromise = fetch(`${API_BASE_URL}/api/restore-workflow`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(res => res.json())
-    .catch(err => console.warn('Workflow restore bypass:', err));
-
     // Retrieve and sync blogs
-    const fetchBlogsPromise = fetch(`${API_BASE_URL}/api/posts`)
+    fetch(`${API_BASE_URL}/api/posts`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to retrieve blog posts indexes');
         return res.json();
@@ -58,13 +50,9 @@ export default function Resources() {
           };
           merged.sort((a, b) => parseDate(b.date) - parseDate(a.date));
           setPosts(merged);
+          setRefreshMessage('Blogs successfully synchronized!');
+          setTimeout(() => setRefreshMessage(''), 4500);
         }
-      });
-
-    Promise.all([restoreWorkflowPromise, fetchBlogsPromise])
-      .then(() => {
-        setRefreshMessage('Blogs & GitHub setup successfully synchronized!');
-        setTimeout(() => setRefreshMessage(''), 4500);
       })
       .catch(err => {
         console.warn('Sync failed:', err);
