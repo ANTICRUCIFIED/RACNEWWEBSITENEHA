@@ -99,14 +99,7 @@
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
       </div>
       
-      <!-- INTERACTIVE VOICE MENU (ASK FOR LANGUAGE FIRST) -->
-      <div id="ivrLanguageMenu" class="hidden w-full max-w-xs bg-slate-900 border border-slate-800 rounded-xl p-4 mt-6 text-center space-y-3 shadow-inner">
-        <p class="text-xs font-bold text-teal-400 tracking-wide">Press 1 or 2 to Confirm Language</p>
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="confirmIvrLanguage('English')" class="p-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1">🇬🇧 English</button>
-          <button onclick="confirmIvrLanguage('Hinglish')" class="p-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1">🇮🇳 Hinglish</button>
-        </div>
-      </div>
+
 
       <!-- RED BARGE-IN / INTERRUPT BUTTON (Only displays when RAAAHI is speaking) -->
       <button id="interruptBtn" onclick="triggerBargeIn()" class="hidden w-full max-w-[200px] mt-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold rounded-full transition shadow-md animate-bounce">
@@ -352,23 +345,12 @@
         
         document.getElementById("callStatus").innerText = "CONNECTING...";
         
-        // 1 SECOND SILENT GAP BEFORE WELCOME LANGUAGE SCREEN LOADS
+        // 1 SECOND SILENT GAP BEFORE THE CALL IS ESTABLISHED DIRECTLY
         setTimeout(() => {
           if (!isCalling) return;
           
-          document.getElementById("callStatus").innerText = "CONFIRM LANGUAGE";
-          document.getElementById("micBtn").classList.add("bg-teal-800", "border-teal-700");
-          document.getElementById("micIcon").innerText = "🎛️";
-          document.getElementById("ivrLanguageMenu").classList.remove("hidden"); // Shows 1 & 2 buttons
-          
-          // IVR Welcome spoken greeting
-          speakTextCloud("Welcome to RAC Forge. For English, please press 1. हिन्दी के लिए, कृपया 2 दबाएं।", "en-IN");
-          
-          // Listen to keypresses on physical keyboards as shortcuts
-          document.onkeydown = function(event) {
-            if (event.key === '1') confirmIvrLanguage('English');
-            if (event.key === '2') confirmIvrLanguage('Hinglish');
-          };
+          // Directly trigger call activation using the default language (Hinglish)
+          confirmIvrLanguage(selectedLang);
         }, 1000);
       }, 5000);
     }
@@ -380,7 +362,6 @@
       selectedLang = lang;
       
       // Complete IVR Selection
-      document.getElementById("ivrLanguageMenu").classList.add("hidden");
       document.getElementById("micBtn").classList.remove("bg-teal-800", "border-teal-700");
       document.getElementById("micBtn").classList.add("voice-pulse", "bg-teal-600", "border-teal-400");
       document.getElementById("micIcon").innerText = "🟢";
@@ -689,7 +670,6 @@
       document.getElementById("callTimer").classList.add("hidden");
       document.getElementById("transcriptText").innerText = "";
       document.getElementById("interruptBtn").classList.add("hidden");
-      document.getElementById("ivrLanguageMenu").classList.add("hidden");
       
       const headerBrandText = document.getElementById("headerBrandText");
       const exitHomeBtn = document.getElementById("exitHomeBtn");
