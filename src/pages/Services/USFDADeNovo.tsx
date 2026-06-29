@@ -97,7 +97,7 @@ export default function USFDADeNovo() {
                   <h4 className="text-xl font-bold text-brand-deep mb-6">Related USFDA Services</h4>
                   <ul className="space-y-4">
                     {[
-                      { name: '510(k) Submission', path: '/services/usfda-510k-submission' },
+                      { name: '510(k) Submission', path: '/services/usfda-510k-de-novo' },
                       { name: 'PMA Application', path: '/services/usfda-pma-application' }
                     ].map((link) => (
                       <li key={link.name}>

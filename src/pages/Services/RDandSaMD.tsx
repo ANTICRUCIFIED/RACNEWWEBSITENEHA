@@ -104,9 +104,9 @@ export default function RDandSaMD() {
                   <h4 className="text-xl font-bold text-brand-deep mb-6">Related Services</h4>
                   <ul className="space-y-4">
                     {[
-                      { name: 'USFDA Compliance', path: '/services/usfda-510k-submission' },
-                      { name: 'EU MDR Compliance', path: '/services/eu-mdr-compliance' },
-                      { name: 'Anvisa Brazil', path: '/services/anvisa-brazil-approval' }
+                      { name: 'USFDA Compliance', path: '/services/usfda-510k-de-novo' },
+                      { name: 'EU MDR Compliance', path: '/services/eu-mdr-ce-marking' },
+                      { name: 'Anvisa Brazil', path: '/services/anvisa-brazil-registration' }
                     ].map((link) => (
                       <li key={link.name}>
                         <Link to={link.path} className="text-gray-600 hover:text-brand-teal font-bold flex items-center group">

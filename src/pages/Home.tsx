@@ -336,7 +336,7 @@ export default function Home() {
                 <li>Test License</li>
                 <li>Clinical Investigation</li>
               </ul>
-              <Link to="/services/cdsco-manufacturing-license" className="text-brand-teal font-bold flex items-center group">
+              <Link to="/services/cdsco-manufacturing-license-md5-md9" className="text-brand-teal font-bold flex items-center group">
                 View All Licenses <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -349,7 +349,7 @@ export default function Home() {
                 <li>PMA Applications</li>
                 <li>De Novo Classification</li>
               </ul>
-              <Link to="/services/usfda-510k-submission" className="text-brand-teal font-bold flex items-center group">
+              <Link to="/services/usfda-510k-de-novo" className="text-brand-teal font-bold flex items-center group">
                 View USFDA Services <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -362,7 +362,7 @@ export default function Home() {
                 <li>CE Marking Strategy</li>
                 <li>Notified Body Coordination</li>
               </ul>
-              <Link to="/services/eu-mdr-compliance" className="text-brand-teal font-bold flex items-center group">
+              <Link to="/services/eu-mdr-ce-marking" className="text-brand-teal font-bold flex items-center group">
                 View EU MDR Details <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -375,7 +375,7 @@ export default function Home() {
                 <li>Local Alliance Coordination</li>
                 <li>BGMP Compliance</li>
               </ul>
-              <Link to="/services/anvisa-brazil-approval" className="text-brand-teal font-bold flex items-center group">
+              <Link to="/services/anvisa-brazil-registration" className="text-brand-teal font-bold flex items-center group">
                 View Anvisa Details <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -463,7 +463,7 @@ export default function Home() {
                   <CheckCircle2 className="text-brand-teal mr-3" size={20} /> Clinical evaluation consulting
                 </li>
               </ul>
-              <Link to="/services/eu-mdr-compliance" className="inline-block bg-brand-deep text-white px-8 py-4 rounded-full font-bold hover:bg-brand-teal transition-all">
+              <Link to="/services/eu-mdr-ce-marking" className="inline-block bg-brand-deep text-white px-8 py-4 rounded-full font-bold hover:bg-brand-teal transition-all">
                 Get EU MDR Support
               </Link>
             </motion.div>

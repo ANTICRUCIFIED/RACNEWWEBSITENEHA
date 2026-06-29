@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 
 interface SEOProps {
   title: string;
@@ -25,6 +26,13 @@ interface SEOProps {
 export default function SEO({ title, description, keywords, canonical, type = 'website', datePublished, authorName, scholarlyArticle }: SEOProps) {
   const fullTitle = `${title} | RAC Forge Private Limited`;
   const siteUrl = "https://www.racforge.com"; 
+  const location = useLocation();
+
+  // Normalize path to clean lowercase without trailing slash to prevent canonical mismatch
+  const rawPath = canonical || location.pathname;
+  const cleanPath = (rawPath === '/' ? '/' : rawPath.endsWith('/') ? rawPath.slice(0, -1) : rawPath).toLowerCase();
+  const canonicalUrl = `${siteUrl}${cleanPath}`;
+
   const defaultKeywords = "RAC Forge Private Limited, CDSCO medical device registration consultant India, SUGAM portal registration support, medical device compliance consulting India, medical device manufacturing license consultant, Form MD-5 MD-9 MD-14 registration, Class A B C D medical device consultant, ISO 13485 QMS certification India, medical device clinical trial coordinator India, Indian Authorized Representative, IAR consultant, medical device regulatory consulting firms, CDSCO Class B approval timelines, CDSCO Loan License MD-6 MD-10 consultant, medical device technical file preparation CDSCO, USFDA, fda 510(k) clearance consultant, EU MDR consultant India, CE marking medical devices India, medical device compliance consultant, regulatory affairs agency India";
 
   const organizationSchema = {
@@ -120,7 +128,7 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       "@type": scholarlyArticle ? "ScholarlyArticle" : "TechArticle",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `${siteUrl}${canonical || ""}`
+        "@id": canonicalUrl
       },
       "headline": title,
       "description": description,
@@ -178,14 +186,14 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords || defaultKeywords} />
-      {canonical && <link rel="canonical" href={`${siteUrl}${canonical}`} />}
+      <link rel="canonical" href={canonicalUrl} />
       <meta name="robots" content="index, follow" />
       
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={`${siteUrl}${canonical || ""}`} />
+      <meta property="og:url" content={canonicalUrl} />
       <meta property="og:site_name" content="RAC Forge Private Limited" />
       <meta property="og:image" content="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp" />
       
