@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- ENFORCES NATIVE 100% MOBILE SCALE (Fixes the tiny GUI issue) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RAAAHI Voice Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,64 +15,64 @@
     .voice-pulse { animation: pulse-glow 2s infinite ease-in-out; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between p-5 md:p-6 overflow-hidden select-none">
+<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between overflow-hidden select-none">
 
-  <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD ================= -->
-  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full max-w-sm mx-auto space-y-4 px-2">
+  <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD (WHITE THEME) ================= -->
+  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-6">
     <!-- Branding Header -->
     <div class="text-center">
-      <span class="text-4xl">🩺</span>
-      <h1 class="text-2xl font-bold text-teal-400 mt-2 font-mono tracking-wider">RAAAHI VOICE</h1>
-      <p class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">RAC Forge Private Limited</p>
+      <span class="text-5xl">🩺</span>
+      <h1 class="text-3xl font-bold text-teal-600 mt-2 font-mono tracking-wider">RAAAHI VOICE</h1>
+      <p class="text-xs text-slate-500 uppercase tracking-widest font-semibold">RAC Forge Private Limited</p>
     </div>
 
     <!-- Phone Number & Name Display Screen -->
-    <div class="w-full bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl space-y-4">
+    <div class="w-full max-w-sm bg-white border border-slate-200 rounded-3xl p-6 shadow-xl space-y-5">
       <div class="space-y-1">
-        <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-xl text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 uppercase font-semibold">
+        <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-3.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-center text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 uppercase font-semibold">
       </div>
       
       <!-- Dialer Phone Screen -->
       <div class="space-y-1">
-        <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-2xl font-bold tracking-widest text-teal-400 placeholder-slate-750 focus:outline-none font-mono">
+        <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-2xl font-bold tracking-widest text-teal-600 placeholder-slate-300 focus:outline-none font-mono">
       </div>
 
-      <!-- The Digital Dial Pad Grid (Redesigned with Oval-Rectangle Pill Keys) -->
-      <div class="grid grid-cols-3 gap-y-3 gap-x-4 max-w-[280px] mx-auto pt-2">
-        <button onclick="dialNum('1')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">1</button>
-        <button onclick="dialNum('2')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">2</button>
-        <button onclick="dialNum('3')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">3</button>
+      <!-- The Digital Dial Pad Grid (Rounded-Pill Rectangle Keys) -->
+      <div class="grid grid-cols-3 gap-y-3.5 gap-x-6 max-w-[280px] mx-auto pt-2">
+        <button onclick="dialNum('1')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">1</button>
+        <button onclick="dialNum('2')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">2</button>
+        <button onclick="dialNum('3')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">3</button>
         
-        <button onclick="dialNum('4')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">4</button>
-        <button onclick="dialNum('5')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">5</button>
-        <button onclick="dialNum('6')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">6</button>
+        <button onclick="dialNum('4')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">4</button>
+        <button onclick="dialNum('5')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">5</button>
+        <button onclick="dialNum('6')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">6</button>
         
-        <button onclick="dialNum('7')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">7</button>
-        <button onclick="dialNum('8')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">8</button>
-        <button onclick="dialNum('9')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">9</button>
+        <button onclick="dialNum('7')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">7</button>
+        <button onclick="dialNum('8')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">8</button>
+        <button onclick="dialNum('9')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">9</button>
         
-        <button onclick="dialNum('*')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">*</button>
-        <button onclick="dialNum('0')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">0</button>
-        <button onclick="dialNum('#')" class="w-20 h-11 bg-slate-800 hover:bg-slate-750 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow">#</button>
+        <button onclick="dialNum('*')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">*</button>
+        <button onclick="dialNum('0')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">0</button>
+        <button onclick="dialNum('#')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">#</button>
       </div>
 
-      <!-- Dialer Control Actions (Wide Pill Call Button) -->
-      <div class="flex justify-center items-center gap-6 pt-3 border-t border-slate-800">
-        <button onclick="backspace()" class="w-12 h-11 rounded-xl bg-slate-800 hover:bg-slate-750 text-base flex items-center justify-center text-slate-400 transition active:scale-95">⌫</button>
+      <!-- Dialer Control Actions (Pill Call Button) -->
+      <div class="flex justify-center items-center gap-6 pt-4 border-t border-slate-200">
+        <button onclick="backspace()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-base flex items-center justify-center text-slate-500 transition active:scale-95 border border-slate-200">⌫</button>
         
         <!-- Wide Green Call Pill Button -->
-        <button onclick="startOnboardingCall()" class="w-32 h-11 bg-emerald-600 hover:bg-emerald-500 rounded-full flex items-center justify-center gap-2 font-semibold text-sm tracking-wide text-white transition active:scale-95 shadow-lg">
+        <button onclick="startOnboardingCall()" class="w-32 h-11 bg-emerald-600 hover:bg-emerald-500 rounded-full flex items-center justify-center gap-2 font-semibold text-sm tracking-wide text-white transition active:scale-95 shadow-md">
           <span>📞</span>
           <span>Call</span>
         </button>
         
-        <button onclick="clearDialer()" class="w-12 h-11 rounded-xl bg-slate-800 hover:bg-slate-750 text-sm font-bold flex items-center justify-center text-rose-500 transition active:scale-95">C</button>
+        <button onclick="clearDialer()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-bold flex items-center justify-center text-rose-500 transition active:scale-95 border border-slate-200">C</button>
       </div>
     </div>
   </div>
 
   <!-- ================= SCREEN 2: ACTIVE CALLER SCREEN ================= -->
-  <div id="callScreen" class="hidden flex-1 flex flex-col justify-between h-full w-full max-w-sm mx-auto px-2">
+  <div id="callScreen" class="hidden flex-1 flex flex-col justify-between h-full w-full max-w-sm mx-auto px-4 py-6">
     <!-- Header info -->
     <div class="text-center mt-2">
       <h1 id="callerNameDisp" class="text-xl md:text-2xl font-bold text-teal-400 tracking-wide font-mono">
@@ -81,7 +82,7 @@
       <p id="callTimer" class="hidden text-xs md:text-sm text-slate-500 mt-1 font-mono">00:00</p>
     </div>
 
-    <!-- Pulsing active call visualizer (Acts as manual barge-in) -->
+    <!-- Pulsing active call visualizer (Acts as BARGE-IN button on click) -->
     <div class="flex-1 flex flex-col items-center justify-center">
       <div id="micBtn" onclick="toggleCall()" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg cursor-pointer">
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
@@ -276,7 +277,7 @@
         
         document.getElementById("callStatus").innerText = "CONNECTING...";
         
-        // 1 SECOND GAP OF SILENCE BEFORE CONNECTING GREETING
+        // 1 SECOND SILENT GAP BEFORE GREETING CONNECTS
         setTimeout(() => {
           if (!isCalling) return;
           document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
@@ -313,7 +314,7 @@
       recognition.onresult = function(event) {
         clearTimeouts();
         
-        // FULL-DUPLEX BARGE-IN: If RAAAHI is currently speaking, user speech instantly silences her!
+        // CONVERSATIONAL BARGE-IN: If RAAAHI is speaking, user speech instantly silences her!
         if (synth.speaking || isProcessing) {
           synth.cancel(); 
           isProcessing = false;
@@ -393,6 +394,7 @@
     function speakText(text) {
       synth.cancel();
       clearTimeouts();
+      stopListening();
       
       // Unicode Regex strips all emojis completely from voice output
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
@@ -426,6 +428,7 @@
       
       silenceTimeout = setTimeout(() => {
         if (!isCalling) return;
+        stopListening();
         speakText("Are you still there? I haven't heard anything from you. Please ask any questions you have, or let me know if you would like me to send our expert booking links to your WhatsApp.");
         
         warningTimeout = setTimeout(() => {
