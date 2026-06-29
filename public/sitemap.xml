@@ -966,4 +966,10 @@
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.racforge.com/blogs/resources/navigating-cdsco-compliance-a-strategic-roadmap-for-medical-device-manufacturers-in-india</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
