@@ -389,26 +389,17 @@
           document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
           speakText(replyText); // FIXED: Correctly calls speakText!
           
-          // If the caller allowed RAAAHI to open the booking link, load it after 4 seconds!
+         // If the caller allowed RAAAHI to open the booking link, load it directly in the active tab!
           if (openFree) {
             setTimeout(() => {
-              window.open("https://cal.id/rac-forge/15-minutes-free-call", "_blank");
-              window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
+              window.location.href = "https://cal.id/rac-forge/15-minutes-free-call"; // Opens directly in the active tab
             }, 4000);
           }
           if (openPaid) {
             setTimeout(() => {
-              window.open("https://cal.id/rac-forge/30-minutes-paid-call", "_blank");
-              window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
+              window.location.href = "https://cal.id/rac-forge/30-minutes-paid-call"; // Opens directly in the active tab
             }, 4000);
           }
-        })
-        .catch(err => {
-          isProcessing = false;
-          speakText("Connection error. Please speak again."); // FIXED: Correctly calls speakText!
-        });
-      };
-
       // CONTINUOUS LISTENING (Mic stays active even during speech synthesis)
       recognition.onend = function() {
         isListening = false;
