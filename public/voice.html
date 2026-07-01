@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- ENFORCES NATIVE 100% MOBILE SCALE (Fixes the tiny GUI issue) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RAAAHI Voice Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +18,7 @@
 <body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between overflow-hidden select-none">
 
   <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD (WHITE THEME & SCALED) ================= -->
-  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-5">
+  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-6">
     <!-- Branding Header -->
     <div class="text-center">
       <span class="text-5xl">🩺</span>
@@ -104,11 +105,11 @@
       <p id="transcriptText" class="text-xs md:text-sm italic text-slate-400 max-w-xs text-center mt-6 md:mt-8 min-h-[40px] px-4"></p>
     </div>
 
-    <!-- Active Call Footer Actions -->
+    <!-- Active Call Footer Actions (UPDATED: Native cal.id Links) -->
     <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl mb-2 space-y-3">
       <div class="grid grid-cols-2 gap-2">
-        <a href="cal.id/rac-forge/15-minutes-free-call" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
-        <a href="cal.id/rac-forge/30-minutes-paid-call" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
+        <a href="https://cal.id/rac-forge/15-minutes-free-call" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
+        <a href="https://cal.id/rac-forge/30-minutes-paid-call" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
       </div>
 
       <!-- Large Red Hangup Button -->
@@ -323,7 +324,7 @@
           const greeting = `Greetings ${userName}! मैं राही हूँ, आरएसी फोर्ज में आपकी dedicated regulatory intelligence advisor. मैं आपकी मेडिकल डिवाइस या आईवीडी compliance की यात्रा में क्या सहायता कर सकती हूँ?`;
           
           initSpeechRecognition();
-          speakTextLocal(greeting); // Switched back to Native local engine
+          speakTextCloud(greeting, "en-IN");
         }, 1000);
       }, 3000);
     }
@@ -371,7 +372,7 @@
         .then(data => {
           isProcessing = false;
           
-          // ====== INTERACTIVE LINK OPENER REDIRECT ======
+          // ====== INTERACTIVE LINK OPENER REDIRECT (UPDATED: cal.id Links) ======
           let replyText = data.reply;
           let openFree = false;
           let openPaid = false;
@@ -388,16 +389,16 @@
           document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
           speakTextLocal(replyText);
           
-          // If the caller allowed RAAAHI to open the booking link, load it after 4 seconds so they hear RAAAHI speak first!
+          // If the caller allowed RAAAHI to open the booking link, load it after 4 seconds!
           if (openFree) {
             setTimeout(() => {
-              window.open("cal.id/rac-forge/15-minutes-free-call", "_blank");
+              window.open("https://cal.id/rac-forge/15-minutes-free-call", "_blank");
               window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
             }, 4000);
           }
           if (openPaid) {
             setTimeout(() => {
-              window.open("cal.id/rac-forge/30-minutes-paid-call", "_blank");
+              window.open("https://cal.id/rac-forge/30-minutes-paid-call", "_blank");
               window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
             }, 4000);
           }
@@ -485,6 +486,7 @@
       return voice || null;
     }
 
+    // NATIVE NONS-ROBOTIC SPEECH SYNTHESIS ENGINE (100% stable, offline, 0 network dependencies)
     function speakTextLocal(text) {
       synth.cancel();
       clearTimeouts();
@@ -510,8 +512,8 @@
       
       activeUtterance.onend = function() {
         if (isCalling) {
-          // Microphone only turns back on AFTER RAAAHI has fully finished speaking!
-          startListening(); 
+          document.getElementById("interruptBtn").classList.add("hidden");
+          startListening(); // Microphone turns back on only AFTER speech ends!
         }
       };
       
@@ -540,6 +542,14 @@
     function clearTimeouts() {
       clearTimeout(silenceTimeout);
       clearTimeout(warningTimeout);
+    }
+
+    function triggerWhatsAppLogs() {
+      var url = BACKEND_API_URL + "?action=sendAgentMessage" + 
+                "&phone=" + encodeURIComponent(userPhone) + 
+                "&text=" + encodeURIComponent(`🩺 *RAC Forge Consultation Links* \n\nHello *${userName}*! As requested during our voice session, here are the links to schedule your meeting with our team: \n\n🌟 *Free 15-Minute Call* (Basic guidance): https://cal.id/rac-forge/15-minutes-free-call \n\n💎 *Paid 30-Minute Call* (Deep-dive, ₹1,000): https://cal.id/rac-forge/30-minutes-paid-call \n\nWe look forward to speaking with you! 😊`);
+                
+      fetch(url);
     }
 
     // UPGRADED: Hanging up completely reloads the page to clear all audio lines!
