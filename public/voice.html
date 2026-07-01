@@ -92,7 +92,7 @@
     </div>
 
     <!-- Pulsing active call visualizer -->
-    <div class="flex-1 flex flex-col items-center justify-center relative">
+    <div class="flex-1 flex flex-col items-center justify-center">
       <div id="micBtn" onclick="toggleCall()" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg cursor-pointer">
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
       </div>
@@ -105,7 +105,7 @@
       <p id="transcriptText" class="text-xs md:text-sm italic text-slate-400 max-w-xs text-center mt-6 md:mt-8 min-h-[40px] px-4"></p>
     </div>
 
-    <!-- Active Call Footer Actions -->
+    <!-- Active Call Footer Actions (UPDATED: Native cal.id Links) -->
     <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl mb-2 space-y-3">
       <div class="grid grid-cols-2 gap-2">
         <a href="https://cal.id/rac-forge/15-minutes-free-call" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
@@ -389,17 +389,24 @@
           document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
           speakText(replyText); // FIXED: Correctly calls speakText!
           
-         // If the caller allowed RAAAHI to open the booking link, load it directly in the active tab!
+          // If the caller allowed RAAAHI to open the booking link, load it directly in the active tab!
           if (openFree) {
             setTimeout(() => {
-              window.location.href = "https://cal.id/rac-forge/15-minutes-free-call"; // Opens directly in the active tab
+              window.location.href = "https://cal.id/rac-forge/15-minutes-free-call"; // Opens directly in the active tab!
             }, 4000);
           }
           if (openPaid) {
             setTimeout(() => {
-              window.location.href = "https://cal.id/rac-forge/30-minutes-paid-call"; // Opens directly in the active tab
+              window.location.href = "https://cal.id/rac-forge/30-minutes-paid-call"; // Opens directly in the active tab!
             }, 4000);
           }
+        })
+        .catch(err => {
+          isProcessing = false;
+          speakText("Connection error. Please speak again."); // FIXED: Correctly calls speakText!
+        });
+      };
+
       // CONTINUOUS LISTENING (Mic stays active even during speech synthesis)
       recognition.onend = function() {
         isListening = false;
@@ -494,7 +501,7 @@
       document.getElementById("interruptBtn").classList.remove("hidden"); // Shows interrupt button
       
       activeUtterance = new SpeechSynthesisUtterance(cleanText);
-      activeUtterance.rate = 0.95; // Natural speed
+      activeUtterance.rate = 0.95; // Natural pace
       activeUtterance.pitch = 1.0; 
       
       // Auto-assign the absolute best Indian voice available on this system
@@ -533,6 +540,14 @@
     function clearTimeouts() {
       clearTimeout(silenceTimeout);
       clearTimeout(warningTimeout);
+    }
+
+    function triggerWhatsAppLogs() {
+      var url = BACKEND_API_URL + "?action=sendAgentMessage" + 
+                "&phone=" + encodeURIComponent(userPhone) + 
+                "&text=" + encodeURIComponent(`🩺 *RAC Forge Consultation Links* \n\nHello *${userName}*! As requested during our voice session, here are the links to schedule your meeting with our team: \n\n🌟 *Free 15-Minute Call* (Basic guidance): ${CAL_FREE_LINK} \n\n💎 *Paid 30-Minute Call* (Deep-dive, ₹1,000): ${CAL_PAID_LINK} \n\nWe look forward to speaking with you! 😊`);
+                
+      fetch(url);
     }
 
     // UPGRADED: Hanging up completely reloads the page to clear all audio lines!
