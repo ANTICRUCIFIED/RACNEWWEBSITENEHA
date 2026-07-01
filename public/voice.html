@@ -17,7 +17,8 @@
 <body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between overflow-hidden select-none">
 
   <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD (WHITE THEME & SCALED) ================= -->
-  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-6">
+  <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-5">
+    <!-- Branding Header -->
     <div class="text-center">
       <span class="text-5xl">🩺</span>
       <h1 class="text-2xl font-bold text-teal-600 mt-2 font-mono tracking-wider">RAAAHI VOICE</h1>
@@ -56,7 +57,7 @@
         <button onclick="dialNum('#')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">#</button>
       </div>
 
-      <!-- Dialer Control Actions (Pill Call Button) -->
+      <!-- Dialer Control Actions -->
       <div class="flex justify-center items-center gap-6 pt-4 border-t border-slate-200">
         <button onclick="backspace()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-base flex items-center justify-center text-slate-500 transition active:scale-95 border border-slate-200">⌫</button>
         
@@ -67,6 +68,13 @@
         </button>
         
         <button onclick="clearDialer()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-sm font-bold flex items-center justify-center text-rose-500 transition active:scale-95 border border-slate-200">C</button>
+      </div>
+
+      <!-- PREMIUM HOME BUTTON shortcut to main site -->
+      <div class="pt-2 border-t border-slate-200">
+        <a href="https://www.racforge.com" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 transition flex items-center justify-center gap-1 shadow-sm">
+          🏠 HOME
+        </a>
       </div>
     </div>
   </div>
@@ -82,7 +90,7 @@
       <p id="callTimer" class="hidden text-xs md:text-sm text-slate-500 mt-1 font-mono">00:00</p>
     </div>
 
-    <!-- Pulsing active call visualizer (Acts as BARGE-IN button on click) -->
+    <!-- Pulsing active call visualizer (Acts as manual barge-in) -->
     <div class="flex-1 flex flex-col items-center justify-center">
       <div id="micBtn" onclick="toggleCall()" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg cursor-pointer">
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
@@ -145,6 +153,12 @@
     let silenceTimeout;
     let warningTimeout;
     let activeUtterance; // Saved globally to prevent browser garbage collection
+    let audioPlayer = new Audio();
+    let audioQueue = [];
+    let isSpeakingCloud = false;
+
+    let userName = "";
+    let userPhone = "";
     const selectedLang = "Hinglish"; // Defaults strictly to Hinglish style
 
     const synth = window.speechSynthesis;
@@ -282,6 +296,7 @@
       ringInterval = setInterval(playTone, 4000); 
     }
 
+    // UPGRADED: EXACT 3 SECOND RINGING CADENCE + 1 SECOND SILENT GAP
     function startCall() {
       isCalling = true;
       synth.cancel();
@@ -355,8 +370,37 @@
         .then(response => response.json())
         .then(data => {
           isProcessing = false;
+          
+          // ====== INTERACTIVE LINK OPENER REDIRECT ======
+          let replyText = data.reply;
+          let openFree = false;
+          let openPaid = false;
+          
+          if (replyText.includes("[OPEN_FREE_LINK]")) {
+            openFree = true;
+            replyText = replyText.replace("[OPEN_FREE_LINK]", "").trim();
+          }
+          if (replyText.includes("[OPEN_PAID_LINK]")) {
+            openPaid = true;
+            replyText = replyText.replace("[OPEN_PAID_LINK]", "").trim();
+          }
+          
           document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
-          speakTextLocal(data.reply);
+          speakTextLocal(replyText);
+          
+          // If the caller allowed RAAAHI to open the booking link, load it after 4 seconds so they hear RAAAHI speak first!
+          if (openFree) {
+            setTimeout(() => {
+              window.open("https://cal.com/rac-forge-ulicvs/15min", "_blank");
+              window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
+            }, 4000);
+          }
+          if (openPaid) {
+            setTimeout(() => {
+              window.open("https://cal.com/rac-forge-ulicvs/30min", "_blank");
+              window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
+            }, 4000);
+          }
         })
         .catch(err => {
           isProcessing = false;
@@ -364,6 +408,7 @@
         });
       };
 
+      // CONTINUOUS LISTENING (Mic stays active even during speech synthesis)
       recognition.onend = function() {
         isListening = false;
         if (isCalling && !isProcessing && !synth.speaking) {
@@ -420,15 +465,15 @@
       }
     }
 
-    // SMART NATIVE INDIAN VOICE SELECTOR (100% Reliable Local Engine)
+    // SMART NATIVE INDIAN VOICE SELECTOR
     function getLatestIndianVoice() {
       const voices = synth.getVoices();
       
-      // Priority 1: Indian English/Hindi locales
+      // Priority 1: Indian localized English/Hindi languages
       let voice = voices.find(v => v.lang === 'en-IN' || v.lang === 'en_IN' || v.lang === 'hi-IN' || v.lang === 'hi_IN');
       if (voice) return voice;
       
-      // Priority 2: High-fidelity native Indian voice names
+      // Priority 2: Specific high-fidelity native Indian voice names (Apple / Google)
       const indianNames = ["rishi", "heera", "ravi", "isha", "neerja", "ananya", "google india"];
       for (let name of indianNames) {
         voice = voices.find(v => v.name.toLowerCase().includes(name));
@@ -440,31 +485,33 @@
       return voice || null;
     }
 
-    // NATIVE NONS-ROBOTIC SPEECH SYNTHESIS ENGINE (100% stable, offline, 0 network dependencies)
     function speakTextLocal(text) {
       synth.cancel();
       clearTimeouts();
-      stopListening(); // STRICT GAP: Stop mic while she speaks!
+      stopListening(); // STRICT GAP: Stop mic while she speaks! (Prevents feedback echo loops)
       
-      // Strips emojis so the local engine plays them cleanly with no glitches!
+      // Advanced pronunciation mapping: "R A C" spelled out, "Forge" spoken naturally
+      const pronunciationText = text.replace(/RAC/g, "R A C").replace(/FORGE/gi, "forge");
+      
+      // Unicode Regex strips all emojis completely from voice output
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
-      const cleanText = text.replace(emojiRegex, "").replace(/\*/g, "").trim();
+      const cleanText = pronunciationText.replace(emojiRegex, "").replace(/\*/g, "").trim();
       
       document.getElementById("callStatus").innerText = "RAAAHI is speaking (Tap Mic to Interrupt)...";
       document.getElementById("interruptBtn").classList.remove("hidden"); // Shows interrupt button
       
       activeUtterance = new SpeechSynthesisUtterance(cleanText);
-      activeUtterance.rate = 0.95; // Natural speed
+      activeUtterance.rate = 0.95; // Natural pace
       activeUtterance.pitch = 1.0; 
       
-      // Auto-assign the absolute best Indian voice available on this system
+      // Assign the premium localized Indian voice
       const indianVoice = getLatestIndianVoice();
       if (indianVoice) activeUtterance.voice = indianVoice;
       
       activeUtterance.onend = function() {
         if (isCalling) {
-          document.getElementById("interruptBtn").classList.add("hidden");
-          startListening(); // Microphone turns back on only AFTER speech ends!
+          // Microphone only turns back on AFTER RAAAHI has fully finished speaking!
+          startListening(); 
         }
       };
       
@@ -477,16 +524,15 @@
       silenceTimeout = setTimeout(() => {
         if (!isCalling) return;
         stopListening();
-        speakTextLocal("Are you still there? I haven't heard anything from you. Please ask any questions you have, or let me know if you would like me to send our expert booking links to your WhatsApp.");
+        speakTextLocal("Are you still there? I haven't heard anything from you. Please let me know if you would like me to open our consultation booking page on your screen.");
         
         warningTimeout = setTimeout(() => {
           if (!isCalling) return;
-          speakTextLocal("Since I still haven't heard anything, I have successfully sent our expert booking links directly to your WhatsApp. Have a wonderful day, goodbye!");
+          speakTextCloud("Since I still haven't heard anything, I am redirecting you back to our home page. Goodbye!", "en-IN");
           
           setTimeout(() => {
-            triggerWhatsAppLogs();
             endCall();
-          }, 6000); 
+          }, 5000); 
         }, 15000);
       }, 15000);
     }
@@ -496,29 +542,14 @@
       clearTimeout(warningTimeout);
     }
 
-    function triggerWhatsAppLogs() {
-      var url = BACKEND_API_URL + "?action=sendAgentMessage" + 
-                "&phone=" + encodeURIComponent(userPhone) + 
-                "&text=" + encodeURIComponent(`🩺 *RAC Forge Consultation Links* \n\nHello *${userName}*! As requested during our voice session, here are the links to schedule your meeting with our team: \n\n🌟 *Free 15-Minute Call* (Basic guidance): ${CAL_FREE_LINK} \n\n💎 *Paid 30-Minute Call* (Deep-dive, ₹1,000): ${CAL_PAID_LINK} \n\nWe look forward to speaking with you! 😊`);
-                
-      fetch(url);
-    }
-
+    // UPGRADED: Hanging up completely reloads the page to clear all audio lines!
     function endCall() {
       isCalling = false;
       isListening = false;
       isProcessing = false;
-      isSpeakingCloud = false;
       clearTimeouts();
       clearInterval(ringInterval);
       clearInterval(callTimerInterval);
-      
-      document.getElementById("micBtn").classList.remove("voice-pulse", "bg-teal-600", "border-teal-400");
-      document.getElementById("micIcon").innerText = "📞";
-      document.getElementById("callStatus").innerText = "TAP MIC TO START CALL";
-      document.getElementById("callTimer").classList.add("hidden");
-      document.getElementById("transcriptText").innerText = "";
-      document.getElementById("interruptBtn").classList.add("hidden");
       
       synth.cancel();
       audioPlayer.pause();
@@ -527,13 +558,12 @@
       }
       if (audioCtx) audioCtx.close();
 
-      document.getElementById("callScreen").classList.add("hidden");
-      document.getElementById("onboardingScreen").classList.remove("hidden");
+      // Reloads the page to return to a clean, fresh dialer screen!
+      window.location.reload(); 
     }
 
     window.onload = function() {
       checkBrowserCompatibility(); 
-      initSpeechRecognition();
     };
   </script>
 </body>
