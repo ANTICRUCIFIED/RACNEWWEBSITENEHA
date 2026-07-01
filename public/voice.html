@@ -107,8 +107,8 @@
     <!-- Active Call Footer Actions -->
     <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl mb-2 space-y-3">
       <div class="grid grid-cols-2 gap-2">
-        <a href="https://cal.com/rac-forge-ulicvs/15min" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
-        <a href="https://cal.com/rac-forge-ulicvs/30min" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
+        <a href="cal.id/rac-forge/15-minutes-free-call" target="_blank" class="p-2.5 bg-slate-800 hover:bg-slate-750 text-center rounded-lg text-[11px] font-bold transition">🌟 Free 15-Min</a>
+        <a href="cal.id/rac-forge/30-minutes-paid-call" target="_blank" class="p-2.5 bg-teal-900/40 hover:bg-teal-900/60 border border-teal-800 text-center rounded-lg text-[11px] font-bold text-teal-300 transition">💎 Paid 30-Min</a>
       </div>
 
       <!-- Large Red Hangup Button -->
@@ -391,13 +391,13 @@
           // If the caller allowed RAAAHI to open the booking link, load it after 4 seconds so they hear RAAAHI speak first!
           if (openFree) {
             setTimeout(() => {
-              window.open("https://cal.com/rac-forge-ulicvs/15min", "_blank");
+              window.open("cal.id/rac-forge/15-minutes-free-call", "_blank");
               window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
             }, 4000);
           }
           if (openPaid) {
             setTimeout(() => {
-              window.open("https://cal.com/rac-forge-ulicvs/30min", "_blank");
+              window.open("cal.id/rac-forge/30-minutes-paid-call", "_blank");
               window.location.href = "https://www.racforge.com"; // Redirects/closes the voice session cleanly!
             }, 4000);
           }
