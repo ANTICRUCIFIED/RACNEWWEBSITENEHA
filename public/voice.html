@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- ENFORCES NATIVE 100% MOBILE SCALE (Fixes the tiny GUI issue) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RAAAHI Voice Assistant</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,11 +14,10 @@
     .voice-pulse { animation: pulse-glow 2s infinite ease-in-out; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between p-5 md:p-6 overflow-hidden select-none">
+<body class="bg-slate-950 text-slate-100 flex flex-col h-[100dvh] justify-between overflow-hidden select-none">
 
   <!-- ================= SCREEN 1: THE NATIVE MOBILE DIAL PAD (WHITE THEME & SCALED) ================= -->
   <div id="onboardingScreen" class="flex-1 flex flex-col justify-center items-center w-full bg-slate-50 text-slate-800 p-6 space-y-6">
-    <!-- Branding Header -->
     <div class="text-center">
       <span class="text-5xl">🩺</span>
       <h1 class="text-2xl font-bold text-teal-600 mt-2 font-mono tracking-wider">RAAAHI VOICE</h1>
@@ -58,7 +56,7 @@
         <button onclick="dialNum('#')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">#</button>
       </div>
 
-      <!-- Dialer Control Actions -->
+      <!-- Dialer Control Actions (Pill Call Button) -->
       <div class="flex justify-center items-center gap-6 pt-4 border-t border-slate-200">
         <button onclick="backspace()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-base flex items-center justify-center text-slate-500 transition active:scale-95 border border-slate-200">⌫</button>
         
@@ -84,13 +82,13 @@
       <p id="callTimer" class="hidden text-xs md:text-sm text-slate-500 mt-1 font-mono">00:00</p>
     </div>
 
-    <!-- Pulsing active call visualizer -->
+    <!-- Pulsing active call visualizer (Acts as BARGE-IN button on click) -->
     <div class="flex-1 flex flex-col items-center justify-center">
       <div id="micBtn" onclick="toggleCall()" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg cursor-pointer">
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
       </div>
 
-      <!-- RESTORED: RED BARGE-IN / INTERRUPT BUTTON (Only displays when RAAAHI is speaking) -->
+      <!-- RED BARGE-IN / INTERRUPT BUTTON (Only displays when RAAAHI is speaking) -->
       <button id="interruptBtn" onclick="triggerBargeIn()" class="hidden w-full max-w-[200px] mt-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold rounded-full transition shadow-md animate-bounce">
         🛑 Tap to Interrupt RAAAHI
       </button>
@@ -147,19 +145,12 @@
     let silenceTimeout;
     let warningTimeout;
     let activeUtterance; // Saved globally to prevent browser garbage collection
-    let audioPlayer = new Audio();
-    let audioQueue = [];
-    let isSpeakingCloud = false;
-    let ringCount = 0; 
-
-    let userName = "";
-    let userPhone = "";
-    const selectedLang = "Hinglish"; // Defaults strictly to Hinglish
+    const selectedLang = "Hinglish"; // Defaults strictly to Hinglish style
 
     const synth = window.speechSynthesis;
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    // Dialer Functions
+    // Dialer Helper Functions
     function dialNum(val) {
       const display = document.getElementById("userPhone");
       display.value += val;
@@ -313,10 +304,11 @@
           
           startTimer();
 
+          // Standard conversational Hinglish Greeting on connection
           const greeting = `Greetings ${userName}! मैं राही हूँ, आरएसी फोर्ज में आपकी dedicated regulatory intelligence advisor. मैं आपकी मेडिकल डिवाइस या आईवीडी compliance की यात्रा में क्या सहायता कर सकती हूँ?`;
           
           initSpeechRecognition();
-          speakTextCloud(greeting, "en-IN");
+          speakTextLocal(greeting); // Switched back to Native local engine
         }, 1000);
       }, 3000);
     }
@@ -341,7 +333,7 @@
       recognition.onresult = function(event) {
         clearTimeouts();
         
-        // CONVERSATIONAL BARGE-IN: User speech instantly silences RAAAHI!
+        // CONVERSATIONAL BARGE-IN: If RAAAHI is speaking, user speech instantly silences her!
         if (synth.speaking || isProcessing) {
           synth.cancel(); 
           isProcessing = false;
@@ -354,6 +346,7 @@
         document.getElementById("transcriptText").innerText = '"' + transcript + '"';
         document.getElementById("callStatus").innerText = "Processing...";
         
+        // Instructs Gemini dynamically to respond in Hinglish (Hindi-English mix)
         var url = BACKEND_API_URL + "?action=callGemini" + 
                   "&phone=" + encodeURIComponent(userPhone) + 
                   "&text=" + encodeURIComponent(transcript + " [Please reply strictly in conversational Hinglish style]");
@@ -363,32 +356,31 @@
         .then(data => {
           isProcessing = false;
           document.getElementById("callStatus").innerText = "RAAAHI is speaking...";
-          speakTextCloud(data.reply, "en-IN");
+          speakTextLocal(data.reply);
         })
         .catch(err => {
           isProcessing = false;
-          speakTextCloud("Connection error. Please speak again.", "en-IN");
+          speakTextLocal("Connection error. Please speak again.");
         });
       };
 
-      // CONTINUOUS LISTENING (Mic stays active even during speech synthesis)
       recognition.onend = function() {
         isListening = false;
-        if (isCalling && !isProcessing && !isSpeakingCloud) {
+        if (isCalling && !isProcessing && !synth.speaking) {
           startListening();
         }
       };
 
       recognition.onerror = function() {
         isListening = false;
-        if (isCalling && !isProcessing && !isSpeakingCloud) {
+        if (isCalling && !isProcessing && !synth.speaking) {
           startListening();
         }
       };
     }
 
     function startListening() {
-      if (!isCalling || isListening || isProcessing || isSpeakingCloud) return;
+      if (!isCalling || isListening || isProcessing || synth.speaking) return;
       document.getElementById("callStatus").innerText = "Listening...";
       try {
         isListening = true;
@@ -411,11 +403,9 @@
       if (!isCalling) return;
       
       // Manual click fallback for barge-in
-      if (isSpeakingCloud || isProcessing) {
-        audioPlayer.pause();       
-        isSpeakingCloud = false;
+      if (synth.speaking || isProcessing) {
+        synth.cancel();       
         isProcessing = false; 
-        document.getElementById("interruptBtn").classList.add("hidden");
         startListening();     
       }
     }
@@ -423,68 +413,62 @@
     function triggerBargeIn() {
       if (!isCalling) return;
       
-      if (isSpeakingCloud || isProcessing) {
-        audioPlayer.pause();       
-        isSpeakingCloud = false;
+      if (synth.speaking || isProcessing) {
+        synth.cancel();       
         isProcessing = false; 
-        document.getElementById("interruptBtn").classList.add("hidden");
         startListening();     
       }
     }
 
-    // NATIVE INDIAN CLOUD-SPEECH SYNTHESIS ENGINE
-    function speakTextCloud(text, langCode) {
+    // SMART NATIVE INDIAN VOICE SELECTOR (100% Reliable Local Engine)
+    function getLatestIndianVoice() {
+      const voices = synth.getVoices();
+      
+      // Priority 1: Indian English/Hindi locales
+      let voice = voices.find(v => v.lang === 'en-IN' || v.lang === 'en_IN' || v.lang === 'hi-IN' || v.lang === 'hi_IN');
+      if (voice) return voice;
+      
+      // Priority 2: High-fidelity native Indian voice names
+      const indianNames = ["rishi", "heera", "ravi", "isha", "neerja", "ananya", "google india"];
+      for (let name of indianNames) {
+        voice = voices.find(v => v.name.toLowerCase().includes(name));
+        if (voice) return voice;
+      }
+      
+      // Priority 3: Fallback generic locale check
+      voice = voices.find(v => v.lang.includes('en-IN') || v.lang.includes('en_IN') || v.lang.includes('hi-IN') || v.lang.includes('hi_IN'));
+      return voice || null;
+    }
+
+    // NATIVE NONS-ROBOTIC SPEECH SYNTHESIS ENGINE (100% stable, offline, 0 network dependencies)
+    function speakTextLocal(text) {
+      synth.cancel();
       clearTimeouts();
-      stopListening(); // STRICT REQ: Turn off microphone while RAAAHI speaks! (Prevents feedback echo loops)
+      stopListening(); // STRICT GAP: Stop mic while she speaks!
       
-      audioPlayer.pause();
-      audioQueue = [];
-      
+      // Strips emojis so the local engine plays them cleanly with no glitches!
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
       const cleanText = text.replace(emojiRegex, "").replace(/\*/g, "").trim();
       
       document.getElementById("callStatus").innerText = "RAAAHI is speaking (Tap Mic to Interrupt)...";
+      document.getElementById("interruptBtn").classList.remove("hidden"); // Shows interrupt button
       
-      const sentences = cleanText.match(/[^.!?]+[.!?]*/g) || [cleanText];
+      activeUtterance = new SpeechSynthesisUtterance(cleanText);
+      activeUtterance.rate = 0.95; // Natural speed
+      activeUtterance.pitch = 1.0; 
       
-      sentences.forEach(sentence => {
-        let trimmed = sentence.trim();
-        if (trimmed.length > 0) {
-          while (trimmed.length > 150) {
-            audioQueue.push(trimmed.substring(0, 150));
-            trimmed = trimmed.substring(150);
-          }
-          audioQueue.push(trimmed);
-        }
-      });
+      // Auto-assign the absolute best Indian voice available on this system
+      const indianVoice = getLatestIndianVoice();
+      if (indianVoice) activeUtterance.voice = indianVoice;
       
-      isSpeakingCloud = true;
-      document.getElementById("interruptBtn").classList.remove("hidden"); 
-      
-      playNextAudioChunk(langCode === "Hinglish" ? "en-IN" : "en-IN");
-    }
-
-    function playNextAudioChunk(langCode) {
-      if (audioQueue.length === 0) {
-        isSpeakingCloud = false;
-        document.getElementById("interruptBtn").classList.add("hidden");
+      activeUtterance.onend = function() {
         if (isCalling) {
-          startListening(); // Microphone turns back on safely only after speech ends!
+          document.getElementById("interruptBtn").classList.add("hidden");
+          startListening(); // Microphone turns back on only AFTER speech ends!
         }
-        return;
-      }
-      
-      let chunk = audioQueue.shift();
-      let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + langCode + "&q=" + encodeURIComponent(chunk);
-      
-      audioPlayer.src = url;
-      audioPlayer.play().catch(e => {
-        playNextAudioChunk(langCode);
-      });
-      
-      audioPlayer.onended = function() {
-        playNextAudioChunk(langCode);
       };
+      
+      synth.speak(activeUtterance);
     }
 
     function resetInactivityTimers() {
@@ -493,11 +477,11 @@
       silenceTimeout = setTimeout(() => {
         if (!isCalling) return;
         stopListening();
-        speakTextCloud("Are you still there? I haven't heard anything from you. Please ask any questions you have, or let me know if you would like me to send our expert booking links to your WhatsApp.", "en-IN");
+        speakTextLocal("Are you still there? I haven't heard anything from you. Please ask any questions you have, or let me know if you would like me to send our expert booking links to your WhatsApp.");
         
         warningTimeout = setTimeout(() => {
           if (!isCalling) return;
-          speakTextCloud("Since I still haven't heard anything, I have successfully sent our expert booking links directly to your WhatsApp. Have a wonderful day, goodbye!", "en-IN");
+          speakTextLocal("Since I still haven't heard anything, I have successfully sent our expert booking links directly to your WhatsApp. Have a wonderful day, goodbye!");
           
           setTimeout(() => {
             triggerWhatsAppLogs();
@@ -549,6 +533,7 @@
 
     window.onload = function() {
       checkBrowserCompatibility(); 
+      initSpeechRecognition();
     };
   </script>
 </body>
