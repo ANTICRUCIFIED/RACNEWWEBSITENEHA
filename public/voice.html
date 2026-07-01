@@ -34,6 +34,7 @@
         <input id="userName" type="text" placeholder="ENTER YOUR NAME" class="w-full p-3.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-center text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 uppercase font-semibold">
       </div>
       
+      <!-- Dialer Phone Screen -->
       <div class="space-y-1">
         <input id="userPhone" type="tel" readonly placeholder="ENTER WHATSAPP NUMBER" class="w-full text-center bg-transparent text-2xl font-bold tracking-widest text-teal-600 placeholder-slate-300 focus:outline-none font-mono">
       </div>
@@ -57,7 +58,7 @@
         <button onclick="dialNum('#')" class="w-20 h-12 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xl font-bold flex items-center justify-center rounded-2xl transition active:scale-95 shadow-sm border border-slate-200">#</button>
       </div>
 
-      <!-- Dialer Control Actions (Pill Call Button) -->
+      <!-- Dialer Control Actions -->
       <div class="flex justify-center items-center gap-6 pt-4 border-t border-slate-200">
         <button onclick="backspace()" class="w-12 h-11 rounded-xl bg-slate-100 hover:bg-slate-200 text-base flex items-center justify-center text-slate-500 transition active:scale-95 border border-slate-200">⌫</button>
         
@@ -83,7 +84,7 @@
       <p id="callTimer" class="hidden text-xs md:text-sm text-slate-500 mt-1 font-mono">00:00</p>
     </div>
 
-    <!-- Pulsing active call visualizer / Language Selection Screen -->
+    <!-- Pulsing active call visualizer (Acts as manual barge-in) -->
     <div class="flex-1 flex flex-col items-center justify-center">
       <div id="micBtn" onclick="toggleCall()" class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition shadow-lg cursor-pointer">
         <span id="micIcon" class="text-4xl md:text-5xl">📞</span>
@@ -141,7 +142,7 @@
 
   <script>
     // ====== RE-ROUTE TO TALK TO YOUR GOOGLE BACKEND OVER API ======
-    const BACKEND_API_URL = "https://script.google.com/macros/s/AKfycbzbDwf_gCPgNZTp5-R1l3zcZgudaBNqVVvO_BmF9WFFMPgOwUlvSpCjKUkdFHqE_CGP/exec"; 
+    const BACKEND_API_URL = "https://script.google.com/macros/s/AKfycbx-JJYSDcjVPDTQJCU7lIs0ka0hVZr4_BYSf_cGWEH0qAsaHm2291RrY7ajMTWfpP23/exec"; 
     // ==============================================================
 
     let isCalling = false;
@@ -154,15 +155,15 @@
     let startTime;
     let silenceTimeout;
     let warningTimeout;
-    let activeUtterance; // Saved globally to prevent browser garbage collection
+    let activeUtterance; 
     let audioPlayer = new Audio();
     let audioQueue = [];
     let isSpeakingCloud = false;
-    let ringCount = 0; // Tracks number of rings
+    let ringCount = 0; 
 
     let userName = "";
     let userPhone = "";
-    let selectedLang = "Hinglish"; // Defaults to Hinglish style
+    let selectedLang = "Hinglish"; 
 
     const synth = window.speechSynthesis;
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -188,7 +189,7 @@
       zeroTimer = setTimeout(() => {
         isLongPress = true;
         dialNum('+');
-      }, 600); // 600ms hold triggers '+'
+      }, 600); 
     }
     function endZeroPress() {
       clearTimeout(zeroTimer);
@@ -242,6 +243,7 @@
       alert("Custom link copied successfully! Now open your native browser (Chrome or Safari) and paste it.");
     }
 
+    // REMOVED: getUserMedia check is fully bypassed on onboarding screen for 100% stable transit
     function startOnboardingCall() {
       userName = document.getElementById("userName").value.trim();
       userPhone = document.getElementById("userPhone").value.trim();
@@ -255,35 +257,22 @@
         return;
       }
 
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ audio: true })
-          .then(function(stream) {
-            stream.getTracks().forEach(track => track.stop());
+      // NATIVE TRANSTION: Call starts immediately, permissions are handled by speech engine on connection!
+      document.getElementById("onboardingScreen").classList.add("hidden");
+      document.getElementById("callScreen").classList.remove("hidden");
+      document.getElementById("callScreen").classList.add("flex");
+      document.getElementById("callerNameDisp").innerText = "RAC FORGE ADVISOR";
 
-            document.getElementById("onboardingScreen").classList.add("hidden");
-            document.getElementById("callScreen").classList.remove("hidden");
-            document.getElementById("callScreen").classList.add("flex");
-            document.getElementById("callerNameDisp").innerText = "RAC FORGE ADVISOR";
-
-            startCall();
-          })
-          .catch(function(err) {
-            alert("Microphone permission was denied. ⚠️ Please click 'Allow' in your address bar so RAAAHI can hear you!");
-          });
-      } else {
-        alert("Unable to access microphone devices on this browser. Please use Google Chrome or Safari.");
-      }
+      startCall();
     }
 
-    // DIAL TONE RINGBACK GENERATOR (Counts to exactly 5 rings)
     function playRingbackTone() {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      ringCount = 0; // Reset counter
       
       function playTone() {
         if (!isCalling || document.getElementById("callStatus").innerText !== "DIALING...") return;
         
-        ringCount++; // Increment ring count
+        ringCount++; 
         
         let osc1 = audioCtx.createOscillator();
         let osc2 = audioCtx.createOscillator();
@@ -305,24 +294,22 @@
           osc1.stop();
           osc2.stop();
           
-          // TRANSITION ONLY AFTER THE 5TH DIAL RING COMPLETES
+          // TRANSITIONS ONLY AFTER EXACTLY THE 5TH DIAL RING COMPLETES
           if (ringCount >= 5) {
             clearInterval(ringInterval);
             document.getElementById("callStatus").innerText = "CONNECTING...";
             
-            // 1 SECOND SILENT GAP OF SILENCE (CADENCE COMPLIANCE)
+            // 1 SECOND SILENT GAP
             setTimeout(() => {
               if (!isCalling) return;
               
               document.getElementById("callStatus").innerText = "CONFIRM LANGUAGE";
               document.getElementById("micBtn").classList.add("bg-slate-900", "border-slate-800");
               document.getElementById("micIcon").innerText = "🎛️";
-              document.getElementById("ivrLanguageMenu").classList.remove("hidden"); // Opens language buttons
+              document.getElementById("ivrLanguageMenu").classList.remove("hidden"); 
               
-              // Spoken language Welcome message (free, clean cloud voice)
               speakTextCloud("Welcome to RAC Forge. For English, please press 1. हिन्दी के लिए, कृपया 2 दबाएं।", "en-IN");
               
-              // Keyboard Shortcuts for 1 & 2
               document.onkeydown = function(event) {
                 if (event.key === '1') confirmIvrLanguage('English');
                 if (event.key === '2') confirmIvrLanguage('Hinglish');
@@ -333,16 +320,15 @@
       }
       
       playTone();
-      ringInterval = setInterval(playTone, 4000); // Trigger a new ring every 4 seconds
+      ringInterval = setInterval(playTone, 4000); 
     }
 
     function confirmIvrLanguage(lang) {
       if (!isCalling) return;
-      document.onkeydown = null; // Unbind physical keys
+      document.onkeydown = null; 
       
       selectedLang = lang;
       
-      // Close Welcome Menu
       document.getElementById("ivrLanguageMenu").classList.add("hidden");
       document.getElementById("micBtn").classList.remove("bg-slate-900", "border-slate-800");
       document.getElementById("micBtn").classList.add("voice-pulse", "bg-teal-600", "border-teal-400");
@@ -365,7 +351,6 @@
       setTimeout(() => {
         osc.stop();
         
-        // Conversational Greeting in Selected Language (Completely Free, Natural, No Emojis)
         let greeting = "";
         if (selectedLang === "Hinglish") {
           greeting = `Greetings ${userName}! मैं राही हूँ, आरएसी फोर्ज में आपकी dedicated regulatory intelligence advisor. मैं आपकी मेडिकल डिवाइस या आईवीडी compliance की यात्रा में क्या सहायता कर सकती हूँ?`;
@@ -398,7 +383,6 @@
       recognition.onresult = function(event) {
         clearTimeouts();
         
-        // CONVERSATIONAL BARGE-IN: User speech instantly silences RAAAHI!
         if (synth.speaking || isProcessing) {
           synth.cancel(); 
           isProcessing = false;
@@ -448,7 +432,7 @@
       document.getElementById("callStatus").innerText = "Listening...";
       try {
         isListening = true;
-        recognition.start();
+        recognition.start(); // This natively triggers the browser's mic permission prompt!
         resetInactivityTimers(); 
       } catch (e) {
         isListening = false;
@@ -466,7 +450,6 @@
     function toggleCall() {
       if (!isCalling) return;
       
-      // Manual click barge-in override
       if (isSpeakingCloud || isProcessing) {
         audioPlayer.pause();       
         isSpeakingCloud = false;
@@ -476,7 +459,6 @@
       }
     }
 
-    // CONVERSATIONAL BARGE-IN (Allows user to interrupt and speak)
     function triggerBargeIn() {
       if (!isCalling) return;
       
@@ -489,21 +471,18 @@
       }
     }
 
-    // NATIVE INDIAN CLOUD-SPEECH SYNTHESIS ENGINE (Bypasses local robotic voices!)
     function speakTextCloud(text, langCode) {
       clearTimeouts();
-      stopListening(); // STRICT REQ: Turn off microphone while RAAAHI speaks! (Prevents feedback echo loops)
+      stopListening(); 
       
       audioPlayer.pause();
       audioQueue = [];
       
-      // Unicode Regex strips all emojis completely from voice output
       const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2194}-\u{2199}\u{21a9}-\u{21aa}\u{3297}\u{3299}\u{303D}\u{2139}\u{24C2}\u{1F190}\u{1F192}-\u{1F19A}\u{1F1E6}-\u{1F1FF}]/gu;
       const cleanText = text.replace(emojiRegex, "").replace(/\*/g, "").trim();
       
       document.getElementById("callStatus").innerText = "RAAAHI is speaking (Tap Mic to Interrupt)...";
       
-      // Split into chunks of max 150 characters to comply with Google Translate TTS parameters
       const sentences = cleanText.match(/[^.!?]+[.!?]*/g) || [cleanText];
       
       sentences.forEach(sentence => {
@@ -518,7 +497,7 @@
       });
       
       isSpeakingCloud = true;
-      document.getElementById("interruptBtn").classList.remove("hidden"); // Shows custom interrupt button
+      document.getElementById("interruptBtn").classList.remove("hidden"); 
       
       playNextAudioChunk(langCode === "Hinglish" ? "en-IN" : "en-IN");
     }
@@ -528,13 +507,12 @@
         isSpeakingCloud = false;
         document.getElementById("interruptBtn").classList.add("hidden");
         if (isCalling) {
-          startListening(); // Microphone turns back on safely only after speech ends!
+          startListening(); 
         }
         return;
       }
       
       let chunk = audioQueue.shift();
-      // Fetches natural, human-sounding cloud audio streams (100% free, 0 ads)
       let url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=" + langCode + "&q=" + encodeURIComponent(chunk);
       
       audioPlayer.src = url;
