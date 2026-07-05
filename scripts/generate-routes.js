@@ -11,8 +11,8 @@ function parseBlogPostsFromTs() {
   const content = fs.readFileSync(filePath, 'utf8');
   const posts = [];
   
-  // Split by "id: '"
-  const segments = content.split("id: '");
+  // Split by "id: '" with leading whitespace to avoid matching other fields like "pmcid"
+  const segments = content.split(/\s+id:\s*'/);
   for (let i = 1; i < segments.length; i++) {
     const seg = segments[i];
     const id = seg.split("'")[0];
