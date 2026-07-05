@@ -4,47 +4,55 @@ import path from 'path';
 const distPath = path.join(process.cwd(), 'dist');
 const indexHtmlPath = path.join(distPath, 'index.html');
 
-// Helper function to parse blog posts from src/data/blogData.ts
+// Helper function to parse blog posts from src/data/blogData.ts and src/data/additionalBlogData.ts
 function parseBlogPostsFromTs() {
-  const filePath = path.join(process.cwd(), 'src/data/blogData.ts');
-  if (!fs.existsSync(filePath)) return [];
-  const content = fs.readFileSync(filePath, 'utf8');
   const posts = [];
+  const files = [
+    path.join(process.cwd(), 'src/data/additionalBlogData.ts'),
+    path.join(process.cwd(), 'src/data/blogData.ts')
+  ];
   
-  // Split by "id: '" with leading whitespace to avoid matching other fields like "pmcid"
-  const segments = content.split(/\s+id:\s*'/);
-  for (let i = 1; i < segments.length; i++) {
-    const seg = segments[i];
-    const id = seg.split("'")[0];
+  for (const filePath of files) {
+    if (!fs.existsSync(filePath)) continue;
+    const content = fs.readFileSync(filePath, 'utf8');
     
-    // find title
-    let title = "";
-    const titleMatch = seg.match(/title:\s*['"`]([^'"`<>]+)['"`]/);
-    if (titleMatch) {
-      title = titleMatch[1];
-    }
-    
-    // find excerpt
-    let excerpt = "";
-    const excerptMatch = seg.match(/excerpt:\s*['"`]([^'`]+?)['"`],/);
-    if (excerptMatch) {
-      excerpt = excerptMatch[1];
-    } else {
-      // backup regex if it spans lines
-      const excerptMatchAlt = seg.match(/excerpt:\s*['"`]([\s\S]*?)['"`],/);
-      if (excerptMatchAlt) {
-        excerpt = excerptMatchAlt[1].replace(/\n/g, ' ').trim();
+    // Split by "id: '" with leading whitespace and word boundary to avoid matching other fields like "pmcid"
+    const segments = content.split(/\s+\bid\s*:\s*'/);
+    for (let i = 1; i < segments.length; i++) {
+      const seg = segments[i];
+      const id = seg.split("'")[0];
+      
+      // find title
+      let title = "";
+      const titleMatch = seg.match(/title:\s*['"`]([^'"`<>]+)['"`]/);
+      if (titleMatch) {
+        title = titleMatch[1];
+      }
+      
+      // find excerpt
+      let excerpt = "";
+      const excerptMatch = seg.match(/excerpt:\s*['"`]([^'`]+?)['"`],/);
+      if (excerptMatch) {
+        excerpt = excerptMatch[1];
+      } else {
+        // backup regex if it spans lines
+        const excerptMatchAlt = seg.match(/excerpt:\s*['"`]([\s\S]*?)['"`],/);
+        if (excerptMatchAlt) {
+          excerpt = excerptMatchAlt[1].replace(/\n/g, ' ').trim();
+        }
+      }
+      
+      // find date
+      let date = "";
+      const dateMatch = seg.match(/date:\s*['"`]([^'"`]+)['"`]/);
+      if (dateMatch) {
+        date = dateMatch[1];
+      }
+      
+      if (!posts.some(p => p.id === id)) {
+        posts.push({ id, title, excerpt, date });
       }
     }
-    
-    // find date
-    let date = "";
-    const dateMatch = seg.match(/date:\s*['"`]([^'"`]+)['"`]/);
-    if (dateMatch) {
-      date = dateMatch[1];
-    }
-    
-    posts.push({ id, title, excerpt, date });
   }
   return posts;
 }
@@ -408,7 +416,7 @@ uniqueRoutes.forEach(route => {
     changefreq = 'monthly';
   } else if (route.startsWith('/information/')) {
     priority = '0.6';
-    changefreq = 'yearly';
+    changefreq = 'monthly';
   } else if (route.startsWith('/locations/') || route.startsWith('/india/')) {
     priority = '0.6';
     changefreq = 'monthly';

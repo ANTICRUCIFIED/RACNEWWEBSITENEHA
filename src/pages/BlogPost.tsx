@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Calendar, User, Tag as TagIcon, Share2, Facebook, Twitter, Linkedin, MessageSquare, Send, CornerDownRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import SEO from '../components/SEO';
-import { BLOG_POSTS } from '../data/blogData';
+import { BLOG_POSTS } from '../data/blogDataWithAdditional';
 import { db, auth, isFirebaseConfigured } from '../lib/firebase';
 import { getApiBaseUrl } from '../lib/utils';
 import { 

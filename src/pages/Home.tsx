@@ -30,7 +30,7 @@ import InfoLink from '../components/InfoLink';
 import ConsultationButtons from '../components/ConsultationButtons';
 import { getApiBaseUrl } from '../lib/utils';
 
-import { BLOG_POSTS as ALL_BLOG_POSTS } from '../data/blogData';
+import { BLOG_POSTS as ALL_BLOG_POSTS } from '../data/blogDataWithAdditional';
 
 // Format short date for slider display (e.g. "09 Jun 2026" -> "09 Jun")
 const formatDisplayDate = (dateStr: string) => {

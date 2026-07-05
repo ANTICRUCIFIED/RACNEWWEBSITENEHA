@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Search, Calendar, User, ArrowRight, Tag as TagIcon, X, RefreshCw } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { BLOG_POSTS } from '../data/blogData';
+import { BLOG_POSTS } from '../data/blogDataWithAdditional';
 import { getApiBaseUrl } from '../lib/utils';
 
 const API_BASE_URL = getApiBaseUrl();

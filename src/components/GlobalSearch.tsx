@@ -14,7 +14,7 @@ import {
   Command,
   CornerRightDown
 } from 'lucide-react';
-import { BLOG_POSTS } from '../data/blogData';
+import { BLOG_POSTS } from '../data/blogDataWithAdditional';
 import { INFO_DATA } from '../data/infoData';
 
 // Reusable standard search item interface

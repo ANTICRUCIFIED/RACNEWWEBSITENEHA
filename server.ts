@@ -7,7 +7,8 @@ import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { upload, processDocument, retrieveRelevantContext, documentStore, preloadStaticDocuments, appendLearnedKnowledge } from './api/rag';
-import { BLOG_POSTS } from './src/data/blogData';
+import { BLOG_POSTS } from './src/data/blogDataWithAdditional';
+import { ADDITIONAL_BLOG_POSTS } from './src/data/additionalBlogData';
 import admin from 'firebase-admin';
 import nodemailer from 'nodemailer';
 
@@ -306,6 +307,31 @@ Please write what specific area you would like detailed guidance on!
     next();
   });
 
+  // Redirect legacy non-canonical routes to their updated canonical destinations with 301 Moved Permanently status codes
+  app.use((req, res, next) => {
+    if (req.method === 'GET' || req.method === 'HEAD') {
+      const pathLower = req.path.toLowerCase();
+      const redirects: { [key: string]: string } = {
+        '/blogs': '/blogs/resources',
+        '/velo-ai': '/raahi-ai',
+        '/raaahi-ai': '/raahi-ai',
+        '/services/cdsco-manufacturing-license': '/services/cdsco-manufacturing-license-md5-md9',
+        '/services/cdsco-import-license': '/services/cdsco-import-license-md14',
+        '/services/cdsco-loan-license': '/services/cdsco-loan-license-md6-md10',
+        '/services/cdsco-test-license': '/services/cdsco-test-license-md13',
+        '/services/usfda-510k-submission': '/services/usfda-510k-de-novo',
+        '/services/eu-mdr-compliance': '/services/eu-mdr-ce-marking',
+        '/services/anvisa-brazil-approval': '/services/anvisa-brazil-registration'
+      };
+
+      if (redirects[pathLower]) {
+        const query = req.url.slice(req.path.length);
+        return res.redirect(301, redirects[pathLower] + query);
+      }
+    }
+    next();
+  });
+
   // API routes
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -397,7 +423,13 @@ Please write what specific area you would like detailed guidance on!
         const arrayStr = content.substring(arrayStartIndex, index);
         const evaluated = new Function(`return ${arrayStr};`)();
         if (Array.isArray(evaluated)) {
-          return evaluated;
+          const merged = [...ADDITIONAL_BLOG_POSTS];
+          evaluated.forEach((post: any) => {
+            if (!merged.some(p => p.id === post.id)) {
+              merged.push(post);
+            }
+          });
+          return merged;
         }
       }
     } catch (err) {

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Home, ChevronRight, Compass } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { BLOG_POSTS } from '../data/blogData';
+import { BLOG_POSTS } from '../data/blogDataWithAdditional';
 import { INFO_DATA } from '../data/infoData';
 
 // Route path to human name mapping dictionary
