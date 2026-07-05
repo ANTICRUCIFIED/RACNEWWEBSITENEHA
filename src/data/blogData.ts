@@ -24,6 +24,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'mastering-gspr-compliance-a-strategic-guide-for-eu-mdr-success',
+    title: 'Mastering GSPR Compliance: A Strategic Guide for EU MDR Success',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-gspr-compliance-overview.webp',
+    date: '05 Jul 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `The General Safety and Performance Requirements (GSPR) represent the bedrock of the European Medical Device Regulation (EU MDR 2017/745). Moving beyond the legacy Essential Requirements of the MDD, the GSPR mandates a more rigorous, evidence-based approach to clinical safety and performance throughout the entire device lifecycle. For manufacturers, the challenge lies not merely in ticking boxes but in establishing a robust technical documentation file that demonstrates a seamless link between risk management, clinical evaluation, and post-market surveillance. At RAC Forge, we emphasize that GSPR compliance is an iterative, living process; it requires meticulous mapping of your device's specific characteristics to the relevant Annex I requirements to avoid costly technical file deficiencies during Notified Body audits.\n\nNavigating the nuances of Annex I requires a deep understanding of both horizontal and vertical standards. Many manufacturers falter by failing to sufficiently justify why certain requirements may not apply to their specific technology. If a manufacturer deems a requirement non-applicable, the Technical File must contain a detailed, scientifically sound rationale supported by state-of-the-art literature or rigorous testing data. Documentation must be precise and audit-ready, as any ambiguity in your GSPR checklist often triggers an immediate 'Request for Information' (RFI) from reviewers, stalling your market access timeline. It is essential to integrate your GSPR verification strategy early in the design control phase, rather than treating it as a final administrative hurdle.\n\nUltimately, systematic compliance with GSPR is your strongest defense against regulatory scrutiny. We advise our clients to treat the GSPR checklist as the primary index of their Technical Documentation, ensuring every claim regarding safety and performance is substantiated by verifiable objective evidence. By aligning your usability engineering, software validation, and biocompatibility protocols directly with these performance standards, you build a resilient regulatory posture that withstands the scrutiny of the most rigorous Notified Bodies. If you are struggling to map your current technical documentation to these evolving standards, our team at RAC Forge provides the expert guidance necessary to ensure your GSPR implementation is both compliant and audit-proof.`
+  },
+  {
     id: 'navigating-bgmp-compliance-essential-strategies-for-medical-device-manufacturers',
     title: 'Navigating BGMP Compliance: Essential Strategies for Medical Device Manufacturers',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
