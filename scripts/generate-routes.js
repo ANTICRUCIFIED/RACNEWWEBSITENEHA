@@ -297,8 +297,23 @@ locationSlugs.forEach(slug => allRoutes.push(`/locations/${slug}`));
 stateSlugs.forEach(slug => allRoutes.push(`/india/${slug}`));
 infoDataKeys.forEach(key => allRoutes.push(`/information/${key}`));
 
-// Remove duplicates in allRoutes
-const uniqueRoutes = [...new Set(allRoutes)];
+// Routes that are purely client-side redirects (Navigate) to other canonical paths
+// and should be excluded from search indexing, sitemaps, and directory pre-generation.
+const REDIRECT_ROUTES = [
+  '/blogs',
+  '/velo-ai',
+  '/raaahi-ai',
+  '/services/cdsco-manufacturing-license',
+  '/services/cdsco-import-license',
+  '/services/cdsco-loan-license',
+  '/services/cdsco-test-license',
+  '/services/usfda-510k-submission',
+  '/services/eu-mdr-compliance',
+  '/services/anvisa-brazil-approval'
+];
+
+// Remove duplicates and redirect routes
+const uniqueRoutes = [...new Set(allRoutes)].filter(route => !REDIRECT_ROUTES.includes(route));
 console.log(`Audited unique routes count: ${uniqueRoutes.length}`);
 
 // 1. GENERATE THE PHYSICAL DIRECTORIES ON VITE BUILD (needed for proper static/GitHub deployment crawling)
