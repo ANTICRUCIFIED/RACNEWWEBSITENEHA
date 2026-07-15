@@ -24,6 +24,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'navigating-gspr-essential-requirements-for-eu-mdr-compliance',
+    title: 'Navigating GSPR: Essential Requirements for EU MDR Compliance',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-regulatory-compliance-gspr.webp',
+    date: '15 Jul 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `The General Safety and Performance Requirements (GSPR) represent the bedrock of the EU Medical Device Regulation (MDR 2017/745). As manufacturers transition from the legacy MDD framework, moving beyond a simple checklist approach to a risk-based clinical evaluation is no longer optional—it is a critical pillar of market access. The GSPR dictates that every device must undergo a rigorous assessment to ensure that the intended benefits significantly outweigh any potential clinical risks, necessitating a proactive, iterative approach to documentation throughout the entire product lifecycle.\n\nAchieving GSPR compliance requires a deep, technical understanding of Annex I, which outlines the multi-faceted criteria for safety, performance, and labeling. Manufacturers must meticulously map their design inputs, risk management files, and clinical investigation data directly to each applicable requirement. Our team at RAC Forge frequently observes that the most common points of failure during Notified Body audits stem from a lack of traceability between technical documentation and these essential requirements. A robust GSPR strategy ensures that your clinical evaluation reports and post-market surveillance activities are holistically integrated, preventing costly re-submissions.\n\nTo ensure audit-readiness, we recommend establishing a dynamic GSPR matrix that evolves alongside your device design changes. This living document should cross-reference specific standards, testing reports, and validation protocols against each regulatory clause. By shifting the focus from 'compliance as an event' to 'compliance as a design process,' you protect your market position and ensure the highest levels of patient safety. Should your organization require expert guidance in mapping your technical file to meet these stringent European standards, our regulatory specialists are ready to help bridge the gap between innovation and rigorous EU compliance.`
+  },
+  {
     id: 'navigating-bgmp-compliance-essential-strategies-for-medical-device-manufacturers',
     title: 'Navigating BGMP Compliance: Essential Strategies for Medical Device Manufacturers',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
