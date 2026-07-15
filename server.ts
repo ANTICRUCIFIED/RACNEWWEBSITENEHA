@@ -1214,6 +1214,20 @@ Draft responses thoughtfully based only on the query contexts provided and your 
   } else {
     const distPath = path.join(process.cwd(), 'dist');
 
+    // Serve pre-rendered sub-route index.html files directly without trailing-slash redirects
+    app.use((req, res, next) => {
+      if (req.method === 'GET' || req.method === 'HEAD') {
+        // Exclude root and static assets (which typically have file extensions)
+        if (req.path !== '/' && !path.extname(req.path)) {
+          const preRenderedHtmlPath = path.join(distPath, req.path, 'index.html');
+          if (fs.existsSync(preRenderedHtmlPath)) {
+            return res.sendFile(preRenderedHtmlPath);
+          }
+        }
+      }
+      next();
+    });
+
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
