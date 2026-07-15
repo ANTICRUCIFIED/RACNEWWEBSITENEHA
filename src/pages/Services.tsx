@@ -242,7 +242,7 @@ export default function Services() {
                   { name: "Ludhiana Forgings & Northern IVD Hubs", path: "/locations/ludhiana-jalandhar" },
                   { name: "Haridwar & customs Port Clearance", path: "/locations/haridwar-dehradun" }
                 ].map((loc) => (
-                  <li key={loc.path}>
+                  <li key={loc.name}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
                       • {loc.name}
                     </Link>
@@ -261,7 +261,7 @@ export default function Services() {
                   { name: "Pune Electronic Hardware & SaMD Cluster", path: "/locations/pune" },
                   { name: "Rajkot, Vadodara & Western IVD Hubs", path: "/locations/rajkot-vadodara" }
                 ].map((loc) => (
-                  <li key={loc.path}>
+                  <li key={loc.name}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
                       • {loc.name}
                     </Link>
@@ -281,7 +281,7 @@ export default function Services() {
                   { name: "Chennai Imaging & Maritime Port Hubs", path: "/locations/chennai-kanchipuram" },
                   { name: "Kerala Biomaterials & Specialized Implants", path: "/locations/thiruvananthapuram-kochi" }
                 ].map((loc) => (
-                  <li key={loc.path}>
+                  <li key={loc.name}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
                       • {loc.name}
                     </Link>
@@ -300,7 +300,7 @@ export default function Services() {
                   { name: "Jaipur Molding & North-West Port Clusters", path: "/locations/jaipur" },
                   { name: "Assam, Odisha & North-East Trade Hubs", path: "/locations/kolkata" }
                 ].map((loc) => (
-                  <li key={loc.path}>
+                  <li key={loc.name}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
                       • {loc.name}
                     </Link>
@@ -323,7 +323,7 @@ export default function Services() {
                   { name: "Himachal Nalagarh Mega Park Pathway", path: "/india/himachal-punjab-regional-pathways" },
                   { name: "Uttarakhand & East Region SLA Licensing", path: "/india/uttarakhand-regulatory-compliance" }
                 ].map((loc) => (
-                  <li key={loc.path}>
+                  <li key={loc.name}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
                       • {loc.name}
                     </Link>
