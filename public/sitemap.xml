@@ -990,4 +990,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.racforge.com/blogs/resources/navigating-bgmp-compliance-essential-regulatory-pathways-for-medical-device-manufacturers</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
