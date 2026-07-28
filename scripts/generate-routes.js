@@ -372,7 +372,12 @@ if (fs.existsSync(indexHtmlPath)) {
         `  <link rel="canonical" href="${canonicalUrl}" />\n  </head>`
       );
       
+      // Write both directory index.html (for static directory servers) and flat .html file (for cleanUrls / Vercel without trailing slash redirects)
       fs.writeFileSync(path.join(targetDir, 'index.html'), customizedHtml);
+
+      const flatHtmlPath = path.join(distPath, `${route}.html`);
+      fs.mkdirSync(path.dirname(flatHtmlPath), { recursive: true });
+      fs.writeFileSync(flatHtmlPath, customizedHtml);
     } catch (err) {
       console.error(`Error generating route path ${route}:`, err);
     }

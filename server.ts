@@ -321,7 +321,9 @@ Please write what specific area you would like detailed guidance on!
         '/services/cdsco-test-license': '/services/cdsco-test-license-md13',
         '/services/usfda-510k-submission': '/services/usfda-510k-de-novo',
         '/services/eu-mdr-compliance': '/services/eu-mdr-ce-marking',
-        '/services/anvisa-brazil-approval': '/services/anvisa-brazil-registration'
+        '/services/anvisa-brazil-approval': '/services/anvisa-brazil-registration',
+        '/blogs/navigating-bgmp-compliance-essential-strategies-for-brazil-medical-device-market-access': '/blogs/navigating-bgmp-compliance-essential-regulatory-pathways-for-medical-device-manufacturers',
+        '/blogs/mastering-gspr-compliance-a-strategic-guide-for-eu-mdr-success': '/blogs/navigating-gspr-essential-requirements-for-eu-mdr-compliance'
       };
 
       if (redirects[pathLower]) {
@@ -1214,11 +1216,15 @@ Draft responses thoughtfully based only on the query contexts provided and your 
   } else {
     const distPath = path.join(process.cwd(), 'dist');
 
-    // Serve pre-rendered sub-route index.html files directly without trailing-slash redirects
+    // Serve pre-rendered sub-route index.html or flat .html files directly without trailing-slash redirects
     app.use((req, res, next) => {
       if (req.method === 'GET' || req.method === 'HEAD') {
         // Exclude root and static assets (which typically have file extensions)
         if (req.path !== '/' && !path.extname(req.path)) {
+          const flatHtmlPath = path.join(distPath, `${req.path}.html`);
+          if (fs.existsSync(flatHtmlPath)) {
+            return res.sendFile(flatHtmlPath);
+          }
           const preRenderedHtmlPath = path.join(distPath, req.path, 'index.html');
           if (fs.existsSync(preRenderedHtmlPath)) {
             return res.sendFile(preRenderedHtmlPath);
@@ -1228,7 +1234,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
       next();
     });
 
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, { redirect: false, extensions: ['html'] }));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });

@@ -304,6 +304,33 @@ Please write what specific area you would like detailed guidance on!
     next();
   });
 
+  // Redirect legacy non-canonical routes to their updated canonical destinations with 301 Moved Permanently status codes
+  app.use((req, res, next) => {
+    if (req.method === 'GET' || req.method === 'HEAD') {
+      const pathLower = req.path.toLowerCase();
+      const redirects: { [key: string]: string } = {
+        '/blogs': '/blogs/resources',
+        '/velo-ai': '/raahi-ai',
+        '/raaahi-ai': '/raahi-ai',
+        '/services/cdsco-manufacturing-license': '/services/cdsco-manufacturing-license-md5-md9',
+        '/services/cdsco-import-license': '/services/cdsco-import-license-md14',
+        '/services/cdsco-loan-license': '/services/cdsco-loan-license-md6-md10',
+        '/services/cdsco-test-license': '/services/cdsco-test-license-md13',
+        '/services/usfda-510k-submission': '/services/usfda-510k-de-novo',
+        '/services/eu-mdr-compliance': '/services/eu-mdr-ce-marking',
+        '/services/anvisa-brazil-approval': '/services/anvisa-brazil-registration',
+        '/blogs/navigating-bgmp-compliance-essential-strategies-for-brazil-medical-device-market-access': '/blogs/navigating-bgmp-compliance-essential-regulatory-pathways-for-medical-device-manufacturers',
+        '/blogs/mastering-gspr-compliance-a-strategic-guide-for-eu-mdr-success': '/blogs/navigating-gspr-essential-requirements-for-eu-mdr-compliance'
+      };
+
+      if (redirects[pathLower]) {
+        const query = req.url.slice(req.path.length);
+        return res.redirect(301, redirects[pathLower] + query);
+      }
+    }
+    next();
+  });
+
   // API routes
   app.get(['/api/health', '/health'], (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

@@ -5,7 +5,7 @@
   <link>https://www.racforge.com/</link>
   <description>Your Global Medical Device Regulatory Partner. Strategic guidance and thorough documentation services for successful market entry.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 29 Jun 2026 11:52:54 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 28 Jul 2026 10:48:10 GMT</lastBuildDate>
   <atom:link href="https://www.racforge.com/sitemap.rss" rel="self" type="application/rss+xml" />
   <item>
     <title>RAC Forge - Global Medical Device Regulatory Partner</title>
@@ -43,13 +43,6 @@
     <guid>https://www.racforge.com/blogs/resources</guid>
   </item>
   <item>
-    <title>Blogs Services - Medical Device Compliance</title>
-    <link>https://www.racforge.com/blogs</link>
-    <description>Expert medical device regulatory guidance, documentation schemas, and validation services for Blogs.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/blogs</guid>
-  </item>
-  <item>
     <title>Contact Our Regulatory Experts | RAC Forge</title>
     <link>https://www.racforge.com/contact</link>
     <description>Speak with a compliance engineer about your medical device or SaMD project. Locations in Chandigarh, Ahmedabad, Bengaluru, Delhi NCR, and more.</description>
@@ -64,41 +57,6 @@
     <guid>https://www.racforge.com/raahi-ai</guid>
   </item>
   <item>
-    <title>CDSCO Manufacturing License Regulatory Services | RAC Forge</title>
-    <link>https://www.racforge.com/services/cdsco-manufacturing-license</link>
-    <description>Liaison and design controls compliance services for medical device and in-vitro diagnostics manufacturing configurations under CDSCO guidelines.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/cdsco-manufacturing-license</guid>
-  </item>
-  <item>
-    <title>CDSCO Import License Consulting | RAC Forge</title>
-    <link>https://www.racforge.com/services/cdsco-import-license</link>
-    <description>Acquire CDSCO importer registrations and import authorizations for globally made Class A, B, C, and D medical devices smoothly.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/cdsco-import-license</guid>
-  </item>
-  <item>
-    <title>CDSCO Loan License Consulting &amp; QMS Audits | RAC Forge</title>
-    <link>https://www.racforge.com/services/cdsco-loan-license</link>
-    <description>Process and infrastructure audits for medical devices developed via contract or leased manufacturing facilities.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/cdsco-loan-license</guid>
-  </item>
-  <item>
-    <title>CDSCO Test License Consultation | RAC Forge</title>
-    <link>https://www.racforge.com/services/cdsco-test-license</link>
-    <description>Register and acquire trial, testing, and evaluation licenses to validate your electronic or biochemical prototypes in India.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/cdsco-test-license</guid>
-  </item>
-  <item>
-    <title>USFDA 510(k) Premarket Submissions Consulting | RAC Forge</title>
-    <link>https://www.racforge.com/services/usfda-510k-submission</link>
-    <description>Prepare detailed USFDA 510(k) clearances with predicate equivalence comparisons, software documentation, and laboratory reports.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/usfda-510k-submission</guid>
-  </item>
-  <item>
     <title>USFDA Premarket Approval (PMA) Applications | RAC Forge</title>
     <link>https://www.racforge.com/services/usfda-pma-application</link>
     <description>Bespoke clinical pathways, statistical analysis, and master files compilation for Class III medical devices to gain Premarket FDA Approval.</description>
@@ -111,20 +69,6 @@
     <description>Establish classification paths for novel medical apps or devices lacking a recognized market predicate.</description>
     <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
     <guid>https://www.racforge.com/services/usfda-de-novo-classification</guid>
-  </item>
-  <item>
-    <title>EU MDR Compliance &amp; CE Mark Documentation | RAC Forge</title>
-    <link>https://www.racforge.com/services/eu-mdr-compliance</link>
-    <description>Develop harmonized technical files mapping out General Safety and Performance Requirements (GSPR) to satisfy European Notified Bodies.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/eu-mdr-compliance</guid>
-  </item>
-  <item>
-    <title>Brazil ANVISA Approvals &amp; Registration | RAC Forge</title>
-    <link>https://www.racforge.com/services/anvisa-brazil-approval</link>
-    <description>Compilation of BGMP records and technical portfolios required to secure device clearancing in Brazilian market.</description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/services/anvisa-brazil-approval</guid>
   </item>
   <item>
     <title>Medical Devices R&amp;D and Software as a Medical Device (SaMD) | RAC Forge</title>
@@ -337,6 +281,20 @@
     <guid>https://www.racforge.com/services/indian-authorized-representative</guid>
   </item>
   <item>
+    <title>Navigating BGMP Compliance: Essential Regulatory Pathways for Medical Device Manufacturers | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/navigating-bgmp-compliance-essential-regulatory-pathways-for-medical-device-manufacturers</link>
+    <description>An technical advisory roadmap documenting compliance, testing, and regulatory requirements.</description>
+    <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/navigating-bgmp-compliance-essential-regulatory-pathways-for-medical-device-manufacturers</guid>
+  </item>
+  <item>
+    <title>Navigating GSPR: Essential Requirements for EU MDR Compliance | RAC Forge Journal</title>
+    <link>https://www.racforge.com/blogs/navigating-gspr-essential-requirements-for-eu-mdr-compliance</link>
+    <description>An technical advisory roadmap documenting compliance, testing, and regulatory requirements.</description>
+    <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://www.racforge.com/blogs/navigating-gspr-essential-requirements-for-eu-mdr-compliance</guid>
+  </item>
+  <item>
     <title>Navigating BGMP Compliance: Essential Strategies for Medical Device Manufacturers | RAC Forge Journal</title>
     <link>https://www.racforge.com/blogs/navigating-bgmp-compliance-essential-strategies-for-medical-device-manufacturers</link>
     <description>An technical advisory roadmap documenting compliance, testing, and regulatory requirements.</description>
@@ -447,20 +405,6 @@
     <description>An analysis of our publication in the Cureus Journal of Medical Science examining the "importer paradox" and proposing a shift from the legal wrapper to the safety anchor for medical devices.</description>
     <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
     <guid>https://www.racforge.com/blogs/publishing-academic-evidence-cureus-medtech</guid>
-  </item>
-  <item>
-    <title> | RAC Forge Journal</title>
-    <link>https://www.racforge.com/blogs/42326223</link>
-    <description></description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/blogs/42326223</guid>
-  </item>
-  <item>
-    <title> | RAC Forge Journal</title>
-    <link>https://www.racforge.com/blogs/PMC13281721</link>
-    <description></description>
-    <pubDate>Thu, 30 Apr 2026 12:00:00 +0000</pubDate>
-    <guid>https://www.racforge.com/blogs/PMC13281721</guid>
   </item>
   <item>
     <title>Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge | RAC Forge Journal</title>
