@@ -24,6 +24,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'navigating-anvisa-medical-device-registration-a-guide-for-global-manufacturers',
+    title: 'Navigating ANVISA Medical Device Registration: A Guide for Global Manufacturers',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-brazil-regulatory-compliance.webp',
+    date: '01 Sep 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `Entering the Brazilian medical device market requires strict adherence to the regulatory framework governed by ANVISA (Agência Nacional de Vigilância Sanitária). For international medical device manufacturers, securing market authorization demands more than just translating technical files; it requires a deep understanding of Good Manufacturing Practices (BGMP) certifications, local representation, and risk-based product classification. Because Brazil's regulatory landscape operates independently from the USFDA and EU MDR, navigating the submission pathways—such as the Notification or Registration routes based on device risk classes—can quickly become a bottleneck for global commercialization timelines. Ensuring compliance from the pre-market assessment stage through to post-market surveillance is vital to preventing costly port holds, regulatory delays, and supply chain disruptions.\n\nAt RAC Forge Private Limited, we guide MedTech innovators through the complexities of Brazilian health authorities by streamlining dossier preparation, managing technical clarifications, and bridging the gap between international quality systems (like ISO 13485) and ANVISA's rigorous auditing standards. Whether you are establishing local representation via a Brazil Registration Holder (BRH) or preparing for an onsite GMP inspection, partnering with seasoned regulatory experts eliminates guesswork. Our team provides comprehensive lifecycle support, ensuring your technical documentation aligns seamlessly with local legislation so you can accelerate patient access in Latin America's largest healthcare market with total confidence and zero compliance friction.`
+  },
+  {
     id: 'navigating-the-fda-510k-de-novo-pathway-a-strategic-regulatory-guide-for-novel-medical-devices',
     title: 'Navigating the FDA 510(k) De Novo Pathway: A Strategic Regulatory Guide for Novel Medical Devices',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
