@@ -47,3 +47,70 @@ RAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval H
 How may I assist you today with your medical device regulatory and compliance needs?
 
 Disclaimer: For confirmation, please contact our team.
+
+
+---
+
+[Learned Interaction - 2026-10-10T21:07:23.567Z]
+User Query: HI
+RAAAHI Expert Answer: Hello! I am RAAAHI, your Regulatory Affairs And Approval Harmonized Intelligence expert from RAC Forge Pvt. Ltd. 
+
+How may I assist you today with your medical device regulatory, QMS, facility engineering, or compliance needs?
+
+Disclaimer: For confirmation, please contact our team.
+
+
+---
+
+[Learned Interaction - 2026-10-10T21:21:32.795Z]
+User Query: What is CDSCO MD-14?
+RAAAHI Expert Answer: In India, **Form MD-14** is the official application submitted to the Central Licensing Authority (CDSCO) to obtain an **Import Licence** for bringing medical devices (Class A, B, C, or D) into the country under the Medical Devices Rules (MDR), 2017. 
+
+Here is a summary of how Form MD-14 works and its key requirements:
+
+---
+
+### Key Aspects of Form MD-14:
+
+1. **Who Applies?**  
+   The application is submitted online via the **CDSCO SUGAM Portal** by an Authorized Indian Agent or an authorized importer who holds a valid local Wholesale Drug/Device Licence (Form 20B/21B).
+
+2. **Outcome (Licence Grant):**  
+   Upon successful review and approval of the MD-14 dossier by CDSCO, the official Import Licence is issued in **Form MD-15**.
+
+3. **Government Fee Structure for MD-14:**
+   * **Class A:** $1,000 USD per overseas manufacturing site + $50 USD per distinct medical device.
+   * **Class B:** $2,000 USD per overseas manufacturing site + $1,000 USD per distinct medical device.
+   * **Class C:** $3,000 USD per overseas manufacturing site + $1,500 USD per distinct medical device.
+   * **Class D:** $3,000 USD per overseas manufacturing site + $1,500 USD per distinct medical device.
+
+4. **Required Documentation:**  
+   The application requires a comprehensive dossier, including the Power of Attorney (PoA), Device Master File (DMF), Plant Master File (PMF), Free Sale Certificate (FSC) from the country of origin, quality management system certificates (ISO 13485), and test reports.
+
+---
+
+### Reference Resource:
+You can review the official requirements and document structure in the [CDSCO Form MD-14 CSF Guidance Document PDF](https://cdsco.gov.in/opencms/export/sites/CDSCO_Host/pdf-documents/medical-device/Guidance_Document_CSF_Import_Licence.pdf).
+
+If you are planning an import registration pathway or need guidance preparing your dossier for the SUGAM portal, our team at RAC Forge is available to assist you.
+
+Disclaimer: For confirmation, please contact our team.
+
+
+---
+
+[Learned Interaction - 2026-10-10T21:24:12.581Z]
+User Query: Hi, can you assist with CDSCO approvals?
+RAAAHI Expert Answer: Hello! Yes, absolutely. At RAC Forge, we specialize in end-to-end regulatory strategy and hands-on assistance for obtaining CDSCO approvals under the Indian Medical Devices Rules (MDR), 2017. 
+
+Whether you are looking to import medical devices into India or manufacture them locally, we can guide you through every step of the compliance journey:
+
+* **Device Risk Classification:** Determining the exact risk class (Class A, B, C, or D) for your medical device or *in vitro* diagnostic (IVD) in accordance with official CDSCO guidelines.
+* **Import Licensing (Form MD-14):** Compiling complete dossier packages—including the Device Master File (DMF), Plant Master File (PMF), Free Sale Certificates, and ISO 13485 QMS documentation—and submitting them through the [CDSCO SUGAM Portal](https://cdscomdonline.gov.in) to obtain your Form MD-15 import licence.
+* **Domestic Manufacturing Licences:** Assistance with MD-3/MD-5 (Class A & B) or MD-7/MD-9 (Class C & D) applications, including liaison with State and Central Licensing Authorities.
+* **Test Licences (Form MD-12/MD-13):** Securing test licences for small-batch imports needed for local laboratory testing, clinical evaluation, or demonstration.
+* **QMS & Audit Preparedness:** Aligning your manufacturing facilities and quality systems with the Fourth Schedule of MDR 2017 and ISO 13485 standards.
+
+To help me tailor our guidance to your specific needs, could you share a bit more about your medical device and whether you are planning to import or manufacture locally?
+
+Disclaimer: For confirmation, please contact our team.

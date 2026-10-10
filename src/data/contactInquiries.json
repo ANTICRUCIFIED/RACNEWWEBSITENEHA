@@ -7,5 +7,32 @@
     "subject": "Local CDSCO test inquiry",
     "message": "Testing the contact submission directly on localhost",
     "createdAt": "2026-06-03T07:10:59.152Z"
+  },
+  {
+    "firstName": "ATUL",
+    "lastName": "SHARMA",
+    "email": "sankhyayan@gmail.com",
+    "phoneNumber": "08219327704",
+    "subject": "USFDA",
+    "message": "tEST MAIL OCTOBER 2026",
+    "createdAt": "2026-10-10T21:07:58.194Z"
+  },
+  {
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test@example.com",
+    "phoneNumber": "+919876543210",
+    "subject": "Test Subject",
+    "message": "This is a test message",
+    "createdAt": "2026-10-10T21:21:12.731Z"
+  },
+  {
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane@example.com",
+    "phoneNumber": "+919876543210",
+    "subject": "General Inquiry",
+    "message": "Hello RAC Forge team",
+    "createdAt": "2026-10-10T21:23:59.511Z"
   }
 ]
