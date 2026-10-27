@@ -24,6 +24,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'navigating-cdsco-chandigarh-essential-regulatory-pathways-for-medical-devices-in-north-india',
+    title: 'Navigating CDSCO Chandigarh: Essential Regulatory Pathways for Medical Devices in North India',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-regulatory-office-compliance.webp',
+    date: '27 Oct 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `Navigating the complexities of Indian medical device regulations requires a strategic understanding of regional authority jurisdictions, particularly when interfacing with the Central Drugs Standard Control Organization (CDSCO) zonal offices. For manufacturers and importers targeting North India, engaging effectively with CDSCO Chandigarh is a critical operational milestone. This zonal office plays an indispensable role in overseeing licensing applications, conducting inspections, and ensuring adherence to the Medical Devices Rules (MDR) 2017. Because regulatory interpretations and enforcement nuances can vary slightly across different jurisdictions, partnering with seasoned regulatory compliance experts ensures your technical documentation and quality management systems seamlessly satisfy local expectations without triggering costly procedural delays.\n\nSecuring necessary manufacturing or wholesale licenses through CDSCO Chandigarh demands rigorous preparation of your Device Master File (DMF) and Plant Master File (PMF), alongside verifiable proof of compliance with ISO 13485 standards. Regulators closely evaluate product safety, performance claims, and post-market surveillance frameworks during the audit phase. Any discrepancies in labeling, risk management files, or clinical evaluation data can stall your market entry indefinitely. At RAC Forge Private Limited, our compliance specialists bridge the gap between global quality standards and local regulatory expectations, offering end-to-end advisory services designed to streamline your interactions with CDSCO officials and accelerate your path to commercialization across the Indian subcontinent.`
+  },
+  {
     id: 'addressing-biocompatibility-mastering-iso-10993-compliance-for-medical-devices',
     title: 'Addressing Biocompatibility: Mastering ISO 10993 Compliance for Medical Devices',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
