@@ -1398,7 +1398,7 @@ export default function About() {
             </Link>
 
             <a
-              href="https://crmrac.vercel.app/"
+              href="https://crm.racforge.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-slate-900/80 hover:bg-slate-800 text-emerald-300 hover:text-white border border-emerald-400/40 hover:border-emerald-400 font-bold text-base transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-100 uppercase tracking-wider"
