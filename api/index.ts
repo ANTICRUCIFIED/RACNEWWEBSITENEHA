@@ -17,7 +17,12 @@ const app = express();
 
 app.use(cors({ origin: true, credentials: true }));
 app.options('*', cors());
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.body !== undefined) {
+    return next();
+  }
+  return express.json()(req, res, next);
+});
 
   // SSL / HTTPS redirect middleware to satisfy SEO checklist (only redirects GET/HEAD requests to prevent breaking POST API fetches, and excludes all /api/ pathways)
   app.use((req, res, next) => {
@@ -333,7 +338,11 @@ Please write what specific area you would like detailed guidance on!
 
   // API routes
   app.get(['/api/health', '/health'], (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    res.json({
+      status: 'ok',
+      geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
+      timestamp: new Date().toISOString()
+    });
   });
 
   // firebase-admin configuration & initialization for backend/server level operations
@@ -396,91 +405,47 @@ Please write what specific area you would like detailed guidance on!
     }
   });
 
-  const getDynamicModels = async (apiKey: string): Promise<string[]> => {
-    const fallbackModels = [
-      'gemini-3.5-flash',
-      'gemini-3.1-pro-preview',
-      'gemini-3.1-flash-lite',
-      'gemini-2.5-flash',
-      'gemini-2.5-pro',
-      'gemini-flash-latest'
-    ];
-    
-    const finalKey = apiKey || process.env.GEMINI_API_KEY;
-    if (!finalKey) {
-      return fallbackModels;
-    }
+  const PRIMARY_CHAT_MODELS = [
+    'gemini-4-hydrogen',
+    'gemini-3.1-flash-lite',
+    'gemini-2.5-flash'
+  ];
 
+  const discoverFallbackModels = async (ai: GoogleGenAI): Promise<string[]> => {
     try {
-      const ai = getGoogleGenAI(finalKey);
       const response = await ai.models.list();
-      
       if (response && response.page && response.page.length > 0) {
-        let models = response.page
+        const forbidden = [
+          'gemini-1.5-flash',
+          'gemini-1.5-pro',
+          'gemini-pro',
+          'gemini-2.0-flash',
+          'gemini-2.0-pro',
+          'gemini-2.0-flash-thinking'
+        ];
+        return response.page
           .filter((model: any) => {
             if (!model.name) return false;
-            
             const cleanName = model.name.replace(/^models\//, '');
-            
-            // Exclude models listed as deprecated / forbidden in SKILL.md
-            const forbidden = [
-              'gemini-1.5-flash',
-              'gemini-1.5-pro',
-              'gemini-pro',
-              'gemini-2.0-flash',
-              'gemini-2.0-pro',
-              'gemini-2.0-flash-thinking'
-            ];
-            if (forbidden.includes(cleanName)) return false;
-            
-            // Filter to only generateContent capable models
-            const hasGenerateContent = model.supportedActions?.includes('generateContent');
-            return hasGenerateContent;
+            if (!cleanName.startsWith('gemini-')) return false;
+            if (forbidden.includes(cleanName) || PRIMARY_CHAT_MODELS.includes(cleanName)) return false;
+            if (/-(image|tts|live|transcribe|robotics|embedding)|embedding|nano-banana|omni|lyria/i.test(cleanName)) {
+              return false;
+            }
+            return !model.supportedActions || model.supportedActions.includes('generateContent');
           })
           .map((model: any) => model.name.replace(/^models\//, ''));
-
-        // If filtering left us with an empty list, try any non-forbidden model with a name
-        if (models.length === 0) {
-          models = response.page
-            .filter((model: any) => {
-              if (!model.name) return false;
-              const cleanName = model.name.replace(/^models\//, '');
-              const forbidden = [
-                'gemini-1.5-flash',
-                'gemini-1.5-pro',
-                'gemini-pro',
-                'gemini-2.0-flash',
-                'gemini-2.0-pro',
-                'gemini-2.0-flash-thinking'
-              ];
-              return !forbidden.includes(cleanName);
-            })
-            .map((model: any) => model.name.replace(/^models\//, ''));
-        }
-          
-        if (models.length > 0) {
-          // Put standard/modern models at the front if they exist
-          const preferredOrder = ['gemini-3.5-flash', 'gemini-3.1-pro-preview', 'gemini-3.1-flash-lite', 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-flash-latest'];
-          models.sort((a, b) => {
-            const idxA = preferredOrder.indexOf(a);
-            const idxB = preferredOrder.indexOf(b);
-            const scoreA = idxA === -1 ? 999 : idxA;
-            const scoreB = idxB === -1 ? 999 : idxB;
-            return scoreA - scoreB;
-          });
-          return models;
-        }
       }
-    } catch (err) {
-      console.log('VELO: Dynamic list query skipped, utilizing fallback list.');
+    } catch (err: any) {
+      console.warn('VELO: Dynamic model discovery skipped:', err?.message || err);
     }
-    return fallbackModels;
+    return [];
   };
 
   app.post(['/api/chat', '/chat'], async (req, res) => {
     let context = '';
     try {
-      const { messages = [], userMessage, apiKey } = req.body;
+      const { messages = [], userMessage, apiKey } = req.body || {};
       try {
         if (documentStore.length === 0) {
           console.log('Document store is empty, initializing preloading for static files...');
@@ -560,14 +525,12 @@ Draft responses thoughtfully based only on the query contexts provided and your 
         contents: contents,
       };
 
-      const modelsToTry = await getDynamicModels(apiKey);
-
       let result = null;
-      let lastError = null;
+      let lastError: any = null;
 
       try {
         const ai = getGoogleGenAI(apiKey);
-        for (const modelInstance of modelsToTry) {
+        for (const modelInstance of PRIMARY_CHAT_MODELS) {
           try {
             console.log(`VELO: Attempting generation with model: ${modelInstance}`);
             const response = await ai.models.generateContent({
@@ -580,12 +543,33 @@ Draft responses thoughtfully based only on the query contexts provided and your 
               break;
             }
           } catch (modelError: any) {
-            console.log(`[VELO status] Model ${modelInstance} busy or limit reached.`);
+            console.warn(`[VELO status] Model ${modelInstance} failed:`, modelError?.message || modelError);
             lastError = modelError;
           }
         }
+
+        if (!result) {
+          const discoveredModels = await discoverFallbackModels(ai);
+          for (const modelInstance of discoveredModels.slice(0, 2)) {
+            try {
+              console.log(`VELO: Attempting discovered model: ${modelInstance}`);
+              const response = await ai.models.generateContent({
+                model: modelInstance,
+                ...modelConfig,
+              });
+              if (response && response.text) {
+                result = response;
+                console.log(`VELO: Successfully generated content using model: ${modelInstance}`);
+                break;
+              }
+            } catch (modelError: any) {
+              console.warn(`[VELO status] Discovered model ${modelInstance} failed:`, modelError?.message || modelError);
+              lastError = modelError;
+            }
+          }
+        }
       } catch (initError: any) {
-        console.log('VELO: GoogleGenAI SDK client initialization status check.');
+        console.warn('VELO: GoogleGenAI SDK client initialization failed:', initError?.message || initError);
         lastError = initError;
       }
 
@@ -594,14 +578,16 @@ Draft responses thoughtfully based only on the query contexts provided and your 
         await appendLearnedKnowledge(userMessage, result.text);
         res.json({ text: result.text });
       } else {
-        // High quality offline fallback rather than throwing a breaking 500 error
-        console.warn('VELO: All model options failed or rate-limited. Activating local intelligence response.');
+        const fallbackReason = !process.env.GEMINI_API_KEY && !apiKey
+          ? 'GEMINI_API_KEY is not configured on the server.'
+          : (lastError?.message || 'All Gemini models failed or were rate-limited.');
+        console.warn('VELO: Activating local intelligence response. Reason:', fallbackReason);
         let fallbackResponse = getLocalFallbackResponse(userMessage);
 
         if (context) {
           fallbackResponse = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:\n\n${context}\n\n---\n\n${fallbackResponse}`;
         }
-        res.json({ text: fallbackResponse, isFallback: true });
+        res.json({ text: fallbackResponse, isFallback: true, fallbackReason });
       }
     } catch (err: any) {
       console.error('Core Chat API Error occurred:', err);
@@ -611,7 +597,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
         if (context) {
           fallbackText = `I am currently operating in **Local Offline Mode** (connecting to the core API models was unsuccessful). However, based on our internal regulatory knowledge base, here is some relevant information:\n\n${context}\n\n---\n\n${fallbackText}`;
         }
-        res.json({ text: fallbackText, isFallback: true });
+        res.json({ text: fallbackText, isFallback: true, fallbackReason: err?.message || String(err) });
       } catch (innerErr) {
         res.status(500).json({ error: 'Failed to generate response', details: String(err) });
       }

@@ -325,7 +325,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
     // Compile values from infoData (Resources)
     Object.entries(INFO_DATA).forEach(([key, value]) => {
       list.push({
-        id: key,
+        id: `resource-${key}`,
         title: value.title,
         subtitle: 'CDSCO Form / Standard Dossiers',
         snippet: value.content,
@@ -338,7 +338,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
     // Compile values from blogData
     BLOG_POSTS.forEach((post) => {
       list.push({
-        id: post.id,
+        id: `blog-${post.id}`,
         title: post.title,
         subtitle: `Blog Post • ${post.category} • ${post.date}`,
         snippet: post.excerpt,
@@ -701,7 +701,7 @@ export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {
 
                     return (
                       <div
-                        key={item.id}
+                        key={`${item.category}-${item.id}-${index}`}
                         data-search-item
                         onClick={() => handleSelect(item)}
                         className={`flex items-start space-x-4 p-3.5 rounded-2xl cursor-pointer transition-all border ${

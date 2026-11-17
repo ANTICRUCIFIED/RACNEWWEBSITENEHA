@@ -3,7 +3,6 @@ import { MessageSquare, Send, X, Bot, Loader2, Settings, Key, AlertTriangle, Che
 import { motion, AnimatePresence } from 'motion/react';
 import ReactMarkdown from 'react-markdown';
 import { cn, getApiBaseUrl } from '../lib/utils';
-import { resolveAssembledKey } from './KeyParts';
 
 const API_BASE_URL = getApiBaseUrl();
 
@@ -197,33 +196,7 @@ Just type your specific query (e.g., "Give me CDSCO website link" or "Tell me ab
 }
 
 // ============================================================================
-// 🔑 PRE-SAVED SPLIT GEMINI API KEY FOR SECURE GITHUB PAGES DEPLOYMENT
-// ============================================================================
-// To prevent automated scrapers or GitHub's secret guardian tools from detecting
-// and revoking your key when you publish it, we have split it into 3 parts.
-// When the app runs on GitHub Pages, VELO will compile these and talk directly
-// to Gemini from the browser.
-//
-// HOW TO COMPLETE THIS:
-// 1. Get your API Key from Google AI Studio: https://aistudio.google.com/app/apikey
-// 2. Split your API Key (e.g. "AIzaSyDxxx-yyy-zzz") into three separate pieces.
-// 3. Paste Part 1 into GEMINI_KEY_PART_1, Part 2 into GEMINI_KEY_PART_2, and Part 3 into GEMINI_KEY_PART_3.
-// ============================================================================
-const GEMINI_KEY_PART_1: string = ""; // <-- PASTE PART 1 HERE (e.g. "AIzaSyB...")
-const GEMINI_KEY_PART_2: string = ""; // <-- PASTE PART 2 HERE
-const GEMINI_KEY_PART_3: string = ""; // <-- PASTE PART 3 HERE
-
-function getPreSavedApiKey(): string {
-  // Try retrieving from the newly isolated, secure KeyParts file first
-  const isolatedKey = resolveAssembledKey();
-  if (isolatedKey) {
-    return isolatedKey;
-  }
-  if (GEMINI_KEY_PART_1 && GEMINI_KEY_PART_2 && GEMINI_KEY_PART_3) {
-    return `${GEMINI_KEY_PART_1.trim()}${GEMINI_KEY_PART_2.trim()}${GEMINI_KEY_PART_3.trim()}`;
-  }
-  return '';
-}
+// Server-side GEMINI_API_KEY is configured via Vercel / AI Studio Environment Variables.
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -361,11 +334,10 @@ export default function Chatbot() {
 
     // Full-stack mode (reaches out to backend API)
     try {
-      const apiKey = getPreSavedApiKey();
       const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages, userMessage, apiKey })
+        body: JSON.stringify({ messages, userMessage })
       });
 
       const contentType = response.headers.get('content-type') || '';
@@ -385,6 +357,9 @@ export default function Chatbot() {
       const data = await response.json();
       if (data.isFallback) {
         setIsLocalMode(true);
+        if (data.fallbackReason) {
+          console.warn('RAAAHI server fallback active:', data.fallbackReason);
+        }
       } else {
         setIsLocalMode(false);
       }

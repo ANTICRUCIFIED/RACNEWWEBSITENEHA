@@ -24,7 +24,10 @@ try {
 
 export const documentStore: DocumentChunk[] = [...documentsCache];
 
+const isReadOnlyServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+
 function writeStaticCache() {
+  if (isReadOnlyServerless) return;
   const data = JSON.stringify(documentStore, null, 2);
   try {
     const publicDir = path.join(process.cwd(), 'public');
@@ -48,27 +51,26 @@ function writeStaticCache() {
  */
 export async function appendLearnedKnowledge(query: string, response: string) {
   try {
-    const docsDir = path.join(process.cwd(), 'documents');
-    if (!fs.existsSync(docsDir)) {
-      fs.mkdirSync(docsDir, { recursive: true });
-    }
-    const learningFile = path.join(docsDir, 'continuous_learning.txt');
-    
-    // Create learning chunk
     const learnedText = `[Learned Interaction - ${new Date().toISOString()}]\nUser Query: ${query}\nRAAAHI Expert Answer: ${response}\n`;
-    
-    fs.appendFileSync(learningFile, `\n\n---\n\n${learnedText}`);
 
-    // Add to in-memory store dynamically to be available immediately offline or online
+    // Add to in-memory store dynamically
     const newChunk: DocumentChunk = {
       id: `learned-${Date.now()}-${documentStore.length}`,
       filename: 'continuous_learning.txt',
       chunkIndex: documentStore.length,
       text: learnedText.trim()
     };
-    
     documentStore.push(newChunk);
-    
+
+    if (isReadOnlyServerless) return;
+
+    const docsDir = path.join(process.cwd(), 'documents');
+    if (!fs.existsSync(docsDir)) {
+      fs.mkdirSync(docsDir, { recursive: true });
+    }
+    const learningFile = path.join(docsDir, 'continuous_learning.txt');
+    fs.appendFileSync(learningFile, `\n\n---\n\n${learnedText}`);
+
     writeStaticCache();
   } catch (err) {
     console.error('Failed to append learned knowledge:', err);

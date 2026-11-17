@@ -12,10 +12,11 @@ interface FormsHubProps {
 export default function FormsHub({ keys, title = "Form Details & Regulatory Information" }: FormsHubProps) {
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
-  const items = keys
+  const uniqueKeys = Array.from(new Set(keys.map(key => key.toLowerCase())));
+  const items = uniqueKeys
     .map(key => ({
-      key: key.toLowerCase(),
-      data: INFO_DATA[key.toLowerCase()]
+      key,
+      data: INFO_DATA[key]
     }))
     .filter(item => item.data !== undefined);
 
