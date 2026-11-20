@@ -143,7 +143,8 @@ export default function CareersTraining() {
           email: formData.email.trim(),
           phoneNumber: formData.phoneNumber.trim(),
           subject: `Freelance BDM Application - ${formData.background}`,
-          message: compiledMessage
+          message: compiledMessage,
+          inquiryType: 'bdm_application'
         })
       });
 
@@ -677,7 +678,7 @@ export default function CareersTraining() {
                     <div className="space-y-2 max-w-md mx-auto">
                       <h3 className="text-2xl font-bold text-brand-deep">Application Received</h3>
                       <p className="text-sm text-slate-600 leading-relaxed">
-                        Thank you for applying for the Freelance Business Development Manager (BDM) opportunity. Our team will review your details and get in touch with next steps for training and assessments.
+                        Thank you for applying for the Freelance Business Development Manager (BDM) opportunity. We have emailed you the detailed Job Description and onboarding pathway. Because we receive a large number of applications daily, please be patient while our team reviews your profile and contacts you. If you agree with the role, you can sign up on our Training Portal meanwhile to get started.
                       </p>
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -687,7 +688,7 @@ export default function CareersTraining() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-teal hover:bg-[#236f81] text-white text-sm font-semibold transition-colors whitespace-nowrap"
                       >
-                        <span>Visit Training Portal</span>
+                        <span>Sign Up on Training Portal</span>
                         <ExternalLink size={14} />
                       </a>
                       <button

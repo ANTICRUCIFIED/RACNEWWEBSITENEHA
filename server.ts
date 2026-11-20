@@ -879,11 +879,30 @@ Draft responses thoughtfully based only on the query contexts provided and your 
 
   app.post('/api/contact', async (req, res) => {
     try {
-      const { firstName, lastName, email, phoneNumber, subject, message } = req.body;
+      const { firstName, lastName, email, phoneNumber, subject, message, inquiryType } = req.body;
 
       if (!firstName || !lastName || !email || !phoneNumber || !subject || !message) {
         return res.status(400).json({ error: 'All fields are required' });
       }
+
+      const isBdmApplication =
+        inquiryType === 'bdm_application' ||
+        /freelance bdm application|\bbdm\b/i.test(String(subject || ''));
+
+      const escapeHtml = (val: unknown) =>
+        String(val ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+
+      const safeFirstName = escapeHtml(firstName);
+      const safeLastName = escapeHtml(lastName);
+      const safeEmail = escapeHtml(email);
+      const safePhone = escapeHtml(phoneNumber);
+      const safeSubject = escapeHtml(subject);
+      const safeMessage = escapeHtml(message);
 
       // 1. Store the inquiry in Firebase Firestore if enabled, or local fallback file
       let storedInFirestore = false;
@@ -897,6 +916,7 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             phoneNumber,
             subject,
             message,
+            inquiryType: isBdmApplication ? 'bdm_application' : 'consultation',
             createdAt: admin.firestore.FieldValue.serverTimestamp()
           });
           storedInFirestore = true;
@@ -950,38 +970,42 @@ Draft responses thoughtfully based only on the query contexts provided and your 
       const emailContent = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
           <div style="background-color: #0c1c38; padding: 25px; text-align: center; color: #fff;">
-            <h2 style="margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">New Consultation Inquiry</h2>
+            <h2 style="margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">${isBdmApplication ? 'New Freelance BDM Application' : 'New Consultation Inquiry'}</h2>
             <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 14px;">RAC Forge Private Limited</p>
           </div>
           <div style="padding: 30px; background-color: #ffffff;">
-            <p style="font-size: 16px; margin-top: 0; color: #475569;">A new regulatory submission consultation message came in. Please review the details below:</p>
+            <p style="font-size: 16px; margin-top: 0; color: #475569;">${
+              isBdmApplication
+                ? 'A new Freelance Business Development Manager (BDM) application has been received via racforge.com/careers. Please review the applicant details below:'
+                : 'A new regulatory submission consultation message came in. Please review the details below:'
+            }</p>
             
             <table style="width: 100%; border-collapse: collapse; margin-top: 25px;">
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; width: 35%; color: #0c1c38;">First Name:</td>
-                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;">${firstName}</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;">${safeFirstName}</td>
               </tr>
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Last Name:</td>
-                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;">${lastName}</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;">${safeLastName}</td>
               </tr>
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Email Address:</td>
-                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;"><a href="mailto:${email}" style="color: #00a896; text-decoration: none; font-weight: 500;">${email}</a></td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;"><a href="mailto:${safeEmail}" style="color: #00a896; text-decoration: none; font-weight: 500;">${safeEmail}</a></td>
               </tr>
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Phone Number:</td>
-                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;"><a href="tel:${phoneNumber}" style="color: #00a896; text-decoration: none; font-weight: 500;">${phoneNumber}</a></td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #334155;"><a href="tel:${safePhone}" style="color: #00a896; text-decoration: none; font-weight: 500;">${safePhone}</a></td>
               </tr>
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #0c1c38;">Subject:</td>
-                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: 500; color: #0c1c38;">${subject}</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; font-weight: 500; color: #0c1c38;">${safeSubject}</td>
               </tr>
             </table>
 
             <div style="margin-top: 30px;">
-              <h4 style="margin-bottom: 10px; color: #0c1c38; font-size: 16px;">Inquiry Message:</h4>
-              <div style="background-color: #f8fafc; border-left: 4px solid #00a896; padding: 20px; border-radius: 8px; white-space: pre-wrap; color: #334155; font-style: italic; line-height: 1.7; box-sizing: border-box;">${message}</div>
+              <h4 style="margin-bottom: 10px; color: #0c1c38; font-size: 16px;">${isBdmApplication ? 'Applicant Profile & Notes:' : 'Inquiry Message:'}</h4>
+              <div style="background-color: #f8fafc; border-left: 4px solid #00a896; padding: 20px; border-radius: 8px; white-space: pre-wrap; color: #334155; font-style: italic; line-height: 1.7; box-sizing: border-box;">${safeMessage}</div>
             </div>
           </div>
           <div style="background-color: #f1f5f9; padding: 25px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; line-height: 1.5;">
@@ -1026,12 +1050,14 @@ Draft responses thoughtfully based only on the query contexts provided and your 
           const messageIdUser = `<visitor-receipt-${ts}-${randomSuffixUser}@${mailDomain}>`;
 
           const mailOptionsAdmin = {
-            from: `"RAC Forge Contact Form" <${user}>`,
+            from: `"${isBdmApplication ? 'RAC Forge Careers' : 'RAC Forge Contact Form'}" <${user}>`,
             to: `support@racforge.com`,
             replyTo: email,
-            subject: `Inquiry: ${subject} (${firstName} ${lastName})`,
+            subject: isBdmApplication
+              ? `Freelance BDM Application: ${firstName} ${lastName} (${subject})`
+              : `Inquiry: ${subject} (${firstName} ${lastName})`,
             html: emailContent,
-            text: `New Inquiry details:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\nMessage:\n${message}\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`,
+            text: `${isBdmApplication ? 'New Freelance BDM Application' : 'New Inquiry details'}:\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\n\n${isBdmApplication ? 'Applicant Profile & Notes' : 'Message'}:\n${message}\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`,
             messageId: messageIdAdmin,
             headers: {
               'X-Priority': '3',
@@ -1042,15 +1068,88 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             }
           };
 
-          const userHtmlContent = `
+          const userHtmlContent = isBdmApplication
+            ? `
+            <div style="font-family: Arial, sans-serif; line-height: 1.65; color: #334155; max-width: 620px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);">
+              <div style="background-color: #0c1c38; padding: 28px 25px; text-align: center; color: #ffffff;">
+                <h2 style="margin: 0; font-size: 22px; font-weight: bold; letter-spacing: 0.4px;">Freelance BDM Application Received</h2>
+                <p style="margin: 6px 0 0 0; opacity: 0.85; font-size: 13px;">RAC Forge Private Limited — Careers &amp; Training</p>
+              </div>
+              <div style="padding: 30px; background-color: #ffffff;">
+                <p style="font-size: 16px; margin-top: 0; color: #0c1c38; font-weight: bold;">Dear ${safeFirstName},</p>
+                <p style="font-size: 15px; color: #475569;">
+                  Thank you for applying for the <b>Freelance Business Development Manager (BDM)</b> position at RAC Forge Private Limited. We have received your application (<b>${safeSubject}</b>).
+                </p>
+
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px 18px; margin: 20px 0;">
+                  <p style="margin: 0; font-size: 14px; color: #0f172a;">
+                    <b>What happens next — please be patient:</b> Our onboarding team will review your profile and contact you soon. Because we receive a large volume of applications daily, it may take some time to get back to every applicant. We truly appreciate your patience.
+                  </p>
+                </div>
+
+                <h3 style="margin: 26px 0 12px 0; font-size: 16px; color: #0c1c38; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+                  Job Description: Freelance Business Development Manager (BDM)
+                </h3>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px;">
+                  <tr>
+                    <td style="padding: 8px 0; color: #0c1c38; font-weight: bold; width: 34%; vertical-align: top;">Role Title:</td>
+                    <td style="padding: 8px 0; color: #475569;">Business Development Manager (BDM)</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px 0; color: #0c1c38; font-weight: bold; vertical-align: top;">Engagement Type:</td>
+                    <td style="padding: 8px 0; color: #475569;">Independent Freelance (Flexible / Remote)</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px 0; color: #0c1c38; font-weight: bold; vertical-align: top;">Compensation:</td>
+                    <td style="padding: 8px 0; color: #475569;">Commission-based — earn commissions on every regulatory, QMS, testing, or engineering service you sell</td>
+                  </tr>
+                </table>
+
+                <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: bold; color: #0c1c38;">Key Responsibilities:</p>
+                <ul style="margin: 0 0 18px 0; padding-left: 20px; font-size: 14px; color: #475569;">
+                  <li style="margin-bottom: 6px;">Identify and engage medical device manufacturers, importers, MedTech startups, and SaMD teams requiring CDSCO licensing (MD-5/9/14/15), USFDA 510(k)/De Novo, EU MDR &amp; CE Marking, ISO 13485 QMS, Biocompatibility/IEC testing, or Cleanroom/HVAC engineering.</li>
+                  <li style="margin-bottom: 6px;">Work opportunities from RAC Forge&rsquo;s <b>Sales Leads Pool</b> on <a href="https://crm.racforge.com/" style="color: #00a896; text-decoration: none; font-weight: 600;">crm.racforge.com</a> as well as your own network to close service mandates.</li>
+                  <li style="margin-bottom: 6px;">Coordinate smooth client handovers to our Operations team, who handle technical delivery and share live project status updates with clients through the CRM.</li>
+                </ul>
+
+                <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: bold; color: #0c1c38;">Onboarding Pathway:</p>
+                <ol style="margin: 0 0 22px 0; padding-left: 20px; font-size: 14px; color: #475569;">
+                  <li style="margin-bottom: 6px;"><b>Training:</b> Complete structured sales and regulatory service training modules on <a href="https://training.racforge.com/" style="color: #00a896; text-decoration: none; font-weight: 600;">training.racforge.com</a>.</li>
+                  <li style="margin-bottom: 6px;"><b>Assessments:</b> Pass the required online assessments on the Training Portal.</li>
+                  <li style="margin-bottom: 6px;"><b>Onboarding &amp; Commissions:</b> After successful onboarding, gain access to the leads pool on <a href="https://crm.racforge.com/" style="color: #00a896; text-decoration: none; font-weight: 600;">crm.racforge.com</a> and start earning commissions on every service you sell.</li>
+                </ol>
+
+                <div style="background-color: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 20px; margin: 22px 0; text-align: center;">
+                  <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: #0c1c38;">Agree with the Freelance BDM role? Start your training meanwhile!</p>
+                  <p style="margin: 0 0 16px 0; font-size: 14px; color: #334155;">
+                    If you agree with the job description and freelance commission structure above, you can sign up on our Training Portal right away to begin your training modules and assessments while our team processes your application.
+                  </p>
+                  <a href="https://training.racforge.com/" style="display: inline-block; background-color: #00a896; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 14px; padding: 12px 24px; border-radius: 6px;">
+                    Sign Up on Training Portal (training.racforge.com)
+                  </a>
+                </div>
+
+                <p style="color: #475569; font-size: 14px; margin-bottom: 0;">
+                  If you have any questions or would like to share your resume or LinkedIn profile, simply reply to this email or write to <a href="mailto:info@racforge.com" style="color: #00a896; text-decoration: none; font-weight: 600;">info@racforge.com</a>.
+                </p>
+                <p style="margin-top: 24px; color: #475569; font-size: 15px;">Best regards,<br><span style="font-weight: bold; color: #0c1c38;">The RAC Forge Team</span></p>
+              </div>
+              <div style="background-color: #f1f5f9; padding: 22px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; line-height: 1.5;">
+                <p style="margin: 0 0 5px 0; font-weight: bold;">RAC Forge Private Limited</p>
+                <p style="margin: 0 0 5px 0;">Nanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064</p>
+                <p style="margin: 0; opacity: 0.8;">You received this automated message because you applied for the Freelance BDM role at racforge.com/careers.</p>
+              </div>
+            </div>
+          `
+            : `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
               <div style="background-color: #0c1c38; padding: 25px; text-align: center; color: #fff;">
                 <h2 style="margin: 0; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">Inquiry Confirmed</h2>
                 <p style="margin: 5px 0 0 0; opacity: 0.8; font-size: 14px;">RAC Forge Private Limited</p>
               </div>
               <div style="padding: 30px; background-color: #ffffff;">
-                <p style="font-size: 16px; margin-top: 0; color: #0c1c38; font-weight: bold;">Dear ${firstName},</p>
-                <p style="color: #475569; font-size: 15px;">Thank you for contacting RAC Forge. We have successfully received your consultation inquiry regarding <b>${subject}</b>.</p>
+                <p style="font-size: 16px; margin-top: 0; color: #0c1c38; font-weight: bold;">Dear ${safeFirstName},</p>
+                <p style="color: #475569; font-size: 15px;">Thank you for contacting RAC Forge. We have successfully received your consultation inquiry regarding <b>${safeSubject}</b>.</p>
                 <p style="color: #475569; font-size: 15px;">Our regulatory compliance and technical engineering team is reviewing your requirements and will reach back to you shortly.</p>
                 <p style="color: #475569; font-size: 15px; margin-bottom: 0;">If you have any urgent attachments or updates, please reply directly to this mail or contact us at <a href="mailto:info@racforge.com" style="color: #00a896; text-decoration: none;">info@racforge.com</a>.</p>
                 <p style="margin-top: 25px; color: #475569; font-size: 15px;">Best regards,<br><span style="font-weight: bold; color: #0c1c38;">The RAC Forge Team</span></p>
@@ -1063,13 +1162,19 @@ Draft responses thoughtfully based only on the query contexts provided and your 
             </div>
           `;
 
+          const userTextContent = isBdmApplication
+            ? `Dear ${firstName},\n\nThank you for applying for the Freelance Business Development Manager (BDM) position at RAC Forge Private Limited. We have received your application (${subject}).\n\nWHAT HAPPENS NEXT (PLEASE BE PATIENT):\nOur team will review your profile and contact you soon. Because we receive a large number of applications daily, it may take some time to get back to everyone. Thank you for your patience.\n\nJOB DESCRIPTION — FREELANCE BUSINESS DEVELOPMENT MANAGER (BDM):\n- Role: Business Development Manager (BDM)\n- Engagement Type: Independent Freelance (Flexible / Remote)\n- Compensation: Commission-based — earn commissions on every regulatory, QMS, testing, or engineering service you sell\n\nKey Responsibilities:\n- Connect medical device manufacturers, importers, MedTech startups, and SaMD teams with RAC Forge services (CDSCO MD-5/9/14/15, USFDA 510(k)/De Novo, EU MDR & CE Marking, ISO 13485 QMS, Biocompatibility/IEC Testing, and Cleanroom/HVAC Engineering).\n- Work qualified opportunities from our Sales Leads Pool on https://crm.racforge.com/ alongside your own network.\n- Hand over closed mandates smoothly to our Operations team, who manage delivery and update live project status for clients on the CRM.\n\nOnboarding Pathway:\n1. Training: Complete structured training modules on https://training.racforge.com/\n2. Assessments: Pass the required online assessments on the Training Portal.\n3. Onboarding & Commissions: Once onboarded, unlock access to the leads pool on https://crm.racforge.com/ and earn commissions on the services you sell.\n\nSTART YOUR TRAINING MEANWHILE:\nIf you agree with the Freelance BDM role and commission structure above, you can sign up on our Training Portal meanwhile to get started with your trainings and assessments:\nhttps://training.racforge.com/\n\nIf you have any questions or would like to share your resume, simply reply to this email or contact us at info@racforge.com.\n\nBest regards,\nThe RAC Forge Team\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`
+            : `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`;
+
           const mailOptionsUser = {
             from: `"RAC Forge Private Limited" <${user}>`,
             to: `${email}`,
             replyTo: 'info@racforge.com',
-            subject: `We received your inquiry: ${subject}`,
+            subject: isBdmApplication
+              ? `Application Received: Freelance Business Development Manager (BDM) — RAC Forge`
+              : `We received your inquiry: ${subject}`,
             html: userHtmlContent,
-            text: `Dear ${firstName},\n\nThank you for reaching out to RAC Forge. We have successfully received your inquiry regarding "${subject}".\n\nOur team will review your message and get back to you shortly.\n\nBest regards,\nThe RAC Forge Team\n\n---\nRAC Forge Private Limited\nNanehar, Thural, Palampur, Kangra, Himachal Pradesh, India - 176064`,
+            text: userTextContent,
             messageId: messageIdUser,
             headers: {
               'X-Priority': '3',
