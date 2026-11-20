@@ -50,14 +50,23 @@ export default function Footer() {
           <div>
             <h4 className="text-xl font-bold mb-8 border-b border-gray-100 pb-4">Quick Links</h4>
             <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'RAAAHI (राही)', 'Expertise', 'Blogs', 'Contact'].map((item) => (
-                <li key={item}>
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'About Us', path: '/about' },
+                { name: 'Services', path: '/services' },
+                { name: 'RAAAHI (राही)', path: '/raahi-ai' },
+                { name: 'Expertise', path: '/expertise' },
+                { name: 'Careers & Training', path: '/careers' },
+                { name: 'Blogs', path: '/blogs/resources' },
+                { name: 'Contact', path: '/contact' }
+              ].map((item) => (
+                <li key={item.name}>
                   <Link 
-                    to={item === 'Home' ? '/' : item === 'About Us' ? '/about' : item === 'Blogs' ? '/blogs/resources' : item === 'RAAAHI (राही)' ? '/raahi-ai' : `/${item.toLowerCase().replace(' ', '-')}`} 
+                    to={item.path} 
                     className="text-gray-600 hover:text-brand-teal transition-colors flex items-center group font-medium"
                   >
                     <ArrowRight className="mr-2 w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}

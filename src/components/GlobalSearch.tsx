@@ -252,6 +252,28 @@ const SERVICES_DATA: SearchItem[] = [
     category: 'Services',
     path: '/services/post-market-surveillance-pms',
     tags: ['pms', 'pmcf', 'psur', 'vigilance', 'feedback', 'complaints']
+  },
+  {
+    id: 'careers-training-bdm',
+    title: 'Careers & Training — Freelance BDM, CRM & Training Portal',
+    subtitle: 'Freelance BDM • crm.racforge.com • training.racforge.com',
+    snippet: 'Join RAC Forge as a freelance Business Development Manager (BDM). Complete training and assessments on training.racforge.com, onboard to the crm.racforge.com leads pool, and earn commissions on services you sell.',
+    category: 'Resources',
+    path: '/careers',
+    tags: [
+      'careers',
+      'bdm',
+      'business development manager',
+      'freelance',
+      'commission',
+      'crm',
+      'crm.racforge.com',
+      'training',
+      'training.racforge.com',
+      'assessments',
+      'leads pool',
+      'operations'
+    ]
   }
 ];
 

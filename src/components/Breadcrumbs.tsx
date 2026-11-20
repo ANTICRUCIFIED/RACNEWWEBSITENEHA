@@ -12,6 +12,7 @@ const ROUTE_MAP: Record<string, string> = {
   'about': 'About Us',
   'services': 'Services',
   'expertise': 'Expertise',
+  'careers': 'Careers & Training',
   'contact': 'Contact Us',
   'blogs': 'Blogs & Insights',
   'resources': 'Resources',

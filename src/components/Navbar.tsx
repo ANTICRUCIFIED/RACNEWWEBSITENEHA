@@ -82,7 +82,8 @@ const NAV_LINKS = [
   },
   { name: 'RAAAHI (राही)', path: '/raahi-ai' },
   { name: 'Expertise', path: '/expertise' },
-  { name: 'Blogs', path: '/blogs/resources' }
+  { name: 'Blogs', path: '/blogs/resources' },
+  { name: 'Careers', path: '/careers' }
 ];
 
 export default function Navbar() {
@@ -132,17 +133,17 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center space-x-10">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {NAV_LINKS.map((link) => (
               <div 
                 key={link.name} 
-                className="relative group"
+                className="relative group shrink-0"
                 onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
                 onMouseLeave={() => link.dropdown && setActiveDropdown(null)}
               >
                 <Link 
                   to={link.path}
-                  className="font-bold text-sm uppercase tracking-widest transition-colors flex items-center text-brand-deep hover:text-brand-teal"
+                  className="font-bold text-sm uppercase tracking-wider transition-colors flex items-center text-brand-deep hover:text-brand-teal whitespace-nowrap shrink-0"
                 >
                   {link.name}
                   {link.dropdown && <ChevronDown className="ml-1 w-4 h-4" />}

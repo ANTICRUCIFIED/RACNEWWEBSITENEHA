@@ -21,8 +21,7 @@ import {
   Quote,
   X,
   Printer,
-  Percent,
-  LogIn
+  Percent
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import InfoLink from '../components/InfoLink';
@@ -1388,26 +1387,13 @@ export default function About() {
             Navigating the complexities of medical device registration requires more than just a consultant—it requires an architect. Partner with a firm that understands both the engineering that goes into your product and the regulatory landscape that governs it.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-base transition-all duration-300 shadow-lg hover:shadow-emerald-500/20 shadow-emerald-500/10 hover:scale-[1.03] active:scale-100 uppercase tracking-wider"
-            >
-              <span>Start Your Project with Us</span>
-              <ArrowRight size={18} className="text-slate-950" />
-            </Link>
-
-            <a
-              href="https://crm.racforge.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-slate-900/80 hover:bg-slate-800 text-emerald-300 hover:text-white border border-emerald-400/40 hover:border-emerald-400 font-bold text-base transition-all duration-300 shadow-lg hover:scale-[1.03] active:scale-100 uppercase tracking-wider"
-            >
-              <LogIn size={18} className="text-emerald-400" />
-              <span>Sign In to CRM</span>
-              <ExternalLink size={16} className="text-emerald-400/80" />
-            </a>
-          </div>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2.5 px-8 py-4.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-base transition-all duration-300 shadow-lg hover:shadow-emerald-500/20 shadow-emerald-500/10 scale-100 hover:scale-[1.03] active:scale-100 uppercase tracking-wider block sm:inline-flex"
+          >
+            <span>Start Your Project with Us</span>
+            <ArrowRight size={18} className="text-slate-950" />
+          </Link>
         </div>
       </section>
     </div>

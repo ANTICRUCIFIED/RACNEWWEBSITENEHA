@@ -216,6 +216,7 @@ const coreRoutes = parsedRoutes.core.length > 0 ? parsedRoutes.core : [
   '/about',
   '/services',
   '/expertise',
+  '/careers',
   '/blogs/resources',
   '/contact',
   '/raahi-ai'
@@ -309,6 +310,7 @@ infoDataKeys.forEach(key => allRoutes.push(`/information/${key}`));
 // and should be excluded from search indexing, sitemaps, and directory pre-generation.
 const REDIRECT_ROUTES = [
   '/blogs',
+  '/careers-training',
   '/velo-ai',
   '/raaahi-ai',
   '/services/cdsco-manufacturing-license',
@@ -407,6 +409,9 @@ uniqueRoutes.forEach(route => {
   } else if (route === '/about' || route === '/expertise' || route === '/blogs/resources') {
     priority = '0.8';
     changefreq = 'weekly';
+  } else if (route === '/careers') {
+    priority = '0.8';
+    changefreq = 'monthly';
   } else if (route === '/contact') {
     priority = '0.7';
     changefreq = 'yearly';
@@ -500,6 +505,13 @@ function getRouteMetadata(route) {
     return {
       title: "Contact Our Regulatory Experts | RAC Forge",
       description: "Speak with a compliance engineer about your medical device or SaMD project. Locations in Chandigarh, Ahmedabad, Bengaluru, Delhi NCR, and more.",
+      date: "Thu, 30 Apr 2026 12:00:00 +0000"
+    };
+  }
+  if (route === '/careers') {
+    return {
+      title: "Careers & Training | Freelance BDM, CRM & Training Portal | RAC Forge",
+      description: "Join RAC Forge as a freelance Business Development Manager (BDM). Complete training and assessments on training.racforge.com, access the sales leads pool and operations updates on crm.racforge.com, and earn commissions.",
       date: "Thu, 30 Apr 2026 12:00:00 +0000"
     };
   }

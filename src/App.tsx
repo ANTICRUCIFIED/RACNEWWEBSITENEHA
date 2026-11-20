@@ -13,6 +13,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
 const InfoDetail = lazy(() => import('./pages/Information/InfoDetail'));
 const VeloPage = lazy(() => import('./pages/VeloPage'));
+const CareersTraining = lazy(() => import('./pages/CareersTraining'));
 
 // Service Sub-pages
 const CDSCOManufacturing = lazy(() => import('./pages/Services/CDSCOManufacturing'));
@@ -73,6 +74,8 @@ export default function App() {
             <Route path="/blogs" element={<Navigate to="/blogs/resources" replace />} />
             <Route path="/blogs/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/careers" element={<CareersTraining />} />
+            <Route path="/careers-training" element={<Navigate to="/careers" replace />} />
             <Route path="/information/:slug" element={<InfoDetail />} />
             <Route path="/velo-ai" element={<Navigate to="/raahi-ai" replace />} />
             <Route path="/raaahi-ai" element={<Navigate to="/raahi-ai" replace />} />
