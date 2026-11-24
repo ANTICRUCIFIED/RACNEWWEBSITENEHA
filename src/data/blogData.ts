@@ -24,6 +24,17 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'optimizing-infrastructure-roadmap-protocols-for-cdsco-wholesale-license',
+    title: 'Optimizing Infrastructure Roadmap Protocols for CDSCO Wholesale License',
+    excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
+    image: 'https://anticrucified.github.io/MyWebP_Images/images/blog-compliance-default.webp',
+    date: '24 Nov 2026',
+    category: 'Regulatory',
+    author: 'RAC Forge Private Limited Team',
+    tags: ['CDSCO compliance', 'Medical Devices', 'Regulatory Strategy', 'ISO 13485'],
+    content: `Fallback content parameters for medical device and cosmetic regulatory compliance roadmaps.`
+  },
+  {
     id: 'navigating-biocompatibility-testing-requirements-a-critical-guide-for-market-access',
     title: 'Navigating Biocompatibility Testing Requirements: A Critical Guide for Market Access',
     excerpt: 'An technical advisory roadmap documenting compliance, testing, and regulatory requirements.',
