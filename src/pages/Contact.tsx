@@ -143,10 +143,39 @@ export default function Contact() {
                     <MapPin size={28} />
                   </div>
                   <div>
-                    <h4 className="font-bold text-brand-deep mb-1 text-xl">Headquarters</h4>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl">Headquarters (Himachal Pradesh)</h4>
                     <p className="text-gray-600 leading-relaxed">
-                      {COMPANY_INFO.companyName} {COMPANY_INFO.address.full}
+                      {COMPANY_INFO.companyName}, {COMPANY_INFO.address.full}
                     </p>
+                    <a
+                      href={COMPANY_INFO.address.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-1.5 text-xs font-bold text-brand-teal hover:underline"
+                    >
+                      View on Google Maps →
+                    </a>
+                  </div>
+                </div>
+
+                {/* Delhi NCR Branch Office */}
+                <div className="flex items-start space-x-6 group">
+                  <div className="w-14 h-14 bg-brand-deep/10 rounded-2xl flex items-center justify-center text-brand-deep shrink-0 group-hover:bg-brand-deep group-hover:text-white transition-all">
+                    <MapPin size={28} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-deep mb-1 text-xl">{COMPANY_INFO.delhiBranch.label}</h4>
+                    <p className="text-gray-600 leading-relaxed">
+                      {COMPANY_INFO.companyName}, {COMPANY_INFO.delhiBranch.full}
+                    </p>
+                    <a
+                      href={COMPANY_INFO.delhiBranch.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-1.5 text-xs font-bold text-brand-teal hover:underline"
+                    >
+                      View on Google Maps →
+                    </a>
                   </div>
                 </div>
 

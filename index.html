@@ -30,6 +30,17 @@
     <title>RAC Forge Private Limited - Medical Device Regulatory Consulting</title>
     <meta name="description" content="RAC Forge Private Limited is the premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR & ANVISA compliance." />
     <meta name="keywords" content="RAC Forge Private Limited, medical device regulation, regulatory consulting, USFDA, CDSCO, EU MDR, ANVISA, medical device regulatory consultant India, CDSCO registration consultant, USFDA 510(k) clearance consultant, medical device import license India, medical device manufacturing license CDSCO, EU MDR consultant India, SaMD regulatory consultant, CE marking medical devices India, ISO 13485 consultant India, medical device clinical trial consultant, CDSCO Sugam portal registration, medical device compliance consultant" />
+    <meta property="og:title" content="RAC Forge Private Limited - Medical Device Regulatory Consulting" />
+    <meta property="og:description" content="RAC Forge Private Limited is the premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR &amp; ANVISA compliance." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.racforge.com/" />
+    <meta property="og:site_name" content="RAC Forge Private Limited" />
+    <meta property="og:image" content="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RAC Forge Private Limited - Medical Device Regulatory Consulting" />
+    <meta name="twitter:description" content="RAC Forge Private Limited is the premier Medical Device Regulatory Consultant. Specialized in CDSCO, USFDA, EU MDR &amp; ANVISA compliance." />
+    <meta name="twitter:image" content="https://anticrucified.github.io/MyWebP_Images/images/home-banner.webp" />
+    <meta name="twitter:site" content="@RACForge" />
     <link rel="icon" type="image/webp" href="https://anticrucified.github.io/MyWebP_Images/images/logo.webp" />
     <link rel="apple-touch-icon" href="https://anticrucified.github.io/MyWebP_Images/images/logo.webp" />
     
@@ -39,12 +50,15 @@
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": "https://racforge.com/#organization",
+      "@id": "https://www.racforge.com/#organization",
       "name": "RAC Forge Private Limited",
-      "url": "https://racforge.com",
+      "legalName": "RAC Forge Private Limited",
+      "alternateName": ["RAC Forge", "RAC Forge Pvt Ltd", "RAC Forge Pvt. Ltd."],
+      "url": "https://www.racforge.com",
+      "duns": "771970978",
       "logo": {
         "@type": "ImageObject",
-        "@id": "https://racforge.com/#logo",
+        "@id": "https://www.racforge.com/#logo",
         "url": "https://anticrucified.github.io/MyWebP_Images/images/logo.webp",
         "caption": "RAC Forge Private Limited Logo"
       },
@@ -54,14 +68,11 @@
       "priceRange": "$$$",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Nanehar, Thural, Palampur, Kangra",
-        "addressLocality": "Palampur",
+        "streetAddress": "11, 1 Village Nanehar, Tehsil Thural, District Kangra",
+        "addressLocality": "Thural",
         "addressRegion": "Himachal Pradesh",
         "postalCode": "176107",
-        "addressCountry": {
-          "@type": "Country",
-          "name": "IN"
-        }
+        "addressCountry": "IN"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -69,6 +80,29 @@
         "longitude": 76.4560
       },
       "hasMap": "https://share.google/GNUkTQHynWoYKpWY3",
+      "department": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.racforge.com/#delhi-branch",
+          "name": "RAC Forge Private Limited - Delhi NCR Branch Office",
+          "alternateName": ["RAC Forge", "RAC Forge Narela"],
+          "url": "https://www.racforge.com/contact",
+          "telephone": "+91-62396-99077",
+          "priceRange": "$$$",
+          "hasMap": "https://share.google/ihiyabj1ctieZXbjV",
+          "parentOrganization": {
+            "@id": "https://www.racforge.com/#organization"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Shop No. 1805, Pocket 1C, E2, E4, Near Sector A1, DDA Road, Narela",
+            "addressLocality": "New Delhi",
+            "addressRegion": "Delhi",
+            "postalCode": "110040",
+            "addressCountry": "IN"
+          }
+        }
+      ],
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+91-62396-99077",
@@ -77,11 +111,13 @@
         "availableLanguage": ["English", "Hindi"]
       },
       "sameAs": [
+        "https://www.linkedin.com/company/rac-forge/",
         "https://www.facebook.com/people/R-A-C-Forge-Private-Limited/61584695412489/",
         "https://twitter.com/RACForge",
-        "https://www.linkedin.com/company/rac-forge/",
         "https://www.instagram.com/racforge/",
-        "https://www.youtube.com/@RACForge"
+        "https://www.youtube.com/@RACForge",
+        "https://orcid.org/0009-0004-5291-0126",
+        "https://doi.org/10.7759/cureus.109281"
       ],
       "memberOf": {
         "@type": "Organization",
@@ -91,7 +127,7 @@
       },
       "founder": {
         "@type": "Person",
-        "@id": "https://racforge.com/#founder",
+        "@id": "https://www.racforge.com/#founder",
         "name": "Atul Sharma Sankhyayan",
         "jobTitle": "Founder, Owner, and Chief Executive Officer (CEO)",
         "description": "Atul Sharma Sankhyayan is the Founder and CEO of RAC Forge Private Limited, with over 10 years of active, hands-on R&D engineering expertise for active electrical medical devices and Software as a Medical Device (SaMD).",
@@ -115,7 +151,7 @@
         ],
         "publishingPrinciples": {
           "@type": "ScholarlyArticle",
-          "@id": "https://racforge.com/#scholarly-article",
+          "@id": "https://www.racforge.com/#scholarly-article",
           "headline": "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes",
           "name": "Administrative Restructuring Versus Product Safety: The Case for Subsequent Importer Scheme (SIS) in Importer Constitutional Changes",
           "publisher": {
@@ -164,7 +200,7 @@
       },
       "subjectOf": {
         "@type": "PodcastEpisode",
-        "@id": "https://racforge.com/#podcast",
+        "@id": "https://www.racforge.com/#podcast",
         "name": "Navigating Medical Device Registration in India: An In-Depth Guide to CDSCO Compliance with RAC Forge Private Limited",
         "description": "Highlights how RAC Forge Private Limited differentiates itself from document brokers by actively debugging and engineering hardware/software prototypes so they survive safety testing.",
         "url": "https://elendilabs.com/en/articles/ind-navigating-medical-device-registration-in-india-an-in-depth-guide-to-CDSCO-compliance-with-RAC-Forge-Private-Limited-4ZEviANhOthe09s6NL8SrH",

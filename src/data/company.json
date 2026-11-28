@@ -2,13 +2,24 @@
   "companyName": "RAC Forge Private Limited",
   "dunsNumber": "771970978",
   "address": {
-    "full": "11, 1 Village Nanehar, Thural, Thural, Jaisinghpur Kangra, 176107 India",
-    "street": "11, 1 Village Nanehar, Thural",
+    "full": "11, 1 Village Nanehar, Tehsil Thural, District Kangra, Himachal Pradesh 176107, India",
+    "street": "11, 1 Village Nanehar, Tehsil Thural",
     "city": "Thural",
     "district": "Kangra",
     "state": "Himachal Pradesh",
     "zip": "176107",
-    "country": "India"
+    "country": "India",
+    "mapUrl": "https://share.google/GNUkTQHynWoYKpWY3"
+  },
+  "delhiBranch": {
+    "label": "Delhi NCR Branch Office",
+    "full": "Shop No. 1805, Pocket 1C, E2, E4, Near Sector A1, DDA Road, Narela, New Delhi, Delhi 110040, India",
+    "street": "Shop No. 1805, Pocket 1C, E2, E4, Near Sector A1, DDA Road, Narela",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "zip": "110040",
+    "country": "India",
+    "mapUrl": "https://share.google/ihiyabj1ctieZXbjV"
   },
   "contact": {
     "phone": "+91 62396 99077",

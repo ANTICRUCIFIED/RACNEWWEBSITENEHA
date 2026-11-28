@@ -107,7 +107,15 @@ export default function Footer() {
                   <MapPin size={20} className="text-brand-teal group-hover:text-white" />
                 </div>
                 <span className="text-gray-600 text-sm leading-relaxed font-medium">
-                  {COMPANY_INFO.companyName}<br />{COMPANY_INFO.address.full}
+                  <strong className="text-brand-deep">HQ:</strong> {COMPANY_INFO.companyName}, {COMPANY_INFO.address.full}
+                </span>
+              </li>
+              <li className="flex items-start space-x-4 group">
+                <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-brand-teal transition-colors">
+                  <MapPin size={20} className="text-brand-teal group-hover:text-white" />
+                </div>
+                <span className="text-gray-600 text-sm leading-relaxed font-medium">
+                  <strong className="text-brand-deep">Delhi NCR Branch:</strong> {COMPANY_INFO.delhiBranch.full}
                 </span>
               </li>
               <li className="flex items-center space-x-4 group">

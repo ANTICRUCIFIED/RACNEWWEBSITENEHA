@@ -70,15 +70,19 @@ function parseLocationDataFromTs() {
     const slug = seg.split(/["']/)[0];
     
     let title = "";
-    const titleMatch = seg.match(/title:\s*["']([^"']+)["']/);
-    if (titleMatch) title = titleMatch[1];
+    const titleMatch = seg.match(/title:\s*(?:"([^"]+)"|'([^']+)')/);
+    if (titleMatch) title = titleMatch[1] || titleMatch[2] || "";
+
+    let metaDescription = "";
+    const metaDescMatch = seg.match(/metaDescription:\s*(?:"([^"]+)"|'([^']+)')/);
+    if (metaDescMatch) metaDescription = metaDescMatch[1] || metaDescMatch[2] || "";
     
     let intro = "";
-    const introMatch = seg.match(/intro:\s*["']([^"']+)["']/);
-    if (introMatch) intro = introMatch[1];
+    const introMatch = seg.match(/intro:\s*(?:"([^"]+)"|'([^']+)')/);
+    if (introMatch) intro = introMatch[1] || introMatch[2] || "";
     
     if (slug) {
-      locations[slug] = { title, intro };
+      locations[slug] = { title, intro: metaDescription || intro };
     }
   }
   return locations;
@@ -336,7 +340,7 @@ if (fs.existsSync(indexHtmlPath)) {
   customizedRootHtml = customizedRootHtml.replace(/<link rel="canonical" href="[^"]+" \/>\n?\s*/gi, '');
   customizedRootHtml = customizedRootHtml.replace(
     '</head>',
-    `  <link rel="canonical" href="https://www.racforge.com" />\n  </head>`
+    `  <link rel="canonical" href="https://www.racforge.com/" />\n  </head>`
   );
   fs.writeFileSync(indexHtmlPath, customizedRootHtml);
   console.log("Injected canonical tag into root index.html");
@@ -350,19 +354,49 @@ if (fs.existsSync(indexHtmlPath)) {
       const meta = getRouteMetadata(route);
       const cleanRoute = route === '/' ? '' : route;
       const canonicalUrl = `https://www.racforge.com${cleanRoute}`;
+      const normalizedTitle = meta.title
+        .replace(/\s*[|\-–—]\s*RAC Forge(?:\s+(?:Pvt\.?\s*Ltd\.?|Private\s+Limited|Journal|Consulting))?\s*$/i, '')
+        .trim();
+      const finalTitle = normalizedTitle.toLowerCase().includes('rac forge')
+        ? normalizedTitle
+        : `${normalizedTitle} | RAC Forge Private Limited`;
+      const escapedTitle = finalTitle.replace(/"/g, '&quot;');
+      const escapedDesc = meta.description.replace(/"/g, '&quot;');
       
       let customizedHtml = rawHtml;
       
       // Replace Title
       customizedHtml = customizedHtml.replace(
         /<title>[\s\S]*?<\/title>/i,
-        `<title>${meta.title}</title>`
+        `<title>${finalTitle}</title>`
       );
       
       // Replace Description tag if it exists
       customizedHtml = customizedHtml.replace(
         /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
-        `<meta name="description" content="${meta.description.replace(/"/g, '&quot;')}" />`
+        `<meta name="description" content="${escapedDesc}" />`
+      );
+
+      // Update Open Graph & Twitter tags for non-JS crawlers and social cards
+      customizedHtml = customizedHtml.replace(
+        /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i,
+        `<meta property="og:title" content="${escapedTitle}" />`
+      );
+      customizedHtml = customizedHtml.replace(
+        /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i,
+        `<meta property="og:description" content="${escapedDesc}" />`
+      );
+      customizedHtml = customizedHtml.replace(
+        /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
+        `<meta property="og:url" content="${canonicalUrl}" />`
+      );
+      customizedHtml = customizedHtml.replace(
+        /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i,
+        `<meta name="twitter:title" content="${escapedTitle}" />`
+      );
+      customizedHtml = customizedHtml.replace(
+        /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i,
+        `<meta name="twitter:description" content="${escapedDesc}" />`
       );
       
       // Ensure there's no pre-existing canonical link
@@ -432,7 +466,7 @@ uniqueRoutes.forEach(route => {
     changefreq = 'monthly';
   }
 
-  const cleanRoute = route === '/' ? '' : route;
+  const cleanRoute = route === '/' ? '/' : route;
   sitemapXml += `  <url>
     <loc>https://www.racforge.com${cleanRoute}</loc>
     <lastmod>${todayIso}</lastmod>

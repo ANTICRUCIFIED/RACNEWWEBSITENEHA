@@ -19,9 +19,9 @@ const ROUTE_MAP: Record<string, string> = {
   'information': 'CDSCO Resources',
   'locations': 'Regional Access',
   'india': 'Regional Solutions',
-  'velo-ai': 'Raahi Compliance AI',
-  'raahi-ai': 'Raahi Compliance AI',
-  'raaahi-ai': 'Raahi Compliance AI',
+  'velo-ai': 'RAAAHI Compliance AI',
+  'raahi-ai': 'RAAAHI Compliance AI',
+  'raaahi-ai': 'RAAAHI Compliance AI',
   
   // Service Sub-routes
   'samd-architecture-development': 'SaMD Architecture',

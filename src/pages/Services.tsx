@@ -240,7 +240,7 @@ export default function Services() {
                   { name: "Nalagarh Mega Park (Baddi & Solan)", path: "/locations/baddi-solan-nalagarh" },
                   { name: "Delhi NCR, Gurugram & Faridabad (Haryana)", path: "/locations/delhi-ncr" },
                   { name: "Ludhiana Forgings & Northern IVD Hubs", path: "/locations/ludhiana-jalandhar" },
-                  { name: "Haridwar & customs Port Clearance", path: "/locations/haridwar-dehradun" }
+                  { name: "Haridwar & Customs Port Clearance", path: "/locations/haridwar-dehradun" }
                 ].map((loc) => (
                   <li key={loc.name}>
                     <Link to={loc.path} className="text-slate-600 hover:text-brand-teal text-xs font-semibold block py-1 transition-colors">
@@ -276,7 +276,7 @@ export default function Services() {
               <ul className="space-y-2">
                 {[
                   { name: "Visakhapatnam (AMTZ Flagship Park)", path: "/locations/visakhapatnam-amtz" },
-                  { name: "Bengaluru SaMD & Dedicated IVD segment", path: "/locations/bengaluru" },
+                  { name: "Bengaluru SaMD & Dedicated IVD Segment", path: "/locations/bengaluru" },
                   { name: "Hyderabad Genome Valley & CDSCO Zonal", path: "/locations/hyderabad-genome-valley" },
                   { name: "Chennai Imaging & Maritime Port Hubs", path: "/locations/chennai-kanchipuram" },
                   { name: "Kerala Biomaterials & Specialized Implants", path: "/locations/thiruvananthapuram-kochi" }

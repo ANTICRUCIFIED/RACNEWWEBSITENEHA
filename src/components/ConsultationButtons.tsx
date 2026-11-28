@@ -15,7 +15,7 @@ interface ConsultationButtonsProps {
 export default function ConsultationButtons({ className = '', variant = 'grid' }: ConsultationButtonsProps) {
   const actions = [
     {
-      title: "Chat with RAAHI",
+      title: "Chat with RAAAHI",
       description: "Get instant advice on WhatsApp",
       link: "https://wa.me/916239699077?text=Hi%20RAAAHI",
       icon: WhatsAppIcon,

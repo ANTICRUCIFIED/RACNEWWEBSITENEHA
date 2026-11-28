@@ -591,7 +591,7 @@ export default function Home() {
             Instant Consultation & Voice AI
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-16">
-            Get your questions answered immediately. Chat with RAAHI, book a free overview call, or speak with our live voice assistant.
+            Get your questions answered immediately. Chat with RAAAHI, book a free overview call, or speak with our live voice assistant.
           </p>
           <ConsultationButtons variant="grid" className="max-w-4xl mx-auto" />
         </div>
@@ -621,7 +621,16 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-deep mb-1 text-lg">Headquarters</h4>
-                    <p className="text-gray-600">RAC Forge Private Limited 11, 1 village Nanehar, Thural, Kangra, Jaisinghpur Kangra - 176107, Himachal Pradesh</p>
+                    <p className="text-gray-600">RAC Forge Private Limited, 11, 1 Village Nanehar, Tehsil Thural, District Kangra, Himachal Pradesh 176107, India</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-brand-deep/10 rounded-xl flex items-center justify-center text-brand-deep shrink-0">
+                    <MapPin size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-brand-deep mb-1 text-lg">Delhi NCR Branch Office</h4>
+                    <p className="text-gray-600">Shop No. 1805, Pocket 1C, E2, E4, Near Sector A1, DDA Road, Narela, New Delhi, Delhi 110040, India</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-6">

@@ -24,7 +24,13 @@ interface SEOProps {
 }
 
 export default function SEO({ title, description, keywords, canonical, type = 'website', datePublished, authorName, scholarlyArticle }: SEOProps) {
-  const fullTitle = `${title} | RAC Forge Private Limited`;
+  const brandSuffix = 'RAC Forge Private Limited';
+  const cleanedTitle = title
+    .replace(/\s*[|\-–—]\s*RAC Forge(?:\s+(?:Pvt\.?\s*Ltd\.?|Private\s+Limited|Journal|Consulting))?\s*$/i, '')
+    .trim();
+  const fullTitle = cleanedTitle.toLowerCase().includes('rac forge')
+    ? cleanedTitle
+    : `${cleanedTitle} | ${brandSuffix}`;
   const siteUrl = "https://www.racforge.com"; 
   const location = useLocation();
 
@@ -40,9 +46,12 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     "@type": "Organization",
     "@id": `${siteUrl}/#organization`,
     "name": "RAC Forge Private Limited",
+    "legalName": "RAC Forge Private Limited",
+    "alternateName": ["RAC Forge", "RAC Forge Pvt Ltd", "RAC Forge Pvt. Ltd."],
     "url": siteUrl,
     "logo": "https://anticrucified.github.io/MyWebP_Images/images/logo.webp",
-    "description": "RAC Forge Private Limited is an elite medical device regulatory and quality compliance consulting agency specializing in CDSCO registrations, USFDA 510(k), and EU MDR compliance.",
+    "description": "RAC Forge Private Limited (formerly RAC Forge) is an elite medical device regulatory and quality compliance consulting agency specializing in CDSCO registrations, USFDA 510(k), and EU MDR compliance.",
+    "duns": "771970978",
     "identifier": {
       "@type": "PropertyValue",
       "name": "D-U-N-S Number",
@@ -50,12 +59,35 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
     },
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "11, 1 Village Nanehar, Thural, Thural, Jaisinghpur Kangra",
-      "addressLocality": "Jaisinghpur",
+      "streetAddress": "11, 1 Village Nanehar, Tehsil Thural, District Kangra",
+      "addressLocality": "Thural",
       "addressRegion": "Himachal Pradesh",
       "postalCode": "176107",
       "addressCountry": "IN"
     },
+    "department": [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${siteUrl}/#delhi-branch`,
+        "name": "RAC Forge Private Limited - Delhi NCR Branch Office",
+        "alternateName": ["RAC Forge", "RAC Forge Narela"],
+        "url": `${siteUrl}/contact`,
+        "telephone": "+91 62396 99077",
+        "priceRange": "$$$",
+        "hasMap": "https://share.google/ihiyabj1ctieZXbjV",
+        "parentOrganization": {
+          "@id": `${siteUrl}/#organization`
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Shop No. 1805, Pocket 1C, E2, E4, Near Sector A1, DDA Road, Narela",
+          "addressLocality": "New Delhi",
+          "addressRegion": "Delhi",
+          "postalCode": "110040",
+          "addressCountry": "IN"
+        }
+      }
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91 62396 99077",
@@ -64,11 +96,13 @@ export default function SEO({ title, description, keywords, canonical, type = 'w
       "availableLanguage": ["English", "Hindi"]
     },
     "sameAs": [
+      "https://www.linkedin.com/company/rac-forge/",
       "https://www.facebook.com/people/R-A-C-Forge-Private-Limited/61584695412489/",
       "https://twitter.com/RACForge",
-      "https://www.linkedin.com/company/rac-forge/",
       "https://www.instagram.com/racforge/",
-      "https://www.youtube.com/@RACForge"
+      "https://www.youtube.com/@RACForge",
+      "https://orcid.org/0009-0004-5291-0126",
+      "https://doi.org/10.7759/cureus.109281"
     ],
     "founder": {
       "@type": "Person",

@@ -44,8 +44,8 @@ export default function SEOPage() {
     <div className="flex flex-col w-full bg-slate-50 min-h-screen">
       <SEO 
         title={data.title} 
-        description={data.intro}
-        keywords={`${data.name} medical regulatory, CDSCO ${data.name}, ISO 13485 ${data.name}, medtech compliance, Atula Sharma ${data.name}`}
+        description={data.metaDescription || data.intro}
+        keywords={`${data.shortLocationName} medical regulatory, CDSCO ${data.shortLocationName}, ISO 13485 ${data.shortLocationName}, medtech compliance, Atul Sharma Sankhyayan ${data.shortLocationName}`}
         canonical={isState ? `/india/${data.slug}` : `/locations/${data.slug}`}
       />
 
@@ -142,7 +142,7 @@ export default function SEOPage() {
                     Region-Specific Service Highlights
                   </h3>
                   <p className="text-slate-600 text-sm mt-1">
-                    Custom compliance pipelines tailored directly to {data.name}'s strategic {data.industry} layout.
+                    Custom compliance pipelines tailored for {data.shortLocationName}&apos;s {data.industry} ecosystem.
                   </p>
                 </div>
 
@@ -179,7 +179,7 @@ export default function SEOPage() {
                   <span className="text-teal-400 font-extrabold tracking-widest text-[10px] uppercase">Compliance Assurance</span>
                   <h4 className="text-xl font-bold">End-to-End CDSCO, ISO 13485 & USFDA Pathways</h4>
                   <p className="text-slate-350 text-sm max-w-xl leading-relaxed">
-                    By coordinating all physical audits, lab coordination, cleanroom design, and dossier compilation cycles, we ensure your regional team in {data.name} gets direct administrative relief and fully compliant outcomes.
+                    By coordinating all physical audits, lab coordination, cleanroom design, and dossier compilation cycles, we ensure your regional team in {data.shortLocationName} gets direct administrative relief and fully compliant outcomes.
                   </p>
                   <div className="pt-2 flex gap-4">
                     <Link to="/services" className="text-teal-300 hover:text-teal-200 text-xs font-bold flex items-center gap-1 group">
@@ -205,7 +205,7 @@ export default function SEOPage() {
                 <h4 className="text-xs font-extrabold text-[#0D9488] uppercase tracking-widest mb-2">Technical Authority & Leadership Verification</h4>
                 <h3 className="text-xl font-black text-brand-deep mb-4">Our National Authority, Your Local Advantage</h3>
                 <p className="text-slate-650 text-sm leading-relaxed mb-6">
-                  Our localized expertise is backed by nationally recognized, peer-reviewed scientific research and global industry collaborations. Our founder, **Atul Sharma Sankhyayan**, is an active medical device regulatory consultant, published author in the <strong>Cureus Journal of Medical Science</strong>, and a recognized regulatory architect across major MedTech states.
+                  Our localized expertise is backed by nationally recognized, peer-reviewed scientific research and global industry collaborations. Our founder, <strong>Atul Sharma Sankhyayan</strong>, is an active medical device regulatory consultant, published author in the <strong>Cureus Journal of Medical Science</strong>, and a recognized regulatory architect across major MedTech states.
                 </p>
                 
                 <Link 
@@ -296,14 +296,14 @@ export default function SEOPage() {
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
-          <span className="text-teal-400 font-extrabold tracking-widest uppercase text-xs block">Ready to Build Your {data.name} Operations?</span>
+          <span className="text-teal-400 font-extrabold tracking-widest uppercase text-xs block">Ready to Build Your {data.shortLocationName} Operations?</span>
           
           <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight max-w-3xl mx-auto">
-            Ready to Take Control of Your {data.name} Market Entry?
+            Ready to Take Control of Your {data.shortLocationName} Market Entry?
           </h2>
           
           <p className="text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto font-normal">
-            Consult directly with Atul Sharma and our core compliance engineers. Get customized validation protocols, site layouts, and CDSCO filing steps perfectly aligned with {data.name}'s regulatory landscapes.
+            Consult directly with Atul Sharma and our core compliance engineers. Get customized validation protocols, site layouts, and CDSCO filing steps perfectly aligned with {data.shortLocationName}&apos;s regulatory landscape.
           </p>
 
           <div className="pt-4">
@@ -311,7 +311,7 @@ export default function SEOPage() {
               to="/contact"
               className="inline-flex items-center gap-3 px-8 py-4.5 rounded-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-base transition-all duration-300 shadow-lg shadow-teal-500/20 hover:scale-105 uppercase tracking-wide"
             >
-              <span>Schedule a Consultation for Your {data.name} Operations</span>
+              <span>Schedule a Consultation for Your {data.shortLocationName} Operations</span>
               <ArrowRight size={18} className="text-slate-950 shrink-0" />
             </Link>
           </div>

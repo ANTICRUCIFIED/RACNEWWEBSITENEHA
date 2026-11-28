@@ -52,7 +52,7 @@ export default function EmbeddedMedicalFirmware() {
               <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
                 <h2 className="text-3xl font-extrabold text-brand-deep mb-6">Firmware Lifecycle & CDSCO Alignment</h2>
                 <p className="text-lg">
-                  Active medical devices require robust, low-level micro-controller systems that execute clinical features under strictly structured error-handling envelopes. We construct codebases that prevent runtime lockups, execute real-time self-tests, and strictly compile with IEC 62304 software development workflows.
+                  Active medical devices require robust, low-level micro-controller systems that execute clinical features under strictly structured error-handling envelopes. We construct codebases that prevent runtime lockups, execute real-time self-tests, and strictly comply with IEC 62304 software development workflows.
                 </p>
 
                 <div className="my-10 bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-8 rounded-3xl border border-purple-500/20">

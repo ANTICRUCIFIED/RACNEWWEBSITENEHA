@@ -12,7 +12,7 @@ export default function FacilityCleanroom() {
       <SEO 
         title="Medical Device Facility & Cleanroom Design | RAC Forge" 
         description="Providing turnkey, regulatory-compliant architectural design, cleanroom validations (Class 10,000 / 100,000), HVAC engineering, and Site Master File support."
-        keywords="Cleanroom design medical devices, Class 10000 cleanroom, Schedule M compliance, plant layout medical devices, CDSCO compliant facility, ISO cleanroom validation"
+        keywords="Cleanroom design medical devices, Class 10000 cleanroom, Fifth Schedule MDR 2017 compliance, ISO 13485 QMS facility, plant layout medical devices, CDSCO compliant facility, ISO cleanroom validation"
         canonical="/services/facility-cleanroom-design"
       />
 
@@ -77,7 +77,7 @@ export default function FacilityCleanroom() {
                     { title: "HVAC System Design and Validation", desc: "Pressure zoning, humidity control, HEPA filtration layouts, and temperature stabilization modeling." },
                     { title: "Quality Control Laboratory Setup", desc: "Dedicated testbeds for bioburden testing, structural assessment, and analytical chemistry investigations." },
                     { title: "Site Master File (SMF) Preparation", desc: "Drafting complete site description portfolios, equipment catalogs, organizational structures, and maintenance records." },
-                    { title: "Compliance with Schedule M and Good Manufacturing Practices (GMP)", desc: "Direct mapping of operational floor flows to statutory CDSCO Schedule M rules and cleanroom hygiene norms." }
+                    { title: "Compliance with Fifth Schedule (Indian MDR 2017) & ISO 13485 QMS", desc: "Direct mapping of operational floor flows to statutory CDSCO Fifth Schedule (Medical Devices Rules, 2017), ISO 13485 QMS, and cleanroom hygiene norms (plus Schedule M where applicable for drug-device combinations)." }
                   ].map((service, idx) => (
                     <div key={idx} className="p-6 bg-slate-50 rounded-2xl border border-slate-150 shadow-sm flex flex-col justify-between">
                       <div>
